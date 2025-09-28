@@ -240,3 +240,92 @@ class AuditLog(db.Model):
             'ip_address': self.ip_address,
             'created_at': self.created_at.isoformat() if self.created_at else None
         }
+
+class PromptCategory(Enum):
+    DATABASE = "database"
+    FRONTEND = "frontend"
+    BACKEND = "backend"
+    API = "api"
+    UI_UX = "ui_ux"
+    BUG_FIX = "bug_fix"
+    FEATURE_REQUEST = "feature_request"
+    DOCUMENTATION = "documentation"
+    TESTING = "testing"
+    DEPLOYMENT = "deployment"
+    GENERAL = "general"
+    OTHER = "other"
+
+class PromptComplexity(Enum):
+    SIMPLE = "simple"
+    MODERATE = "moderate"
+    COMPLEX = "complex"
+    ADVANCED = "advanced"
+
+class DevelopmentStage(Enum):
+    INITIAL_SETUP = "initial_setup"
+    FEATURE_DEVELOPMENT = "feature_development"
+    BUG_FIXING = "bug_fixing"
+    REFACTORING = "refactoring"
+    OPTIMIZATION = "optimization"
+    DOCUMENTATION = "documentation"
+    TESTING = "testing"
+    DEPLOYMENT = "deployment"
+    MAINTENANCE = "maintenance"
+
+class MyPrompts(db.Model):
+    """Model for storing user prompts and AI interactions"""
+    __tablename__ = 'myprompts'
+    
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    prompt_text = db.Column(db.Text, nullable=False)
+    session_id = db.Column(db.String(100), nullable=True)
+    prompt_date = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    prompt_category = db.Column(db.Enum(PromptCategory), nullable=True, default=PromptCategory.GENERAL)
+    current_file = db.Column(db.String(500), nullable=True)
+    project_phase = db.Column(db.String(100), nullable=True)
+    response_summary = db.Column(db.Text, nullable=True)
+    files_created = db.Column(db.Text, nullable=True)  # JSON string of created files
+    files_modified = db.Column(db.Text, nullable=True)  # JSON string of modified files
+    commands_executed = db.Column(db.Text, nullable=True)  # JSON string of commands
+    prompt_complexity = db.Column(db.Enum(PromptComplexity), nullable=True, default=PromptComplexity.MODERATE)
+    success_rating = db.Column(db.Integer, nullable=True)  # 1-10 scale
+    follow_up_needed = db.Column(db.Boolean, default=False)
+    prompt_technique = db.Column(db.String(200), nullable=True)
+    lessons_learned = db.Column(db.Text, nullable=True)
+    git_commit_hash = db.Column(db.String(100), nullable=True)
+    development_stage = db.Column(db.Enum(DevelopmentStage), nullable=True, default=DevelopmentStage.FEATURE_DEVELOPMENT)
+    response_time_estimate = db.Column(db.Integer, nullable=True)  # in seconds
+    tokens_used_estimate = db.Column(db.Integer, nullable=True)
+    tags = db.Column(db.Text, nullable=True)  # Comma-separated tags
+    keywords = db.Column(db.Text, nullable=True)  # Comma-separated keywords
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    
+    def to_dict(self):
+        """Convert prompt to dictionary"""
+        return {
+            'id': self.id,
+            'prompt_text': self.prompt_text,
+            'session_id': self.session_id,
+            'prompt_date': self.prompt_date.isoformat() if self.prompt_date else None,
+            'prompt_category': self.prompt_category.value if self.prompt_category else None,
+            'current_file': self.current_file,
+            'project_phase': self.project_phase,
+            'response_summary': self.response_summary,
+            'files_created': self.files_created,
+            'files_modified': self.files_modified,
+            'commands_executed': self.commands_executed,
+            'prompt_complexity': self.prompt_complexity.value if self.prompt_complexity else None,
+            'success_rating': self.success_rating,
+            'follow_up_needed': self.follow_up_needed,
+            'prompt_technique': self.prompt_technique,
+            'lessons_learned': self.lessons_learned,
+            'git_commit_hash': self.git_commit_hash,
+            'development_stage': self.development_stage.value if self.development_stage else None,
+            'response_time_estimate': self.response_time_estimate,
+            'tokens_used_estimate': self.tokens_used_estimate,
+            'tags': self.tags,
+            'keywords': self.keywords,
+            'created_at': self.created_at.isoformat() if self.created_at else None,
+            'updated_at': self.updated_at.isoformat() if self.updated_at else None
+        }
