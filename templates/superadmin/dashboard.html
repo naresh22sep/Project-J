@@ -1,0 +1,254 @@
+{% extends "admin_layout.html" %}
+
+{% block title %}SuperAdmin Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">
+        <i class="fas fa-tachometer-alt me-2"></i>SuperAdmin Dashboard
+    </h1>
+    <span class="badge bg-success">Online</span>
+</div>
+
+<!-- Stats Cards Row -->
+<div class="row mb-4">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Users</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.total_users if stats else 0 }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-primary"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Active Roles</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.total_roles if stats else 0 }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user-cog fa-2x text-success"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Permissions</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.total_permissions if stats else 0 }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-key fa-2x text-info"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Security Events</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.security_events if stats else 0 }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-shield-alt fa-2x text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity Row -->
+<div class="row">
+    <!-- Recent Users -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-users me-2"></i>Recent Users
+                </h6>
+                <a href="{{ url_for('superadmin.manage_users') }}" class="btn btn-sm btn-primary">View All</a>
+            </div>
+            <div class="card-body">
+                {% if recent_users %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in recent_users[:5] %}
+                                <tr>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>
+                                        {% if user.roles %}
+                                            <span class="badge bg-info">{{ user.roles[0].name.title() }}</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">No Role</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if user.is_active %}
+                                            <span class="badge bg-success">Active</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Inactive</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">No users found</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- System Status -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-server me-2"></i>System Status
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted">Database</span>
+                            <span class="badge bg-success">
+                                <i class="fas fa-check me-1"></i>Connected
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted">Authentication</span>
+                            <span class="badge bg-success">
+                                <i class="fas fa-check me-1"></i>Active
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted">Security Logging</span>
+                            <span class="badge bg-success">
+                                <i class="fas fa-check me-1"></i>Enabled
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted">CSRF Protection</span>
+                            <span class="badge bg-success">
+                                <i class="fas fa-check me-1"></i>Active
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted">JWT Tokens</span>
+                            <span class="badge bg-success">
+                                <i class="fas fa-check me-1"></i>Valid
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-bolt me-2"></i>Quick Actions
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-2">
+                        <a href="{{ url_for('superadmin.create_user') }}" class="btn btn-outline-primary w-100">
+                            <i class="fas fa-user-plus me-2"></i>Add User
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <a href="{{ url_for('superadmin.create_role') }}" class="btn btn-outline-success w-100">
+                            <i class="fas fa-plus-circle me-2"></i>Add Role
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <a href="{{ url_for('superadmin.security_logs') }}" class="btn btn-outline-warning w-100">
+                            <i class="fas fa-eye me-2"></i>View Logs
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <a href="{{ url_for('superadmin.manage_subscriptions') }}" class="btn btn-outline-info w-100">
+                            <i class="fas fa-credit-card me-2"></i>Subscriptions
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom styles for this page -->
+<style>
+    .border-left-primary {
+        border-left: 0.25rem solid #4e73df !important;
+    }
+    .border-left-success {
+        border-left: 0.25rem solid #1cc88a !important;
+    }
+    .border-left-info {
+        border-left: 0.25rem solid #36b9cc !important;
+    }
+    .border-left-warning {
+        border-left: 0.25rem solid #f6c23e !important;
+    }
+    .text-gray-800 {
+        color: #5a5c69 !important;
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Auto-refresh dashboard stats every 30 seconds
+    setTimeout(function() {
+        location.reload();
+    }, 30000);
+</script>
+{% endblock %}

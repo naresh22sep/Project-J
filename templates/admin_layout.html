@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Panel{% endblock %} - JobHunter Auth</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            height: 100vh;
+            background: #343a40;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            padding-top: 20px;
+            z-index: 1000;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .sidebar .nav-link {
+            color: #adb5bd;
+            padding: 10px 20px;
+            border-radius: 0;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            color: #fff;
+            background-color: #495057;
+        }
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: bold;
+        }
+        .user-info {
+            color: #adb5bd;
+            padding: 10px 20px;
+            border-bottom: 1px solid #495057;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="user-info">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-user-shield me-2"></i>
+                <div>
+                    <div class="fw-bold">{{ g.current_user.username if g.current_user else 'Admin' }}</div>
+                    <small>{{ g.current_user.roles[0].name.title() if g.current_user and g.current_user.roles else 'Administrator' }}</small>
+                </div>
+            </div>
+        </div>
+        
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if request.endpoint == 'superadmin.dashboard' else '' }}" 
+                   href="{{ url_for('superadmin.dashboard') }}">
+                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if 'users' in request.endpoint else '' }}" 
+                   href="{{ url_for('superadmin.manage_users') }}">
+                    <i class="fas fa-users me-2"></i> Users
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if 'roles' in request.endpoint else '' }}" 
+                   href="{{ url_for('superadmin.manage_roles') }}">
+                    <i class="fas fa-user-cog me-2"></i> Roles
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if 'subscriptions' in request.endpoint else '' }}" 
+                   href="{{ url_for('superadmin.manage_subscriptions') }}">
+                    <i class="fas fa-credit-card me-2"></i> Subscriptions
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if 'security' in request.endpoint else '' }}" 
+                   href="{{ url_for('superadmin.security_logs') }}">
+                    <i class="fas fa-shield-alt me-2"></i> Security
+                </a>
+            </li>
+            <li class="nav-item mt-3">
+                <a class="nav-link text-danger" href="{{ url_for('auth.logout') }}">
+                    <i class="fas fa-sign-out-alt me-2"></i> Logout
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Alert Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Page Content -->
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- CSRF Token for AJAX requests -->
+    <meta name="csrf-token" content="{{ csrf_token() if csrf_token else '' }}">
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Set CSRF token for all AJAX requests
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        if (csrfToken) {
+            // Add CSRF token to all forms
+            document.querySelectorAll('form').forEach(form => {
+                if (!form.querySelector('input[name="csrf_token"]')) {
+                    const csrfInput = document.createElement('input');
+                    csrfInput.type = 'hidden';
+                    csrfInput.name = 'csrf_token';
+                    csrfInput.value = csrfToken;
+                    form.appendChild(csrfInput);
+                }
+            });
+        }
+    </script>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

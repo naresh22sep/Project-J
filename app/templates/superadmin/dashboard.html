@@ -1,0 +1,225 @@
+{% extends "superadmin/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- Key Statistics -->
+<div class="card">
+    <div class="card-title">System Overview</div>
+    <div class="grid grid-4">
+        <div class="stat">
+            <span class="stat-number">{{ stats.total_users or 0 }}</span>
+            <span class="stat-label">Total Users</span>
+        </div>
+        <div class="stat">
+            <span class="stat-number">{{ stats.active_users or 0 }}</span>
+            <span class="stat-label">Active Users</span>
+        </div>
+        <div class="stat">
+            <span class="stat-number">{{ stats.active_subscriptions or 0 }}</span>
+            <span class="stat-label">Active Subscriptions</span>
+        </div>
+        <div class="stat">
+            <span class="stat-number" id="events-today">{{ stats.security_events_today or 0 }}</span>
+            <span class="stat-label">Security Events Today</span>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-2">
+    <!-- Security Alerts -->
+    <div class="card">
+        <div class="card-title">Security Overview</div>
+        <div class="grid grid-2">
+            <div class="stat">
+                <span class="stat-number severity-high" id="high-severity">{{ stats.high_severity_events or 0 }}</span>
+                <span class="stat-label">High Severity Events</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number severity-medium" id="failed-logins">0</span>
+                <span class="stat-label">Failed Logins Today</span>
+            </div>
+        </div>
+        <div style="margin-top: 1rem;">
+            <a href="{{ url_for('superadmin.security_logs') }}" class="btn btn-sm btn-secondary">View Security Logs</a>
+        </div>
+    </div>
+    
+    <!-- Subscription Breakdown -->
+    <div class="card">
+        <div class="card-title">Subscription Breakdown</div>
+        {% if subscription_stats %}
+            <div class="grid grid-2">
+                {% for plan_name, count in subscription_stats %}
+                <div class="stat">
+                    <span class="stat-number">{{ count }}</span>
+                    <span class="stat-label">{{ plan_name }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p style="color: #6c757d; text-align: center;">No subscription data available</p>
+        {% endif %}
+        <div style="margin-top: 1rem;">
+            <a href="{{ url_for('superadmin.subscriptions') }}" class="btn btn-sm btn-secondary">Manage Subscriptions</a>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Security Events -->
+<div class="card">
+    <div class="card-title">Recent Security Events</div>
+    {% if recent_events %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Event Type</th>
+                    <th>Severity</th>
+                    <th>IP Address</th>
+                    <th>User</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in recent_events %}
+                <tr>
+                    <td>{{ event.created_at.strftime('%H:%M:%S') }}</td>
+                    <td>{{ event.event_type.replace('_', ' ').title() }}</td>
+                    <td>
+                        <span class="badge badge-{{ 'danger' if event.severity == 'high' else ('warning' if event.severity == 'medium' else 'info') }}">
+                            {{ event.severity.upper() }}
+                        </span>
+                    </td>
+                    <td>{{ event.ip_address or 'N/A' }}</td>
+                    <td>
+                        {% if event.user %}
+                            <a href="{{ url_for('superadmin.user_detail', user_id=event.user_id) }}" style="color: #3498db;">
+                                {{ event.user.username }}
+                            </a>
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if event.details %}
+                            <small style="color: #6c757d;">
+                                {% set details = event.details %}
+                                {% if details.reason %}
+                                    {{ details.reason }}
+                                {% elif details.action %}
+                                    {{ details.action }}
+                                {% elif details.type %}
+                                    {{ details.type }}
+                                {% else %}
+                                    Event logged
+                                {% endif %}
+                            </small>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <div style="text-align: center; margin-top: 1rem;">
+            <a href="{{ url_for('superadmin.security_logs') }}" class="btn btn-primary">View All Security Logs</a>
+        </div>
+    {% else %}
+        <p style="color: #6c757d; text-align: center; padding: 2rem;">No recent security events</p>
+    {% endif %}
+</div>
+
+<!-- Quick Actions -->
+<div class="grid grid-3">
+    <div class="card">
+        <div class="card-title">User Management</div>
+        <p style="color: #6c757d; margin-bottom: 1rem;">Manage user accounts, roles, and permissions</p>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <a href="{{ url_for('superadmin.users') }}" class="btn btn-sm btn-primary">View Users</a>
+            <a href="{{ url_for('superadmin.roles') }}" class="btn btn-sm btn-secondary">Manage Roles</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-title">Subscription Control</div>
+        <p style="color: #6c757d; margin-bottom: 1rem;">Monitor and manage user subscriptions</p>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <a href="{{ url_for('superadmin.subscriptions') }}" class="btn btn-sm btn-primary">View Subscriptions</a>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-title">System Security</div>
+        <p style="color: #6c757d; margin-bottom: 1rem;">Monitor security events and threats</p>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <a href="{{ url_for('superadmin.security_logs') }}" class="btn btn-sm btn-primary">Security Logs</a>
+        </div>
+    </div>
+</div>
+
+<!-- System Status -->
+<div class="card">
+    <div class="card-title">System Status</div>
+    <div class="grid grid-3">
+        <div style="text-align: center;">
+            <div style="width: 12px; height: 12px; background: #27ae60; border-radius: 50%; margin: 0 auto 0.5rem; animation: pulse 2s infinite;"></div>
+            <div style="font-weight: 500;">Authentication Service</div>
+            <div style="color: #6c757d; font-size: 0.9rem;">Operational</div>
+        </div>
+        <div style="text-align: center;">
+            <div style="width: 12px; height: 12px; background: #27ae60; border-radius: 50%; margin: 0 auto 0.5rem; animation: pulse 2s infinite;"></div>
+            <div style="font-weight: 500;">Database</div>
+            <div style="color: #6c757d; font-size: 0.9rem;">Connected</div>
+        </div>
+        <div style="text-align: center;">
+            <div style="width: 12px; height: 12px; background: #27ae60; border-radius: 50%; margin: 0 auto 0.5rem; animation: pulse 2s infinite;"></div>
+            <div style="font-weight: 500;">Security Monitoring</div>
+            <div style="color: #6c757d; font-size: 0.9rem;">Active</div>
+        </div>
+    </div>
+</div>
+
+<style>
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Real-time updates every 30 seconds
+setInterval(function() {
+    fetch('/superadmin/api/security-stats')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.error) {
+                document.getElementById('events-today').textContent = data.events_today || 0;
+                document.getElementById('high-severity').textContent = data.high_severity_events || 0;
+                document.getElementById('failed-logins').textContent = data.failed_logins_today || 0;
+            }
+        })
+        .catch(error => console.error('Error updating stats:', error));
+}, 30000);
+
+// Welcome message for first-time visitors
+document.addEventListener('DOMContentLoaded', function() {
+    const hasVisited = localStorage.getItem('superadmin-visited');
+    
+    if (!hasVisited) {
+        setTimeout(() => {
+            if (confirm('Welcome to SuperAdmin Dashboard!\n\nThis interface provides comprehensive control over user accounts, roles, permissions, subscriptions, and security monitoring.\n\nWould you like a quick tour of the features?')) {
+                // Could implement a tour here
+                alert('Use the navigation menu to access:\n\n• Users: Manage user accounts and roles\n• Roles & Permissions: Control access rights\n• Subscriptions: Monitor and manage plans\n• Security: View security logs and events\n\nAll actions are logged for audit purposes.');
+            }
+            localStorage.setItem('superadmin-visited', 'true');
+        }, 1000);
+    }
+});
+</script>
+{% endblock %}
