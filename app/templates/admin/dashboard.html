@@ -1,0 +1,304 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}Admin Dashboard - JobHunter Platform{% endblock %}
+
+{% block content %}
+<!-- Dashboard Header -->
+<div class="dashboard-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <h1 class="h3 mb-0">Dashboard</h1>
+            <p class="text-muted">Welcome back, {{ current_user.first_name }}! Here's what's happening today.</p>
+        </div>
+        <div class="col-sm-6 text-sm-end">
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    Last {{ days }} days
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="?days=7">Last 7 days</a></li>
+                    <li><a class="dropdown-item" href="?days=30">Last 30 days</a></li>
+                    <li><a class="dropdown-item" href="?days=90">Last 90 days</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card dashboard-card" data-url="{{ url_for('admin.users') }}">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="dashboard-card-icon bg-primary">
+                        <i class="fas fa-users text-white"></i>
+                    </div>
+                    <div class="ms-3">
+                        <h4 class="card-value" id="total-users">{{ total_users }}</h4>
+                        <p class="card-title text-muted mb-0">Total Users</p>
+                        <small class="text-success">+{{ new_users_today }} today</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card dashboard-card" data-url="{{ url_for('admin.jobs') }}">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="dashboard-card-icon bg-success">
+                        <i class="fas fa-briefcase text-white"></i>
+                    </div>
+                    <div class="ms-3">
+                        <h4 class="card-value" id="total-jobs">{{ total_jobs }}</h4>
+                        <p class="card-title text-muted mb-0">Total Jobs</p>
+                        <small class="text-info">{{ active_jobs }} active</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card dashboard-card" data-url="{{ url_for('admin.applications') }}">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="dashboard-card-icon bg-warning">
+                        <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                    <div class="ms-3">
+                        <h4 class="card-value" id="total-applications">{{ total_applications }}</h4>
+                        <p class="card-title text-muted mb-0">Applications</p>
+                        <small class="text-warning">{{ pending_applications }} pending</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card dashboard-card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="dashboard-card-icon bg-info">
+                        <i class="fas fa-chart-line text-white"></i>
+                    </div>
+                    <div class="ms-3">
+                        <h4 class="card-value">{{ accepted_applications }}</h4>
+                        <p class="card-title text-muted mb-0">Successful Hires</p>
+                        <small class="text-success">+{{ applications_today }} today</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row mb-4">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">User Registration Trend</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="userRegistrationChart" height="120"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Top Job Categories</h5>
+            </div>
+            <div class="card-body">
+                {% if top_categories %}
+                    {% for category in top_categories %}
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span>{{ category.category or 'Uncategorized' }}</span>
+                        <div class="d-flex align-items-center">
+                            <div class="progress me-2" style="width: 100px; height: 8px;">
+                                <div class="progress-bar bg-primary" 
+                                     style="width: {{ (category.job_count / top_categories[0].job_count * 100) if top_categories else 0 }}%"></div>
+                            </div>
+                            <span class="text-muted">{{ category.job_count }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">No data available</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Data Tables Row -->
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Recent Users</h5>
+                <a href="{{ url_for('admin.users') }}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body">
+                {% if recent_users %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Joined</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in recent_users %}
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar avatar-sm me-2">
+                                                {{ user.first_name[0] if user.first_name else 'U' }}
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold">{{ user.first_name }} {{ user.last_name }}</div>
+                                                <div class="text-muted small">{{ user.email }}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge 
+                                            {% if user.user_type.value == 'job_seeker' %}bg-info
+                                            {% elif user.user_type.value == 'consultancy' %}bg-success
+                                            {% else %}bg-primary{% endif %}">
+                                            {{ user.user_type.value.replace('_', ' ').title() }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge {% if user.is_active %}bg-success{% else %}bg-danger{% endif %}">
+                                            {% if user.is_active %}Active{% else %}Inactive{% endif %}
+                                        </span>
+                                    </td>
+                                    <td>{{ user.created_at.strftime('%Y-%m-%d') if user.created_at else 'N/A' }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center py-3">No recent users</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Recent Jobs</h5>
+                <a href="{{ url_for('admin.jobs') }}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body">
+                {% if recent_jobs %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Job Title</th>
+                                    <th>Company</th>
+                                    <th>Status</th>
+                                    <th>Posted</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for job in recent_jobs %}
+                                <tr>
+                                    <td>
+                                        <div class="fw-bold">{{ job.title }}</div>
+                                        <div class="text-muted small">{{ job.location }}</div>
+                                    </td>
+                                    <td>{{ job.company_name }}</td>
+                                    <td>
+                                        <span class="badge {% if job.is_active %}bg-success{% else %}bg-danger{% endif %}">
+                                            {% if job.is_active %}Active{% else %}Inactive{% endif %}
+                                        </span>
+                                    </td>
+                                    <td>{{ job.created_at.strftime('%Y-%m-%d') if job.created_at else 'N/A' }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center py-3">No recent jobs</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize user registration chart
+    const ctx = document.getElementById('userRegistrationChart').getContext('2d');
+    
+    const userTrendData = {{ user_trend | tojson | safe }};
+    
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: userTrendData.map(item => {
+                const date = new Date(item.date);
+                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            }),
+            datasets: [{
+                label: 'New Users',
+                data: userTrendData.map(item => item.count),
+                borderColor: '#007bff',
+                backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        display: true,
+                        color: 'rgba(0,0,0,0.05)'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+    
+    // Auto-refresh dashboard data every 5 minutes
+    setInterval(function() {
+        fetch('/admin/api/dashboard-stats')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('total-users').textContent = data.total_users;
+                document.getElementById('total-jobs').textContent = data.total_jobs;
+                document.getElementById('total-applications').textContent = data.total_applications;
+            })
+            .catch(error => console.error('Error refreshing dashboard:', error));
+    }, 300000); // 5 minutes
+});
+</script>
+{% endblock %}

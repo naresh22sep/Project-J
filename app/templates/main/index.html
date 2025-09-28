@@ -1,0 +1,175 @@
+{% extends "layouts/frontend_layout.html" %}
+
+{% block title %}Welcome to JobHunter Platform{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="hero-title">Find Your Dream Job Today</h1>
+                <p class="hero-description">Connect with top employers and discover opportunities that match your skills and aspirations.</p>
+                <div class="hero-buttons">
+                    <a href="{{ url_for('jobseeker.jobs') }}" class="btn btn-primary btn-lg">Browse Jobs</a>
+                    <a href="{{ url_for('consultancy.index') }}" class="btn btn-outline-primary btn-lg">For Employers</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image">
+                    <img src="{{ url_for('static', filename='frontend_layout/images/hero-bg.jpg') }}" alt="Job Search" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="stats-section py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="stat-item">
+                    <h3>{{ total_jobs or '500+' }}</h3>
+                    <p>Active Jobs</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-item">
+                    <h3>{{ total_companies or '100+' }}</h3>
+                    <p>Companies</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-item">
+                    <h3>{{ total_users or '1000+' }}</h3>
+                    <p>Job Seekers</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-item">
+                    <h3>95%</h3>
+                    <p>Success Rate</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Jobs Section -->
+<section class="featured-jobs py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Featured Jobs</h2>
+        <div class="row">
+            {% if featured_jobs %}
+                {% for job in featured_jobs %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card job-card">
+                        <div class="card-body">
+                            <h5 class="job-title">{{ job.title }}</h5>
+                            <p class="job-company">{{ job.company_name }}</p>
+                            <p class="job-location">
+                                <i class="fas fa-map-marker-alt me-1"></i>{{ job.location }}
+                            </p>
+                            {% if job.salary_min and job.salary_max %}
+                            <p class="job-salary">${{ job.salary_min }} - ${{ job.salary_max }}</p>
+                            {% endif %}
+                            <a href="{{ url_for('jobseeker.job_detail', job_id=job.id) }}" class="btn btn-primary btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center">
+                    <p class="text-muted">No featured jobs available at the moment.</p>
+                    <a href="{{ url_for('jobseeker.jobs') }}" class="btn btn-primary">Browse All Jobs</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works py-5">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">How It Works</h2>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <div class="step-item">
+                    <div class="step-icon">
+                        <i class="fas fa-user-plus fa-3x text-primary"></i>
+                    </div>
+                    <h4>Create Profile</h4>
+                    <p>Set up your professional profile and showcase your skills and experience.</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="step-item">
+                    <div class="step-icon">
+                        <i class="fas fa-search fa-3x text-primary"></i>
+                    </div>
+                    <h4>Search Jobs</h4>
+                    <p>Browse through thousands of job opportunities that match your preferences.</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="step-item">
+                    <div class="step-icon">
+                        <i class="fas fa-paper-plane fa-3x text-primary"></i>
+                    </div>
+                    <h4>Apply & Get Hired</h4>
+                    <p>Submit your applications and connect with employers who value your skills.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2>Ready to Start Your Journey?</h2>
+        <p class="lead">Join thousands of professionals who have found their dream jobs with JobHunter.</p>
+        <div class="cta-buttons">
+            <a href="{{ url_for('jobseeker.index') }}" class="btn btn-light btn-lg me-3">Get Started</a>
+            <a href="{{ url_for('about') }}" class="btn btn-outline-light btn-lg">Learn More</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Add smooth scrolling and animations for the landing page
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize animations for stats section
+    const statItems = document.querySelectorAll('.stat-item h3');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateNumber(entry.target);
+            }
+        });
+    });
+    
+    statItems.forEach(item => observer.observe(item));
+});
+
+function animateNumber(element) {
+    const target = parseInt(element.textContent.replace(/\D/g, ''));
+    const duration = 2000;
+    const increment = target / (duration / 16);
+    let current = 0;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            element.textContent = element.textContent.replace(/\d+/, target);
+            clearInterval(timer);
+        } else {
+            element.textContent = element.textContent.replace(/\d+/, Math.floor(current));
+        }
+    }, 16);
+}
+</script>
+{% endblock %}

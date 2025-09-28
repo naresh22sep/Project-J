@@ -1,0 +1,73 @@
+{% extends "layouts/frontend_layout.html" %}
+
+{% block title %}About Us - JobHunter Platform{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="text-center mb-5">About JobHunter Platform</h1>
+            
+            <div class="about-content">
+                <p class="lead text-center mb-5">
+                    Connecting talented professionals with exceptional opportunities across the globe.
+                </p>
+                
+                <h3>Our Mission</h3>
+                <p>
+                    At JobHunter Platform, we believe that finding the right job should be straightforward, 
+                    efficient, and rewarding. Our mission is to bridge the gap between talented job seekers 
+                    and forward-thinking companies, creating meaningful connections that drive success for both parties.
+                </p>
+                
+                <h3>What We Offer</h3>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h5><i class="fas fa-users text-primary me-2"></i>For Job Seekers</h5>
+                        <ul>
+                            <li>Advanced job search and filtering</li>
+                            <li>Personalized job recommendations</li>
+                            <li>Profile management tools</li>
+                            <li>Application tracking</li>
+                            <li>Career resources and tips</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fas fa-building text-primary me-2"></i>For Employers</h5>
+                        <ul>
+                            <li>Easy job posting and management</li>
+                            <li>Candidate filtering and screening</li>
+                            <li>Application management system</li>
+                            <li>Company profile showcase</li>
+                            <li>Analytics and reporting</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3 class="mt-5">Why Choose Us</h3>
+                <div class="row">
+                    <div class="col-md-4 text-center mb-4">
+                        <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
+                        <h5>Secure & Reliable</h5>
+                        <p>Your data is protected with industry-standard security measures.</p>
+                    </div>
+                    <div class="col-md-4 text-center mb-4">
+                        <i class="fas fa-rocket fa-3x text-primary mb-3"></i>
+                        <h5>Fast & Efficient</h5>
+                        <p>Streamlined processes to get you connected quickly.</p>
+                    </div>
+                    <div class="col-md-4 text-center mb-4">
+                        <i class="fas fa-headset fa-3x text-primary mb-3"></i>
+                        <h5>24/7 Support</h5>
+                        <p>Our team is here to help you succeed every step of the way.</p>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-5">
+                    <a href="{{ url_for('main.contact') }}" class="btn btn-primary btn-lg">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

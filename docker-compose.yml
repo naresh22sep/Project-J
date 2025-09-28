@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # Flask Application
+  web:
+    build: .
+    ports:
+      - "5051:5051"
+    environment:
+      - FLASK_ENV=production
+      - DATABASE_URL=mysql+pymysql://root:Naresh123@mysql:3306/jobhunter_fresh
+      - SECRET_KEY=your-production-secret-key-change-this
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - flask-network
+
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=Naresh123
+      - MYSQL_DATABASE=jobhunter_fresh
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=Naresh123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pNaresh123"]
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - flask-network
+
+  # phpMyAdmin (Optional - for database management)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=Naresh123
+    ports:
+      - "8080:80"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - flask-network
+
+volumes:
+  mysql_data:
+
+networks:
+  flask-network:
+    driver: bridge

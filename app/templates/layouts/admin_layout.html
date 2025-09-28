@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Panel - JobHunter{% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom Admin CSS -->
+    <link href="{{ url_for('static', filename='admin_layout/css/admin.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='admin_layout/css/dashboard.css') }}" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="admin-body">
+    <!-- Sidebar -->
+    <nav class="sidebar bg-dark" id="sidebar">
+        <div class="sidebar-header p-3">
+            <h4 class="text-white">
+                <i class="fas fa-cogs me-2"></i>Admin Panel
+            </h4>
+        </div>
+        
+        <ul class="list-unstyled components">
+            <li>
+                <a href="{{ url_for('admin.dashboard') }}" class="sidebar-link">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+            </li>
+            
+            {% if session.get('user_type') == 'superadmin' %}
+            <li>
+                <a href="{{ url_for('superadmin.dashboard') }}" class="sidebar-link">
+                    <i class="fas fa-crown me-2"></i>Super Admin
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('superadmin.manage_admins') }}" class="sidebar-link">
+                    <i class="fas fa-user-shield me-2"></i>Manage Admins
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('superadmin.system_settings') }}" class="sidebar-link">
+                    <i class="fas fa-cog me-2"></i>System Settings
+                </a>
+            </li>
+            {% endif %}
+            
+            <li>
+                <a href="{{ url_for('admin.manage_users') }}" class="sidebar-link">
+                    <i class="fas fa-users me-2"></i>Manage Users
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('admin.manage_consultancies') }}" class="sidebar-link">
+                    <i class="fas fa-building me-2"></i>Consultancies
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('admin.manage_jobs') }}" class="sidebar-link">
+                    <i class="fas fa-briefcase me-2"></i>Job Postings
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('admin.reports') }}" class="sidebar-link">
+                    <i class="fas fa-chart-bar me-2"></i>Reports
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('admin.audit_logs') }}" class="sidebar-link">
+                    <i class="fas fa-clipboard-list me-2"></i>Audit Logs
+                </a>
+            </li>
+            
+            <li class="mt-auto">
+                <a href="#profile" class="sidebar-link">
+                    <i class="fas fa-user me-2"></i>Profile
+                </a>
+            </li>
+            <li>
+                <a href="#logout" class="sidebar-link">
+                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content" id="content">
+        <!-- Top Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container-fluid">
+                <button class="btn btn-outline-dark" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div class="navbar-nav ms-auto">
+                    <!-- Notifications -->
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle position-relative" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge badge-notification bg-danger">3</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end notifications-dropdown">
+                            <div class="dropdown-header">Notifications</div>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">
+                                <div class="notification-item">
+                                    <i class="fas fa-user-plus text-primary me-2"></i>
+                                    <span>New user registered</span>
+                                    <small class="text-muted d-block">5 minutes ago</small>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="notification-item">
+                                    <i class="fas fa-briefcase text-success me-2"></i>
+                                    <span>New job posted</span>
+                                    <small class="text-muted d-block">1 hour ago</small>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-center" href="#">View all notifications</a>
+                        </div>
+                    </div>
+                    
+                    <!-- User Profile -->
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <img src="{{ url_for('static', filename='admin_layout/images/default-avatar.png') }}" 
+                                 alt="Profile" class="rounded-circle me-1" width="30" height="30">
+                            {{ session.get('username', 'Admin') }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#profile">
+                                <i class="fas fa-user me-2"></i>Profile
+                            </a>
+                            <a class="dropdown-item" href="#settings">
+                                <i class="fas fa-cog me-2"></i>Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#logout">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div class="container-fluid py-4">
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('admin.dashboard') }}">Home</a></li>
+                    {% block breadcrumb %}{% endblock %}
+                </ol>
+            </nav>
+
+            <!-- Alert Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- Main Content Area -->
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom Admin JS -->
+    <script src="{{ url_for('static', filename='admin_layout/js/admin.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
