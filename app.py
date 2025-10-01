@@ -13,7 +13,7 @@ from app import db, migrate
 
 def create_app(config_name=None):
     """Create and configure the Flask application"""
-    app = Flask(__name__)
+    app = Flask(__name__, template_folder='app/templates', static_folder='app/static')
     
     # Load configuration
     if config_name is None:
@@ -87,13 +87,29 @@ def create_app(config_name=None):
 def register_blueprints(app):
     """Register all blueprints"""
     
-    # Authentication routes
-    from app.routes.auth_routes import auth_bp
-    app.register_blueprint(auth_bp)
+    # Register role-specific authentication routes
+    try:
+        from app.routes.auth_routes import (
+            auth_bp, superadmin_auth_bp, admin_auth_bp, 
+            jobseeker_auth_bp, consultancy_auth_bp
+        )
+        # Register all role-specific auth blueprints
+        app.register_blueprint(superadmin_auth_bp)
+        app.register_blueprint(admin_auth_bp)
+        app.register_blueprint(jobseeker_auth_bp)
+        app.register_blueprint(consultancy_auth_bp)
+        # Register legacy auth blueprint for compatibility
+        app.register_blueprint(auth_bp, url_prefix='/auth')
+        
+    except ImportError as e:
+        print(f"Warning: Could not register auth routes: {e}")
     
-    # SuperAdmin routes
-    from app.routes.superadmin_routes import superadmin_bp
-    app.register_blueprint(superadmin_bp)
+    # SuperAdmin routes (if they exist)
+    try:
+        from app.routes.superadmin_routes import superadmin_bp
+        app.register_blueprint(superadmin_bp, url_prefix='/superadmin')
+    except ImportError:
+        print("Note: SuperAdmin routes not found, using auth routes only")
     
     # Health check endpoint
     @app.route('/health')
@@ -104,22 +120,95 @@ def register_blueprints(app):
             'version': '1.0.0'
         }
     
+    # Simple dashboard routes for testing
+    @app.route('/superadmin/dashboard')
+    def superadmin_dashboard():
+        # Check authentication
+        from app.middleware.security_middleware import AuthMiddleware
+        from flask import g, redirect
+        auth_result = AuthMiddleware.require_auth()
+        if auth_result:
+            return auth_result
+            
+        # Check if user has superadmin role  
+        if not g.current_user.has_role('superadmin'):
+            return redirect('/superadmin/auth/login')
+            
+        return '''
+        <h1>🏆 SuperAdmin Dashboard</h1>
+        <p>Welcome to the SuperAdmin control center!</p>
+        <p>You have successfully accessed the role-based authentication system.</p>
+        <ul>
+            <li>✅ Role-based URL routing working</li>
+            <li>✅ Authentication system operational</li>
+            <li>✅ SuperAdmin access granted</li>
+        </ul>
+        <p><a href="/superadmin/auth/login">Back to Login</a> | <a href="/auth/logout">Logout</a></p>
+        '''
+    
+    @app.route('/admin/dashboard')
+    def admin_dashboard():
+        # Check authentication
+        from app.middleware.security_middleware import AuthMiddleware
+        from flask import g, redirect
+        auth_result = AuthMiddleware.require_auth()
+        if auth_result:
+            return auth_result
+            
+        # Check if user has admin role  
+        if not g.current_user.has_role('admin'):
+            return redirect('/admin/auth/login')
+            
+        return '''
+        <h1>🛡️ Admin Dashboard</h1>
+        <p>Welcome to the Admin panel!</p>
+        <p><a href="/admin/auth/login">Back to Login</a> | <a href="/auth/logout">Logout</a></p>
+        '''
+    
+    @app.route('/jobseeker/dashboard')
+    def jobseeker_dashboard():
+        # Check authentication
+        from app.middleware.security_middleware import AuthMiddleware
+        from flask import g, redirect
+        auth_result = AuthMiddleware.require_auth()
+        if auth_result:
+            return auth_result
+            
+        # Check if user has jobseeker role  
+        if not g.current_user.has_role('jobseeker'):
+            return redirect('/jobseeker/login')
+            
+        return '''
+        <h1>💼 Jobseeker Dashboard</h1>
+        <p>Welcome to your job search center!</p>
+        <p><a href="/jobseeker/login">Back to Login</a> | <a href="/auth/logout">Logout</a></p>
+        '''
+    
+    @app.route('/consultancy/dashboard')
+    def consultancy_dashboard():
+        # Check authentication
+        from app.middleware.security_middleware import AuthMiddleware
+        from flask import g, redirect
+        auth_result = AuthMiddleware.require_auth()
+        if auth_result:
+            return auth_result
+            
+        # Check if user has consultancy role  
+        if not g.current_user.has_role('consultancy'):
+            return redirect('/consultancy/login')
+            
+        return '''
+        <h1>🏢 Consultancy Dashboard</h1>
+        <p>Welcome to your recruitment center!</p>
+        <p><a href="/consultancy/login">Back to Login</a> | <a href="/auth/logout">Logout</a></p>
+        '''
+    
     # Root redirect
     @app.route('/')
     def index():
         from flask import redirect, url_for
-        if hasattr(g, 'current_user') and g.current_user:
-            # Redirect based on user role
-            if g.current_user.has_role('superadmin'):
-                return redirect(url_for('superadmin.dashboard'))
-            elif g.current_user.has_role('admin'):
-                return redirect('/admin/dashboard')
-            elif g.current_user.has_role('consultancy'):
-                return redirect('/consultancy/dashboard')
-            else:
-                return redirect('/jobseeker/dashboard')
-        else:
-            return redirect(url_for('auth.login'))
+        # For anonymous users, redirect to superadmin login as default
+        return redirect('/superadmin/auth/login')
 
 def initialize_database():
     """Initialize database with default data"""
@@ -244,9 +333,10 @@ def initialize_database():
             if not plan:
                 plan = SubscriptionPlan(
                     name=plan_config['name'],
+                    display_name=plan_config['name'],
                     description=f"{plan_config['name']} subscription plan",
-                    price=plan_config['price'],
-                    billing_cycle='monthly',
+                    price_monthly=plan_config.get('price', 0.00),
+                    price_yearly=plan_config.get('yearly_price', plan_config.get('price', 0.00) * 10),
                     is_active=True
                 )
                 db.session.add(plan)
@@ -264,9 +354,13 @@ def initialize_database():
                         value_str = str(feature_value)
                         is_boolean = False
                     
+                    # Create a user-friendly feature name from the key
+                    feature_name = feature_key.replace('_', ' ').title()
+                    
                     feature = SubscriptionFeature(
                         plan_id=plan.id,
                         feature_key=feature_key,
+                        feature_name=feature_name,
                         feature_value=value_str,
                         is_boolean=is_boolean
                     )
@@ -284,10 +378,14 @@ def initialize_database():
             )
             superadmin.set_password('SuperAdmin@2024')  # Change this in production
             
-            if superadmin_role:
-                superadmin.roles.append(superadmin_role)
-            
             db.session.add(superadmin)
+            db.session.flush()  # Get user ID
+            
+            if superadmin_role:
+                # Create UserRole relationship
+                from app.auth.auth_models import UserRole
+                user_role = UserRole(user_id=superadmin.id, role_id=superadmin_role.id)
+                db.session.add(user_role)
         
         # Commit all changes
         db.session.commit()

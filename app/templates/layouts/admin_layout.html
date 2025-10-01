@@ -37,30 +37,34 @@
                 </a>
             </li>
             <li>
-                <a href="{{ url_for('superadmin.manage_admins') }}" class="sidebar-link">
-                    <i class="fas fa-user-shield me-2"></i>Manage Admins
+                <a href="{{ url_for('superadmin.users') }}" class="sidebar-link">
+                    <i class="fas fa-user-shield me-2"></i>Manage Users
                 </a>
             </li>
             <li>
-                <a href="{{ url_for('superadmin.system_settings') }}" class="sidebar-link">
-                    <i class="fas fa-cog me-2"></i>System Settings
+                <a href="{{ url_for('superadmin.security_logs') }}" class="sidebar-link">
+                    <i class="fas fa-cog me-2"></i>Security Logs
                 </a>
             </li>
             {% endif %}
             
             <li>
-                <a href="{{ url_for('admin.manage_users') }}" class="sidebar-link">
+                <!-- TODO: Create admin routes or use superadmin routes -->
+                <!-- <a href="{{ url_for('admin.manage_users') }}" class="sidebar-link">
+                    <i class="fas fa-users me-2"></i>Manage Users
+                </a> -->
+                <a href="#" class="sidebar-link" onclick="alert('Admin routes not implemented yet')">
                     <i class="fas fa-users me-2"></i>Manage Users
                 </a>
             </li>
             <li>
-                <a href="{{ url_for('admin.manage_consultancies') }}" class="sidebar-link">
-                    <i class="fas fa-building me-2"></i>Consultancies
+                <a href="{{ url_for('admin.companies') }}" class="sidebar-link">
+                    <i class="fas fa-building me-2"></i>Companies
                 </a>
             </li>
             <li>
-                <a href="{{ url_for('admin.manage_jobs') }}" class="sidebar-link">
-                    <i class="fas fa-briefcase me-2"></i>Job Postings
+                <a href="{{ url_for('admin.jobs') }}" class="sidebar-link">
+                    <i class="fas fa-briefcase me-2"></i>Jobs
                 </a>
             </li>
             <li>
@@ -69,8 +73,8 @@
                 </a>
             </li>
             <li>
-                <a href="{{ url_for('admin.audit_logs') }}" class="sidebar-link">
-                    <i class="fas fa-clipboard-list me-2"></i>Audit Logs
+                <a href="{{ url_for('admin.settings') }}" class="sidebar-link">
+                    <i class="fas fa-cog me-2"></i>Settings
                 </a>
             </li>
             

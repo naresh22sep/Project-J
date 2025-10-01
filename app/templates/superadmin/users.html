@@ -1,0 +1,501 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}User Management - SuperAdmin{% endblock %}
+
+{% block content %}
+<style>
+    /* Users Management Page Styling */
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+    }
+    
+    .users-header {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        color: white;
+    }
+    
+    .search-filters {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .users-table-container {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+        margin-bottom: 30px;
+    }
+    
+    .table {
+        margin-bottom: 0;
+    }
+    
+    .table th {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-bottom: 2px solid #dee2e6;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        padding: 15px;
+    }
+    
+    .table td {
+        padding: 15px;
+        vertical-align: middle;
+        border-bottom: 1px solid #f8f9fa;
+    }
+    
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+        transform: scale(1.001);
+        transition: all 0.2s ease;
+    }
+    
+    .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+    }
+    
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .status-active {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+    }
+    
+    .status-inactive {
+        background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+        color: white;
+    }
+    
+    .status-locked {
+        background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+        color: white;
+    }
+    
+    .role-badge {
+        background: linear-gradient(135deg, #007bff 0%, #6f42c1 100%);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 10px;
+        font-weight: 600;
+        margin-right: 3px;
+        text-transform: uppercase;
+    }
+    
+    .action-btn {
+        border: none;
+        border-radius: 8px;
+        padding: 6px 12px;
+        margin: 2px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 12px;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .btn-view {
+        background: linear-gradient(135deg, #17a2b8 0%, #20c997 100%);
+        color: white;
+    }
+    
+    .btn-edit {
+        background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+        color: white;
+    }
+    
+    .btn-toggle {
+        background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+        color: white;
+    }
+    
+    .action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        text-decoration: none;
+        color: white;
+    }
+    
+    .pagination {
+        justify-content: center;
+        margin-top: 30px;
+    }
+    
+    .pagination .page-link {
+        border: none;
+        border-radius: 10px;
+        margin: 0 3px;
+        padding: 10px 15px;
+        background: white;
+        color: #6c757d;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        transition: all 0.2s ease;
+    }
+    
+    .pagination .page-link:hover,
+    .pagination .page-item.active .page-link {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    }
+    
+    .search-input,
+    .filter-select {
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        padding: 10px 15px;
+        transition: all 0.2s ease;
+    }
+    
+    .search-input:focus,
+    .filter-select:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+    
+    .btn-search {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 10px;
+        padding: 10px 20px;
+        color: white;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+    
+    .btn-search:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        color: white;
+    }
+    
+    .stats-summary {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .stat-item {
+        text-align: center;
+    }
+    
+    .stat-number {
+        font-size: 28px;
+        font-weight: 700;
+        color: #495057;
+        margin-bottom: 5px;
+    }
+    
+    .stat-label {
+        color: #6c757d;
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+    
+    @media (max-width: 768px) {
+        .table-responsive {
+            font-size: 14px;
+        }
+        
+        .action-btn {
+            padding: 4px 8px;
+            font-size: 10px;
+            margin: 1px;
+        }
+        
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            font-size: 12px;
+        }
+    }
+</style>
+
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="users-header">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="mb-0">
+                    <i class="fas fa-users me-3"></i>User Management
+                </h1>
+                <p class="mb-0 mt-2 opacity-75">Manage all system users and their permissions</p>
+            </div>
+            <div class="col-md-6 text-end">
+                <a href="{{ url_for('superadmin.dashboard') }}" class="btn btn-light btn-sm me-2">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                </a>
+                <button class="btn btn-success btn-sm">
+                    <i class="fas fa-plus me-2"></i>Add New User
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Summary -->
+    <div class="stats-summary">
+        <div class="row">
+            <div class="col-md-3 stat-item">
+                <div class="stat-number text-primary">{{ users.total }}</div>
+                <div class="stat-label">Total Users</div>
+            </div>
+            <div class="col-md-3 stat-item">
+                <div class="stat-number text-success">
+                    {{ users.items|selectattr('is_active')|list|length }}
+                </div>
+                <div class="stat-label">Active Users</div>
+            </div>
+            <div class="col-md-3 stat-item">
+                <div class="stat-number text-warning">
+                    {{ users.items|rejectattr('is_active')|list|length }}
+                </div>
+                <div class="stat-label">Inactive Users</div>
+            </div>
+            <div class="col-md-3 stat-item">
+                <div class="stat-number text-info">{{ roles|length }}</div>
+                <div class="stat-label">Available Roles</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search and Filters -->
+    <div class="search-filters">
+        <form method="GET" action="{{ url_for('superadmin.users') }}">
+            <div class="row align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Search Users</label>
+                    <input type="text" name="search" class="form-control search-input" 
+                           placeholder="Search by name, email, username..." 
+                           value="{{ search or '' }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">Filter by Role</label>
+                    <select name="role_filter" class="form-select filter-select">
+                        <option value="">All Roles</option>
+                        {% for role in roles %}
+                        <option value="{{ role.id }}" 
+                                {% if role_filter and role_filter|int == role.id %}selected{% endif %}>
+                            {{ role.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">Status</label>
+                    <select name="status_filter" class="form-select filter-select">
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="locked">Locked</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-search w-100">
+                        <i class="fas fa-search me-2"></i>Search
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Users Table -->
+    <div class="users-table-container">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Email</th>
+                        <th>Roles</th>
+                        <th>Status</th>
+                        <th>Last Login</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users.items %}
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="user-avatar me-3">
+                                    {% if user.avatar_url %}
+                                        <img src="{{ user.avatar_url }}" alt="{{ user.username }}" 
+                                             class="w-100 h-100 rounded-circle">
+                                    {% else %}
+                                        {{ user.first_name[0] if user.first_name else user.username[0]|upper }}
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <div class="fw-bold">
+                                        {{ user.first_name }} {{ user.last_name or '' }}
+                                    </div>
+                                    <small class="text-muted">@{{ user.username }}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div>{{ user.email }}</div>
+                            {% if user.email_verified %}
+                                <small class="text-success">
+                                    <i class="fas fa-check-circle me-1"></i>Verified
+                                </small>
+                            {% else %}
+                                <small class="text-warning">
+                                    <i class="fas fa-exclamation-triangle me-1"></i>Unverified
+                                </small>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% for user_role in user.user_roles %}
+                                <span class="role-badge">{{ user_role.role.name }}</span>
+                            {% else %}
+                                <span class="text-muted">No roles assigned</span>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if user.is_account_locked() %}
+                                <span class="status-badge status-locked">
+                                    <i class="fas fa-lock me-1"></i>Locked
+                                </span>
+                            {% elif user.is_active %}
+                                <span class="status-badge status-active">
+                                    <i class="fas fa-check me-1"></i>Active
+                                </span>
+                            {% else %}
+                                <span class="status-badge status-inactive">
+                                    <i class="fas fa-times me-1"></i>Inactive
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user.last_login %}
+                                <div>{{ user.last_login.strftime('%Y-%m-%d') }}</div>
+                                <small class="text-muted">{{ user.last_login.strftime('%H:%M') }}</small>
+                            {% else %}
+                                <span class="text-muted">Never</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div>{{ user.created_at.strftime('%Y-%m-%d') }}</div>
+                            <small class="text-muted">{{ user.created_at.strftime('%H:%M') }}</small>
+                        </td>
+                        <td>
+                            <div class="d-flex flex-wrap">
+                                <a href="{{ url_for('superadmin.user_detail', user_id=user.id) }}" 
+                                   class="action-btn btn-view" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ url_for('superadmin.edit_user', user_id=user.id) }}" 
+                                   class="action-btn btn-edit" title="Edit User">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form method="POST" 
+                                      action="{{ url_for('superadmin.toggle_user_active', user_id=user.id) }}" 
+                                      style="display: inline;">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="action-btn btn-toggle" 
+                                            title="Toggle Status"
+                                            onclick="return confirm('Are you sure you want to {% if user.is_active %}deactivate{% else %}activate{% endif %} this user?')">
+                                        <i class="fas fa-{{ 'toggle-off' if user.is_active else 'toggle-on' }}"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center py-5">
+                            <div class="text-muted">
+                                <i class="fas fa-users fa-3x mb-3 opacity-50"></i>
+                                <h5>No users found</h5>
+                                <p>Try adjusting your search criteria or add a new user.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    {% if users.pages > 1 %}
+    <nav aria-label="User pagination">
+        <ul class="pagination">
+            {% if users.has_prev %}
+                <li class="page-item">
+                    <a class="page-link" 
+                       href="{{ url_for('superadmin.users', page=users.prev_num, search=search, role_filter=role_filter) }}">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% for page_num in users.iter_pages() %}
+                {% if page_num %}
+                    {% if page_num != users.page %}
+                        <li class="page-item">
+                            <a class="page-link" 
+                               href="{{ url_for('superadmin.users', page=page_num, search=search, role_filter=role_filter) }}">
+                                {{ page_num }}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ page_num }}</span>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">…</span>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if users.has_next %}
+                <li class="page-item">
+                    <a class="page-link" 
+                       href="{{ url_for('superadmin.users', page=users.next_num, search=search, role_filter=role_filter) }}">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

@@ -118,7 +118,7 @@ class SecurityMiddleware:
         if request.endpoint in ['static', 'health']:
             return
         
-        # Check for JWT token
+        # Check for JWT token in Authorization header
         token = None
         if 'Authorization' in request.headers:
             auth_header = request.headers['Authorization']
@@ -128,13 +128,14 @@ class SecurityMiddleware:
             except (IndexError, AttributeError):
                 pass
         
-        # Try to authenticate with token
+        # Try to authenticate with token first
         if token:
             user, message = JWTAuthService.verify_token(token)
             if user:
                 g.current_user = user
                 # Update last activity
                 user.update_last_activity()
+                return
             else:
                 # Log failed token verification
                 request_info = get_safe_request_info()
@@ -145,6 +146,16 @@ class SecurityMiddleware:
                     details={'reason': message, 'token_preview': token[:10] + '...'},
                     severity='medium'
                 )
+        
+        # If no token or token failed, check session authentication
+        user_id = session.get('user_id')
+        if user_id:
+            from app.auth.auth_models import AuthUser
+            user = AuthUser.query.get(user_id)
+            if user and user.is_active:
+                g.current_user = user
+                # Update last activity
+                user.update_last_activity()
     
     def _check_rate_limiting(self):
         """Basic rate limiting check"""
@@ -210,10 +221,10 @@ class SecurityMiddleware:
         # Content Security Policy
         csp = (
             "default-src 'self'; "
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval'; "
-            "style-src 'self' 'unsafe-inline'; "
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; "
+            "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; "
             "img-src 'self' data: https:; "
-            "font-src 'self'; "
+            "font-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; "
             "connect-src 'self'; "
             "frame-ancestors 'none';"
         )
@@ -263,8 +274,8 @@ class AuthMiddleware:
         if not hasattr(g, 'current_user') or not g.current_user:
             # For browser requests, redirect to login
             if request.content_type != 'application/json' and 'application/json' not in request.headers.get('Accept', ''):
-                from flask import redirect, url_for
-                return redirect(url_for('auth.login'))
+                from flask import redirect
+                return redirect('/superadmin/auth/login')
             
             # For API requests, return JSON
             return jsonify({
@@ -298,8 +309,8 @@ class AuthMiddleware:
             
             # For browser requests, redirect to login
             if request.content_type != 'application/json' and 'application/json' not in request.headers.get('Accept', ''):
-                from flask import redirect, url_for
-                return redirect(url_for('auth.login'))
+                from flask import redirect
+                return redirect('/superadmin/auth/login')
                 
             return jsonify({
                 'error': 'Insufficient privileges',
@@ -375,10 +386,11 @@ def create_middleware_stack(app):
     security_middleware = SecurityMiddleware(app)
     
     # Register middleware functions
-    @app.context_processor
-    def inject_csrf_token():
-        """Inject CSRF token into template context"""
-        return dict(csrf_token=getattr(g, 'csrf_token', ''))
+    # Note: CSRF token injection is handled in app/__init__.py
+    # @app.context_processor  
+    # def inject_csrf_token():
+    #     """Inject CSRF token into template context"""
+    #     return dict(csrf_token=getattr(g, 'csrf_token', ''))
     
     @app.context_processor
     def inject_current_user():

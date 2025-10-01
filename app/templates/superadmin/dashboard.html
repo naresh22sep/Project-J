@@ -1,194 +1,564 @@
-{% extends "superadmin/base.html" %}
+{% extends "layouts/admin_layout.html" %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}SuperAdmin Dashboard{% endblock %}
 
 {% block content %}
-<!-- Key Statistics -->
-<div class="card">
-    <div class="card-title">System Overview</div>
-    <div class="grid grid-4">
-        <div class="stat">
-            <span class="stat-number">{{ stats.total_users or 0 }}</span>
-            <span class="stat-label">Total Users</span>
-        </div>
-        <div class="stat">
-            <span class="stat-number">{{ stats.active_users or 0 }}</span>
-            <span class="stat-label">Active Users</span>
-        </div>
-        <div class="stat">
-            <span class="stat-number">{{ stats.active_subscriptions or 0 }}</span>
-            <span class="stat-label">Active Subscriptions</span>
-        </div>
-        <div class="stat">
-            <span class="stat-number" id="events-today">{{ stats.security_events_today or 0 }}</span>
-            <span class="stat-label">Security Events Today</span>
-        </div>
-    </div>
-</div>
-
-<div class="grid grid-2">
-    <!-- Security Alerts -->
-    <div class="card">
-        <div class="card-title">Security Overview</div>
-        <div class="grid grid-2">
-            <div class="stat">
-                <span class="stat-number severity-high" id="high-severity">{{ stats.high_severity_events or 0 }}</span>
-                <span class="stat-label">High Severity Events</span>
-            </div>
-            <div class="stat">
-                <span class="stat-number severity-medium" id="failed-logins">0</span>
-                <span class="stat-label">Failed Logins Today</span>
-            </div>
-        </div>
-        <div style="margin-top: 1rem;">
-            <a href="{{ url_for('superadmin.security_logs') }}" class="btn btn-sm btn-secondary">View Security Logs</a>
-        </div>
-    </div>
-    
-    <!-- Subscription Breakdown -->
-    <div class="card">
-        <div class="card-title">Subscription Breakdown</div>
-        {% if subscription_stats %}
-            <div class="grid grid-2">
-                {% for plan_name, count in subscription_stats %}
-                <div class="stat">
-                    <span class="stat-number">{{ count }}</span>
-                    <span class="stat-label">{{ plan_name }}</span>
-                </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p style="color: #6c757d; text-align: center;">No subscription data available</p>
-        {% endif %}
-        <div style="margin-top: 1rem;">
-            <a href="{{ url_for('superadmin.subscriptions') }}" class="btn btn-sm btn-secondary">Manage Subscriptions</a>
-        </div>
-    </div>
-</div>
-
-<!-- Recent Security Events -->
-<div class="card">
-    <div class="card-title">Recent Security Events</div>
-    {% if recent_events %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Time</th>
-                    <th>Event Type</th>
-                    <th>Severity</th>
-                    <th>IP Address</th>
-                    <th>User</th>
-                    <th>Details</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for event in recent_events %}
-                <tr>
-                    <td>{{ event.created_at.strftime('%H:%M:%S') }}</td>
-                    <td>{{ event.event_type.replace('_', ' ').title() }}</td>
-                    <td>
-                        <span class="badge badge-{{ 'danger' if event.severity == 'high' else ('warning' if event.severity == 'medium' else 'info') }}">
-                            {{ event.severity.upper() }}
-                        </span>
-                    </td>
-                    <td>{{ event.ip_address or 'N/A' }}</td>
-                    <td>
-                        {% if event.user %}
-                            <a href="{{ url_for('superadmin.user_detail', user_id=event.user_id) }}" style="color: #3498db;">
-                                {{ event.user.username }}
-                            </a>
-                        {% else %}
-                            N/A
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if event.details %}
-                            <small style="color: #6c757d;">
-                                {% set details = event.details %}
-                                {% if details.reason %}
-                                    {{ details.reason }}
-                                {% elif details.action %}
-                                    {{ details.action }}
-                                {% elif details.type %}
-                                    {{ details.type }}
-                                {% else %}
-                                    Event logged
-                                {% endif %}
-                            </small>
-                        {% else %}
-                            -
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        
-        <div style="text-align: center; margin-top: 1rem;">
-            <a href="{{ url_for('superadmin.security_logs') }}" class="btn btn-primary">View All Security Logs</a>
-        </div>
-    {% else %}
-        <p style="color: #6c757d; text-align: center; padding: 2rem;">No recent security events</p>
-    {% endif %}
-</div>
-
-<!-- Quick Actions -->
-<div class="grid grid-3">
-    <div class="card">
-        <div class="card-title">User Management</div>
-        <p style="color: #6c757d; margin-bottom: 1rem;">Manage user accounts, roles, and permissions</p>
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <a href="{{ url_for('superadmin.users') }}" class="btn btn-sm btn-primary">View Users</a>
-            <a href="{{ url_for('superadmin.roles') }}" class="btn btn-sm btn-secondary">Manage Roles</a>
-        </div>
-    </div>
-    
-    <div class="card">
-        <div class="card-title">Subscription Control</div>
-        <p style="color: #6c757d; margin-bottom: 1rem;">Monitor and manage user subscriptions</p>
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <a href="{{ url_for('superadmin.subscriptions') }}" class="btn btn-sm btn-primary">View Subscriptions</a>
-        </div>
-    </div>
-    
-    <div class="card">
-        <div class="card-title">System Security</div>
-        <p style="color: #6c757d; margin-bottom: 1rem;">Monitor security events and threats</p>
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <a href="{{ url_for('superadmin.security_logs') }}" class="btn btn-sm btn-primary">Security Logs</a>
-        </div>
-    </div>
-</div>
-
-<!-- System Status -->
-<div class="card">
-    <div class="card-title">System Status</div>
-    <div class="grid grid-3">
-        <div style="text-align: center;">
-            <div style="width: 12px; height: 12px; background: #27ae60; border-radius: 50%; margin: 0 auto 0.5rem; animation: pulse 2s infinite;"></div>
-            <div style="font-weight: 500;">Authentication Service</div>
-            <div style="color: #6c757d; font-size: 0.9rem;">Operational</div>
-        </div>
-        <div style="text-align: center;">
-            <div style="width: 12px; height: 12px; background: #27ae60; border-radius: 50%; margin: 0 auto 0.5rem; animation: pulse 2s infinite;"></div>
-            <div style="font-weight: 500;">Database</div>
-            <div style="color: #6c757d; font-size: 0.9rem;">Connected</div>
-        </div>
-        <div style="text-align: center;">
-            <div style="width: 12px; height: 12px; background: #27ae60; border-radius: 50%; margin: 0 auto 0.5rem; animation: pulse 2s infinite;"></div>
-            <div style="font-weight: 500;">Security Monitoring</div>
-            <div style="color: #6c757d; font-size: 0.9rem;">Active</div>
-        </div>
-    </div>
-</div>
-
 <style>
-@keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
-}
+    /* Comprehensive Dashboard Styling */
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+    }
+    
+    .dashboard-header {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        border-radius: 20px;
+        padding: 40px;
+        margin-bottom: 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .dashboard-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        animation: shimmer 3s ease-in-out infinite alternate;
+    }
+    
+    @keyframes shimmer {
+        0% { transform: rotate(0deg) scale(0.8); }
+        100% { transform: rotate(5deg) scale(1.1); }
+    }
+    
+    .dashboard-title {
+        position: relative;
+        z-index: 2;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .stats-card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px 25px;
+        text-align: center;
+        box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+        border: none;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+        position: relative;
+        margin-bottom: 30px;
+    }
+    
+    .stats-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+        background-size: 200% 100%;
+        animation: gradientSlide 3s ease-in-out infinite;
+    }
+    
+    @keyframes gradientSlide {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+    }
+    
+    .stats-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 25px 70px rgba(0,0,0,0.2);
+    }
+    
+    .stats-card .stats-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: block;
+    }
+    
+    .stats-number {
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .stats-label {
+        color: #6c757d;
+        font-weight: 600;
+        font-size: 1.1rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .btn-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 30px;
+        transition: all 0.4s ease;
+        font-weight: 600;
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .btn-gradient::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .btn-gradient:hover::before {
+        left: 100%;
+    }
+    
+    .btn-gradient:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        color: white;
+        text-decoration: none;
+    }
+    
+    .card {
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+        transition: all 0.4s ease;
+        overflow: hidden;
+        background: white;
+        margin-bottom: 30px;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 25px 70px rgba(0,0,0,0.18);
+    }
+    
+    .card-header {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-bottom: none;
+        border-radius: 20px 20px 0 0 !important;
+        font-weight: 700;
+        font-size: 1.2rem;
+        padding: 25px 30px;
+        position: relative;
+    }
+    
+    .card-header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 30px;
+        right: 30px;
+        height: 2px;
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .card-body {
+        padding: 30px;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .fade-in-up {
+        animation: fadeInUp 1s ease-out;
+        animation-fill-mode: both;
+    }
+    
+    .fade-in-up:nth-child(1) { animation-delay: 0.1s; }
+    .fade-in-up:nth-child(2) { animation-delay: 0.2s; }
+    .fade-in-up:nth-child(3) { animation-delay: 0.3s; }
+    .fade-in-up:nth-child(4) { animation-delay: 0.4s; }
+    .fade-in-up:nth-child(5) { animation-delay: 0.5s; }
+    
+    .text-danger { color: #dc3545 !important; }
+    .text-warning { color: #ffc107 !important; }
+    .text-muted { color: #6c757d !important; }
+    
+    /* Modern table styles */
+    .table {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        width: 100%;
+        margin-bottom: 0;
+    }
+    
+    .table th {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border: none;
+        font-weight: 600;
+        padding: 15px 20px;
+        color: #495057;
+    }
+    
+    .table td {
+        border: none;
+        padding: 15px 20px;
+        vertical-align: middle;
+    }
+    
+    .table tbody tr:hover {
+        background-color: rgba(102, 126, 234, 0.05);
+        transform: scale(1.02);
+        transition: all 0.3s ease;
+    }
+    
+    /* System status indicators */
+    .status-indicator {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        margin: 0 auto 10px;
+        animation: statusPulse 2s infinite;
+    }
+    
+    .status-online {
+        background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+        box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+    }
+    
+    @keyframes statusPulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.7; transform: scale(1.1); }
+    }
+    
+    /* Action cards */
+    .action-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        margin-bottom: 20px;
+    }
+    
+    .action-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 45px rgba(0,0,0,0.15);
+    }
+    
+    .action-card h5 {
+        color: #2c3e50;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+    
+    .action-card p {
+        color: #6c757d;
+        margin-bottom: 20px;
+    }
+    
+    /* Responsive improvements */
+    @media (max-width: 768px) {
+        .dashboard-header {
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .stats-number {
+            font-size: 2.5rem;
+        }
+        
+        .stats-card {
+            padding: 25px 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .btn-gradient {
+            padding: 12px 25px;
+            font-size: 0.9rem;
+        }
+    }
 </style>
+
+<div class="container-fluid">
+    <!-- Modern Dashboard Header -->
+    <div class="dashboard-header text-white text-center mb-4 fade-in-up">
+        <div class="dashboard-title">
+            <h1 class="display-4 mb-2"><i class="fas fa-crown me-3"></i>SuperAdmin Dashboard</h1>
+            <p class="lead mb-0">Complete system control and monitoring center</p>
+        </div>
+    </div>
+
+    <!-- Enhanced Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3 col-sm-6 fade-in-up">
+            <div class="stats-card">
+                <div class="stats-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stats-number">{{ stats.total_users or 0 }}</div>
+                <div class="stats-label">Total Users</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 fade-in-up">
+            <div class="stats-card">
+                <div class="stats-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="stats-number">{{ stats.active_users or 0 }}</div>
+                <div class="stats-label">Active Users</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 fade-in-up">
+            <div class="stats-card">
+                <div class="stats-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="stats-number">{{ stats.active_subscriptions or 0 }}</div>
+                <div class="stats-label">Active Subscriptions</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 fade-in-up">
+            <div class="stats-card">
+                <div class="stats-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="stats-number" id="events-today">{{ stats.security_events_today or 0 }}</div>
+                <div class="stats-label">Security Events Today</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security and Subscription Overview -->
+    <div class="row">
+        <div class="col-lg-6 fade-in-up">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-shield-alt me-2"></i>Security Overview</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="text-center">
+                                <div class="stats-number text-danger" id="high-severity">{{ stats.high_severity_events or 0 }}</div>
+                                <div class="stats-label">High Severity Events</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center">
+                                <div class="stats-number text-warning" id="failed-logins">0</div>
+                                <div class="stats-label">Failed Logins Today</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('superadmin.security_logs') }}" class="btn-gradient">
+                            <i class="fas fa-eye me-2"></i>View Security Logs
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6 fade-in-up">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Subscription Breakdown</h5>
+                </div>
+                <div class="card-body">
+                    {% if subscription_stats %}
+                        <div class="row">
+                            {% for plan_name, count in subscription_stats %}
+                            <div class="col-6 text-center mb-3">
+                                <div class="stats-number">{{ count }}</div>
+                                <div class="stats-label">{{ plan_name }}</div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted text-center">No subscription data available</p>
+                    {% endif %}
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('superadmin.subscriptions') }}" class="btn-gradient">
+                            <i class="fas fa-cog me-2"></i>Manage Subscriptions
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Security Events -->
+    <div class="row">
+        <div class="col-12 fade-in-up">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-history me-2"></i>Recent Security Events</h5>
+                </div>
+                <div class="card-body">
+                    {% if recent_events %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Event Type</th>
+                                        <th>Severity</th>
+                                        <th>IP Address</th>
+                                        <th>User</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for event in recent_events %}
+                                    <tr>
+                                        <td>{{ event.created_at.strftime('%H:%M:%S') }}</td>
+                                        <td>{{ event.event_type.replace('_', ' ').title() }}</td>
+                                        <td>
+                                            <span class="badge badge-{{ 'danger' if event.severity == 'high' else ('warning' if event.severity == 'medium' else 'info') }}">
+                                                {{ event.severity.upper() }}
+                                            </span>
+                                        </td>
+                                        <td>{{ event.ip_address or 'N/A' }}</td>
+                                        <td>
+                                            {% if event.user %}
+                                                <a href="{{ url_for('superadmin.user_detail', user_id=event.user_id) }}" style="color: #667eea; text-decoration: none;">
+                                                    {{ event.user.username }}
+                                                </a>
+                                            {% else %}
+                                                N/A
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if event.details %}
+                                                <small class="text-muted">
+                                                    {% set details = event.details %}
+                                                    {% if details.reason %}
+                                                        {{ details.reason }}
+                                                    {% elif details.action %}
+                                                        {{ details.action }}
+                                                    {% elif details.type %}
+                                                        {{ details.type }}
+                                                    {% else %}
+                                                        Event logged
+                                                    {% endif %}
+                                                </small>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <a href="{{ url_for('superadmin.security_logs') }}" class="btn-gradient">View All Security Logs</a>
+                        </div>
+                    {% else %}
+                        <p class="text-muted text-center" style="padding: 2rem;">No recent security events</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row">
+        <div class="col-md-4 fade-in-up">
+            <div class="action-card">
+                <h5><i class="fas fa-users me-2"></i>User Management</h5>
+                <p>Manage user accounts, roles, and permissions</p>
+                <div>
+                    <a href="{{ url_for('superadmin.users') }}" class="btn-gradient me-2">View Users</a>
+                    <a href="{{ url_for('superadmin.roles') }}" class="btn-gradient">Manage Roles</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 fade-in-up">
+            <div class="action-card">
+                <h5><i class="fas fa-credit-card me-2"></i>Subscription Control</h5>
+                <p>Monitor and manage user subscriptions</p>
+                <div>
+                    <a href="{{ url_for('superadmin.subscriptions') }}" class="btn-gradient">View Subscriptions</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 fade-in-up">
+            <div class="action-card">
+                <h5><i class="fas fa-shield-alt me-2"></i>System Security</h5>
+                <p>Monitor security events and threats</p>
+                <div>
+                    <a href="{{ url_for('superadmin.security_logs') }}" class="btn-gradient">Security Logs</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Status -->
+    <div class="row">
+        <div class="col-12 fade-in-up">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-server me-2"></i>System Status</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <div class="status-indicator status-online"></div>
+                            <div style="font-weight: 600; color: #2c3e50;">Authentication Service</div>
+                            <div class="text-muted">Operational</div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="status-indicator status-online"></div>
+                            <div style="font-weight: 600; color: #2c3e50;">Database</div>
+                            <div class="text-muted">Connected</div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="status-indicator status-online"></div>
+                            <div style="font-weight: 600; color: #2c3e50;">Security Monitoring</div>
+                            <div class="text-muted">Active</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}

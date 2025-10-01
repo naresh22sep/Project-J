@@ -74,10 +74,10 @@ class Config:
         'Referrer-Policy': 'strict-origin-when-cross-origin',
         'Content-Security-Policy': (
             "default-src 'self'; "
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval'; "
-            "style-src 'self' 'unsafe-inline'; "
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; "
+            "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; "
             "img-src 'self' data: https:; "
-            "font-src 'self'; "
+            "font-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; "
             "connect-src 'self'; "
             "frame-ancestors 'none';"
         )
@@ -198,10 +198,10 @@ class ProductionConfig(Config):
         'Permissions-Policy': 'geolocation=(), microphone=(), camera=()',
         'Content-Security-Policy': (
             "default-src 'self'; "
-            "script-src 'self'; "
-            "style-src 'self'; "
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; "
+            "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; "
             "img-src 'self' data: https:; "
-            "font-src 'self'; "
+            "font-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; "
             "connect-src 'self'; "
             "frame-ancestors 'none';"
         )

@@ -6,6 +6,7 @@
     <title>{% block title %}Admin Panel{% endblock %} - JobHunter Auth</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
     <style>
         .sidebar {
             height: 100vh;
@@ -64,19 +65,19 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ 'active' if 'users' in request.endpoint else '' }}" 
-                   href="{{ url_for('superadmin.manage_users') }}">
+                   href="{{ url_for('superadmin.users') }}">
                     <i class="fas fa-users me-2"></i> Users
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ 'active' if 'roles' in request.endpoint else '' }}" 
-                   href="{{ url_for('superadmin.manage_roles') }}">
+                   href="{{ url_for('superadmin.roles') }}">
                     <i class="fas fa-user-cog me-2"></i> Roles
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ 'active' if 'subscriptions' in request.endpoint else '' }}" 
-                   href="{{ url_for('superadmin.manage_subscriptions') }}">
+                   href="{{ url_for('superadmin.subscriptions') }}">
                     <i class="fas fa-credit-card me-2"></i> Subscriptions
                 </a>
             </li>
@@ -113,7 +114,7 @@
     </div>
 
     <!-- CSRF Token for AJAX requests -->
-    <meta name="csrf-token" content="{{ csrf_token() if csrf_token else '' }}">
+    <meta name="csrf-token" content="{{ csrf_token or '' }}">
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

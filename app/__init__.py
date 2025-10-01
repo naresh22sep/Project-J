@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager, current_user
@@ -48,13 +48,24 @@ def create_app(config_name=None):
     from app.modules.superadmin.routes import superadmin
     from app.modules.prompts.routes import prompts_bp
     
-    # Register legacy blueprints for backwards compatibility
+    # Register authentication routes
     try:
-        from app.modules.auth.routes import auth_bp
+        from app.routes.auth_routes import (
+            auth_bp, superadmin_auth_bp, admin_auth_bp, 
+            jobseeker_auth_bp, consultancy_auth_bp
+        )
+        # Register all role-specific auth blueprints
+        app.register_blueprint(superadmin_auth_bp)
+        app.register_blueprint(admin_auth_bp)
+        app.register_blueprint(jobseeker_auth_bp)
+        app.register_blueprint(consultancy_auth_bp)
+        # Register legacy auth blueprint for compatibility
         app.register_blueprint(auth_bp, url_prefix='/auth')
-    except ImportError:
-        pass  # Auth module will be created later
+        
+    except ImportError as e:
+        print(f"Warning: Could not register auth routes: {e}")
     
+    # Register legacy blueprints for backwards compatibility
     try:
         from app.modules.users.routes import users_bp
         app.register_blueprint(users_bp, url_prefix='/users')
@@ -78,20 +89,27 @@ def create_app(config_name=None):
     # Main application routes
     @app.route('/')
     def index():
-        """Main landing page - route based on user type"""
+        """Main landing page - redirect to role selection or login"""
         if current_user.is_authenticated:
             # Redirect authenticated users to their respective dashboards
-            if current_user.user_type.value == 'job_seeker':
-                return redirect(url_for('jobseeker.dashboard'))
-            elif current_user.user_type.value == 'consultancy':
-                return redirect(url_for('consultancy.dashboard'))
-            elif current_user.user_type.value == 'admin':
-                return redirect(url_for('admin.dashboard'))
-            elif current_user.user_type.value == 'super_admin':
-                return redirect(url_for('superadmin.dashboard'))
+            user_roles = [role.name for role in current_user.get_roles()]
+            
+            if 'superadmin' in user_roles:
+                return redirect('/superadmin/dashboard')
+            elif 'admin' in user_roles:
+                return redirect('/admin/dashboard')
+            elif 'consultancy' in user_roles:
+                return redirect('/consultancy/dashboard')
+            else:
+                return redirect('/jobseeker/dashboard')
         
-        # Show main landing page for anonymous users
-        return render_template('main/index.html')
+        # For anonymous users, show role selection or redirect to superadmin login
+        return redirect('/superadmin/auth/login')
+    
+    @app.route('/login')
+    def login_redirect():
+        """Legacy login redirect - redirect to superadmin login by default"""
+        return redirect('/superadmin/auth/login')
     
     @app.route('/about')
     def about():
@@ -254,5 +272,32 @@ def create_app(config_name=None):
     @app.context_processor
     def inject_user():
         return {'current_user': current_user}
+    
+    @app.context_processor
+    def inject_csrf_token():
+        def csrf_token():
+            try:
+                # Try database-based CSRF token first
+                from app.auth.auth_models import CSRFToken
+                user_id = None
+                if hasattr(current_user, 'is_authenticated') and current_user.is_authenticated:
+                    user_id = getattr(current_user, 'id', None)
+                
+                return CSRFToken.generate_token(
+                    user_id=user_id,
+                    session_id=session.get('session_id'),
+                    ip_address=request.remote_addr if request else None,
+                    user_agent=request.headers.get('User-Agent') if request else None
+                )
+            except Exception as e:
+                # Fallback: return a simple session-based token if database operations fail
+                import secrets
+                
+                # Try to get/create a session-based CSRF token
+                if 'csrf_token' not in session:
+                    session['csrf_token'] = secrets.token_urlsafe(32)
+                
+                return session['csrf_token']
+        return {'csrf_token': csrf_token}
     
     return app

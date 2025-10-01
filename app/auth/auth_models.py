@@ -132,6 +132,15 @@ class AuthUser(UserMixin, db.Model):
         self.last_login = datetime.utcnow()
         db.session.commit()
     
+    def update_last_activity(self):
+        """Update user's last activity timestamp"""
+        self.updated_at = datetime.utcnow()
+        try:
+            db.session.commit()
+        except Exception:
+            # If commit fails, rollback to prevent session issues
+            db.session.rollback()
+    
     def has_role(self, role_name):
         """Check if user has specific role"""
         return self.user_roles.join(Role).filter(Role.name == role_name).first() is not None
