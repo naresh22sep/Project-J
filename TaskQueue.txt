@@ -1,0 +1,56 @@
+1) Fix  issue in  
+
+
+http://localhost:5051/superadmin/industry-types 
+Error:  jinja2.exceptions.TemplateNotFound
+jinja2.exceptions.TemplateNotFound: superadmin/industry_types.html
+
+
+once confirm it is working then start 
+
+2) Fix :
+http://localhost:5051/superadmin/skills 
+jinja2.exceptions.TemplateNotFound
+jinja2.exceptions.TemplateNotFound: superadmin/skills.html
+
+
+
+3) Fix : 
+ http://localhost:5051/superadmin/experience-levels
+
+ jinja2.exceptions.TemplateNotFound
+jinja2.exceptions.TemplateNotFound: superadmin/experience_levels.html
+
+4)http://localhost:5051/superadmin/job-roles
+
+jinja2.exceptions.TemplateNotFound
+jinja2.exceptions.TemplateNotFound: superadmin/job_roles.html
+
+
+5)http://localhost:5051/superadmin/company-types
+
+jinja2.exceptions.TemplateNotFound
+jinja2.exceptions.TemplateNotFound: superadmin/company_types.html
+
+6) http://localhost:5051/superadmin/job-types
+
+jinja2.exceptions.TemplateNotFound
+jinja2.exceptions.TemplateNotFound: superadmin/job_types.html
+
+
+7)http://localhost:5051/superadmin/countries
+jinja2.exceptions.TemplateNotFound
+jinja2.exceptions.TemplateNotFound: superadmin/countries.html
+
+
+8)http://localhost:5051/superadmin/states
+
+jinja2.exceptions.TemplateNotFound
+jinja2.exceptions.TemplateNotFound: superadmin/states.html
+
+
+9)http://localhost:5051/superadmin/cities
+jinja2.exceptions.TemplateNotFound
+jinja2.exceptions.TemplateNotFound: superadmin/cities.html
+
+10) The menu "Job data management" & "Location management" is showing 2 dropdowns
