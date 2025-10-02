@@ -2,6 +2,17 @@
 
 {% block title %}User Details - SuperAdmin Panel{% endblock %}
 
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="{{ url_for('superadmin.users') }}" class="text-decoration-none">
+        <i class="fas fa-users me-1"></i>Users
+    </a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">
+    <i class="fas fa-user me-1"></i>User Details
+</li>
+{% endblock %}
+
 {% block content %}
 <!-- Hidden CSRF Token for JavaScript -->
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" id="csrf-token">
@@ -10,13 +21,6 @@
 <div class="dashboard-header">
     <div class="row">
         <div class="col-sm-6">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.users') }}">Users</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">User Details</li>
-                </ol>
-            </nav>
             <h1 class="h3 mb-0">User Details</h1>
             <p class="text-muted">View and manage user information</p>
         </div>

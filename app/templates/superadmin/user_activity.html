@@ -2,19 +2,27 @@
 
 {% block title %}{{ user.first_name }} {{ user.last_name }} - Activity Log{% endblock %}
 
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="{{ url_for('superadmin.users') }}" class="text-decoration-none">
+        <i class="fas fa-users me-1"></i>Users
+    </a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{{ url_for('superadmin.user_detail', user_id=user.id) }}" class="text-decoration-none">
+        <i class="fas fa-user me-1"></i>{{ user.first_name }} {{ user.last_name }}
+    </a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">
+    <i class="fas fa-history me-1"></i>Activity Log
+</li>
+{% endblock %}
+
 {% block content %}
 <!-- Activity Log Header -->
 <div class="dashboard-header">
     <div class="row">
         <div class="col-sm-6">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.users') }}">Users</a></li>
-                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.user_detail', user_id=user.id) }}">{{ user.first_name }} {{ user.last_name }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Activity Log</li>
-                </ol>
-            </nav>
             <h1 class="h3 mb-0">Activity Log</h1>
             <p class="text-muted">Security events and user activity for {{ user.first_name }} {{ user.last_name }}</p>
         </div>

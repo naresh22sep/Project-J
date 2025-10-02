@@ -12,7 +12,7 @@ login_manager = LoginManager()
 
 def create_app(config_name=None):
     """Application factory pattern"""
-    app = Flask(__name__)
+    app = Flask(__name__, template_folder='templates', static_folder='static')
     
     # Load configuration
     config_name = config_name or os.environ.get('FLASK_ENV', 'development')

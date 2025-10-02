@@ -6,8 +6,23 @@
     <meta name="csrf-token" content="{{ csrf_token }}">
     <title>SuperAdmin - {% block title %}Dashboard{% endblock %}</title>
     
+    <!-- DEBUG: Template file path - app/templates/superadmin/base.html -->
+    
     <!-- Minimalist CSS -->
     <style>
+        .template-debug-info {
+            position: fixed;
+            top: 0;
+            right: 0;
+            background: #007bff;
+            color: white;
+            padding: 2px 8px;
+            font-size: 10px;
+            z-index: 9999;
+            border-bottom-left-radius: 4px;
+            font-family: monospace;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -485,6 +500,11 @@
     </style>
 </head>
 <body>
+    <!-- Template Debug Info -->
+    <div class="template-debug-info">
+        📁 app/templates/superadmin/base.html
+    </div>
+    
     <!-- Header -->
     <header class="header">
         <div class="container">

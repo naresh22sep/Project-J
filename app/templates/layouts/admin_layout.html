@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Admin Panel - JobHunter{% endblock %}</title>
     
+    <!-- DEBUG: Template file path - app/templates/layouts/admin_layout.html -->
+    <style>
+        .template-debug-info {
+            position: fixed;
+            top: 0;
+            right: 0;
+            background: #dc3545;
+            color: white;
+            padding: 2px 8px;
+            font-size: 10px;
+            z-index: 9999;
+            border-bottom-left-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -15,6 +31,11 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body class="admin-body">
+    <!-- Template Debug Info -->
+    <div class="template-debug-info">
+        📁 app/templates/layouts/admin_layout.html
+    </div>
+    
     <!-- Sidebar -->
     <nav class="sidebar bg-dark" id="sidebar">
         <div class="sidebar-header p-3">
@@ -303,11 +324,19 @@
         <div class="container-fluid py-4">
             <!-- Breadcrumb -->
             <nav aria-label="breadcrumb" class="mb-4">
-                <ol class="breadcrumb">
+                <ol class="breadcrumb bg-light rounded-3 p-3 mb-0">
                     {% if session.get('role') == 'superadmin' %}
-                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ url_for('superadmin.dashboard') }}" class="text-decoration-none">
+                            <i class="fas fa-home me-1"></i>Dashboard
+                        </a>
+                    </li>
                     {% else %}
-                    <li class="breadcrumb-item"><a href="{{ url_for('admin.dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ url_for('admin.dashboard') }}" class="text-decoration-none">
+                            <i class="fas fa-home me-1"></i>Dashboard
+                        </a>
+                    </li>
                     {% endif %}
                     {% block breadcrumb %}{% endblock %}
                 </ol>

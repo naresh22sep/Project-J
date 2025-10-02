@@ -379,7 +379,7 @@ class UserPermission(db.Model):
     reason = db.Column(db.Text)
     
     # Relationships
-    granter = db.relationship('AuthUser', foreign_keys=[granted_by], backref='granted_permissions')
+    granter = db.relationship('AuthUser', foreign_keys=[granted_by])
     
     __table_args__ = (db.UniqueConstraint('user_id', 'permission_id'),)
 
