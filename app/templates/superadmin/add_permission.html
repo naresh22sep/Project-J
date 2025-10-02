@@ -1,0 +1,219 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}Add Permission - SuperAdmin Panel{% endblock %}
+
+{% block content %}
+<!-- Add Permission Header -->
+<div class="dashboard-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.permissions') }}">Permissions</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Add Permission</li>
+                </ol>
+            </nav>
+            <h1 class="h3 mb-0">Add New Permission</h1>
+            <p class="text-muted">Create a new system permission</p>
+        </div>
+        <div class="col-sm-6 text-sm-end">
+            <div class="btn-group">
+                <a href="{{ url_for('superadmin.permissions') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Permissions
+                </a>
+                <a href="{{ url_for('superadmin.dashboard') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Permission Form -->
+<div class="row">
+    <div class="col-lg-8">
+        <form method="POST" id="addPermissionForm">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            
+            <!-- Basic Information Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-key me-2"></i>Permission Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Permission Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name" name="name" 
+                                       placeholder="e.g., user.create" required>
+                                <div class="form-text">Unique identifier for the permission (lowercase, dots for hierarchy)</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="display_name" class="form-label">Display Name</label>
+                                <input type="text" class="form-control" id="display_name" name="display_name" 
+                                       placeholder="e.g., Create User">
+                                <div class="form-text">Human-readable name for the permission</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="resource" class="form-label">Resource <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="resource" name="resource" 
+                                       placeholder="e.g., user" required>
+                                <div class="form-text">The resource this permission applies to</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="action" class="form-label">Action <span class="text-danger">*</span></label>
+                                <select class="form-select" id="action" name="action" required>
+                                    <option value="">Select Action</option>
+                                    <option value="create">Create</option>
+                                    <option value="read">Read</option>
+                                    <option value="update">Update</option>
+                                    <option value="delete">Delete</option>
+                                    <option value="list">List</option>
+                                    <option value="view">View</option>
+                                    <option value="edit">Edit</option>
+                                    <option value="manage">Manage</option>
+                                </select>
+                                <div class="form-text">The action this permission allows</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" 
+                                  placeholder="Describe what this permission allows..."></textarea>
+                        <div class="form-text">Optional description of the permission's purpose</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Actions Card -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <button type="button" class="btn btn-outline-secondary" onclick="history.back()">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </button>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>Create Permission
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Help Card -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-question-circle me-2"></i>Permission Guidelines
+                </h5>
+            </div>
+            <div class="card-body">
+                <h6>Naming Convention</h6>
+                <ul class="small">
+                    <li><strong>Format:</strong> resource.action</li>
+                    <li><strong>Example:</strong> user.create, role.delete</li>
+                    <li><strong>Use lowercase:</strong> Consistent naming</li>
+                </ul>
+                
+                <h6 class="mt-3">Common Resources</h6>
+                <ul class="small">
+                    <li><strong>user:</strong> User management</li>
+                    <li><strong>role:</strong> Role management</li>
+                    <li><strong>job:</strong> Job postings</li>
+                    <li><strong>subscription:</strong> Subscriptions</li>
+                    <li><strong>system:</strong> System settings</li>
+                </ul>
+                
+                <h6 class="mt-3">Standard Actions</h6>
+                <ul class="small">
+                    <li><strong>create:</strong> Create new resources</li>
+                    <li><strong>read/view:</strong> View resource details</li>
+                    <li><strong>update/edit:</strong> Modify resources</li>
+                    <li><strong>delete:</strong> Remove resources</li>
+                    <li><strong>list:</strong> List multiple resources</li>
+                </ul>
+                
+                <div class="alert alert-info mt-3">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Tip:</strong> Use consistent naming to make permissions easy to understand and manage.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Auto-generate permission name based on resource and action
+document.getElementById('resource').addEventListener('input', updatePermissionName);
+document.getElementById('action').addEventListener('change', updatePermissionName);
+
+function updatePermissionName() {
+    const resource = document.getElementById('resource').value.toLowerCase().trim();
+    const action = document.getElementById('action').value.toLowerCase().trim();
+    const nameField = document.getElementById('name');
+    
+    if (resource && action && !nameField.value) {
+        nameField.value = `${resource}.${action}`;
+    }
+}
+
+// Auto-generate display name
+document.getElementById('name').addEventListener('input', function() {
+    const displayNameField = document.getElementById('display_name');
+    
+    if (!displayNameField.value && this.value) {
+        // Convert "user.create" to "Create User"
+        const parts = this.value.split('.');
+        if (parts.length === 2) {
+            const action = parts[1].charAt(0).toUpperCase() + parts[1].slice(1);
+            const resource = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
+            displayNameField.value = `${action} ${resource}`;
+        }
+    }
+});
+
+// Form validation
+document.getElementById('addPermissionForm').addEventListener('submit', function(e) {
+    const name = document.getElementById('name').value.trim();
+    const resource = document.getElementById('resource').value.trim();
+    const action = document.getElementById('action').value.trim();
+    
+    if (!name || !resource || !action) {
+        e.preventDefault();
+        alert('Please fill in all required fields.');
+        return false;
+    }
+    
+    // Validate name format
+    if (!/^[a-z][a-z0-9]*(\.[a-z][a-z0-9]*)*$/.test(name)) {
+        e.preventDefault();
+        alert('Permission name must be lowercase and use dots for hierarchy (e.g., user.create)');
+        return false;
+    }
+});
+</script>
+{% endblock %}

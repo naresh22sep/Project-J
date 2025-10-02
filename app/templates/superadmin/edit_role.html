@@ -1,0 +1,369 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}Edit Role - SuperAdmin Panel{% endblock %}
+
+{% block content %}
+<!-- Edit Role Header -->
+<div class="dashboard-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.roles') }}">Roles</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Role</li>
+                </ol>
+            </nav>
+            <h1 class="h3 mb-0">Edit Role: {{ role.display_name or role.name.title() }}</h1>
+            <p class="text-muted">Modify role permissions and settings</p>
+        </div>
+        <div class="col-sm-6 text-sm-end">
+            <div class="btn-group">
+                <a href="{{ url_for('superadmin.roles') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Roles
+                </a>
+                <a href="{{ url_for('superadmin.dashboard') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Role Form -->
+<div class="row">
+    <div class="col-lg-8">
+        <form method="POST" id="editRoleForm">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            
+            <!-- Basic Information Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-shield-alt me-2"></i>Role Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Role Name</label>
+                                <input type="text" class="form-control" id="name" value="{{ role.name }}" disabled>
+                                <div class="form-text">Role name cannot be changed</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="display_name" class="form-label">Display Name</label>
+                                <input type="text" class="form-control" id="display_name" name="display_name" 
+                                       value="{{ role.display_name or '' }}" placeholder="e.g., Manager">
+                                <div class="form-text">Human-readable name</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" 
+                                  placeholder="Describe the role's purpose and responsibilities">{{ role.description or '' }}</textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="level" class="form-label">Role Level</label>
+                                <select class="form-select" id="level" name="level">
+                                    <option value="10" {% if role.level == 10 %}selected{% endif %}>10 - Basic User</option>
+                                    <option value="25" {% if role.level == 25 %}selected{% endif %}>25 - Standard User</option>
+                                    <option value="50" {% if role.level == 50 %}selected{% endif %}>50 - Power User</option>
+                                    <option value="75" {% if role.level == 75 %}selected{% endif %}>75 - Administrator</option>
+                                    <option value="90" {% if role.level == 90 %}selected{% endif %}>90 - Senior Administrator</option>
+                                </select>
+                                <div class="form-text">Higher levels have more authority</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <div class="form-check form-switch mt-4">
+                                    <input class="form-check-input" type="checkbox" id="is_system_role" 
+                                           {% if role.is_system_role %}checked disabled{% endif %}>
+                                    <label class="form-check-label" for="is_system_role">
+                                        <strong>System Role</strong>
+                                    </label>
+                                    <div class="form-text">System roles cannot be modified</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Permissions Card -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-key me-2"></i>Role Permissions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if permissions %}
+                    <div class="permission-selector" style="max-height: 400px; overflow-y: auto;">
+                        {% set permission_groups = permissions|groupby('resource') %}
+                        {% set role_permission_ids = role.permissions.all()|map(attribute='id')|list %}
+                        {% for resource, perms in permission_groups %}
+                        <div class="mb-4">
+                            <h6 class="text-uppercase text-muted small fw-bold border-bottom pb-2">
+                                {{ resource.title() }}
+                                <button type="button" class="btn btn-sm btn-outline-secondary float-end" 
+                                        onclick="toggleGroupPermissions('{{ resource }}')">
+                                    Select All
+                                </button>
+                            </h6>
+                            <div class="row">
+                                {% for perm in perms %}
+                                <div class="col-md-6 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input permission-checkbox" 
+                                               data-group="{{ resource }}"
+                                               type="checkbox" 
+                                               id="perm_{{ perm.id }}" 
+                                               name="permissions" 
+                                               value="{{ perm.id }}"
+                                               {% if perm.id in role_permission_ids %}checked{% endif %}>
+                                        <label class="form-check-label" for="perm_{{ perm.id }}">
+                                            <strong>{{ perm.display_name or perm.name }}</strong>
+                                            {% if perm.description %}
+                                            <br><small class="text-muted">{{ perm.description }}</small>
+                                            {% endif %}
+                                        </label>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-key fa-2x text-muted mb-3"></i>
+                        <p class="text-muted">No permissions available.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-save me-2"></i>Update Role
+                            </button>
+                            <a href="{{ url_for('superadmin.roles') }}" class="btn btn-outline-secondary btn-lg ms-2">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                        </div>
+                        <div>
+                            <button type="reset" class="btn btn-outline-warning">
+                                <i class="fas fa-undo me-2"></i>Reset Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Role Info Sidebar -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-info-circle me-2"></i>Role Details
+                </h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm table-borderless">
+                    <tr>
+                        <td><strong>Internal Name:</strong></td>
+                        <td><code>{{ role.name }}</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Current Level:</strong></td>
+                        <td>
+                            <span class="badge 
+                                {% if role.level == 100 %}bg-danger
+                                {% elif role.level >= 80 %}bg-warning
+                                {% elif role.level >= 50 %}bg-primary
+                                {% else %}bg-secondary{% endif %}">
+                                Level {{ role.level or 0 }}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Users:</strong></td>
+                        <td>{{ role.get_users_count() }} users</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Permissions:</strong></td>
+                        <td>{{ role.permissions.count() if role.permissions else 0 }} permissions</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Created:</strong></td>
+                        <td>{{ role.created_at.strftime('%Y-%m-%d') if role.created_at else 'Unknown' }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Status:</strong></td>
+                        <td>
+                            {% if role.is_system_role %}
+                                <span class="badge bg-warning">
+                                    <i class="fas fa-lock me-1"></i>System Role
+                                </span>
+                            {% else %}
+                                <span class="badge bg-success">
+                                    <i class="fas fa-edit me-1"></i>Custom Role
+                                </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Current Permissions -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-list me-2"></i>Current Permissions
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if role.permissions.count() > 0 %}
+                <div class="current-permissions" style="max-height: 300px; overflow-y: auto;">
+                    {% set current_groups = role.permissions.all()|groupby('resource') %}
+                    {% for resource, perms in current_groups %}
+                    <div class="mb-3">
+                        <h6 class="text-uppercase text-muted small fw-bold">{{ resource.title() }}</h6>
+                        {% for perm in perms %}
+                        <div class="mb-1">
+                            <span class="badge bg-primary me-1">{{ perm.action }}</span>
+                            <small>{{ perm.display_name or perm.name }}</small>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted">No permissions assigned to this role.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Help & Tips -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-lightbulb me-2"></i>Tips
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="small">
+                    <div class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Select permissions carefully based on role responsibilities
+                    </div>
+                    <div class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Higher role levels inherit lower level permissions
+                    </div>
+                    <div class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        System roles are protected and cannot be deleted
+                    </div>
+                    <div class="mb-0">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Changes take effect immediately for new sessions
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.permission-selector {
+    background-color: #fafafa;
+    border-radius: 0.375rem;
+    padding: 1rem;
+}
+
+.permission-checkbox:checked + label {
+    color: #0d6efd;
+    font-weight: 600;
+}
+
+.current-permissions .badge {
+    font-size: 0.7rem;
+}
+
+.table-borderless td {
+    border: none;
+    padding: 0.25rem 0.5rem;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Toggle group permissions
+function toggleGroupPermissions(group) {
+    const checkboxes = document.querySelectorAll(`.permission-checkbox[data-group="${group}"]`);
+    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+    
+    checkboxes.forEach(cb => {
+        cb.checked = !allChecked;
+    });
+}
+
+// Form validation
+document.getElementById('editRoleForm').addEventListener('submit', function(e) {
+    // Check if at least one permission is selected
+    const selectedPermissions = document.querySelectorAll('input[name="permissions"]:checked');
+    if (selectedPermissions.length === 0) {
+        e.preventDefault();
+        alert('Please select at least one permission for this role.');
+        return false;
+    }
+    
+    // Show loading state
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Updating Role...';
+    submitBtn.disabled = true;
+    
+    return true;
+});
+
+// Reset form
+document.querySelector('button[type="reset"]').addEventListener('click', function(e) {
+    e.preventDefault();
+    if (confirm('Are you sure you want to reset all changes?')) {
+        location.reload();
+    }
+});
+
+// Real-time permission count update
+document.addEventListener('change', function(e) {
+    if (e.target.classList.contains('permission-checkbox')) {
+        const selectedCount = document.querySelectorAll('input[name="permissions"]:checked').length;
+        const totalCount = document.querySelectorAll('input[name="permissions"]').length;
+        
+        // You could add a counter display here if desired
+        console.log(`${selectedCount}/${totalCount} permissions selected`);
+    }
+});
+</script>
+{% endblock %}

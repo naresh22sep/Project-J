@@ -25,6 +25,22 @@ def create_app(config_name=None):
     # Apply security configuration
     security_config = apply_security_config(app, config_name)
     
+    # Add context processors for templates
+    @app.context_processor
+    def inject_csrf_token():
+        def csrf_token():
+            try:
+                # Try to get/create a session-based CSRF token
+                if 'csrf_token' not in session:
+                    import secrets
+                    session['csrf_token'] = secrets.token_urlsafe(32)
+                return session['csrf_token']
+            except Exception as e:
+                # Fallback: generate a temporary token
+                import secrets
+                return secrets.token_urlsafe(32)
+        return {'csrf_token': csrf_token}
+    
     # Initialize extensions
     db.init_app(app)
     migrate.init_app(app, db)
@@ -110,6 +126,14 @@ def register_blueprints(app):
         app.register_blueprint(superadmin_bp, url_prefix='/superadmin')
     except ImportError:
         print("Note: SuperAdmin routes not found, using auth routes only")
+    
+    # Admin routes (if they exist)
+    try:
+        from app.modules.admin.routes import admin
+        app.register_blueprint(admin, url_prefix='/admin')
+        print("✅ Admin blueprint registered successfully")
+    except ImportError:
+        print("Note: Admin routes not found")
     
     # Health check endpoint
     @app.route('/health')
@@ -219,7 +243,7 @@ def initialize_database():
         # Import models
         from app.auth.auth_models import (
             Role, Permission, AuthUser, SubscriptionPlan, 
-            SubscriptionFeature, SecurityEventType
+            SubscriptionFeature, SecurityEventType, JobPortal, UserPortalAccess
         )
         
         # Create default roles if they don't exist
@@ -335,8 +359,10 @@ def initialize_database():
                     name=plan_config['name'],
                     display_name=plan_config['name'],
                     description=f"{plan_config['name']} subscription plan",
+                    plan_type=plan_config.get('plan_type', 'consultancy'),
                     price_monthly=plan_config.get('price', 0.00),
                     price_yearly=plan_config.get('yearly_price', plan_config.get('price', 0.00) * 10),
+                    max_job_portals=plan_config['features'].get('portal_access_count', 0),
                     is_active=True
                 )
                 db.session.add(plan)

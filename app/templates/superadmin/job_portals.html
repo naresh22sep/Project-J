@@ -1,0 +1,276 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}Job Portals Management{% endblock %}
+
+{% block extra_css %}
+<style>
+.portal-card { transition: transform 0.2s; }
+.portal-card:hover { transform: translateY(-2px); }
+.portal-logo { max-height: 40px; width: auto; }
+.status-badge { font-size: 0.8rem; }
+.api-indicator { background-color: #e3f2fd; color: #1976d2; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0">Job Portals Management</h1>
+            <p class="text-muted">Manage job portal integrations and settings</p>
+        </div>
+        <a href="{{ url_for('superadmin.add_job_portal') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add Job Portal
+        </a>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Portals</h5>
+                    <div class="display-6">{{ portals.total }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Active Portals</h5>
+                    <div class="display-6">
+                        {% set active_count = portals.items | selectattr('is_active', 'equalto', true) | list | length %}
+                        {{ active_count }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
+                <div class="card-body text-center">
+                    <h5 class="card-title">API Enabled</h5>
+                    <div class="display-6">
+                        {% set api_count = portals.items | selectattr('api_integration', 'equalto', true) | list | length %}
+                        {{ api_count }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-white">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Inactive</h5>
+                    <div class="display-6">
+                        {% set inactive_count = portals.items | selectattr('is_active', 'equalto', false) | list | length %}
+                        {{ inactive_count }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="GET" action="{{ url_for('superadmin.job_portals') }}" class="row g-3">
+                <div class="col-md-4">
+                    <label for="search" class="form-label">Search</label>
+                    <input type="text" class="form-control" id="search" name="search" 
+                           value="{{ request.args.get('search', '') }}" 
+                           placeholder="Search by name or display name">
+                </div>
+                <div class="col-md-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" id="status" name="status">
+                        <option value="">All Statuses</option>
+                        <option value="active" {% if request.args.get('status') == 'active' %}selected{% endif %}>Active</option>
+                        <option value="inactive" {% if request.args.get('status') == 'inactive' %}selected{% endif %}>Inactive</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="per_page" class="form-label">Per Page</label>
+                    <select class="form-select" name="per_page">
+                        <option value="10" {% if request.args.get('per_page', '20') == '10' %}selected{% endif %}>10</option>
+                        <option value="20" {% if request.args.get('per_page', '20') == '20' %}selected{% endif %}>20</option>
+                        <option value="50" {% if request.args.get('per_page', '20') == '50' %}selected{% endif %}>50</option>
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary me-2">
+                        <i class="fas fa-search"></i> Filter
+                    </button>
+                    <a href="{{ url_for('superadmin.job_portals') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-times"></i> Clear
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Job Portals Grid -->
+    {% if portals.items %}
+    <div class="row">
+        {% for portal in portals.items %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card portal-card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        {% if portal.logo_url %}
+                        <img src="{{ portal.logo_url }}" alt="{{ portal.display_name }}" class="portal-logo me-2">
+                        {% else %}
+                        <i class="fas fa-briefcase fa-2x text-primary me-2"></i>
+                        {% endif %}
+                        <h6 class="mb-0">{{ portal.display_name }}</h6>
+                    </div>
+                    <div>
+                        {% if portal.is_active %}
+                        <span class="badge bg-success status-badge">Active</span>
+                        {% else %}
+                        <span class="badge bg-secondary status-badge">Inactive</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <p class="card-text text-muted small">{{ portal.description[:100] }}{% if portal.description|length > 100 %}...{% endif %}</p>
+                    
+                    <div class="mb-2">
+                        <strong>Website:</strong> 
+                        <a href="{{ portal.website_url }}" target="_blank" class="text-decoration-none">
+                            {{ portal.website_url[:30] }}{% if portal.website_url|length > 30 %}...{% endif %}
+                            <i class="fas fa-external-link-alt fa-xs"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="mb-2">
+                        <strong>Sort Order:</strong> {{ portal.sort_order }}
+                    </div>
+                    
+                    {% if portal.api_integration %}
+                    <div class="mb-2">
+                        <span class="api-indicator">
+                            <i class="fas fa-plug"></i> API Enabled
+                        </span>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="text-muted small">
+                        Created: {% if portal.created_at %}{{ portal.created_at.strftime('%Y-%m-%d') }}{% else %}Unknown{% endif %}
+                    </div>
+                </div>
+                
+                <div class="card-footer bg-transparent">
+                    <div class="btn-group w-100" role="group">
+                        <a href="{{ url_for('superadmin.edit_job_portal', id=portal.id) }}" 
+                           class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <button type="button" class="btn btn-outline-danger btn-sm" 
+                                onclick="confirmDelete({{ portal.id }}, '{{ portal.display_name }}')">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if portals.pages > 1 %}
+    <nav aria-label="Job portals pagination" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if portals.has_prev %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('superadmin.job_portals', page=portals.prev_num, **request.args) }}">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </a>
+            </li>
+            {% endif %}
+            
+            {% for page_num in portals.iter_pages() %}
+                {% if page_num %}
+                    {% if page_num != portals.page %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('superadmin.job_portals', page=page_num, **request.args) }}">
+                    {{ page_num }}
+                </a>
+            </li>
+                    {% else %}
+            <li class="page-item active">
+                <span class="page-link">{{ page_num }}</span>
+            </li>
+                    {% endif %}
+                {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">...</span>
+            </li>
+                {% endif %}
+            {% endfor %}
+            
+            {% if portals.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('superadmin.job_portals', page=portals.next_num, **request.args) }}">
+                    Next <i class="fas fa-chevron-right"></i>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    
+    <div class="text-center text-muted small mt-2">
+        Showing {{ ((portals.page - 1) * portals.per_page) + 1 }} to 
+        {{ ((portals.page - 1) * portals.per_page) + portals.items|length }} of {{ portals.total }} portals
+    </div>
+    {% endif %}
+    {% else %}
+    <div class="text-center py-5">
+        <i class="fas fa-briefcase fa-3x text-muted mb-3"></i>
+        <h5 class="text-muted">No job portals found</h5>
+        <p class="text-muted">Add your first job portal to get started.</p>
+        <a href="{{ url_for('superadmin.add_job_portal') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add Job Portal
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the job portal "<span id="portalName"></span>"?</p>
+                <p class="text-warning small">
+                    <i class="fas fa-exclamation-triangle"></i> 
+                    This action cannot be undone and will affect users who have access to this portal.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="deleteForm" method="POST" style="display: inline;">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-danger">Delete Portal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function confirmDelete(portalId, portalName) {
+    document.getElementById('portalName').textContent = portalName;
+    document.getElementById('deleteForm').action = '{{ url_for("superadmin.job_portals") }}/' + portalId + '/delete';
+    
+    const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    modal.show();
+}
+</script>
+{% endblock %}

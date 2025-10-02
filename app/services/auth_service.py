@@ -529,11 +529,25 @@ def csrf_protect(f):
     def decorated_function(*args, **kwargs):
         if request.method in ['POST', 'PUT', 'DELETE', 'PATCH']:
             csrf_token = request.form.get('csrf_token') or request.headers.get('X-CSRF-Token')
-            user = getattr(request, 'current_user', None)
+            
+            # Get current user from Flask g object or request
+            from flask import g
+            user = getattr(g, 'current_user', None) or getattr(request, 'current_user', None)
             user_id = user.id if user else None
             
-            if not SecurityService.validate_csrf_token(csrf_token, user_id):
+            # For session-based CSRF (when no user), validate against session token
+            if not csrf_token:
                 return {'error': 'CSRF token validation failed'}, 403
+                
+            # Session-based CSRF validation (fallback for when user_id is None)
+            if not user_id:
+                session_csrf = session.get('csrf_token')
+                if csrf_token != session_csrf:
+                    return {'error': 'CSRF token validation failed'}, 403
+            else:
+                # User-based CSRF validation
+                if not SecurityService.validate_csrf_token(csrf_token, user_id):
+                    return {'error': 'CSRF token validation failed'}, 403
         
         return f(*args, **kwargs)
     

@@ -1,0 +1,49 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}User Management - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <h1 class="h3 mb-0">User Management</h1>
+            <p class="text-muted">Manage all users on the platform</p>
+        </div>
+        <div class="col-sm-6 text-sm-end">
+            <button class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Add New User
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">All Users</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Joined</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-muted">
+                            <i class="fas fa-users fa-2x mb-3"></i>
+                            <div>No users found or data not loaded yet</div>
+                            <small>This would display actual user data from the database</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

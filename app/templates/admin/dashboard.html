@@ -167,12 +167,17 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <span class="badge 
-                                            {% if user.user_type.value == 'job_seeker' %}bg-info
-                                            {% elif user.user_type.value == 'consultancy' %}bg-success
-                                            {% else %}bg-primary{% endif %}">
-                                            {{ user.user_type.value.replace('_', ' ').title() }}
-                                        </span>
+                                        {% set primary_role = user.get_roles()[0] if user.get_roles() else None %}
+                                        {% if primary_role %}
+                                            <span class="badge 
+                                                {% if primary_role.name == 'jobseeker' %}bg-info
+                                                {% elif primary_role.name == 'consultancy' %}bg-success
+                                                {% else %}bg-primary{% endif %}">
+                                                {{ primary_role.name.replace('_', ' ').title() }}
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">No Role</span>
+                                        {% endif %}
                                     </td>
                                     <td>
                                         <span class="badge {% if user.is_active %}bg-success{% else %}bg-danger{% endif %}">

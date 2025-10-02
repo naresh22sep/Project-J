@@ -1,0 +1,241 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}Subscription Features Management{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Include Subscription Sidebar -->
+        {% include 'superadmin/_subscription_sidebar.html' %}
+        
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <!-- Header -->
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <h2 class="h3 text-dark fw-bold">
+                        <i class="fas fa-puzzle-piece me-2"></i>Subscription Features Management
+                    </h2>
+                    <p class="text-muted">Manage features across all subscription plans</p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <a href="{{ url_for('superadmin.add_subscription_plan') }}" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Add New Plan
+                    </a>
+                </div>
+            </div>
+
+            <!-- Feature Categories Overview -->
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0"><i class="fas fa-tags me-2"></i>Feature Categories</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                {% for category in features_by_category %}
+                                <div class="col-md-3 mb-3">
+                                    <div class="text-center p-3 border rounded">
+                                        <h4 class="text-primary">{{ category.count }}</h4>
+                                        <small class="text-muted text-capitalize">{{ category.feature_category }}</small>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Popular Features -->
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0"><i class="fas fa-star me-2"></i>Most Common Features</h5>
+                            <small class="text-muted">Features used across multiple plans</small>
+                        </div>
+                        <div class="card-body">
+                            {% if unique_features %}
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Feature Name</th>
+                                            <th>Feature Key</th>
+                                            <th>Used in Plans</th>
+                                            <th>Popularity</th>
+                                            <th class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for feature in unique_features %}
+                                        <tr>
+                                            <td>
+                                                <div class="fw-semibold">{{ feature.feature_name }}</div>
+                                            </td>
+                                            <td>
+                                                <code class="text-muted">{{ feature.feature_key }}</code>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-info">{{ feature.plan_count }} plans</span>
+                                            </td>
+                                            <td>
+                                                <div class="progress" style="height: 10px;">
+                                                    <div class="progress-bar bg-success" role="progressbar" 
+                                                         style="width: {% if unique_features[0].plan_count > 0 %}{{ (feature.plan_count / unique_features[0].plan_count * 100)|round }}{% else %}0{% endif %}%"></div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <button class="btn btn-outline-primary btn-sm" onclick="showFeatureDetails('{{ feature.feature_key }}')">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% else %}
+                            <div class="text-center py-4">
+                                <i class="fas fa-puzzle-piece fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">No features found. Add some features to your subscription plans.</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features by Plan -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0"><i class="fas fa-layer-group me-2"></i>Features by Plan</h5>
+                        </div>
+                        <div class="card-body">
+                            {% if features_by_plan %}
+                            {% set current_plan = '' %}
+                            {% for plan_name, plan_type, feature in features_by_plan %}
+                                {% if plan_name != current_plan %}
+                                    {% if current_plan != '' %}
+                                        </div></div>
+                                    {% endif %}
+                                    {% set current_plan = plan_name %}
+                                    <div class="plan-section mb-4">
+                                        <h6 class="fw-bold mb-2">
+                                            {{ plan_name }}
+                                            {% if plan_type == 'jobseeker' %}
+                                            <span class="badge bg-info ms-2">Job Seeker</span>
+                                            {% else %}
+                                            <span class="badge bg-primary ms-2">Consultancy</span>
+                                            {% endif %}
+                                        </h6>
+                                        <div class="row">
+                                {% endif %}
+                                
+                                <div class="col-md-4 mb-2">
+                                    <div class="border rounded p-2 bg-light">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div>
+                                                <div class="fw-semibold small">{{ feature.feature_name }}</div>
+                                                <code class="text-muted" style="font-size: 0.75rem;">{{ feature.feature_key }}</code>
+                                            </div>
+                                            <div class="text-end">
+                                                {% if feature.is_unlimited %}
+                                                <span class="badge bg-warning text-dark">∞</span>
+                                                {% elif feature.is_boolean %}
+                                                {% if feature.feature_value.lower() in ['true', '1', 'yes'] %}
+                                                <span class="badge bg-success">✓</span>
+                                                {% else %}
+                                                <span class="badge bg-secondary">✗</span>
+                                                {% endif %}
+                                                {% else %}
+                                                <span class="badge bg-info">{{ feature.feature_value }}</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="mt-1">
+                                            <small class="text-muted text-capitalize">{{ feature.feature_category }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            {% if current_plan != '' %}
+                                </div></div>
+                            {% endif %}
+                            {% else %}
+                            <div class="text-center py-4">
+                                <i class="fas fa-layer-group fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">No plans with features found.</p>
+                                <a href="{{ url_for('superadmin.add_subscription_plan') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus me-2"></i>Create Your First Plan
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Feature Details Modal -->
+<div class="modal fade" id="featureDetailsModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Feature Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="featureDetailsContent">
+                <!-- Content will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showFeatureDetails(featureKey) {
+    // This would typically load feature details via AJAX
+    document.getElementById('featureDetailsContent').innerHTML = `
+        <div class="text-center py-3">
+            <h6>Feature: <code>${featureKey}</code></h6>
+            <p class="text-muted">Feature details would be shown here.</p>
+        </div>
+    `;
+    
+    // Show modal (requires Bootstrap 5)
+    new bootstrap.Modal(document.getElementById('featureDetailsModal')).show();
+}
+</script>
+
+<style>
+.plan-section {
+    border-left: 4px solid #007bff;
+    padding-left: 1rem;
+    margin-bottom: 2rem;
+}
+
+.plan-section:nth-child(odd) {
+    border-left-color: #17a2b8;
+}
+
+.progress {
+    background-color: #f8f9fa;
+}
+
+code {
+    font-size: 0.8rem;
+    background-color: #f8f9fa;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+}
+</style>
+{% endblock %}

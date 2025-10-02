@@ -234,7 +234,7 @@
                                                class="btn btn-primary btn-sm me-2">
                                                 <i class="fas fa-eye"></i> View Details
                                             </a>
-                                            {% if current_user.is_authenticated and current_user.user_type.value == 'job_seeker' %}
+                                            {% if current_user.is_authenticated and current_user.has_role('jobseeker') %}
                                             <button class="btn btn-outline-primary btn-sm apply-btn" 
                                                     data-job-id="{{ job.id }}">
                                                 <i class="fas fa-paper-plane"></i> Apply

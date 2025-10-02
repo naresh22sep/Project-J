@@ -67,21 +67,131 @@
         
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 0;
             list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            position: relative;
         }
         
         .nav-links a {
             color: #ecf0f1;
             text-decoration: none;
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.25rem;
             border-radius: 4px;
-            transition: background 0.2s;
+            transition: all 0.2s ease;
+            display: block;
+            white-space: nowrap;
         }
         
         .nav-links a:hover,
         .nav-links a.active {
             background: #34495e;
+            color: #fff;
+        }
+        
+        /* Dropdown Navigation */
+        .nav-dropdown {
+            position: relative;
+        }
+        
+        .nav-dropdown > a::after {
+            content: ' ▼';
+            font-size: 0.75em;
+            margin-left: 0.5rem;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #34495e;
+            min-width: 220px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+            z-index: 1000;
+        }
+        
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu li {
+            border-bottom: 1px solid #2c3e50;
+        }
+        
+        .dropdown-menu li:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-menu a {
+            padding: 0.75rem 1rem;
+            color: #ecf0f1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .dropdown-menu a:hover {
+            background: #2c3e50;
+            color: #3498db;
+        }
+        
+        .dropdown-menu a.active {
+            background: #3498db;
+            color: #fff;
+        }
+        
+        .dropdown-icon {
+            font-size: 0.9em;
+            width: 16px;
+            text-align: center;
+        }
+        
+        /* Responsive Navigation */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 0;
+                width: 100%;
+            }
+            
+            .nav-links li {
+                width: 100%;
+            }
+            
+            .nav-links a {
+                padding: 1rem;
+                border-radius: 0;
+                border-bottom: 1px solid #34495e;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: #2c3e50;
+                margin-left: 1rem;
+            }
+            
+            .nav-dropdown > a::after {
+                content: ' ▶';
+            }
+            
+            .nav-dropdown:hover > a::after {
+                content: ' ▼';
+            }
         }
         
         /* Main Content */
@@ -396,11 +506,58 @@
     <nav class="nav">
         <div class="container">
             <ul class="nav-links">
-                <li><a href="{{ url_for('superadmin.dashboard') }}" {% if request.endpoint == 'superadmin.dashboard' %}class="active"{% endif %}>Dashboard</a></li>
-                <li><a href="{{ url_for('superadmin.users') }}" {% if request.endpoint == 'superadmin.users' %}class="active"{% endif %}>Users</a></li>
-                <li><a href="{{ url_for('superadmin.roles') }}" {% if request.endpoint == 'superadmin.roles' %}class="active"{% endif %}>Roles & Permissions</a></li>
-                <li><a href="{{ url_for('superadmin.subscriptions') }}" {% if request.endpoint == 'superadmin.subscriptions' %}class="active"{% endif %}>Subscriptions</a></li>
-                <li><a href="{{ url_for('superadmin.security_logs') }}" {% if request.endpoint == 'superadmin.security_logs' %}class="active"{% endif %}>Security</a></li>
+                <li><a href="{{ url_for('superadmin.dashboard') }}" {% if request.endpoint == 'superadmin.dashboard' %}class="active"{% endif %}>
+                    <span class="dropdown-icon">📊</span> Dashboard
+                </a></li>
+                
+                <li><a href="{{ url_for('superadmin.users') }}" {% if request.endpoint == 'superadmin.users' %}class="active"{% endif %}>
+                    <span class="dropdown-icon">👥</span> Users
+                </a></li>
+                
+                <li><a href="{{ url_for('superadmin.roles') }}" {% if request.endpoint == 'superadmin.roles' %}class="active"{% endif %}>
+                    <span class="dropdown-icon">🔐</span> Roles & Permissions
+                </a></li>
+                
+                <!-- Subscription Management Dropdown -->
+                <li class="nav-dropdown">
+                    <a href="#" {% if 'subscription' in request.endpoint %}class="active"{% endif %}>
+                        <span class="dropdown-icon">💳</span> Subscriptions
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('superadmin.subscription_dashboard') }}" 
+                               {% if request.endpoint == 'superadmin.subscription_dashboard' %}class="active"{% endif %}>
+                            <span class="dropdown-icon">📊</span> Dashboard
+                        </a></li>
+                        <li><a href="{{ url_for('superadmin.subscription_plans') }}" 
+                               {% if 'subscription_plan' in request.endpoint %}class="active"{% endif %}>
+                            <span class="dropdown-icon">⚙️</span> All Plans
+                        </a></li>
+                        <li><a href="{{ url_for('superadmin.subscription_plans') }}?plan_type=jobseeker" 
+                               {% if request.args.get('plan_type') == 'jobseeker' %}class="active"{% endif %}>
+                            <span class="dropdown-icon">🎯</span> Job Seeker Plans
+                        </a></li>
+                        <li><a href="{{ url_for('superadmin.subscription_plans') }}?plan_type=consultancy" 
+                               {% if request.args.get('plan_type') == 'consultancy' %}class="active"{% endif %}>
+                            <span class="dropdown-icon">🏢</span> Consultancy Plans
+                        </a></li>
+                        <li><a href="{{ url_for('superadmin.add_subscription_plan') }}" 
+                               {% if request.endpoint == 'superadmin.add_subscription_plan' %}class="active"{% endif %}>
+                            <span class="dropdown-icon">➕</span> Add New Plan
+                        </a></li>
+                        <li><a href="{{ url_for('superadmin.subscriptions') }}" 
+                               {% if request.endpoint == 'superadmin.subscriptions' %}class="active"{% endif %}>
+                            <span class="dropdown-icon">👤</span> User Subscriptions
+                        </a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="{{ url_for('superadmin.job_portals') }}" {% if 'job_portal' in request.endpoint %}class="active"{% endif %}>
+                    <span class="dropdown-icon">🌐</span> Job Portals
+                </a></li>
+                
+                <li><a href="{{ url_for('superadmin.security_logs') }}" {% if request.endpoint == 'superadmin.security_logs' %}class="active"{% endif %}>
+                    <span class="dropdown-icon">🔒</span> Security
+                </a></li>
             </ul>
         </div>
     </nav>
@@ -420,7 +577,7 @@
             {% endwith %}
             
             <!-- Page Title -->
-            <h1 class="page-title">{% block page_title %}{% block title %}Dashboard{% endblock %}{% endblock %}</h1>
+            <h1 class="page-title">{% block page_title %}Dashboard{% endblock %}</h1>
             
             <!-- Page Content -->
             {% block content %}{% endblock %}

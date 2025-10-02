@@ -1,0 +1,357 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}Create Role - SuperAdmin Panel{% endblock %}
+
+{% block content %}
+<!-- Create Role Header -->
+<div class="dashboard-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.roles') }}">Roles</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Create Role</li>
+                </ol>
+            </nav>
+            <h1 class="h3 mb-0">Create New Role</h1>
+            <p class="text-muted">Define a new role with specific permissions</p>
+        </div>
+        <div class="col-sm-6 text-sm-end">
+            <div class="btn-group">
+                <a href="{{ url_for('superadmin.roles') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Roles
+                </a>
+                <a href="{{ url_for('superadmin.dashboard') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Role Form -->
+<div class="row">
+    <div class="col-lg-8">
+        <form method="POST" id="createRoleForm">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            
+            <!-- Basic Information Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-shield-alt me-2"></i>Role Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Role Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name" name="name" 
+                                       placeholder="e.g., content_manager" required>
+                                <div class="form-text">Unique identifier for the role (lowercase, underscores allowed)</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="display_name" class="form-label">Display Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="display_name" name="display_name" 
+                                       placeholder="e.g., Content Manager" required>
+                                <div class="form-text">Human-readable name for the role</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="level" class="form-label">Role Level <span class="text-danger">*</span></label>
+                                <select class="form-select" id="level" name="level" required>
+                                    <option value="">Select Level</option>
+                                    <option value="10">Level 10 - Basic User</option>
+                                    <option value="20">Level 20 - Contributor</option>
+                                    <option value="30">Level 30 - Editor</option>
+                                    <option value="40">Level 40 - Moderator</option>
+                                    <option value="50">Level 50 - Manager</option>
+                                    <option value="60">Level 60 - Senior Manager</option>
+                                    <option value="70">Level 70 - Administrator</option>
+                                    <option value="80">Level 80 - Senior Admin</option>
+                                    <option value="90">Level 90 - System Admin</option>
+                                </select>
+                                <div class="form-text">Higher levels have more privileges</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Role Type</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="is_system_role" name="is_system_role" value="1">
+                                    <label class="form-check-label" for="is_system_role">
+                                        System Role
+                                    </label>
+                                </div>
+                                <div class="form-text">System roles cannot be deleted or modified by users</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" 
+                                  placeholder="Describe the role's purpose and responsibilities..."></textarea>
+                        <div class="form-text">Optional description of the role</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Permissions Card -->
+            {% if permissions %}
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-key me-2"></i>Permissions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-sm btn-outline-success" onclick="selectAllPermissions()">
+                                    <i class="fas fa-check-double me-1"></i>Select All
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary ms-2" onclick="clearAllPermissions()">
+                                    <i class="fas fa-times me-1"></i>Clear All
+                                </button>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <span class="badge bg-light text-dark" id="selectedCount">0</span> permissions selected
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Group permissions by resource -->
+                    {% set resources = permissions|groupby('resource') %}
+                    {% for resource, perms in resources %}
+                    <div class="permission-group mb-3">
+                        <div class="card">
+                            <div class="card-header py-2">
+                                <div class="form-check">
+                                    <input class="form-check-input resource-checkbox" type="checkbox" 
+                                           id="resource_{{ resource }}" 
+                                           onchange="toggleResourcePermissions('{{ resource }}')">
+                                    <label class="form-check-label fw-bold" for="resource_{{ resource }}">
+                                        {{ resource.title() }} Permissions
+                                        <span class="badge bg-light text-dark ms-2">{{ perms|list|length }}</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="card-body py-2">
+                                <div class="row">
+                                    {% for permission in perms %}
+                                    <div class="col-md-6 col-lg-4 mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input permission-checkbox" 
+                                                   type="checkbox" 
+                                                   name="permissions" 
+                                                   value="{{ permission.id }}" 
+                                                   id="perm_{{ permission.id }}"
+                                                   data-resource="{{ resource }}">
+                                            <label class="form-check-label" for="perm_{{ permission.id }}">
+                                                <span class="badge 
+                                                    {% if permission.action in ['create', 'add'] %}bg-success
+                                                    {% elif permission.action in ['read', 'view', 'list'] %}bg-info
+                                                    {% elif permission.action in ['update', 'edit'] %}bg-warning
+                                                    {% elif permission.action in ['delete', 'remove'] %}bg-danger
+                                                    {% else %}bg-secondary{% endif %} me-1">
+                                                    {{ permission.action.upper() }}
+                                                </span>
+                                                {{ permission.display_name or permission.name.replace('_', ' ').title() }}
+                                                {% if permission.is_system_permission %}
+                                                <i class="fas fa-lock text-warning ms-1" title="System Permission"></i>
+                                                {% endif %}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Actions Card -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <button type="button" class="btn btn-outline-secondary" onclick="history.back()">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </button>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>Create Role
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Help Card -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-question-circle me-2"></i>Role Guidelines
+                </h5>
+            </div>
+            <div class="card-body">
+                <h6>Role Levels</h6>
+                <ul class="small">
+                    <li><strong>1-30:</strong> Basic to advanced users</li>
+                    <li><strong>31-60:</strong> Moderators and managers</li>
+                    <li><strong>61-90:</strong> Administrators</li>
+                    <li><strong>91-100:</strong> System-level access</li>
+                </ul>
+                
+                <h6 class="mt-3">Naming Convention</h6>
+                <ul class="small">
+                    <li><strong>Name:</strong> Use lowercase with underscores</li>
+                    <li><strong>Display Name:</strong> Use proper capitalization</li>
+                    <li><strong>Be descriptive:</strong> content_manager, not cm</li>
+                </ul>
+                
+                <h6 class="mt-3">Permission Assignment</h6>
+                <ul class="small">
+                    <li>Follow principle of least privilege</li>
+                    <li>Group related permissions together</li>
+                    <li>System permissions are critical - assign carefully</li>
+                    <li>Test role functionality after creation</li>
+                </ul>
+                
+                <div class="alert alert-info mt-3">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Tip:</strong> Start with minimal permissions and add more as needed. It's easier to grant permissions than to revoke them.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Auto-generate display name from role name
+document.getElementById('name').addEventListener('input', function() {
+    const displayNameField = document.getElementById('display_name');
+    
+    if (!displayNameField.value && this.value) {
+        // Convert "content_manager" to "Content Manager"
+        const displayName = this.value
+            .replace(/_/g, ' ')
+            .replace(/\b\w/g, l => l.toUpperCase());
+        displayNameField.value = displayName;
+    }
+});
+
+// Permission selection functions
+function selectAllPermissions() {
+    const checkboxes = document.querySelectorAll('.permission-checkbox');
+    checkboxes.forEach(cb => cb.checked = true);
+    updateResourceCheckboxes();
+    updateSelectedCount();
+}
+
+function clearAllPermissions() {
+    const checkboxes = document.querySelectorAll('.permission-checkbox, .resource-checkbox');
+    checkboxes.forEach(cb => cb.checked = false);
+    updateSelectedCount();
+}
+
+function toggleResourcePermissions(resource) {
+    const resourceCheckbox = document.getElementById(`resource_${resource}`);
+    const permissionCheckboxes = document.querySelectorAll(`[data-resource="${resource}"]`);
+    
+    permissionCheckboxes.forEach(cb => {
+        cb.checked = resourceCheckbox.checked;
+    });
+    
+    updateSelectedCount();
+}
+
+function updateResourceCheckboxes() {
+    const resources = [...new Set(Array.from(document.querySelectorAll('.permission-checkbox')).map(cb => cb.dataset.resource))];
+    
+    resources.forEach(resource => {
+        const resourceCheckbox = document.getElementById(`resource_${resource}`);
+        const permissionCheckboxes = document.querySelectorAll(`[data-resource="${resource}"]`);
+        const checkedPermissions = document.querySelectorAll(`[data-resource="${resource}"]:checked`);
+        
+        if (checkedPermissions.length === permissionCheckboxes.length) {
+            resourceCheckbox.checked = true;
+            resourceCheckbox.indeterminate = false;
+        } else if (checkedPermissions.length > 0) {
+            resourceCheckbox.checked = false;
+            resourceCheckbox.indeterminate = true;
+        } else {
+            resourceCheckbox.checked = false;
+            resourceCheckbox.indeterminate = false;
+        }
+    });
+}
+
+function updateSelectedCount() {
+    const selectedCount = document.querySelectorAll('.permission-checkbox:checked').length;
+    document.getElementById('selectedCount').textContent = selectedCount;
+}
+
+// Add event listeners to permission checkboxes
+document.addEventListener('DOMContentLoaded', function() {
+    const permissionCheckboxes = document.querySelectorAll('.permission-checkbox');
+    permissionCheckboxes.forEach(cb => {
+        cb.addEventListener('change', function() {
+            updateResourceCheckboxes();
+            updateSelectedCount();
+        });
+    });
+    
+    updateSelectedCount();
+});
+
+// Form validation
+document.getElementById('createRoleForm').addEventListener('submit', function(e) {
+    const name = document.getElementById('name').value.trim();
+    const displayName = document.getElementById('display_name').value.trim();
+    const level = document.getElementById('level').value;
+    
+    if (!name || !displayName || !level) {
+        e.preventDefault();
+        alert('Please fill in all required fields.');
+        return false;
+    }
+    
+    // Validate name format
+    if (!/^[a-z][a-z0-9_]*$/.test(name)) {
+        e.preventDefault();
+        alert('Role name must start with a letter and contain only lowercase letters, numbers, and underscores.');
+        return false;
+    }
+    
+    // Check if at least one permission is selected
+    const selectedPermissions = document.querySelectorAll('.permission-checkbox:checked').length;
+    if (selectedPermissions === 0) {
+        if (!confirm('No permissions selected. Create role without any permissions?')) {
+            e.preventDefault();
+            return false;
+        }
+    }
+});
+</script>
+{% endblock %}

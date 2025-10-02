@@ -1,0 +1,421 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}Security Logs{% endblock %}
+
+{% block extra_css %}
+<style>
+.log-severity-low { border-left: 4px solid #28a745; }
+.log-severity-medium { border-left: 4px solid #ffc107; }
+.log-severity-high { border-left: 4px solid #fd7e14; }
+.log-severity-critical { border-left: 4px solid #dc3545; }
+.log-resolved { background-color: #f8f9fa; opacity: 0.8; }
+.log-details-btn { font-size: 0.8rem; }
+.filter-section { background-color: #f8f9fa; border-radius: 8px; }
+.stats-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+.stats-card h5 { color: white; }
+.stats-card .display-6 { color: white; font-weight: bold; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0">Security Logs</h1>
+            <p class="text-muted">Monitor security events and audit trails</p>
+        </div>
+        <div>
+            <button class="btn btn-outline-primary" onclick="refreshLogs()">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+            <button class="btn btn-outline-success" onclick="exportLogs()">
+                <i class="fas fa-download"></i> Export
+            </button>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card stats-card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Events</h5>
+                    <div class="display-6">{{ logs.total }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-warning">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-warning">High/Critical</h5>
+                    <div class="display-6 text-warning">
+                        {% set high_critical = logs.items | selectattr('severity', 'in', ['high', 'critical']) | list | length %}
+                        {{ high_critical }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-success">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-success">Resolved</h5>
+                    <div class="display-6 text-success">
+                        {% set resolved = logs.items | selectattr('resolved', 'equalto', true) | list | length %}
+                        {{ resolved }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-info">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-info">Today's Events</h5>
+                    <div class="display-6 text-info">{{ today_events_count }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card filter-section mb-4">
+        <div class="card-body">
+            <form method="GET" action="{{ url_for('superadmin.security_logs') }}" class="row g-3">
+                <div class="col-md-2">
+                    <label for="event_type" class="form-label">Event Type</label>
+                    <select class="form-select form-select-sm" id="event_type" name="event_type">
+                        <option value="">All Types</option>
+                        {% for event_type in event_types %}
+                        <option value="{{ event_type }}" {% if filters.event_type == event_type %}selected{% endif %}>
+                            {{ event_type.replace('_', ' ').title() }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="severity" class="form-label">Severity</label>
+                    <select class="form-select form-select-sm" id="severity" name="severity">
+                        <option value="">All Severities</option>
+                        {% for severity in severities %}
+                        <option value="{{ severity }}" {% if filters.severity == severity %}selected{% endif %}>
+                            {{ severity.title() }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="date_from" class="form-label">From Date</label>
+                    <input type="date" class="form-control form-control-sm" id="date_from" name="date_from" 
+                           value="{{ filters.date_from }}">
+                </div>
+                <div class="col-md-2">
+                    <label for="date_to" class="form-label">To Date</label>
+                    <input type="date" class="form-control form-control-sm" id="date_to" name="date_to" 
+                           value="{{ filters.date_to }}">
+                </div>
+                <div class="col-md-2">
+                    <label for="per_page" class="form-label">Per Page</label>
+                    <select class="form-select form-select-sm" name="per_page">
+                        <option value="25" {% if request.args.get('per_page', '50') == '25' %}selected{% endif %}>25</option>
+                        <option value="50" {% if request.args.get('per_page', '50') == '50' %}selected{% endif %}>50</option>
+                        <option value="100" {% if request.args.get('per_page', '50') == '100' %}selected{% endif %}>100</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary btn-sm me-2">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                    <a href="{{ url_for('superadmin.security_logs') }}" class="btn btn-outline-secondary btn-sm">
+                        <i class="fas fa-times"></i> Clear
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Security Logs Table -->
+    <div class="card">
+        <div class="card-body">
+            {% if logs.items %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Date/Time</th>
+                            <th>Event Type</th>
+                            <th>User</th>
+                            <th>IP Address</th>
+                            <th>Severity</th>
+                            <th>Status</th>
+                            <th>Details</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs.items %}
+                        <tr class="log-severity-{{ log.severity }} {% if log.resolved %}log-resolved{% endif %}">
+                            <td>
+                                <div class="fw-bold">{{ log.created_at.strftime('%Y-%m-%d') }}</div>
+                                <small class="text-muted">{{ log.created_at.strftime('%H:%M:%S') }}</small>
+                            </td>
+                            <td>
+                                <span class="badge 
+                                    {% if log.event_type.value in ['login_failed', 'xss_attempt', 'csrf_violation', 'sql_injection_attempt'] %}bg-danger
+                                    {% elif log.event_type.value in ['login_success', 'logout', 'user_registered'] %}bg-success
+                                    {% elif log.event_type.value in ['password_reset', 'password_changed', 'profile_updated'] %}bg-info
+                                    {% elif log.event_type.value in ['unauthorized_access', 'rate_limit_exceeded'] %}bg-warning
+                                    {% else %}bg-secondary{% endif %}">
+                                    {{ log.event_type.value.replace('_', ' ').title() }}
+                                </span>
+                            </td>
+                            <td>
+                                {% if log.user_id %}
+                                    <a href="{{ url_for('superadmin.user_detail', user_id=log.user_id) }}" class="text-decoration-none">
+                                        User ID: {{ log.user_id }}
+                                    </a>
+                                {% else %}
+                                    <span class="text-muted">System</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if log.ip_address %}
+                                    <code class="small">{{ log.ip_address }}</code>
+                                {% else %}
+                                    <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span class="badge 
+                                    {% if log.severity == 'critical' %}bg-danger
+                                    {% elif log.severity == 'high' %}bg-warning
+                                    {% elif log.severity == 'medium' %}bg-info
+                                    {% else %}bg-success{% endif %}">
+                                    {{ log.severity.upper() }}
+                                </span>
+                            </td>
+                            <td>
+                                {% if log.resolved %}
+                                    <i class="fas fa-check-circle text-success" title="Resolved"></i>
+                                    <span class="text-success small">Resolved</span>
+                                {% else %}
+                                    <i class="fas fa-exclamation-triangle text-warning" title="Pending"></i>
+                                    <span class="text-warning small">Pending</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if log.details_json %}
+                                    <button class="btn btn-sm btn-outline-info log-details-btn" 
+                                            onclick="showLogDetails({{ log.id }}, {{ log.details_json | tojson }})">
+                                        <i class="fas fa-info-circle"></i> Details
+                                    </button>
+                                {% else %}
+                                    <span class="text-muted small">No details</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    {% if not log.resolved and log.severity in ['high', 'critical'] %}
+                                    <button class="btn btn-outline-success" onclick="markResolved({{ log.id }})" 
+                                            title="Mark as Resolved">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    {% endif %}
+                                    <button class="btn btn-outline-info" onclick="viewLogDetails({{ log.id }})" 
+                                            title="View Full Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    {% if log.user_id %}
+                                    <a href="{{ url_for('superadmin.user_detail', user_id=log.user_id) }}" 
+                                       class="btn btn-outline-primary" title="View User">
+                                        <i class="fas fa-user"></i>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            {% if logs.pages > 1 %}
+            <nav aria-label="Security logs pagination" class="mt-4">
+                <ul class="pagination pagination-sm justify-content-center">
+                    {% if logs.has_prev %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('superadmin.security_logs', page=logs.prev_num, **request.args) }}">
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </a>
+                    </li>
+                    {% endif %}
+                    
+                    {% for page_num in logs.iter_pages() %}
+                        {% if page_num %}
+                            {% if page_num != logs.page %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('superadmin.security_logs', page=page_num, **request.args) }}">
+                            {{ page_num }}
+                        </a>
+                    </li>
+                            {% else %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ page_num }}</span>
+                    </li>
+                            {% endif %}
+                        {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if logs.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('superadmin.security_logs', page=logs.next_num, **request.args) }}">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            
+            <div class="text-center text-muted small mt-2">
+                Showing {{ ((logs.page - 1) * logs.per_page) + 1 }} to 
+                {{ ((logs.page - 1) * logs.per_page) + logs.items|length }} of {{ logs.total }} entries
+            </div>
+            {% endif %}
+            {% else %}
+            <div class="text-center py-5">
+                <i class="fas fa-shield-alt fa-3x text-muted mb-3"></i>
+                <h5 class="text-muted">No security logs found</h5>
+                <p class="text-muted">Try adjusting your search filters or check back later.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Log Details Modal -->
+<div class="modal fade" id="logDetailsModal" tabindex="-1" aria-labelledby="logDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logDetailsModalLabel">Security Log Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="logDetailsContent">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function refreshLogs() {
+    location.reload();
+}
+
+function exportLogs() {
+    // Create form to submit for export
+    const form = document.createElement('form');
+    form.method = 'GET';
+    form.action = '{{ url_for("superadmin.security_logs") }}';
+    
+    // Add current filters as hidden inputs
+    const params = new URLSearchParams(window.location.search);
+    params.set('export', 'csv');
+    
+    for (const [key, value] of params) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = value;
+        form.appendChild(input);
+    }
+    
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+}
+
+function showLogDetails(logId, details) {
+    const content = document.getElementById('logDetailsContent');
+    let html = '<div class="row">';
+    
+    if (details && typeof details === 'object') {
+        for (const [key, value] of Object.entries(details)) {
+            html += `
+                <div class="col-md-6 mb-3">
+                    <strong>${key.replace('_', ' ').toUpperCase()}:</strong><br>
+                    <span class="text-muted">${JSON.stringify(value, null, 2)}</span>
+                </div>
+            `;
+        }
+    } else {
+        html += '<div class="col-12"><p class="text-muted">No additional details available.</p></div>';
+    }
+    
+    html += '</div>';
+    content.innerHTML = html;
+    
+    const modal = new bootstrap.Modal(document.getElementById('logDetailsModal'));
+    modal.show();
+}
+
+function viewLogDetails(logId) {
+    // Implement if you have a detailed view endpoint
+    console.log('View details for log:', logId);
+}
+
+function markResolved(logId) {
+    if (confirm('Mark this security event as resolved?')) {
+        fetch(`{{ url_for('superadmin.security_logs') }}/api/mark-resolved/${logId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token() }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Failed to mark as resolved: ' + (data.error || 'Unknown error'));
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while marking as resolved');
+        });
+    }
+}
+
+// Auto-refresh every 30 seconds for real-time monitoring
+setInterval(function() {
+    const refreshIndicator = document.querySelector('.fa-sync-alt');
+    if (refreshIndicator) {
+        refreshIndicator.classList.add('fa-spin');
+        setTimeout(() => {
+            refreshIndicator.classList.remove('fa-spin');
+        }, 1000);
+    }
+}, 30000);
+
+// Format JSON in details modals
+document.addEventListener('DOMContentLoaded', function() {
+    // Add syntax highlighting for JSON if available
+    if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+    }
+});
+</script>
+{% endblock %}

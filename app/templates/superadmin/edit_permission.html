@@ -1,0 +1,217 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}Edit Permission - SuperAdmin Panel{% endblock %}
+
+{% block content %}
+<!-- Edit Permission Header -->
+<div class="dashboard-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.permissions') }}">Permissions</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Permission</li>
+                </ol>
+            </nav>
+            <h1 class="h3 mb-0">Edit Permission: {{ permission.display_name or permission.name }}</h1>
+            <p class="text-muted">Modify permission details</p>
+        </div>
+        <div class="col-sm-6 text-sm-end">
+            <div class="btn-group">
+                <a href="{{ url_for('superadmin.permissions') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Permissions
+                </a>
+                <a href="{{ url_for('superadmin.dashboard') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Permission Form -->
+<div class="row">
+    <div class="col-lg-8">
+        <form method="POST" id="editPermissionForm">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            
+            <!-- Basic Information Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-key me-2"></i>Permission Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Permission Name</label>
+                                <input type="text" class="form-control" id="name" value="{{ permission.name }}" disabled>
+                                <div class="form-text">Permission name cannot be changed</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="display_name" class="form-label">Display Name</label>
+                                <input type="text" class="form-control" id="display_name" name="display_name" 
+                                       value="{{ permission.display_name or '' }}" 
+                                       placeholder="e.g., Create User">
+                                <div class="form-text">Human-readable name for the permission</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="resource" class="form-label">Resource</label>
+                                <input type="text" class="form-control" id="resource" value="{{ permission.resource }}" disabled>
+                                <div class="form-text">Resource cannot be changed</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="action" class="form-label">Action</label>
+                                <input type="text" class="form-control" id="action" value="{{ permission.action }}" disabled>
+                                <div class="form-text">Action cannot be changed</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" 
+                                  placeholder="Describe what this permission allows...">{{ permission.description or '' }}</textarea>
+                        <div class="form-text">Optional description of the permission's purpose</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Actions Card -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <button type="button" class="btn btn-outline-secondary" onclick="history.back()">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </button>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Update Permission
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Permission Details Card -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-info-circle me-2"></i>Permission Details
+                </h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <tr>
+                        <td><strong>Name:</strong></td>
+                        <td>{{ permission.name }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Resource:</strong></td>
+                        <td>
+                            <span class="badge bg-light text-dark">{{ permission.resource.title() }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Action:</strong></td>
+                        <td>
+                            <span class="badge 
+                                {% if permission.action in ['create', 'add'] %}bg-success
+                                {% elif permission.action in ['read', 'view', 'list'] %}bg-info
+                                {% elif permission.action in ['update', 'edit'] %}bg-warning
+                                {% elif permission.action in ['delete', 'remove'] %}bg-danger
+                                {% else %}bg-secondary{% endif %}">
+                                {{ permission.action.upper() }}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Type:</strong></td>
+                        <td>
+                            {% if permission.is_system_permission %}
+                                <span class="badge bg-warning">
+                                    <i class="fas fa-lock me-1"></i>System
+                                </span>
+                            {% else %}
+                                <span class="badge bg-success">
+                                    <i class="fas fa-check me-1"></i>Custom
+                                </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Roles:</strong></td>
+                        <td>{{ permission.roles.count() if permission.roles else 0 }} roles</td>
+                    </tr>
+                    {% if permission.created_at %}
+                    <tr>
+                        <td><strong>Created:</strong></td>
+                        <td>{{ permission.created_at.strftime('%Y-%m-%d') }}</td>
+                    </tr>
+                    {% endif %}
+                </table>
+                
+                {% if permission.roles and permission.roles.count() > 0 %}
+                <div class="mt-3">
+                    <h6>Assigned to Roles:</h6>
+                    <div class="d-flex flex-wrap gap-1">
+                        {% for role in permission.roles %}
+                        <span class="badge bg-light text-dark">{{ role.display_name or role.name.title() }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Edit Restrictions
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Note:</strong> Only display name and description can be modified. The permission name, resource, and action are immutable to maintain system integrity.
+                </div>
+                
+                {% if permission.is_system_permission %}
+                <div class="alert alert-danger">
+                    <i class="fas fa-lock me-2"></i>
+                    <strong>System Permission:</strong> This is a core system permission that cannot be deleted.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Form validation
+document.getElementById('editPermissionForm').addEventListener('submit', function(e) {
+    // No required fields validation needed since only optional fields can be edited
+    console.log('Updating permission...');
+});
+</script>
+{% endblock %}

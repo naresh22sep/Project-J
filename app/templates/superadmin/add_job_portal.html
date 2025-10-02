@@ -1,0 +1,190 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}Add Job Portal{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0">Add Job Portal</h1>
+            <p class="text-muted">Add a new job portal to the system</p>
+        </div>
+        <a href="{{ url_for('superadmin.job_portals') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Portals
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('superadmin.add_job_portal') }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="display_name" class="form-label">Display Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="display_name" name="display_name" 
+                                       value="{{ request.form.get('display_name', '') }}" required
+                                       placeholder="e.g., LinkedIn, Indeed, Glassdoor">
+                                <div class="form-text">The public name shown to users</div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Internal Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name" name="name" 
+                                       value="{{ request.form.get('name', '') }}" required readonly
+                                       placeholder="linkedin, indeed, glassdoor">
+                                <div class="form-text">Auto-generated from display name</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="website_url" class="form-label">Website URL <span class="text-danger">*</span></label>
+                            <input type="url" class="form-control" id="website_url" name="website_url" 
+                                   value="{{ request.form.get('website_url', '') }}" required
+                                   placeholder="https://www.linkedin.com/jobs/">
+                            <div class="form-text">The main URL for job searches on this portal</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="logo_url" class="form-label">Logo URL</label>
+                            <input type="url" class="form-control" id="logo_url" name="logo_url" 
+                                   value="{{ request.form.get('logo_url', '') }}"
+                                   placeholder="https://example.com/logo.png">
+                            <div class="form-text">Optional: URL to the portal's logo image</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"
+                                      placeholder="Brief description of the job portal">{{ request.form.get('description', '') }}</textarea>
+                            <div class="form-text">A brief description of what this portal offers</div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="sort_order" class="form-label">Sort Order</label>
+                                <input type="number" class="form-control" id="sort_order" name="sort_order" 
+                                       value="{{ request.form.get('sort_order', '0') }}" min="0" max="999">
+                                <div class="form-text">Lower numbers appear first in lists</div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <div class="form-check form-switch mt-4">
+                                    <input class="form-check-input" type="checkbox" id="api_integration" name="api_integration"
+                                           {% if request.form.get('api_integration') %}checked{% endif %}>
+                                    <label class="form-check-label" for="api_integration">
+                                        API Integration Available
+                                    </label>
+                                    <div class="form-text">Check if this portal has API integration</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3" id="api_endpoint_group" style="display: none;">
+                            <label for="api_endpoint" class="form-label">API Endpoint</label>
+                            <input type="url" class="form-control" id="api_endpoint" name="api_endpoint" 
+                                   value="{{ request.form.get('api_endpoint', '') }}"
+                                   placeholder="https://api.portal.com/jobs">
+                            <div class="form-text">API endpoint for job data integration</div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-end">
+                            <a href="{{ url_for('superadmin.job_portals') }}" class="btn btn-secondary me-2">Cancel</a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Create Portal
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fas fa-info-circle"></i> Portal Guidelines</h6>
+                </div>
+                <div class="card-body">
+                    <h6>Display Name</h6>
+                    <p class="small text-muted">Use the official name of the job portal as it appears on their website.</p>
+                    
+                    <h6>Website URL</h6>
+                    <p class="small text-muted">Provide the direct link to the job search page, not just the homepage.</p>
+                    
+                    <h6>Logo URL</h6>
+                    <p class="small text-muted">Use a high-quality logo image (preferably PNG or SVG). Maximum recommended size: 200x200px.</p>
+                    
+                    <h6>Sort Order</h6>
+                    <p class="small text-muted">Use this to control the order in which portals appear in lists. Popular portals should have lower numbers.</p>
+                    
+                    <h6>API Integration</h6>
+                    <p class="small text-muted">Only enable if you have actual API access and integration capability for this portal.</p>
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fas fa-lightbulb"></i> Popular Portals</h6>
+                </div>
+                <div class="card-body">
+                    <p class="small text-muted">Some popular job portals to consider:</p>
+                    <ul class="small text-muted">
+                        <li>LinkedIn Jobs</li>
+                        <li>Indeed</li>
+                        <li>Glassdoor</li>
+                        <li>Monster</li>
+                        <li>Dice (Tech)</li>
+                        <li>ZipRecruiter</li>
+                        <li>CareerBuilder</li>
+                        <li>Naukri.com (India)</li>
+                        <li>AngelList (Startups)</li>
+                        <li>Stack Overflow Jobs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const displayNameInput = document.getElementById('display_name');
+    const nameInput = document.getElementById('name');
+    const apiCheckbox = document.getElementById('api_integration');
+    const apiEndpointGroup = document.getElementById('api_endpoint_group');
+    
+    // Auto-generate internal name from display name
+    displayNameInput.addEventListener('input', function() {
+        const displayName = this.value;
+        const internalName = displayName
+            .toLowerCase()
+            .replace(/[^a-z0-9\s]/g, '') // Remove special characters
+            .replace(/\s+/g, '_') // Replace spaces with underscores
+            .replace(/_+/g, '_') // Replace multiple underscores with single
+            .replace(/^_|_$/g, ''); // Remove leading/trailing underscores
+        
+        nameInput.value = internalName;
+    });
+    
+    // Show/hide API endpoint field
+    apiCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            apiEndpointGroup.style.display = 'block';
+        } else {
+            apiEndpointGroup.style.display = 'none';
+            document.getElementById('api_endpoint').value = '';
+        }
+    });
+    
+    // Initialize API endpoint visibility
+    if (apiCheckbox.checked) {
+        apiEndpointGroup.style.display = 'block';
+    }
+});
+</script>
+{% endblock %}

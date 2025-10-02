@@ -444,7 +444,7 @@
                                     {% for event in recent_events %}
                                     <tr>
                                         <td>{{ event.created_at.strftime('%H:%M:%S') }}</td>
-                                        <td>{{ event.event_type.replace('_', ' ').title() }}</td>
+                                        <td>{{ event.event_type.value.replace('_', ' ').title() }}</td>
                                         <td>
                                             <span class="badge badge-{{ 'danger' if event.severity == 'high' else ('warning' if event.severity == 'medium' else 'info') }}">
                                                 {{ event.severity.upper() }}

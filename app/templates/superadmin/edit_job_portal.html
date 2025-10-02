@@ -1,0 +1,186 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}Edit Job Portal - {{ portal.display_name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0">Edit Job Portal</h1>
+            <p class="text-muted">Modify "{{ portal.display_name }}" settings</p>
+        </div>
+        <a href="{{ url_for('superadmin.job_portals') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Portals
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('superadmin.edit_job_portal', id=portal.id) }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="display_name" class="form-label">Display Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="display_name" name="display_name" 
+                                       value="{{ request.form.get('display_name', portal.display_name) }}" required
+                                       placeholder="e.g., LinkedIn, Indeed, Glassdoor">
+                                <div class="form-text">The public name shown to users</div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Internal Name</label>
+                                <input type="text" class="form-control" id="name" name="name" 
+                                       value="{{ portal.name }}" readonly disabled>
+                                <div class="form-text">Cannot be changed after creation</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="website_url" class="form-label">Website URL <span class="text-danger">*</span></label>
+                            <input type="url" class="form-control" id="website_url" name="website_url" 
+                                   value="{{ request.form.get('website_url', portal.website_url) }}" required
+                                   placeholder="https://www.linkedin.com/jobs/">
+                            <div class="form-text">The main URL for job searches on this portal</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="logo_url" class="form-label">Logo URL</label>
+                            <input type="url" class="form-control" id="logo_url" name="logo_url" 
+                                   value="{{ request.form.get('logo_url', portal.logo_url or '') }}"
+                                   placeholder="https://example.com/logo.png">
+                            <div class="form-text">Optional: URL to the portal's logo image</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"
+                                      placeholder="Brief description of the job portal">{{ request.form.get('description', portal.description or '') }}</textarea>
+                            <div class="form-text">A brief description of what this portal offers</div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="sort_order" class="form-label">Sort Order</label>
+                                <input type="number" class="form-control" id="sort_order" name="sort_order" 
+                                       value="{{ request.form.get('sort_order', portal.sort_order) }}" min="0" max="999">
+                                <div class="form-text">Lower numbers appear first in lists</div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <div class="form-check form-switch mt-4">
+                                    <input class="form-check-input" type="checkbox" id="is_active" name="is_active"
+                                           {% if request.form.get('is_active') or (not request.form and portal.is_active) %}checked{% endif %}>
+                                    <label class="form-check-label" for="is_active">
+                                        Portal is Active
+                                    </label>
+                                    <div class="form-text">Inactive portals won't be available to users</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="api_integration" name="api_integration"
+                                           {% if request.form.get('api_integration') or (not request.form and portal.api_integration) %}checked{% endif %}>
+                                    <label class="form-check-label" for="api_integration">
+                                        API Integration Available
+                                    </label>
+                                    <div class="form-text">Check if this portal has API integration</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3" id="api_endpoint_group" style="{% if not portal.api_integration %}display: none;{% endif %}">
+                            <label for="api_endpoint" class="form-label">API Endpoint</label>
+                            <input type="url" class="form-control" id="api_endpoint" name="api_endpoint" 
+                                   value="{{ request.form.get('api_endpoint', portal.api_endpoint or '') }}"
+                                   placeholder="https://api.portal.com/jobs">
+                            <div class="form-text">API endpoint for job data integration</div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-end">
+                            <a href="{{ url_for('superadmin.job_portals') }}" class="btn btn-secondary me-2">Cancel</a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Update Portal
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fas fa-info-circle"></i> Portal Information</h6>
+                </div>
+                <div class="card-body">
+                    <p><strong>Internal Name:</strong> {{ portal.name }}</p>
+                    <p><strong>Created:</strong> {{ portal.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                    <p><strong>Last Updated:</strong> {{ portal.updated_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                    
+                    {% if portal.user_portal_access.count() > 0 %}
+                    <div class="alert alert-info">
+                        <h6><i class="fas fa-users"></i> Usage Statistics</h6>
+                        <p class="mb-0">{{ portal.user_portal_access.filter_by(is_active=True).count() }} users have access to this portal</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fas fa-exclamation-triangle text-warning"></i> Important Notes</h6>
+                </div>
+                <div class="card-body">
+                    <p class="small text-muted">
+                        <strong>Internal Name:</strong> Cannot be changed after creation as it's used in system integrations.
+                    </p>
+                    <p class="small text-muted">
+                        <strong>Deactivating:</strong> If you deactivate this portal, users will lose access to it immediately.
+                    </p>
+                    <p class="small text-muted">
+                        <strong>API Changes:</strong> Modifying API settings may affect automated job imports.
+                    </p>
+                </div>
+            </div>
+            
+            {% if portal.logo_url %}
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fas fa-image"></i> Current Logo</h6>
+                </div>
+                <div class="card-body text-center">
+                    <img src="{{ portal.logo_url }}" alt="{{ portal.display_name }}" 
+                         class="img-fluid" style="max-height: 100px;">
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const apiCheckbox = document.getElementById('api_integration');
+    const apiEndpointGroup = document.getElementById('api_endpoint_group');
+    
+    // Show/hide API endpoint field
+    apiCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            apiEndpointGroup.style.display = 'block';
+        } else {
+            apiEndpointGroup.style.display = 'none';
+            document.getElementById('api_endpoint').value = '';
+        }
+    });
+});
+</script>
+{% endblock %}

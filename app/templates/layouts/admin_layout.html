@@ -24,47 +24,180 @@
         </div>
         
         <ul class="list-unstyled components">
+            {% if session.get('role') == 'superadmin' %}
+            <li>
+                <a href="{{ url_for('superadmin.dashboard') }}" class="sidebar-link">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+            </li>
+            {% else %}
             <li>
                 <a href="{{ url_for('admin.dashboard') }}" class="sidebar-link">
                     <i class="fas fa-tachometer-alt me-2"></i>Dashboard
                 </a>
             </li>
+            {% endif %}
             
-            {% if session.get('user_type') == 'superadmin' %}
-            <li>
-                <a href="{{ url_for('superadmin.dashboard') }}" class="sidebar-link">
-                    <i class="fas fa-crown me-2"></i>Super Admin
-                </a>
-            </li>
+            {% if session.get('role') == 'superadmin' %}
             <li>
                 <a href="{{ url_for('superadmin.users') }}" class="sidebar-link">
                     <i class="fas fa-user-shield me-2"></i>Manage Users
                 </a>
             </li>
-            <li>
-                <a href="{{ url_for('superadmin.security_logs') }}" class="sidebar-link">
-                    <i class="fas fa-cog me-2"></i>Security Logs
+            <li class="sidebar-dropdown">
+                <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#rolesDropdown" aria-expanded="false">
+                    <i class="fas fa-user-tag me-2"></i>Roles & Permissions
+                    <i class="fas fa-chevron-down ms-auto"></i>
                 </a>
+                <div class="collapse" id="rolesDropdown">
+                    <ul class="sidebar-submenu">
+                        <li>
+                            <a href="{{ url_for('superadmin.roles') }}" class="sidebar-link">
+                                <i class="fas fa-shield-alt me-2"></i>Manage Roles
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('superadmin.permissions') }}" class="sidebar-link">
+                                <i class="fas fa-key me-2"></i>Manage Permissions
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
-            {% endif %}
+            <li class="sidebar-dropdown">
+                <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#subscriptionDropdown" aria-expanded="false">
+                    <i class="fas fa-credit-card me-2"></i>Subscription Management
+                    <i class="fas fa-chevron-down ms-auto"></i>
+                </a>
+                <div class="collapse" id="subscriptionDropdown">
+                    <ul class="sidebar-submenu">
+                        <li>
+                            <a href="{{ url_for('superadmin.subscription_dashboard') }}" class="sidebar-link">
+                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('superadmin.subscription_plans') }}" class="sidebar-link">
+                                <i class="fas fa-layer-group me-2"></i>All Plans
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('superadmin.subscription_plans') }}?plan_type=jobseeker" class="sidebar-link">
+                                <i class="fas fa-user me-2"></i>Job Seeker Plans
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('superadmin.subscription_plans') }}?plan_type=consultancy" class="sidebar-link">
+                                <i class="fas fa-building me-2"></i>Consultancy Plans
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('superadmin.add_subscription_plan') }}" class="sidebar-link">
+                                <i class="fas fa-plus me-2"></i>Add New Plan
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('superadmin.subscriptions') }}" class="sidebar-link">
+                                <i class="fas fa-users me-2"></i>User Subscriptions
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            
+            <!-- Job Data Management -->
+            <li>
+                <a href="#" class="sidebar-link dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#jobDataDropdown" aria-expanded="true">
+                    <i class="fas fa-briefcase me-2"></i>Job Data Management
+                    <i class="fas fa-chevron-down ms-auto"></i>
+                </a>
+                <div class="collapse show" id="jobDataDropdown">
+                    <ul class="sidebar-submenu">
+                        <li>
+                            <a href="{{ url_for('superadmin.industry_types') }}" class="sidebar-link">
+                                <i class="fas fa-industry me-2"></i>Industry Types
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('superadmin.skills') }}" class="sidebar-link">
+                                <i class="fas fa-cogs me-2"></i>Skills
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('superadmin.experience_levels') }}" class="sidebar-link">
+                                <i class="fas fa-graduation-cap me-2"></i>Experience Levels
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('superadmin.job_roles') }}" class="sidebar-link">
+                                <i class="fas fa-user-tie me-2"></i>Job Roles
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('superadmin.company_types') }}" class="sidebar-link">
+                                <i class="fas fa-building me-2"></i>Company Types
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('superadmin.job_types') }}" class="sidebar-link">
+                                <i class="fas fa-clipboard-list me-2"></i>Job Types
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            
+            <!-- Location Management -->
+            <li>
+                <a href="#" class="sidebar-link dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#locationDropdown" aria-expanded="true">
+                    <i class="fas fa-globe me-2"></i>Location Management
+                    <i class="fas fa-chevron-down ms-auto"></i>
+                </a>
+                <div class="collapse show" id="locationDropdown">
+                    <ul class="sidebar-submenu">
+                        <li>
+                            <a href="{{ url_for('superadmin.countries') }}" class="sidebar-link">
+                                <i class="fas fa-flag me-2"></i>Countries
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('superadmin.states') }}" class="sidebar-link">
+                                <i class="fas fa-map me-2"></i>States
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('superadmin.cities') }}" class="sidebar-link">
+                                <i class="fas fa-city me-2"></i>Cities
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             
             <li>
-                <!-- TODO: Create admin routes or use superadmin routes -->
-                <!-- <a href="{{ url_for('admin.manage_users') }}" class="sidebar-link">
-                    <i class="fas fa-users me-2"></i>Manage Users
-                </a> -->
-                <a href="#" class="sidebar-link" onclick="alert('Admin routes not implemented yet')">
-                    <i class="fas fa-users me-2"></i>Manage Users
+                <a href="{{ url_for('superadmin.job_portals') }}" class="sidebar-link">
+                    <i class="fas fa-briefcase me-2"></i>Job Portals
                 </a>
             </li>
             <li>
-                <a href="{{ url_for('admin.companies') }}" class="sidebar-link">
-                    <i class="fas fa-building me-2"></i>Companies
+                <a href="{{ url_for('superadmin.security_logs') }}" class="sidebar-link">
+                    <i class="fas fa-shield-alt me-2"></i>Security Logs
+                </a>
+            </li>
+            {% else %}
+            <li>
+                <a href="{{ url_for('admin.users') }}" class="sidebar-link">
+                    <i class="fas fa-users me-2"></i>Users
                 </a>
             </li>
             <li>
                 <a href="{{ url_for('admin.jobs') }}" class="sidebar-link">
                     <i class="fas fa-briefcase me-2"></i>Jobs
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('admin.companies') }}" class="sidebar-link">
+                    <i class="fas fa-building me-2"></i>Companies
                 </a>
             </li>
             <li>
@@ -77,17 +210,30 @@
                     <i class="fas fa-cog me-2"></i>Settings
                 </a>
             </li>
+            {% endif %}
             
-            <li class="mt-auto">
-                <a href="#profile" class="sidebar-link">
-                    <i class="fas fa-user me-2"></i>Profile
-                </a>
-            </li>
+            <li class="sidebar-divider my-3"></li>
+            
             <li>
-                <a href="#logout" class="sidebar-link">
-                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#systemSubmenu" aria-expanded="false">
+                    <i class="fas fa-cogs me-2"></i>System
+                    <i class="fas fa-chevron-down ms-auto"></i>
                 </a>
+                <ul class="collapse list-unstyled" id="systemSubmenu">
+                    <li>
+                        <a href="#" class="sidebar-link ps-4">
+                            <i class="fas fa-database me-2"></i>Database
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="sidebar-link ps-4">
+                            <i class="fas fa-server me-2"></i>Server Status
+                        </a>
+                    </li>
+                </ul>
             </li>
+            
+            <li class="sidebar-divider my-3"></li>
         </ul>
     </nav>
 
@@ -158,7 +304,11 @@
             <!-- Breadcrumb -->
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb">
+                    {% if session.get('role') == 'superadmin' %}
+                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.dashboard') }}">Home</a></li>
+                    {% else %}
                     <li class="breadcrumb-item"><a href="{{ url_for('admin.dashboard') }}">Home</a></li>
+                    {% endif %}
                     {% block breadcrumb %}{% endblock %}
                 </ol>
             </nav>

@@ -1,0 +1,647 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}Add New User - SuperAdmin Panel{% endblock %}
+
+{% block content %}
+<!-- Add User Header -->
+<div class="dashboard-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.users') }}">Users</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Add New User</li>
+                </ol>
+            </nav>
+            <h1 class="h3 mb-0">Add New User</h1>
+            <p class="text-muted">Create a new user account with roles and permissions</p>
+        </div>
+        <div class="col-sm-6 text-sm-end">
+            <div class="btn-group">
+                <a href="{{ url_for('superadmin.users') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Users
+                </a>
+                <a href="{{ url_for('superadmin.dashboard') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add User Form -->
+<div class="row">
+    <div class="col-lg-8">
+        <form method="POST" action="{{ url_for('superadmin.add_user') }}" id="addUserForm">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            
+            <!-- Basic Information Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-user me-2"></i>Basic Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="first_name" class="form-label">First Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" 
+                                       placeholder="Enter first name" required>
+                                <div class="invalid-feedback">Please provide a valid first name.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="last_name" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" 
+                                       placeholder="Enter last name" required>
+                                <div class="invalid-feedback">Please provide a valid last name.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="username" name="username" 
+                               placeholder="Enter unique username" required>
+                        <div class="form-text">Username must be unique and will be used for login</div>
+                        <div class="invalid-feedback">Please provide a valid username.</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" id="email" name="email" 
+                               placeholder="user@example.com" required>
+                        <div class="form-text">Email must be unique and will be used for notifications</div>
+                        <div class="invalid-feedback">Please provide a valid email address.</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" 
+                               placeholder="+1 (555) 123-4567">
+                        <div class="form-text">Optional phone number for contact</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Settings Card -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-cog me-2"></i>Account Settings
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="is_active" name="is_active" checked>
+                                <label class="form-check-label" for="is_active">
+                                    <strong>Account Active</strong>
+                                </label>
+                                <div class="form-text">Active accounts can log in immediately</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="email_verified" name="email_verified">
+                                <label class="form-check-label" for="email_verified">
+                                    <strong>Email Verified</strong>
+                                </label>
+                                <div class="form-text">Mark email as pre-verified</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="two_factor_enabled" name="two_factor_enabled">
+                                <label class="form-check-label" for="two_factor_enabled">
+                                    <strong>2FA Enabled</strong>
+                                </label>
+                                <div class="form-text">Require two-factor authentication</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Password Settings Card -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-key me-2"></i>Password Settings
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="password" name="password" 
+                                           placeholder="Enter secure password" required>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password')">
+                                        <i class="fas fa-eye" id="password-icon"></i>
+                                    </button>
+                                </div>
+                                <div class="form-text">Minimum 8 characters with letters, numbers, and symbols</div>
+                                <div class="invalid-feedback">Password must be at least 8 characters long.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="confirm_password" class="form-label">Confirm Password <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" 
+                                           placeholder="Confirm password" required>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('confirm_password')">
+                                        <i class="fas fa-eye" id="confirm_password-icon"></i>
+                                    </button>
+                                </div>
+                                <div class="invalid-feedback">Passwords must match.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Password Strength Indicator -->
+                    <div class="mb-3">
+                        <label class="form-label">Password Strength</label>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" id="password-strength" role="progressbar" style="width: 0%"></div>
+                        </div>
+                        <small id="password-strength-text" class="form-text">Enter a password to see strength</small>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="generatePassword()">
+                                <i class="fas fa-random me-2"></i>Generate Strong Password
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="send_credentials" name="send_credentials" checked>
+                                <label class="form-check-label" for="send_credentials">
+                                    Send login credentials via email
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Role Assignment Card -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-shield-alt me-2"></i>Role Assignment
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label">User Roles <span class="text-danger">*</span></label>
+                        <div class="form-text mb-3">Select one or more roles for this user. Roles determine access permissions.</div>
+                        
+                        {% if roles %}
+                            <div class="row">
+                                {% for role in roles %}
+                                <div class="col-md-6 mb-3">
+                                    <div class="card role-card h-100">
+                                        <div class="card-body">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="role_{{ role.id }}" 
+                                                       name="roles" value="{{ role.id }}"
+                                                       {% if role.name == 'jobseeker' %}checked{% endif %}>
+                                                <label class="form-check-label w-100" for="role_{{ role.id }}">
+                                                    <div class="d-flex justify-content-between align-items-start">
+                                                        <div>
+                                                            <h6 class="mb-1">{{ role.display_name or role.name.title() }}</h6>
+                                                            {% if role.description %}
+                                                                <p class="small text-muted mb-2">{{ role.description }}</p>
+                                                            {% endif %}
+                                                        </div>
+                                                        <span class="badge 
+                                                            {% if role.name == 'superadmin' %}bg-danger
+                                                            {% elif role.name == 'admin' %}bg-primary
+                                                            {% elif role.name == 'consultancy' %}bg-success
+                                                            {% elif role.name == 'jobseeker' %}bg-info
+                                                            {% else %}bg-secondary{% endif %}">
+                                                            {{ role.name.title() }}
+                                                        </span>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                No roles are available. Please create roles first.
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-user-plus me-2"></i>Create User
+                            </button>
+                            <a href="{{ url_for('superadmin.users') }}" class="btn btn-outline-secondary btn-lg ms-2">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                        </div>
+                        <div>
+                            <button type="reset" class="btn btn-outline-warning">
+                                <i class="fas fa-undo me-2"></i>Reset Form
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- User Preview Card -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-eye me-2"></i>User Preview
+                </h5>
+            </div>
+            <div class="card-body text-center">
+                <div class="avatar-placeholder rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" 
+                     style="width: 80px; height: 80px; background-color: #f8f9fa; border: 2px solid #dee2e6;">
+                    <i class="fas fa-user fa-2x text-muted"></i>
+                </div>
+                
+                <h6 class="mb-2" id="preview-name">New User</h6>
+                <p class="text-muted mb-2" id="preview-email">user@example.com</p>
+                <p class="small text-muted mb-3" id="preview-username">@username</p>
+                
+                <div class="mb-3" id="preview-badges">
+                    <span class="badge bg-success">Active</span>
+                </div>
+                
+                <div class="small text-muted">
+                    <div>Will be created today</div>
+                    <div id="preview-roles">No roles selected</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Card -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-lightbulb me-2"></i>Tips
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="small">
+                    <div class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Use strong passwords with at least 8 characters
+                    </div>
+                    <div class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Assign appropriate roles based on user responsibilities
+                    </div>
+                    <div class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Verify email addresses to ensure deliverability
+                    </div>
+                    <div class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Enable 2FA for enhanced security
+                    </div>
+                    <div class="mb-0">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Send credentials securely via email
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Guidelines -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-shield-alt me-2"></i>Security Guidelines
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="small text-muted">
+                    <p class="mb-2"><strong>Password Requirements:</strong></p>
+                    <ul class="list-unstyled mb-3">
+                        <li>• Minimum 8 characters</li>
+                        <li>• Include uppercase and lowercase letters</li>
+                        <li>• Include at least one number</li>
+                        <li>• Include special characters</li>
+                    </ul>
+                    
+                    <p class="mb-2"><strong>Role Selection:</strong></p>
+                    <ul class="list-unstyled">
+                        <li>• <span class="badge bg-danger">SuperAdmin</span> Full system access</li>
+                        <li>• <span class="badge bg-primary">Admin</span> Limited admin access</li>
+                        <li>• <span class="badge bg-success">Consultancy</span> Job posting</li>
+                        <li>• <span class="badge bg-info">JobSeeker</span> Job applications</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.role-card {
+    border: 2px solid #e9ecef;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.role-card:hover {
+    border-color: #007bff;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.role-card .form-check-input:checked ~ .form-check-label .role-card {
+    border-color: #007bff;
+    background-color: #f8f9ff;
+}
+
+.password-strength-weak { background-color: #dc3545 !important; }
+.password-strength-fair { background-color: #fd7e14 !important; }
+.password-strength-good { background-color: #ffc107 !important; }
+.password-strength-strong { background-color: #28a745 !important; }
+
+.avatar-placeholder {
+    border: 2px dashed #dee2e6 !important;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Real-time preview updates
+document.addEventListener('DOMContentLoaded', function() {
+    const firstNameInput = document.getElementById('first_name');
+    const lastNameInput = document.getElementById('last_name');
+    const emailInput = document.getElementById('email');
+    const usernameInput = document.getElementById('username');
+    const isActiveInput = document.getElementById('is_active');
+    const emailVerifiedInput = document.getElementById('email_verified');
+    const roleInputs = document.querySelectorAll('input[name="roles"]');
+    
+    function updatePreview() {
+        const firstName = firstNameInput.value || 'New';
+        const lastName = lastNameInput.value || 'User';
+        const email = emailInput.value || 'user@example.com';
+        const username = usernameInput.value || 'username';
+        
+        document.getElementById('preview-name').textContent = `${firstName} ${lastName}`;
+        document.getElementById('preview-email').textContent = email;
+        document.getElementById('preview-username').textContent = `@${username}`;
+        
+        // Update badges
+        const badges = [];
+        if (isActiveInput.checked) {
+            badges.push('<span class="badge bg-success">Active</span>');
+        } else {
+            badges.push('<span class="badge bg-danger">Inactive</span>');
+        }
+        
+        if (emailVerifiedInput.checked) {
+            badges.push('<span class="badge bg-info">Verified</span>');
+        }
+        
+        document.getElementById('preview-badges').innerHTML = badges.join(' ');
+        
+        // Update roles
+        const selectedRoles = Array.from(roleInputs)
+            .filter(input => input.checked)
+            .map(input => input.nextElementSibling.querySelector('h6').textContent);
+        
+        const rolesText = selectedRoles.length > 0 
+            ? `Roles: ${selectedRoles.join(', ')}` 
+            : 'No roles selected';
+        document.getElementById('preview-roles').textContent = rolesText;
+    }
+    
+    // Add event listeners
+    [firstNameInput, lastNameInput, emailInput, usernameInput, isActiveInput, emailVerifiedInput]
+        .forEach(input => input.addEventListener('input', updatePreview));
+    
+    roleInputs.forEach(input => input.addEventListener('change', updatePreview));
+    
+    // Initial preview
+    updatePreview();
+});
+
+// Password visibility toggle
+function togglePassword(fieldId) {
+    const field = document.getElementById(fieldId);
+    const icon = document.getElementById(fieldId + '-icon');
+    
+    if (field.type === 'password') {
+        field.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        field.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
+
+// Password strength checker
+document.getElementById('password').addEventListener('input', function() {
+    const password = this.value;
+    const strengthBar = document.getElementById('password-strength');
+    const strengthText = document.getElementById('password-strength-text');
+    
+    let strength = 0;
+    let feedback = [];
+    
+    if (password.length >= 8) strength += 25;
+    else feedback.push('At least 8 characters');
+    
+    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength += 25;
+    else feedback.push('Upper and lowercase letters');
+    
+    if (/\d/.test(password)) strength += 25;
+    else feedback.push('At least one number');
+    
+    if (/[^a-zA-Z0-9]/.test(password)) strength += 25;
+    else feedback.push('Special characters');
+    
+    // Update progress bar
+    strengthBar.style.width = strength + '%';
+    strengthBar.className = 'progress-bar ';
+    
+    if (strength < 25) {
+        strengthBar.classList.add('password-strength-weak');
+        strengthText.textContent = 'Weak - ' + feedback.join(', ');
+    } else if (strength < 50) {
+        strengthBar.classList.add('password-strength-fair');
+        strengthText.textContent = 'Fair - ' + feedback.join(', ');
+    } else if (strength < 100) {
+        strengthBar.classList.add('password-strength-good');
+        strengthText.textContent = 'Good - ' + feedback.join(', ');
+    } else {
+        strengthBar.classList.add('password-strength-strong');
+        strengthText.textContent = 'Strong password';
+    }
+});
+
+// Password confirmation validation
+document.getElementById('confirm_password').addEventListener('input', function() {
+    const password = document.getElementById('password').value;
+    const confirm = this.value;
+    
+    if (password && confirm && password !== confirm) {
+        this.setCustomValidity('Passwords do not match');
+        this.classList.add('is-invalid');
+    } else {
+        this.setCustomValidity('');
+        this.classList.remove('is-invalid');
+    }
+});
+
+// Generate strong password
+function generatePassword() {
+    const length = 12;
+    const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
+    let password = '';
+    
+    // Ensure at least one character from each required set
+    password += 'abcdefghijklmnopqrstuvwxyz'[Math.floor(Math.random() * 26)]; // lowercase
+    password += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)]; // uppercase
+    password += '0123456789'[Math.floor(Math.random() * 10)]; // number
+    password += '!@#$%^&*'[Math.floor(Math.random() * 8)]; // special
+    
+    // Fill remaining length
+    for (let i = password.length; i < length; i++) {
+        password += charset[Math.floor(Math.random() * charset.length)];
+    }
+    
+    // Shuffle the password
+    password = password.split('').sort(() => Math.random() - 0.5).join('');
+    
+    document.getElementById('password').value = password;
+    document.getElementById('confirm_password').value = password;
+    
+    // Trigger events to update strength indicator and preview
+    document.getElementById('password').dispatchEvent(new Event('input'));
+    document.getElementById('confirm_password').dispatchEvent(new Event('input'));
+    
+    // Show password temporarily
+    document.getElementById('password').type = 'text';
+    document.getElementById('confirm_password').type = 'text';
+    
+    setTimeout(() => {
+        document.getElementById('password').type = 'password';
+        document.getElementById('confirm_password').type = 'password';
+    }, 3000);
+    
+    // Show notification
+    showNotification('Strong password generated successfully!', 'success');
+}
+
+// Form validation
+document.getElementById('addUserForm').addEventListener('submit', function(e) {
+    const password = document.getElementById('password').value;
+    const confirm = document.getElementById('confirm_password').value;
+    
+    if (password !== confirm) {
+        e.preventDefault();
+        showNotification('Passwords do not match', 'error');
+        return false;
+    }
+    
+    if (password.length < 8) {
+        e.preventDefault();
+        showNotification('Password must be at least 8 characters long', 'error');
+        return false;
+    }
+    
+    const selectedRoles = document.querySelectorAll('input[name="roles"]:checked');
+    if (selectedRoles.length === 0) {
+        e.preventDefault();
+        showNotification('Please select at least one role for the user', 'error');
+        return false;
+    }
+    
+    // Show loading state
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Creating User...';
+    submitBtn.disabled = true;
+    
+    // If validation passes, form will submit
+    return true;
+});
+
+// Notification system
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
+    notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+    notification.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+        }
+    }, 5000);
+}
+
+// Username availability check (debounced)
+let usernameTimeout;
+document.getElementById('username').addEventListener('input', function() {
+    clearTimeout(usernameTimeout);
+    const username = this.value;
+    
+    if (username.length >= 3) {
+        usernameTimeout = setTimeout(() => {
+            // Mock availability check (in real app, make AJAX call)
+            console.log('Checking username availability:', username);
+        }, 500);
+    }
+});
+
+// Email validation
+document.getElementById('email').addEventListener('blur', function() {
+    const email = this.value;
+    if (email) {
+        // Basic email validation beyond HTML5
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            this.setCustomValidity('Please enter a valid email address');
+            this.classList.add('is-invalid');
+        } else {
+            this.setCustomValidity('');
+            this.classList.remove('is-invalid');
+        }
+    }
+});
+</script>
+{% endblock %}

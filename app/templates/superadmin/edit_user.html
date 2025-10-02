@@ -1,0 +1,550 @@
+{% extends "superadmin/base.html" %}
+
+{% block title %}Edit User - SuperAdmin Panel{% endblock %}
+
+{% block content %}
+<!-- Edit User Header -->
+<div class="dashboard-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.users') }}">Users</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.user_detail', user_id=user.id) }}">{{ user.first_name }} {{ user.last_name }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                </ol>
+            </nav>
+            <h1 class="h3 mb-0">Edit User</h1>
+            <p class="text-muted">Update user information and role assignments</p>
+        </div>
+        <div class="col-sm-6 text-sm-end">
+            <div class="btn-group">
+                <a href="{{ url_for('superadmin.user_detail', user_id=user.id) }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Details
+                </a>
+                <a href="{{ url_for('superadmin.users') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-users me-2"></i>All Users
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit User Form -->
+<div class="row">
+    <div class="col-lg-8">
+        <form method="POST" action="{{ url_for('superadmin.edit_user', user_id=user.id) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            
+            <!-- Basic Information Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-user me-2"></i>Basic Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="first_name" class="form-label">First Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" 
+                                       value="{{ user.first_name }}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="last_name" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" 
+                                       value="{{ user.last_name }}" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="username" name="username" 
+                               value="{{ user.username }}" required>
+                        <div class="form-text">Username must be unique across the platform</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" id="email" name="email" 
+                               value="{{ user.email }}" required>
+                        <div class="form-text">Email must be unique and will be used for notifications</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" 
+                               value="{{ user.phone or '' }}" placeholder="+1 (555) 123-4567">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Settings Card -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-cog me-2"></i>Account Settings
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Account Status</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="is_active" name="is_active" 
+                                           {% if user.is_active %}checked{% endif %}>
+                                    <label class="form-check-label" for="is_active">
+                                        Account Active
+                                    </label>
+                                </div>
+                                <div class="form-text">Inactive accounts cannot log in</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Email Verification</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="email_verified" name="email_verified" 
+                                           {% if user.email_verified %}checked{% endif %}>
+                                    <label class="form-check-label" for="email_verified">
+                                        Email Verified
+                                    </label>
+                                </div>
+                                <div class="form-text">Verified users have full platform access</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Two-Factor Authentication</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="two_factor_enabled" name="two_factor_enabled" 
+                                           {% if user.two_factor_enabled %}checked{% endif %}>
+                                    <label class="form-check-label" for="two_factor_enabled">
+                                        2FA Enabled
+                                    </label>
+                                </div>
+                                <div class="form-text">Enhanced security for account access</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="login_attempts" class="form-label">Login Attempts</label>
+                                <input type="number" class="form-control" id="login_attempts" name="login_attempts" 
+                                       value="{{ user.login_attempts }}" min="0" max="10">
+                                <div class="form-text">Reset to 0 to unlock account</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Role Assignment Card -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-shield-alt me-2"></i>Role Assignment
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label">User Roles <span class="text-danger">*</span></label>
+                        <div class="form-text mb-3">Select one or more roles for this user. Roles determine access permissions.</div>
+                        
+                        {% for role in roles %}
+                        {% set user_has_role = user.has_role(role.name) %}
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="role_{{ role.id }}" 
+                                   name="roles" value="{{ role.id }}" {% if user_has_role %}checked{% endif %}>
+                            <label class="form-check-label" for="role_{{ role.id }}">
+                                <strong>{{ role.display_name or role.name.title() }}</strong>
+                                {% if role.description %}
+                                    <br><small class="text-muted">{{ role.description }}</small>
+                                {% endif %}
+                                
+                                <!-- Role Badge -->
+                                <span class="badge ms-2
+                                    {% if role.name == 'superadmin' %}bg-danger
+                                    {% elif role.name == 'admin' %}bg-primary
+                                    {% elif role.name == 'consultancy' %}bg-success
+                                    {% elif role.name == 'jobseeker' %}bg-info
+                                    {% else %}bg-secondary{% endif %}">
+                                    {{ role.name.title() }}
+                                </span>
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    {% if roles|length == 0 %}
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        No roles are available. Please create roles first.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Password Reset Section -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-key me-2"></i>Password Management
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="new_password" class="form-label">New Password</label>
+                                <input type="password" class="form-control" id="new_password" name="new_password" 
+                                       placeholder="Leave blank to keep current password">
+                                <div class="form-text">Minimum 8 characters with letters, numbers, and symbols</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="confirm_password" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" 
+                                       placeholder="Confirm new password">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="force_password_change" name="force_password_change">
+                        <label class="form-check-label" for="force_password_change">
+                            Force password change on next login
+                        </label>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="clear_reset_token" name="clear_reset_token">
+                        <label class="form-check-label" for="clear_reset_token">
+                            Clear existing password reset token
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-save me-2"></i>Save Changes
+                            </button>
+                            <a href="{{ url_for('superadmin.user_detail', user_id=user.id) }}" class="btn btn-outline-secondary btn-lg ms-2">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-outline-warning" onclick="resetLoginAttempts()">
+                                <i class="fas fa-unlock me-2"></i>Reset Login Attempts
+                            </button>
+                            <button type="button" class="btn btn-outline-info ms-2" onclick="sendVerificationEmail()">
+                                <i class="fas fa-envelope me-2"></i>Send Verification Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- User Preview Card -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-eye me-2"></i>User Preview
+                </h5>
+            </div>
+            <div class="card-body text-center">
+                {% if user.avatar_url %}
+                    <img src="{{ user.avatar_url }}" alt="User Avatar" class="rounded-circle mb-3" width="80" height="80">
+                {% else %}
+                    <div class="avatar-placeholder rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" 
+                         style="width: 80px; height: 80px; background-color: #f8f9fa; border: 2px solid #dee2e6;">
+                        <i class="fas fa-user fa-2x text-muted"></i>
+                    </div>
+                {% endif %}
+                
+                <h6 class="mb-2">{{ user.first_name }} {{ user.last_name }}</h6>
+                <p class="text-muted mb-2">{{ user.email }}</p>
+                <p class="small text-muted mb-3">ID: {{ user.id }} | UUID: {{ user.uuid[:8] }}...</p>
+                
+                <div class="mb-3">
+                    <span class="badge {% if user.is_active %}bg-success{% else %}bg-danger{% endif %}">
+                        {% if user.is_active %}Active{% else %}Inactive{% endif %}
+                    </span>
+                    
+                    {% if user.email_verified %}
+                        <span class="badge bg-info ms-1">Verified</span>
+                    {% else %}
+                        <span class="badge bg-warning ms-1">Unverified</span>
+                    {% endif %}
+                </div>
+                
+                <div class="small text-muted">
+                    <div>Created: {{ user.created_at.strftime('%Y-%m-%d') if user.created_at else 'Unknown' }}</div>
+                    {% if user.last_login %}
+                        <div>Last Login: {{ user.last_login.strftime('%Y-%m-%d %H:%M') }}</div>
+                    {% else %}
+                        <div>Never logged in</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-bolt me-2"></i>Quick Actions
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="generatePasswordReset()">
+                        <i class="fas fa-key me-2"></i>Generate Password Reset
+                    </button>
+                    <button type="button" class="btn btn-outline-success btn-sm" onclick="verifyEmailManually()">
+                        <i class="fas fa-check-circle me-2"></i>Verify Email Manually
+                    </button>
+                    <button type="button" class="btn btn-outline-warning btn-sm" onclick="unlockAccount()">
+                        <i class="fas fa-unlock-alt me-2"></i>Unlock Account
+                    </button>
+                    <button type="button" class="btn btn-outline-info btn-sm" onclick="viewActivityLog()">
+                        <i class="fas fa-history me-2"></i>View Activity Log
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Statistics -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-chart-bar me-2"></i>User Statistics
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div class="border-end">
+                            <h4 class="text-primary">{{ user.login_attempts }}</h4>
+                            <small class="text-muted">Login Attempts</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h4 class="text-success">{{ user.get_roles()|length }}</h4>
+                        <small class="text-muted">Assigned Roles</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Password confirmation validation
+document.getElementById('confirm_password').addEventListener('input', function() {
+    const password = document.getElementById('new_password').value;
+    const confirm = this.value;
+    
+    if (password && confirm && password !== confirm) {
+        this.setCustomValidity('Passwords do not match');
+    } else {
+        this.setCustomValidity('');
+    }
+});
+
+// Quick action functions
+function resetLoginAttempts() {
+    if (confirm('Are you sure you want to reset the login attempts for this user?')) {
+        document.getElementById('login_attempts').value = '0';
+        showNotification('Login attempts reset to 0', 'success');
+    }
+}
+
+function sendVerificationEmail() {
+    if (confirm('Send a verification email to this user?')) {
+        // Get CSRF token
+        const csrfToken = document.querySelector('input[name="csrf_token"]') || 
+                         document.querySelector('#csrf-token') || 
+                         document.querySelector('meta[name="csrf-token"]');
+        
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+        
+        // Add CSRF token if found
+        if (csrfToken) {
+            headers['X-CSRF-Token'] = csrfToken.value || csrfToken.content;
+        }
+        
+        fetch(`/superadmin/users/{{ user.id }}/send-verification`, {
+            method: 'POST',
+            headers: headers
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showNotification('Verification email sent successfully', 'success');
+            } else {
+                showNotification('Error: ' + data.message, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('An error occurred while sending the verification email', 'error');
+        });
+    }
+}
+
+function generatePasswordReset() {
+    if (confirm('Generate a password reset token for this user?')) {
+        // Get CSRF token
+        const csrfToken = document.querySelector('input[name="csrf_token"]') || 
+                         document.querySelector('#csrf-token') || 
+                         document.querySelector('meta[name="csrf-token"]');
+        
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+        
+        // Add CSRF token if found
+        if (csrfToken) {
+            headers['X-CSRF-Token'] = csrfToken.value || csrfToken.content;
+        }
+        
+        fetch(`/superadmin/users/{{ user.id }}/reset-password`, {
+            method: 'POST',
+            headers: headers
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showNotification('Password reset token generated', 'success');
+            } else {
+                showNotification('Error: ' + data.message, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('An error occurred while generating password reset', 'error');
+        });
+    }
+}
+
+function verifyEmailManually() {
+    if (confirm('Manually verify this user\'s email address?')) {
+        document.getElementById('email_verified').checked = true;
+        showNotification('Email verification status updated', 'info');
+    }
+}
+
+function unlockAccount() {
+    if (confirm('Unlock this user account and reset login attempts?')) {
+        // Get CSRF token
+        const csrfToken = document.querySelector('input[name="csrf_token"]') || 
+                         document.querySelector('#csrf-token') || 
+                         document.querySelector('meta[name="csrf-token"]');
+        
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+        
+        // Add CSRF token if found
+        if (csrfToken) {
+            headers['X-CSRF-Token'] = csrfToken.value || csrfToken.content;
+        }
+        
+        fetch(`/superadmin/users/{{ user.id }}/unlock`, {
+            method: 'POST',
+            headers: headers
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update the form to reflect the changes
+                document.getElementById('login_attempts').value = '0';
+                if (document.getElementById('is_active')) {
+                    document.getElementById('is_active').checked = true;
+                }
+                showNotification(data.message || 'Account unlocked successfully', 'success');
+            } else {
+                showNotification('Error: ' + data.message, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('An error occurred while unlocking the account', 'error');
+        });
+    }
+}
+
+function viewActivityLog() {
+    window.open(`/superadmin/users/{{ user.id }}/activity`, '_blank');
+}
+
+function showNotification(message, type) {
+    // Create a simple notification
+    const notification = document.createElement('div');
+    notification.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
+    notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+    notification.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+        }
+    }, 5000);
+}
+
+// Form validation
+document.querySelector('form').addEventListener('submit', function(e) {
+    const password = document.getElementById('new_password').value;
+    const confirm = document.getElementById('confirm_password').value;
+    
+    if (password && password !== confirm) {
+        e.preventDefault();
+        showNotification('Passwords do not match', 'error');
+        return false;
+    }
+    
+    if (password && password.length < 8) {
+        e.preventDefault();
+        showNotification('Password must be at least 8 characters long', 'error');
+        return false;
+    }
+    
+    const selectedRoles = document.querySelectorAll('input[name="roles"]:checked');
+    if (selectedRoles.length === 0) {
+        e.preventDefault();
+        showNotification('Please select at least one role for the user', 'error');
+        return false;
+    }
+    
+    return true;
+});
+</script>
+{% endblock %}

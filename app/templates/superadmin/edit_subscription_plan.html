@@ -1,0 +1,423 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}Edit Subscription Plan - {{ plan.display_name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="h3 text-dark fw-bold">
+                <i class="fas fa-edit me-2"></i>Edit Subscription Plan
+            </h2>
+            <p class="text-muted">Modify "{{ plan.display_name }}" plan details and features</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="{{ url_for('superadmin.subscription_plans') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Plans
+            </a>
+        </div>
+    </div>
+
+    <!-- Form -->
+    <form method="POST" id="planForm">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        
+        <div class="row">
+            <!-- Basic Plan Information -->
+            <div class="col-md-8">
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Basic Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Plan Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="name" name="name" required 
+                                           value="{{ plan.name }}" placeholder="e.g., premium_jobseeker" pattern="[a-z0-9_]+" 
+                                           title="Use lowercase letters, numbers, and underscores only">
+                                    <div class="form-text">Internal name (lowercase, no spaces)</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="display_name" class="form-label">Display Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="display_name" name="display_name" required 
+                                           value="{{ plan.display_name }}" placeholder="e.g., Premium Job Seeker">
+                                    <div class="form-text">User-friendly name shown to customers</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" 
+                                      placeholder="Brief description of what this plan offers...">{{ plan.description or '' }}</textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="plan_type" class="form-label">Plan Type <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="plan_type" name="plan_type" required>
+                                        <option value="">Select Plan Type</option>
+                                        <option value="jobseeker" {{ 'selected' if plan.plan_type == 'jobseeker' }}>Job Seeker</option>
+                                        <option value="consultancy" {{ 'selected' if plan.plan_type == 'consultancy' }}>Consultancy</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="currency" class="form-label">Currency</label>
+                                    <select class="form-select" id="currency" name="currency">
+                                        <option value="USD" {{ 'selected' if plan.currency == 'USD' }}>USD ($)</option>
+                                        <option value="EUR" {{ 'selected' if plan.currency == 'EUR' }}>EUR (€)</option>
+                                        <option value="GBP" {{ 'selected' if plan.currency == 'GBP' }}>GBP (£)</option>
+                                        <option value="INR" {{ 'selected' if plan.currency == 'INR' }}>INR (₹)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="sort_order" class="form-label">Sort Order</label>
+                                    <input type="number" class="form-control" id="sort_order" name="sort_order" 
+                                           value="{{ plan.sort_order }}" min="0" max="999">
+                                    <div class="form-text">Lower numbers appear first</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-dollar-sign me-2"></i>Pricing</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="price_monthly" class="form-label">Monthly Price <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" class="form-control" id="price_monthly" name="price_monthly" 
+                                               step="0.01" min="0" value="{{ plan.price_monthly }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="price_yearly" class="form-label">Yearly Price</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" class="form-control" id="price_yearly" name="price_yearly" 
+                                               step="0.01" min="0" value="{{ plan.price_yearly }}">
+                                    </div>
+                                    <div class="form-text">Leave 0 for monthly-only plans</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Limits & Features -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-cogs me-2"></i>Limits & Quotas</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="max_users" class="form-label">Max Users</label>
+                                    <input type="number" class="form-control" id="max_users" name="max_users" 
+                                           value="{{ plan.max_users }}" min="1" max="9999">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="max_jobs" class="form-label">Max Jobs per Month</label>
+                                    <input type="number" class="form-control" id="max_jobs" name="max_jobs" 
+                                           value="{{ plan.max_jobs }}" min="0" max="999999" placeholder="0 = unlimited">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="max_applications" class="form-label">Max Applications</label>
+                                    <input type="number" class="form-control" id="max_applications" name="max_applications" 
+                                           value="{{ plan.max_applications }}" min="0" max="999999" placeholder="0 = unlimited">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="max_job_portals" class="form-label">Max Job Portals</label>
+                                    <input type="number" class="form-control" id="max_job_portals" name="max_job_portals" 
+                                           value="{{ plan.max_job_portals }}" min="0" max="99" placeholder="0 = unlimited">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="storage_limit_gb" class="form-label">Storage Limit (GB)</label>
+                                    <input type="number" class="form-control" id="storage_limit_gb" name="storage_limit_gb" 
+                                           value="{{ plan.storage_limit_gb }}" min="1" max="1000">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="api_rate_limit" class="form-label">API Rate Limit (req/min)</label>
+                                    <input type="number" class="form-control" id="api_rate_limit" name="api_rate_limit" 
+                                           value="{{ plan.api_rate_limit }}" min="10" max="10000">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Plan Features -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="fas fa-list me-2"></i>Plan Features</h5>
+                        <button type="button" class="btn btn-sm btn-dark" onclick="addFeature()">
+                            <i class="fas fa-plus me-1"></i>Add Feature
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div id="featuresContainer">
+                            <!-- Existing features will be loaded here -->
+                            {% for feature in features %}
+                            <div class="row mb-3 feature-row border rounded p-3 bg-light" id="feature-{{ loop.index }}">
+                                <div class="col-md-3">
+                                    <label class="form-label">Feature Key</label>
+                                    <input type="text" class="form-control form-control-sm" name="feature_key[]" 
+                                           value="{{ feature.feature_key }}" placeholder="e.g., ai_assistance" pattern="[a-z0-9_]+">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Feature Name</label>
+                                    <input type="text" class="form-control form-control-sm" name="feature_name[]" 
+                                           value="{{ feature.feature_name }}" placeholder="e.g., AI Job Assistance">
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">Value</label>
+                                    <input type="text" class="form-control form-control-sm" name="feature_value[]" 
+                                           value="{{ feature.feature_value }}" placeholder="e.g., true, 100">
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">Type</label>
+                                    <select class="form-select form-select-sm" name="feature_type[]">
+                                        <option value="text" {{ 'selected' if not feature.is_boolean and not feature.is_numeric and not feature.is_unlimited }}>Text</option>
+                                        <option value="boolean" {{ 'selected' if feature.is_boolean }}>Yes/No</option>
+                                        <option value="numeric" {{ 'selected' if feature.is_numeric }}>Number</option>
+                                        <option value="unlimited" {{ 'selected' if feature.is_unlimited }}>Unlimited</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="form-label">Category</label>
+                                    <select class="form-select form-select-sm" name="feature_category[]">
+                                        <option value="general" {{ 'selected' if feature.feature_category == 'general' }}>General</option>
+                                        <option value="limits" {{ 'selected' if feature.feature_category == 'limits' }}>Limits</option>
+                                        <option value="features" {{ 'selected' if feature.feature_category == 'features' }}>Features</option>
+                                        <option value="support" {{ 'selected' if feature.feature_category == 'support' }}>Support</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-1 d-flex align-items-end">
+                                    <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeFeature({{ loop.index }})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="text-muted">
+                            <small><i class="fas fa-info-circle me-1"></i>Features describe what this plan includes</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Sidebar -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="mb-0"><i class="fas fa-sliders-h me-2"></i>Plan Settings</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="is_active" name="is_active" {{ 'checked' if plan.is_active }}>
+                                <label class="form-check-label" for="is_active">
+                                    <strong>Active Plan</strong>
+                                </label>
+                                <div class="form-text">Allow users to subscribe to this plan</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="is_popular" name="is_popular" {{ 'checked' if plan.is_popular }}>
+                                <label class="form-check-label" for="is_popular">
+                                    <strong>Mark as Popular</strong>
+                                </label>
+                                <div class="form-text">Show "Popular" badge to highlight this plan</div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="mb-3">
+                            <h6 class="text-muted">Quick Features</h6>
+                            <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" 
+                                    onclick="addQuickFeature('ai_assistance', 'AI Job Assistance', 'boolean')">
+                                AI Assistance
+                            </button>
+                            <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" 
+                                    onclick="addQuickFeature('priority_support', 'Priority Support', 'boolean')">
+                                Priority Support
+                            </button>
+                            <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" 
+                                    onclick="addQuickFeature('resume_builder', 'Resume Builder', 'boolean')">
+                                Resume Builder
+                            </button>
+                            <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" 
+                                    onclick="addQuickFeature('interview_prep', 'Interview Preparation', 'boolean')">
+                                Interview Prep
+                            </button>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save me-2"></i>Update Plan
+                            </button>
+                            <a href="{{ url_for('superadmin.subscription_plans') }}" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                        </div>
+
+                        <hr>
+
+                        <div class="text-center">
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Plan created: {{ plan.created_at.strftime('%Y-%m-%d') }}<br>
+                                Last updated: {{ plan.updated_at.strftime('%Y-%m-%d %H:%M') }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+let featureCounter = {{ features|length }};
+
+function addFeature(key = '', name = '', value = '', type = 'text', category = 'general') {
+    featureCounter++;
+    const container = document.getElementById('featuresContainer');
+    
+    const featureHtml = `
+        <div class="row mb-3 feature-row border rounded p-3 bg-light" id="feature-${featureCounter}">
+            <div class="col-md-3">
+                <label class="form-label">Feature Key</label>
+                <input type="text" class="form-control form-control-sm" name="feature_key[]" 
+                       value="${key}" placeholder="e.g., ai_assistance" pattern="[a-z0-9_]+">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Feature Name</label>
+                <input type="text" class="form-control form-control-sm" name="feature_name[]" 
+                       value="${name}" placeholder="e.g., AI Job Assistance">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Value</label>
+                <input type="text" class="form-control form-control-sm" name="feature_value[]" 
+                       value="${value}" placeholder="e.g., true, 100">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Type</label>
+                <select class="form-select form-select-sm" name="feature_type[]">
+                    <option value="text" ${type === 'text' ? 'selected' : ''}>Text</option>
+                    <option value="boolean" ${type === 'boolean' ? 'selected' : ''}>Yes/No</option>
+                    <option value="numeric" ${type === 'numeric' ? 'selected' : ''}>Number</option>
+                    <option value="unlimited" ${type === 'unlimited' ? 'selected' : ''}>Unlimited</option>
+                </select>
+            </div>
+            <div class="col-md-1">
+                <label class="form-label">Category</label>
+                <select class="form-select form-select-sm" name="feature_category[]">
+                    <option value="general" ${category === 'general' ? 'selected' : ''}>General</option>
+                    <option value="limits" ${category === 'limits' ? 'selected' : ''}>Limits</option>
+                    <option value="features" ${category === 'features' ? 'selected' : ''}>Features</option>
+                    <option value="support" ${category === 'support' ? 'selected' : ''}>Support</option>
+                </select>
+            </div>
+            <div class="col-md-1 d-flex align-items-end">
+                <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeFeature(${featureCounter})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    `;
+    
+    container.insertAdjacentHTML('beforeend', featureHtml);
+}
+
+function removeFeature(id) {
+    const element = document.getElementById(`feature-${id}`);
+    if (element) {
+        element.remove();
+    }
+}
+
+function addQuickFeature(key, name, type) {
+    addFeature(key, name, type === 'boolean' ? 'true' : '', type, 'features');
+}
+
+// Form validation
+document.getElementById('planForm').addEventListener('submit', function(e) {
+    const name = document.getElementById('name').value;
+    const displayName = document.getElementById('display_name').value;
+    const planType = document.getElementById('plan_type').value;
+    
+    if (!name || !displayName || !planType) {
+        e.preventDefault();
+        alert('Please fill in all required fields.');
+        return false;
+    }
+    
+    // Validate plan name format
+    if (!/^[a-z0-9_]+$/.test(name)) {
+        e.preventDefault();
+        alert('Plan name must contain only lowercase letters, numbers, and underscores.');
+        return false;
+    }
+});
+</script>
+
+<style>
+.feature-row {
+    margin-bottom: 1rem;
+}
+
+.form-control-sm, .form-select-sm {
+    font-size: 0.875rem;
+}
+
+.btn-group .btn {
+    margin-right: 0.25rem;
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+</style>
+{% endblock %}

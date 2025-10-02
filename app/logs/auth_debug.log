@@ -255,3 +255,1118 @@ jinja2.exceptions.UndefinedError: 'csrf_token' is undefined
 2025-09-30 22:04:55,106 | auth_system | DEBUG | superadmin_login:299 | Password match: False
 2025-09-30 22:04:55,107 | auth_system | INFO | superadmin_login:302 | Flash message set: Invalid credentials
 2025-09-30 22:04:55,108 | auth_system | INFO | superadmin_login:303 | === SUPERADMIN LOGIN POST FAILED END ===
+2025-09-30 22:06:05,401 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-09-30 22:06:05,401 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-09-30 22:06:05,402 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-09-30 22:06:05,403 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-09-30 22:06:05,405 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-09-30 22:06:05,405 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-09-30 22:06:05,406 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'none', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9'}
+2025-09-30 22:06:05,407 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-09-30 22:06:05,408 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-09-30 22:06:05,409 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-09-30 22:06:05,409 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-09-30 22:06:05,410 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-09-30 22:06:05,411 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-09-30 22:08:55,196 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-09-30 22:08:55,196 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-09-30 22:08:55,197 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-09-30 22:08:55,197 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-09-30 22:08:55,198 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-09-30 22:08:55,199 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-09-30 22:08:55,199 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Content-Length': '101', 'Cache-Control': 'max-age=0', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Origin': 'http://localhost:5051', 'Content-Type': 'application/x-www-form-urlencoded', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Referer': 'http://localhost:5051/superadmin/auth/login', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiU2FZRXlTS2UwaThzenJWek5LT2RDUjR1ZkJlYUIxVUh3RFNfS2hocjItUSIsInNlc3Npb25faWQiOiIzZjFiYzVhOS0yMzhhLTRiZTAtYWY0YS1hYTQ1ZWU4NWM5NjQifQ.aNyanQ.toTH9r_HZ_dpZ-d36r7Zq70A0-U'}
+2025-09-30 22:08:55,200 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-09-30 22:08:55,201 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-09-30 22:08:55,202 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-09-30 22:08:55,203 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-09-30 22:08:55,205 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-09-30 22:08:55,206 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['csrf_token', 'username', 'password']
+2025-09-30 22:08:55,206 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-09-30 22:08:55,206 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-09-30 22:08:55,206 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-09-30 22:08:55,207 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-09-30 22:08:55,207 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-09-30 22:08:55,207 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-09-30 22:08:55,208 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-09-30 22:08:55,208 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-09-30 22:08:55,209 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-09-30 22:08:55,212 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-09-30 22:08:55,213 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-09-30 22:08:55,214 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-09-30 22:08:55,215 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-09-30 22:08:55,216 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-09-30 22:08:55,218 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===
+2025-09-30 22:11:41,394 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-09-30 22:11:41,395 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-09-30 22:11:41,395 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-09-30 22:11:41,396 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584
+2025-09-30 22:11:41,396 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-09-30 22:11:41,398 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-09-30 22:11:41,399 | auth_system | INFO | superadmin_login:222 | Request Headers: {'User-Agent': 'Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584', 'Host': 'localhost:5051', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiOFRwdlM4ZTJlX0trMkVVdHh3NUdEZEYybzNvNEZOQ2xRUTQzRlM5WWotYyIsInNlc3Npb25faWQiOiJlMTg0YzNjMC0zMWUwLTQzZDMtOWFiMy0zMTdiMzY5MGFmNjMifQ.aNyb7Q._49HrzMsdW4ZhoyFgL6JMojYbHs'}
+2025-09-30 22:11:41,400 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-09-30 22:11:41,400 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-09-30 22:11:41,400 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-09-30 22:11:41,400 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-09-30 22:11:41,401 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-09-30 22:11:41,402 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-09-30 22:12:21,328 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-09-30 22:12:21,329 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-09-30 22:12:21,329 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-09-30 22:12:21,333 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584
+2025-09-30 22:12:21,333 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-09-30 22:12:21,334 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-09-30 22:12:21,334 | auth_system | INFO | superadmin_login:222 | Request Headers: {'User-Agent': 'Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584', 'Host': 'localhost:5051', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiaC1RbHhLUUtYS1U5cXdUUnAya281NzN1clRnUHh0SXhSQmhQUkhpSHljOCIsInNlc3Npb25faWQiOiJkYzY5NDMwMC0yNmNlLTRhM2YtOWRkMC00MjgzYzRjNWM5NzYifQ.aNycFQ.9ySgbUmNmkd7YDeVaImIkSM0h24'}
+2025-09-30 22:12:21,336 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-09-30 22:12:21,337 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-09-30 22:12:21,337 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-09-30 22:12:21,338 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-09-30 22:12:21,339 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-09-30 22:12:21,340 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-09-30 22:12:31,034 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-09-30 22:12:31,035 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-09-30 22:12:31,038 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-09-30 22:12:31,040 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584
+2025-09-30 22:12:31,042 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-09-30 22:12:31,044 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-09-30 22:12:31,044 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Content-Type': 'application/x-www-form-urlencoded', 'User-Agent': 'Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584', 'Host': 'localhost:5051', 'Content-Length': '44'}
+2025-09-30 22:12:31,045 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-09-30 22:12:31,045 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-09-30 22:12:31,046 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-09-30 22:12:31,047 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-09-30 22:12:31,048 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-09-30 22:12:31,048 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['username', 'password']
+2025-09-30 22:12:31,048 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-09-30 22:12:31,049 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-09-30 22:12:31,049 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-09-30 22:12:31,049 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-09-30 22:12:31,050 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-09-30 22:12:31,050 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-09-30 22:12:31,051 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-09-30 22:12:31,051 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-09-30 22:12:31,051 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-09-30 22:12:31,052 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-09-30 22:12:31,053 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-09-30 22:12:31,053 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-09-30 22:12:31,053 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-09-30 22:12:31,054 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-09-30 22:12:31,054 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===
+2025-09-30 22:14:02,451 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-09-30 22:14:02,451 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-09-30 22:14:02,452 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-09-30 22:14:02,453 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584
+2025-09-30 22:14:02,453 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-09-30 22:14:02,453 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-09-30 22:14:02,454 | auth_system | INFO | superadmin_login:222 | Request Headers: {'User-Agent': 'Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584', 'Content-Type': 'application/x-www-form-urlencoded', 'Host': 'localhost:5051', 'Content-Length': '46'}
+2025-09-30 22:14:02,455 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-09-30 22:14:02,455 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-09-30 22:14:02,455 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-09-30 22:14:02,455 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-09-30 22:14:02,456 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-09-30 22:14:02,456 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['password', 'username']
+2025-09-30 22:14:02,456 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-09-30 22:14:02,457 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-09-30 22:14:02,457 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-09-30 22:14:02,457 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-09-30 22:14:02,458 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-09-30 22:14:02,458 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-09-30 22:14:02,459 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-09-30 22:14:02,459 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-09-30 22:14:02,459 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-09-30 22:14:02,460 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-09-30 22:14:02,461 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-09-30 22:14:02,461 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-09-30 22:14:02,461 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-09-30 22:14:02,468 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-09-30 22:14:02,470 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===
+2025-09-30 22:17:38,400 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-09-30 22:17:38,403 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-09-30 22:17:38,404 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-09-30 22:17:38,405 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584
+2025-09-30 22:17:38,406 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-09-30 22:17:38,407 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-09-30 22:17:38,408 | auth_system | INFO | superadmin_login:222 | Request Headers: {'User-Agent': 'Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584', 'Content-Type': 'application/x-www-form-urlencoded', 'Host': 'localhost:5051', 'Content-Length': '46', 'Connection': 'Keep-Alive'}
+2025-09-30 22:17:38,408 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-09-30 22:17:38,409 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-09-30 22:17:38,409 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-09-30 22:17:38,410 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-09-30 22:17:38,427 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-09-30 22:17:38,428 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['password', 'username']
+2025-09-30 22:17:38,428 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-09-30 22:17:38,431 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-09-30 22:17:38,432 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-09-30 22:17:38,438 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-09-30 22:17:38,445 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-09-30 22:17:38,446 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-09-30 22:17:38,447 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-09-30 22:17:38,448 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-09-30 22:17:38,448 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-09-30 22:17:38,449 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-09-30 22:17:38,452 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-09-30 22:17:38,453 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-09-30 22:17:38,454 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-09-30 22:17:38,456 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-09-30 22:17:38,460 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===
+2025-09-30 22:19:56,539 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-09-30 22:19:56,540 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-09-30 22:19:56,541 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-09-30 22:19:56,542 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584
+2025-09-30 22:19:56,543 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-09-30 22:19:56,544 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-09-30 22:19:56,545 | auth_system | INFO | superadmin_login:222 | Request Headers: {'User-Agent': 'Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584', 'Content-Type': 'application/x-www-form-urlencoded', 'Host': 'localhost:5051', 'Content-Length': '46', 'Connection': 'Keep-Alive'}
+2025-09-30 22:19:56,661 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-09-30 22:19:56,661 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-09-30 22:19:56,662 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-09-30 22:19:56,728 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-09-30 22:19:56,729 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-09-30 22:19:56,729 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['password', 'username']
+2025-09-30 22:19:56,730 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-09-30 22:19:56,795 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-09-30 22:19:56,795 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-09-30 22:19:56,796 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-09-30 22:19:56,859 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-09-30 22:19:56,863 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-09-30 22:19:56,890 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-09-30 22:19:56,890 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-09-30 22:19:56,890 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-09-30 22:19:56,894 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-09-30 22:19:56,896 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-09-30 22:19:56,897 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-09-30 22:19:56,898 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-09-30 22:19:56,927 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-09-30 22:19:56,932 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===
+2025-09-30 22:20:13,005 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-09-30 22:20:13,023 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-09-30 22:20:13,024 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-09-30 22:20:13,025 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584
+2025-09-30 22:20:13,026 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-09-30 22:20:13,026 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-09-30 22:20:13,027 | auth_system | INFO | superadmin_login:222 | Request Headers: {'User-Agent': 'Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584', 'Content-Type': 'application/x-www-form-urlencoded', 'Host': 'localhost:5051', 'Content-Length': '46'}
+2025-09-30 22:20:13,028 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-09-30 22:20:13,028 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-09-30 22:20:13,029 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-09-30 22:20:13,059 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-09-30 22:20:13,060 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-09-30 22:20:13,061 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['password', 'username']
+2025-09-30 22:20:13,061 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-09-30 22:20:13,099 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-09-30 22:20:13,099 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-09-30 22:20:13,100 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-09-30 22:20:13,126 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-09-30 22:20:13,146 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-09-30 22:20:13,159 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-09-30 22:20:13,160 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-09-30 22:20:13,160 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-09-30 22:20:13,176 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-09-30 22:20:13,180 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-09-30 22:20:13,181 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-09-30 22:20:13,181 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-09-30 22:20:13,191 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-09-30 22:20:13,192 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===
+2025-09-30 22:20:51,349 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-09-30 22:20:51,353 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-09-30 22:20:51,356 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-09-30 22:20:51,368 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584
+2025-09-30 22:20:51,431 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-09-30 22:20:51,435 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-09-30 22:20:51,449 | auth_system | INFO | superadmin_login:222 | Request Headers: {'User-Agent': 'Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584', 'Content-Type': 'application/x-www-form-urlencoded', 'Host': 'localhost:5051', 'Content-Length': '46'}
+2025-09-30 22:20:51,465 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-09-30 22:20:51,466 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-09-30 22:20:51,466 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-09-30 22:20:51,474 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-09-30 22:20:51,476 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-09-30 22:20:51,476 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['password', 'username']
+2025-09-30 22:20:51,477 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-09-30 22:20:51,555 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-09-30 22:20:51,555 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-09-30 22:20:51,555 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-09-30 22:20:51,558 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-09-30 22:20:51,569 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-09-30 22:20:51,590 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-09-30 22:20:51,591 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-09-30 22:20:51,591 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-09-30 22:20:51,603 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-09-30 22:20:51,608 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-09-30 22:20:51,609 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-09-30 22:20:51,610 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-09-30 22:20:51,643 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-09-30 22:20:51,656 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===
+2025-09-30 22:32:15,078 | auth_system | INFO | logout:617 | === USER LOGOUT REQUEST START ===
+2025-09-30 22:32:15,093 | auth_system | INFO | logout:618 | Request Method: GET
+2025-09-30 22:32:15,094 | auth_system | INFO | logout:619 | Request URL: http://localhost:5051/auth/logout
+2025-09-30 22:32:15,095 | auth_system | INFO | logout:620 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-09-30 22:32:15,096 | auth_system | INFO | logout:621 | Remote Address: 127.0.0.1
+2025-09-30 22:32:15,101 | auth_system | INFO | logout:625 | Extracting authentication token
+2025-09-30 22:32:15,103 | auth_system | DEBUG | logout:635 | No Authorization header found
+2025-09-30 22:32:15,104 | auth_system | INFO | logout:638 | Session user_id: 1
+2025-09-30 22:32:15,157 | auth_system | DEBUG | logout:639 | Session keys: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-09-30 22:32:15,157 | auth_system | INFO | logout:650 | No token to blacklist, proceeding with session logout only
+2025-09-30 22:32:15,176 | auth_system | INFO | logout:653 | Clearing user session
+2025-09-30 22:32:15,180 | auth_system | DEBUG | logout:655 | Session keys before clear: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-09-30 22:32:15,180 | auth_system | INFO | logout:657 | Session cleared successfully
+2025-09-30 22:32:15,183 | auth_system | INFO | logout:660 | Setting flash message for HTML response
+2025-09-30 22:32:15,184 | auth_system | INFO | logout:662 | Redirecting to superadmin login page
+2025-09-30 22:32:15,185 | auth_system | INFO | logout:663 | === USER LOGOUT SUCCESS END ===
+2025-09-30 22:32:15,502 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-09-30 22:32:15,519 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-09-30 22:32:15,527 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-09-30 22:32:15,529 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-09-30 22:32:15,578 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-09-30 22:32:15,620 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-09-30 22:32:15,624 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Referer': 'http://localhost:5051/superadmin/dashboard', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJfZmxhc2hlcyI6W3siIHQiOlsiaW5mbyIsIllvdSBoYXZlIGJlZW4gbG9nZ2VkIG91dCBzdWNjZXNzZnVsbHkiXX1dfQ.aNygvw.GxDwthsoXk0lhX1ocI7L_Z1Ei0w'}
+2025-09-30 22:32:15,626 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-09-30 22:32:15,626 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-09-30 22:32:15,626 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-09-30 22:32:15,627 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-09-30 22:32:15,713 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-09-30 22:32:15,716 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-09-30 22:32:30,336 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-09-30 22:32:30,337 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-09-30 22:32:30,338 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-09-30 22:32:30,338 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-09-30 22:32:30,339 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-09-30 22:32:30,339 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-09-30 22:32:30,340 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Content-Length': '101', 'Cache-Control': 'max-age=0', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Origin': 'http://localhost:5051', 'Content-Type': 'application/x-www-form-urlencoded', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Referer': 'http://localhost:5051/superadmin/auth/login', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiQ2JYY0xFM1RGek1iRzFCZjNMTmE2ZGMzQklESHhUbkxXNi12ZUFycnRPayIsInNlc3Npb25faWQiOiI5MzI0MWNiZi0zNjVkLTRiNjgtOTdiNy05MzVlMGU1NjNiMWIifQ.aNygvw.QxnUVg-q2U7eaqW8_0eqz8Toatw'}
+2025-09-30 22:32:30,341 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-09-30 22:32:30,341 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-09-30 22:32:30,341 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-09-30 22:32:30,342 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-09-30 22:32:30,348 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-09-30 22:32:30,349 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['csrf_token', 'username', 'password']
+2025-09-30 22:32:30,349 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-09-30 22:32:30,349 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-09-30 22:32:30,350 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-09-30 22:32:30,350 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-09-30 22:32:30,351 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-09-30 22:32:30,354 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-09-30 22:32:30,360 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-09-30 22:32:30,360 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-09-30 22:32:30,360 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-09-30 22:32:30,362 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-09-30 22:32:30,364 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-09-30 22:32:30,364 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-09-30 22:32:30,365 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-09-30 22:32:30,366 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-09-30 22:32:30,371 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===
+2025-09-30 22:45:54,244 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-09-30 22:45:54,245 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-09-30 22:45:54,245 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-09-30 22:45:54,246 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+2025-09-30 22:45:54,246 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-09-30 22:45:54,247 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-09-30 22:45:54,248 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Cache-Control': 'max-age=0', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Google Chrome";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'none', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9'}
+2025-09-30 22:45:54,249 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-09-30 22:45:54,249 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-09-30 22:45:54,249 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-09-30 22:45:54,250 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-09-30 22:45:54,264 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-09-30 22:45:54,265 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 15:44:40,448 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 15:44:40,449 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 15:44:40,450 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 15:44:40,450 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-01 15:44:40,451 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 15:44:40,451 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 15:44:40,452 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'none', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoieGFUVUJESVIwbnZSTjUwNE90ajZjOFFKTVlDX0dmNjBpMk0tVTFpLWc5OCIsInNlc3Npb25faWQiOiJjMTBkNzg5My1mM2JlLTRjYTctODM1MC1kNGFmZmMxNWU5NGEifQ.aN2SuA.rC4f84xje-47Mn8WmvrU0Sh_OBA'}
+2025-10-01 15:44:40,453 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 15:44:40,453 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 15:44:40,453 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 15:44:40,453 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 15:44:40,477 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 15:44:40,478 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 15:44:48,748 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 15:44:48,749 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 15:44:48,749 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 15:44:48,750 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 15:44:48,750 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 15:44:48,750 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 15:44:48,751 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 15:44:48,751 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 15:44:48,752 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 15:44:48,752 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 15:44:48,752 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 15:44:48,753 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 15:44:48,753 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 15:49:49,767 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 15:49:49,768 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-10-01 15:49:49,769 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 15:49:49,770 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-01 15:49:49,770 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 15:49:49,771 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-10-01 15:49:49,772 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Content-Length': '101', 'Cache-Control': 'max-age=0', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Origin': 'http://localhost:5051', 'Content-Type': 'application/x-www-form-urlencoded', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Referer': 'http://localhost:5051/superadmin/auth/login', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoieGFUVUJESVIwbnZSTjUwNE90ajZjOFFKTVlDX0dmNjBpMk0tVTFpLWc5OCIsInNlc3Npb25faWQiOiJjMTBkNzg5My1mM2JlLTRjYTctODM1MC1kNGFmZmMxNWU5NGEifQ.aN2SuA.rC4f84xje-47Mn8WmvrU0Sh_OBA'}
+2025-10-01 15:49:49,773 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 15:49:49,774 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 15:49:49,774 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-10-01 15:49:49,776 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-10-01 15:49:49,843 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-10-01 15:49:49,844 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-01 15:49:49,844 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-10-01 15:49:49,845 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-10-01 15:49:49,845 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-10-01 15:49:49,845 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-10-01 15:49:49,846 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-10-01 15:49:49,846 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-10-01 15:49:49,847 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-10-01 15:49:49,848 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-10-01 15:49:49,848 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-10-01 15:49:49,849 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-10-01 15:49:49,849 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-10-01 15:49:49,850 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-10-01 15:49:49,850 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-10-01 15:49:49,850 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-10-01 15:49:49,853 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===
+2025-10-01 15:53:59,983 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 15:53:59,983 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 15:53:59,984 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 15:53:59,984 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 15:53:59,985 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 15:53:59,985 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 15:53:59,986 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 15:53:59,987 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 15:53:59,988 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 15:53:59,988 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 15:53:59,989 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 15:54:00,053 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 15:54:00,053 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 15:57:10,223 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 15:57:10,225 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 15:57:10,234 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 15:57:10,256 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 15:57:10,274 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 15:57:10,277 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 15:57:10,280 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 15:57:10,285 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 15:57:10,285 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 15:57:10,285 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 15:57:10,287 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 15:57:10,389 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 15:57:10,400 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 16:01:15,877 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 16:01:15,880 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 16:01:15,881 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 16:01:15,883 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 16:01:15,883 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 16:01:15,886 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 16:01:15,887 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 16:01:15,889 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 16:01:15,889 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 16:01:15,889 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 16:01:15,890 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 16:01:15,968 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 16:01:15,970 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 16:05:58,790 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 16:05:58,791 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 16:05:58,791 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 16:05:58,792 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 16:05:58,796 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 16:05:58,797 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 16:05:58,797 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 16:05:58,799 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 16:05:58,799 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 16:05:58,799 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 16:05:58,803 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 16:05:58,873 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 16:05:58,890 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 16:17:10,119 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 16:17:10,164 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 16:17:10,165 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 16:17:10,199 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 16:17:10,208 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 16:17:10,212 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 16:17:10,244 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 16:17:10,296 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 16:17:10,296 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 16:17:10,298 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 16:17:10,311 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 16:17:10,416 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 16:17:10,440 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 16:17:46,949 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 16:17:46,951 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 16:17:46,952 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 16:17:46,953 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 16:17:46,954 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 16:17:46,958 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 16:17:46,962 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 16:17:46,965 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 16:17:46,965 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 16:17:46,966 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 16:17:46,968 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 16:17:47,092 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 16:17:47,104 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 16:20:53,203 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 16:20:53,204 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 16:20:53,204 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 16:20:53,205 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 16:20:53,205 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 16:20:53,206 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 16:20:53,207 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 16:20:53,208 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 16:20:53,208 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 16:20:53,209 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 16:20:53,209 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 16:20:53,268 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 16:20:53,268 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 16:25:04,599 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 16:25:04,635 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 16:25:04,663 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 16:25:04,676 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 16:25:04,678 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 16:25:04,718 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 16:25:04,720 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 16:25:04,778 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 16:25:04,779 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 16:25:04,779 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 16:25:04,849 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 16:25:05,070 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 16:25:05,103 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 16:31:16,823 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 16:31:16,832 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 16:31:16,861 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 16:31:16,880 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 16:31:16,946 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 16:31:16,951 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 16:31:16,953 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 16:31:16,956 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 16:31:16,956 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 16:31:16,957 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 16:31:16,966 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 16:31:17,087 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 16:31:17,110 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 16:34:15,612 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 16:34:15,612 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 16:34:15,613 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 16:34:15,614 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 16:34:15,614 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 16:34:15,615 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 16:34:15,616 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 16:34:15,617 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 16:34:15,617 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 16:34:15,617 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 16:34:15,618 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 16:34:15,618 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 16:34:15,619 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 16:37:57,204 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 16:37:57,205 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 16:37:57,205 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 16:37:57,206 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 16:37:57,206 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 16:37:57,207 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 16:37:57,207 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 16:37:57,208 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 16:37:57,208 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 16:37:57,208 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 16:37:57,209 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 16:37:57,211 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 16:37:57,211 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 16:41:45,487 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 16:41:45,488 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 16:41:45,489 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 16:41:45,490 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 16:41:45,491 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 16:41:45,492 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 16:41:45,492 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 16:41:45,493 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 16:41:45,493 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 16:41:45,493 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 16:41:45,494 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 16:41:45,521 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 16:41:45,522 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 17:13:55,335 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 17:13:55,347 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 17:13:55,347 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 17:13:55,349 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 17:13:55,350 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 17:13:55,351 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 17:13:55,353 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 17:13:55,355 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 17:13:55,356 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 17:13:55,356 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 17:13:55,356 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 17:13:55,420 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 17:13:55,442 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 17:18:11,952 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 17:18:11,953 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 17:18:11,953 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 17:18:11,954 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 17:18:11,954 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 17:18:11,955 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 17:18:11,955 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 17:18:11,956 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 17:18:11,956 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 17:18:11,957 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 17:18:11,958 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 17:18:11,997 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 17:18:11,998 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 17:30:28,836 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 17:30:28,841 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 17:30:28,870 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 17:30:28,885 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 17:30:28,890 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 17:30:28,893 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 17:30:28,894 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 17:30:28,907 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 17:30:28,908 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 17:30:28,908 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 17:30:28,916 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 17:30:29,019 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 17:30:29,040 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 17:33:55,341 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 17:33:55,342 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 17:33:55,343 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 17:33:55,344 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 17:33:55,345 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 17:33:55,346 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 17:33:55,347 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 17:33:55,349 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 17:33:55,349 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 17:33:55,349 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 17:33:55,350 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 17:33:55,351 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 17:33:55,352 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 17:35:30,945 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 17:35:30,946 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 17:35:30,947 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 17:35:30,949 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 17:35:30,950 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 17:35:30,952 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 17:35:30,953 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 17:35:30,954 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 17:35:30,955 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 17:35:30,956 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 17:35:30,958 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 17:35:30,959 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 17:35:30,960 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 21:05:13,990 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 21:05:13,991 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 21:05:13,991 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 21:05:13,991 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 21:05:13,992 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 21:05:13,992 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 21:05:13,992 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 21:05:13,993 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 21:05:13,993 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 21:05:13,993 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 21:05:13,993 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 21:05:14,099 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 21:05:14,099 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 21:05:18,596 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 21:05:18,596 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 21:05:18,597 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 21:05:18,598 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 21:05:18,599 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 21:05:18,600 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 21:05:18,600 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 21:05:18,602 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 21:05:18,603 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 21:05:18,603 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 21:05:18,604 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 21:05:18,605 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 21:05:18,605 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:16:55,201 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:16:55,201 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:16:55,202 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:16:55,204 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:16:55,205 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:16:55,206 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:16:55,207 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:16:55,208 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:16:55,208 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:16:55,208 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:16:55,209 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:16:55,255 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:16:55,256 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:43:50,971 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:43:50,972 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:43:50,974 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:43:50,975 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:43:50,975 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:43:50,976 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:43:50,977 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:43:50,978 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:43:50,979 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:43:50,979 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:43:50,980 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:43:51,022 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:43:51,024 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:46:13,520 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:46:13,521 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:46:13,523 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:46:13,524 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:46:13,524 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:46:13,525 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:46:13,527 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:46:13,528 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:46:13,529 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:46:13,530 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:46:13,531 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:46:13,532 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:46:13,533 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:46:17,146 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:46:17,147 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:46:17,147 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:46:17,148 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:46:17,149 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:46:17,149 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:46:17,151 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:46:17,152 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:46:17,153 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:46:17,153 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:46:17,153 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:46:17,155 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:46:17,156 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:47:00,991 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:47:00,992 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:47:00,992 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:47:00,993 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:47:00,994 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:47:00,995 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:47:00,995 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:47:00,997 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:47:00,997 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:47:00,997 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:47:00,998 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:47:00,999 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:47:01,000 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:47:04,138 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:47:04,138 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:47:04,139 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:47:04,139 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:47:04,140 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:47:04,141 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:47:04,141 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:47:04,142 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:47:04,143 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:47:04,143 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:47:04,144 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:47:04,145 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:47:04,146 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:47:07,150 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:47:07,151 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:47:07,151 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:47:07,152 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:47:07,152 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:47:07,153 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:47:07,153 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:47:07,154 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:47:07,154 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:47:07,154 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:47:07,154 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:47:07,155 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:47:07,155 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:47:54,292 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:47:54,299 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:47:54,303 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:47:54,310 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:47:54,320 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:47:54,330 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:47:54,334 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:47:54,337 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:47:54,337 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:47:54,337 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:47:54,340 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:47:54,340 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:47:54,350 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:50:06,727 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:50:06,728 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:50:06,729 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:50:06,730 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:50:06,730 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:50:06,731 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:50:06,732 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:50:06,734 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:50:06,734 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:50:06,734 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:50:06,735 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:50:06,735 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:50:06,736 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:50:10,365 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:50:10,366 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:50:10,366 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:50:10,367 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:50:10,368 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:50:10,368 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:50:10,369 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:50:10,369 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:50:10,370 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:50:10,370 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:50:10,370 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:50:10,371 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:50:10,371 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:50:13,550 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:50:13,550 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:50:13,551 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:50:13,551 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:50:13,552 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:50:13,552 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:50:13,553 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:50:13,553 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:50:13,553 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:50:13,553 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:50:13,554 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:50:13,554 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:50:13,554 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:50:28,081 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:50:28,081 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:50:28,084 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:50:28,084 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:50:28,085 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:50:28,086 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:50:28,092 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:50:28,094 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:50:28,095 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:50:28,095 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:50:28,097 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:50:28,098 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:50:28,099 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:50:39,923 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:50:39,924 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:50:39,924 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:50:39,924 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:50:39,925 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:50:39,925 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:50:39,926 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:50:39,926 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:50:39,926 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:50:39,927 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:50:39,927 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:50:39,928 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:50:39,928 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:52:59,229 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:52:59,231 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:52:59,233 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:52:59,234 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:52:59,237 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:52:59,240 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:52:59,241 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:52:59,242 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:52:59,243 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:52:59,243 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:52:59,246 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:52:59,248 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:52:59,249 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:54:21,470 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:54:21,471 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:54:21,472 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:54:21,472 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:54:21,473 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:54:21,474 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:54:21,475 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:54:21,476 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:54:21,477 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:54:21,477 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:54:21,477 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:54:21,479 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:54:21,479 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:54:24,857 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:54:24,858 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:54:24,859 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:54:24,859 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:54:24,860 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:54:24,860 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:54:24,861 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:54:24,861 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:54:24,862 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:54:24,862 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:54:24,862 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:54:24,863 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:54:24,863 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:54:28,155 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:54:28,155 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:54:28,156 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:54:28,157 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:54:28,158 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:54:28,159 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:54:28,159 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:54:28,160 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:54:28,160 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:54:28,160 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:54:28,161 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:54:28,161 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:54:28,162 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:56:49,555 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:56:49,558 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:56:49,559 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:56:49,560 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:56:49,560 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:56:49,561 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:56:49,561 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:56:49,562 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:56:49,562 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:56:49,562 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:56:49,563 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:56:49,563 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:56:49,564 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 22:56:53,206 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 22:56:53,207 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 22:56:53,209 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 22:56:53,210 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 22:56:53,212 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 22:56:53,212 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 22:56:53,213 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 22:56:53,214 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 22:56:53,215 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 22:56:53,215 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 22:56:53,215 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 22:56:53,216 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 22:56:53,217 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 23:01:40,621 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 23:01:40,621 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 23:01:40,622 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 23:01:40,623 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 23:01:40,623 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 23:01:40,623 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 23:01:40,624 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 23:01:40,624 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 23:01:40,624 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 23:01:40,624 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 23:01:40,624 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 23:01:40,646 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 23:01:40,646 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 23:11:43,651 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 23:11:43,652 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 23:11:43,652 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 23:11:43,653 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 23:11:43,654 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 23:11:43,657 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 23:11:43,660 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 23:11:43,661 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 23:11:43,662 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 23:11:43,662 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 23:11:43,663 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 23:11:43,727 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 23:11:43,732 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 23:12:57,182 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 23:12:57,184 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 23:12:57,185 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 23:12:57,186 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 23:12:57,187 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 23:12:57,190 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 23:12:57,191 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 23:12:57,193 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 23:12:57,193 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 23:12:57,193 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 23:12:57,194 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 23:12:57,236 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 23:12:57,237 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 23:14:54,985 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 23:14:54,988 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 23:14:54,988 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 23:14:54,989 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 23:14:54,991 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 23:14:54,992 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 23:14:54,992 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 23:14:54,993 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 23:14:54,993 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 23:14:54,994 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 23:14:54,994 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 23:14:55,041 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 23:14:55,041 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 23:16:15,004 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 23:16:15,006 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 23:16:15,007 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 23:16:15,009 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 23:16:15,012 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 23:16:15,014 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 23:16:15,017 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 23:16:15,018 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 23:16:15,018 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 23:16:15,018 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 23:16:15,019 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 23:16:15,058 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 23:16:15,060 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 23:19:35,451 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 23:19:35,452 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 23:19:35,452 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 23:19:35,453 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 23:19:35,453 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 23:19:35,454 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 23:19:35,454 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 23:19:35,455 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 23:19:35,455 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 23:19:35,455 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 23:19:35,455 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 23:19:35,456 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 23:19:35,456 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 23:21:37,276 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 23:21:37,277 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 23:21:37,277 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 23:21:37,277 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 23:21:37,278 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 23:21:37,279 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 23:21:37,279 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 23:21:37,279 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 23:21:37,280 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 23:21:37,280 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 23:21:37,280 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 23:21:37,281 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 23:21:37,281 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 23:24:16,988 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 23:24:16,989 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 23:24:16,989 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 23:24:16,990 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 23:24:16,990 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 23:24:16,990 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 23:24:16,991 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 23:24:16,991 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 23:24:16,991 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 23:24:16,992 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 23:24:16,992 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 23:24:16,993 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 23:24:16,993 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 23:49:40,831 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 23:49:40,835 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 23:49:40,836 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 23:49:40,836 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 23:49:40,837 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 23:49:40,837 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 23:49:40,839 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 23:49:40,840 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 23:49:40,841 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 23:49:40,841 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 23:49:40,841 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 23:49:40,879 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 23:49:40,879 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 23:50:50,927 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 23:50:50,928 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 23:50:50,932 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 23:50:50,935 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 23:50:50,938 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 23:50:50,939 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 23:50:50,940 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 23:50:50,944 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 23:50:50,945 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 23:50:50,945 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 23:50:50,946 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 23:50:50,947 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 23:50:50,951 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 23:51:01,974 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 23:51:02,018 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 23:51:02,019 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 23:51:02,019 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 23:51:02,022 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 23:51:02,030 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 23:51:02,032 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 23:51:02,033 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 23:51:02,033 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 23:51:02,034 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 23:51:02,036 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 23:51:02,037 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 23:51:02,038 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 23:52:35,204 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 23:52:35,222 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 23:52:35,225 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 23:52:35,236 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 23:52:35,236 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 23:52:35,239 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 23:52:35,242 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 23:52:35,242 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 23:52:35,243 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 23:52:35,243 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 23:52:35,257 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 23:52:35,258 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 23:52:35,260 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 23:54:04,847 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 23:54:04,849 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 23:54:04,856 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 23:54:04,857 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 23:54:04,858 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 23:54:04,859 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 23:54:04,860 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 23:54:04,861 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 23:54:04,861 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 23:54:04,861 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 23:54:04,862 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 23:54:04,863 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 23:54:04,864 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 23:54:27,729 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 23:54:27,736 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 23:54:27,738 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 23:54:27,740 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 23:54:27,741 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 23:54:27,742 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 23:54:27,743 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 23:54:27,745 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 23:54:27,745 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 23:54:27,754 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 23:54:27,756 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 23:54:27,757 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 23:54:27,758 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 23:57:33,526 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 23:57:33,527 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 23:57:33,527 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 23:57:33,527 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-01 23:57:33,528 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 23:57:33,528 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 23:57:33,528 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-01 23:57:33,529 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 23:57:33,529 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 23:57:33,529 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 23:57:33,529 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 23:57:33,530 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 23:57:33,530 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-01 23:58:07,030 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-01 23:58:07,048 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-01 23:58:07,079 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-01 23:58:07,103 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+2025-10-01 23:58:07,144 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-01 23:58:07,166 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-01 23:58:07,192 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'none', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Google Chrome";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiNEl2SWJPNFNBQmxFdTc2VGxsajhIWnpUcWdxeDl0VHlZWmg5bVRmYlJhRSIsInNlc3Npb25faWQiOiJlMzkwNjdjYy03MjBhLTRkYWMtYjQ4ZS1hYjk0OWY0ZmM2NzMifQ.aN4GXg.6JXbQaqMp1cdaYMXVVRoy8kizt4'}
+2025-10-01 23:58:07,212 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-01 23:58:07,212 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-01 23:58:07,213 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-01 23:58:07,217 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-01 23:58:07,230 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-01 23:58:07,265 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-02 00:02:16,795 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-02 00:02:16,795 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-02 00:02:16,796 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-02 00:02:16,796 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-02 00:02:16,797 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-02 00:02:16,797 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-02 00:02:16,798 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-02 00:02:16,798 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-02 00:02:16,798 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-02 00:02:16,799 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-02 00:02:16,799 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-02 00:02:16,799 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-02 00:02:16,800 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-02 00:03:33,602 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-02 00:03:33,602 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-02 00:03:33,603 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-02 00:03:33,604 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-02 00:03:33,605 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-02 00:03:33,606 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-02 00:03:33,608 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'none', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiZDFjdUo1c2l0aG4yaVZXRXJoQjZHcmR1RlFsUXI0VmdTWmNYZldfcGZ3SSIsInNlc3Npb25faWQiOiI0NTVhZjI2Mi02YzZjLTQ1NWMtODI5OC05MGNiNGQ4M2Y0NjYifQ.aN4HpQ.5E9yrefaTV-YpyxMR1_4PbGgK0s'}
+2025-10-02 00:03:33,609 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-02 00:03:33,610 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-02 00:03:33,610 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-02 00:03:33,610 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-02 00:03:33,611 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-02 00:03:33,612 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-02 00:03:46,581 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-02 00:03:46,592 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-10-02 00:03:46,593 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-02 00:03:46,594 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-02 00:03:46,596 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-02 00:03:46,597 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-10-02 00:03:46,597 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Content-Length': '101', 'Cache-Control': 'max-age=0', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Origin': 'http://localhost:5051', 'Content-Type': 'application/x-www-form-urlencoded', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Referer': 'http://localhost:5051/superadmin/auth/login', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiZDFjdUo1c2l0aG4yaVZXRXJoQjZHcmR1RlFsUXI0VmdTWmNYZldfcGZ3SSIsInNlc3Npb25faWQiOiI0NTVhZjI2Mi02YzZjLTQ1NWMtODI5OC05MGNiNGQ4M2Y0NjYifQ.aN4HpQ.5E9yrefaTV-YpyxMR1_4PbGgK0s'}
+2025-10-02 00:03:46,599 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-02 00:03:46,599 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-02 00:03:46,599 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-10-02 00:03:46,600 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-10-02 00:03:46,639 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-10-02 00:03:46,639 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-02 00:03:46,639 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-10-02 00:03:46,640 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-10-02 00:03:46,640 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-10-02 00:03:46,640 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-10-02 00:03:46,641 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-10-02 00:03:46,642 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-10-02 00:03:46,643 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-10-02 00:03:46,643 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-10-02 00:03:46,645 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-10-02 00:03:46,645 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-10-02 00:03:46,647 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-10-02 00:03:46,647 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-10-02 00:03:46,647 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-10-02 00:03:46,648 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-10-02 00:03:46,650 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===

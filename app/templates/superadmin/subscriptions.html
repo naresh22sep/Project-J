@@ -1,0 +1,434 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}Subscription Management - SuperAdmin Panel{% endblock %}
+
+{% block content %}
+<!-- Subscriptions Header -->
+<div class="dashboard-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Subscriptions</li>
+                </ol>
+            </nav>
+            <h1 class="h3 mb-0">Subscription Management</h1>
+            <p class="text-muted">Manage user subscriptions for consultancy and job seeker plans</p>
+        </div>
+        <div class="col-sm-6 text-sm-end">
+            <div class="btn-group">
+                <a href="{{ url_for('superadmin.dashboard') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Subscription Stats -->
+<div class="row mb-4">
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="align-self-center">
+                        <i class="fas fa-credit-card text-primary fa-2x"></i>
+                    </div>
+                    <div class="text-end ms-auto">
+                        <h4 class="mb-1">{{ subscriptions.total }}</h4>
+                        <p class="text-muted mb-0">Total Subscriptions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="align-self-center">
+                        <i class="fas fa-check-circle text-success fa-2x"></i>
+                    </div>
+                    <div class="text-end ms-auto">
+                        {% set active_count = subscriptions.items|selectattr("status", "equalto", "ACTIVE")|list|length %}
+                        <h4 class="mb-1">{{ active_count }}</h4>
+                        <p class="text-muted mb-0">Active Subscriptions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="align-self-center">
+                        <i class="fas fa-pause-circle text-warning fa-2x"></i>
+                    </div>
+                    <div class="text-end ms-auto">
+                        {% set pending_count = subscriptions.items|selectattr("status", "equalto", "PENDING")|list|length %}
+                        <h4 class="mb-1">{{ pending_count }}</h4>
+                        <p class="text-muted mb-0">Pending Subscriptions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="align-self-center">
+                        <i class="fas fa-layer-group text-info fa-2x"></i>
+                    </div>
+                    <div class="text-end ms-auto">
+                        <h4 class="mb-1">{{ plans|length }}</h4>
+                        <p class="text-muted mb-0">Available Plans</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filters -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="card-title mb-0">
+            <i class="fas fa-filter me-2"></i>Filters
+        </h5>
+    </div>
+    <div class="card-body">
+        <form method="GET" class="row g-3">
+            <div class="col-md-3">
+                <label for="plan_type" class="form-label">Plan Type</label>
+                <select class="form-select" id="plan_type" name="plan_type">
+                    <option value="">All Types</option>
+                    <option value="consultancy" {% if plan_type_filter == 'consultancy' %}selected{% endif %}>
+                        Consultancy Plans
+                    </option>
+                    <option value="jobseeker" {% if plan_type_filter == 'jobseeker' %}selected{% endif %}>
+                        Job Seeker Plans
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-select" id="status" name="status">
+                    <option value="">All Statuses</option>
+                    {% for status in statuses %}
+                    <option value="{{ status }}" {% if status_filter == status %}selected{% endif %}>
+                        {{ status.title() }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="plan" class="form-label">Plan</label>
+                <select class="form-select" id="plan" name="plan">
+                    <option value="">All Plans</option>
+                    <optgroup label="Consultancy Plans">
+                        {% for plan in consultancy_plans %}
+                        <option value="{{ plan.name }}" {% if plan_filter == plan.name %}selected{% endif %}>
+                            {{ plan.display_name or plan.name.title() }}
+                        </option>
+                        {% endfor %}
+                    </optgroup>
+                    <optgroup label="Job Seeker Plans">
+                        {% for plan in jobseeker_plans %}
+                        <option value="{{ plan.name }}" {% if plan_filter == plan.name %}selected{% endif %}>
+                            {{ plan.display_name or plan.name.title() }}
+                        </option>
+                        {% endfor %}
+                    </optgroup>
+                </select>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary me-2">
+                    <i class="fas fa-search me-2"></i>Filter
+                </button>
+                <a href="{{ url_for('superadmin.subscriptions') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-times me-2"></i>Clear
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Subscriptions Table -->
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title mb-0">
+            <i class="fas fa-credit-card me-2"></i>All Subscriptions
+        </h5>
+        <div class="card-tools">
+            <div class="input-group input-group-sm" style="width: 250px;">
+                <input type="text" id="searchSubscriptions" class="form-control" placeholder="Search subscriptions...">
+                <div class="input-group-append">
+                    <span class="input-group-text">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        {% if subscriptions.items %}
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>User</th>
+                        <th>Plan Type</th>
+                        <th>Plan</th>
+                        <th>Status</th>
+                        <th>Started</th>
+                        <th>Expires</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="subscriptionsTableBody">
+                    {% for subscription in subscriptions.items %}
+                    <tr data-subscription-id="{{ subscription.id }}">
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <div class="fw-bold">{{ subscription.user.first_name }} {{ subscription.user.last_name }}</div>
+                                    <small class="text-muted">{{ subscription.user.email }}</small>
+                                    <br><small class="text-muted">@{{ subscription.user.username }}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            {% if subscription.plan.plan_type == 'jobseeker' %}
+                                <span class="badge bg-info">
+                                    <i class="fas fa-user-tie me-1"></i>Job Seeker
+                                </span>
+                            {% else %}
+                                <span class="badge bg-primary">
+                                    <i class="fas fa-briefcase me-1"></i>Consultancy
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div>
+                                <div class="fw-bold">{{ subscription.plan.display_name or subscription.plan.name.title() }}</div>
+                                <small class="text-muted">{{ subscription.plan.description[:50] }}...</small>
+                            </div>
+                        </td>
+                        <td>
+                            {% if subscription.status == 'ACTIVE' %}
+                                <span class="badge bg-success">
+                                    <i class="fas fa-check-circle me-1"></i>Active
+                                </span>
+                            {% elif subscription.status == 'PENDING' %}
+                                <span class="badge bg-warning">
+                                    <i class="fas fa-clock me-1"></i>Pending
+                                </span>
+                            {% elif subscription.status == 'EXPIRED' %}
+                                <span class="badge bg-danger">
+                                    <i class="fas fa-times-circle me-1"></i>Expired
+                                </span>
+                            {% elif subscription.status == 'CANCELLED' %}
+                                <span class="badge bg-secondary">
+                                    <i class="fas fa-ban me-1"></i>Cancelled
+                                </span>
+                            {% else %}
+                                <span class="badge bg-light text-dark">{{ subscription.status }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if subscription.start_date %}
+                            <div>{{ subscription.start_date.strftime('%Y-%m-%d') }}</div>
+                            <small class="text-muted">{{ subscription.start_date.strftime('%H:%M') }}</small>
+                            {% else %}
+                            <span class="text-muted">Not set</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if subscription.end_date %}
+                            <div>{{ subscription.end_date.strftime('%Y-%m-%d') }}</div>
+                            <small class="text-muted">{{ subscription.end_date.strftime('%H:%M') }}</small>
+                            {% else %}
+                            <span class="text-muted">No expiry</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if subscription.billing_cycle == 'monthly' %}
+                                <div class="fw-bold">${{ "%.2f"|format(subscription.plan.price_monthly) }}</div>
+                                <small class="text-muted">per month</small>
+                            {% elif subscription.billing_cycle == 'yearly' %}
+                                <div class="fw-bold">${{ "%.2f"|format(subscription.plan.price_yearly) }}</div>
+                                <small class="text-muted">per year</small>
+                            {% else %}
+                                <span class="text-muted">N/A</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <button class="btn btn-outline-primary" onclick="viewSubscription({{ subscription.id }})" 
+                                        title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn btn-outline-secondary" onclick="manageSubscription({{ subscription.id }})"
+                                        title="Manage Subscription">
+                                    <i class="fas fa-cog"></i>
+                                </button>
+                                {% if subscription.status == 'ACTIVE' %}
+                                <button class="btn btn-outline-warning" onclick="suspendSubscription({{ subscription.id }})"
+                                        title="Suspend Subscription">
+                                    <i class="fas fa-pause"></i>
+                                </button>
+                                {% elif subscription.status == 'PENDING' %}
+                                <button class="btn btn-outline-success" onclick="activateSubscription({{ subscription.id }})"
+                                        title="Activate Subscription">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Pagination -->
+        {% if subscriptions.pages > 1 %}
+        <div class="card-footer">
+            <nav aria-label="Subscriptions pagination">
+                <ul class="pagination pagination-sm justify-content-center mb-0">
+                    {% if subscriptions.has_prev %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('superadmin.subscriptions', page=subscriptions.prev_num, status=status_filter, plan=plan_filter) }}">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                    
+                    {% for page_num in subscriptions.iter_pages() %}
+                        {% if page_num %}
+                            {% if page_num != subscriptions.page %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{ url_for('superadmin.subscriptions', page=page_num, status=status_filter, plan=plan_filter) }}">{{ page_num }}</a>
+                            </li>
+                            {% else %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ page_num }}</span>
+                            </li>
+                            {% endif %}
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">…</span>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if subscriptions.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('superadmin.subscriptions', page=subscriptions.next_num, status=status_filter, plan=plan_filter) }}">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        {% endif %}
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-credit-card fa-3x text-muted mb-3"></i>
+            <h5 class="text-muted">No Subscriptions Found</h5>
+            <p class="text-muted">No subscriptions match your current filters.</p>
+            <a href="{{ url_for('superadmin.subscriptions') }}" class="btn btn-outline-primary">
+                <i class="fas fa-refresh me-2"></i>Clear Filters
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Hidden CSRF Token -->
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Search functionality
+document.getElementById('searchSubscriptions').addEventListener('keyup', function() {
+    const searchTerm = this.value.toLowerCase();
+    const tableRows = document.querySelectorAll('#subscriptionsTableBody tr');
+    
+    tableRows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(searchTerm) ? '' : 'none';
+    });
+});
+
+// View subscription details
+function viewSubscription(subscriptionId) {
+    // You can implement a modal or redirect to a detail page
+    alert(`View subscription details for ID: ${subscriptionId}`);
+}
+
+// Manage subscription
+function manageSubscription(subscriptionId) {
+    window.location.href = `/superadmin/subscriptions/${subscriptionId}/manage`;
+}
+
+// Suspend subscription
+function suspendSubscription(subscriptionId) {
+    if (confirm('Are you sure you want to suspend this subscription?')) {
+        fetch(`/superadmin/subscriptions/${subscriptionId}/suspend`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': document.querySelector('input[name="csrf_token"]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                location.reload();
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while suspending the subscription.');
+        });
+    }
+}
+
+// Activate subscription
+function activateSubscription(subscriptionId) {
+    if (confirm('Are you sure you want to activate this subscription?')) {
+        fetch(`/superadmin/subscriptions/${subscriptionId}/activate`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': document.querySelector('input[name="csrf_token"]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                location.reload();
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while activating the subscription.');
+        });
+    }
+}
+</script>
+{% endblock %}

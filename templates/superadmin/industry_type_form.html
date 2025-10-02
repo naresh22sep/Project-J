@@ -1,0 +1,139 @@
+{% extends "admin_layout.html" %}
+
+{% block title %}{{ 'Edit' if industry else 'Create' }} Industry Type{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="d-flex align-items-center mb-4">
+                <a href="{{ url_for('superadmin.industry_types') }}" class="btn btn-outline-secondary me-3">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <h2>
+                    <i class="fas fa-industry me-2"></i>
+                    {{ 'Edit' if industry else 'Create' }} Industry Type
+                </h2>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="name" name="name" 
+                                           value="{{ industry.name if industry else '' }}" required>
+                                    <div class="form-text">Internal identifier (e.g., technology, healthcare)</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="display_name" class="form-label">Display Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="display_name" name="display_name" 
+                                           value="{{ industry.display_name if industry else '' }}" required>
+                                    <div class="form-text">User-friendly name (e.g., Technology & Software)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3">{{ industry.description if industry else '' }}</textarea>
+                            <div class="form-text">Brief description of this industry type</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="icon" class="form-label">Icon</label>
+                                    <input type="text" class="form-control" id="icon" name="icon" 
+                                           value="{{ industry.icon if industry else '' }}" placeholder="fas fa-industry">
+                                    <div class="form-text">FontAwesome icon class (e.g., fas fa-industry)</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="sort_order" class="form-label">Sort Order</label>
+                                    <input type="number" class="form-control" id="sort_order" name="sort_order" 
+                                           value="{{ industry.sort_order if industry else 0 }}" min="0">
+                                    <div class="form-text">Order for display (lower numbers appear first)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% if industry %}
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="is_active" name="is_active" 
+                                       {{ 'checked' if industry.is_active else '' }}>
+                                <label class="form-check-label" for="is_active">
+                                    Active
+                                </label>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('superadmin.industry_types') }}" class="btn btn-secondary">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>{{ 'Update' if industry else 'Create' }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Help</h6>
+                </div>
+                <div class="card-body">
+                    <h6>Industry Type Guidelines:</h6>
+                    <ul class="small">
+                        <li><strong>Name:</strong> Use lowercase, underscores for spaces</li>
+                        <li><strong>Display Name:</strong> User-friendly, properly capitalized</li>
+                        <li><strong>Icon:</strong> Use FontAwesome classes for consistency</li>
+                        <li><strong>Sort Order:</strong> Lower numbers appear first in lists</li>
+                    </ul>
+                    
+                    <h6 class="mt-3">Common Icons:</h6>
+                    <ul class="small">
+                        <li><i class="fas fa-laptop-code"></i> fas fa-laptop-code (Technology)</li>
+                        <li><i class="fas fa-heartbeat"></i> fas fa-heartbeat (Healthcare)</li>
+                        <li><i class="fas fa-chart-line"></i> fas fa-chart-line (Finance)</li>
+                        <li><i class="fas fa-graduation-cap"></i> fas fa-graduation-cap (Education)</li>
+                        <li><i class="fas fa-shopping-cart"></i> fas fa-shopping-cart (Retail)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Auto-generate name from display name
+document.getElementById('display_name').addEventListener('input', function() {
+    if (!document.getElementById('name').value) {
+        const name = this.value.toLowerCase()
+            .replace(/[^a-z0-9\s]/g, '')
+            .replace(/\s+/g, '_');
+        document.getElementById('name').value = name;
+    }
+});
+
+// Icon preview
+document.getElementById('icon').addEventListener('input', function() {
+    // Add icon preview functionality if needed
+});
+</script>
+{% endblock %}

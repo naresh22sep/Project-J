@@ -40,6 +40,7 @@ class SecurityEventType(Enum):
     ROLE_ASSIGNED = "role_assigned"
     ROLE_REMOVED = "role_removed"
     ROLE_CREATED = "role_created"
+    ROLE_MODIFIED = "role_modified"
     PERMISSION_CREATED = "permission_created"
     ACCOUNT_LOCKED = "account_locked"
     ACCOUNT_UNLOCKED = "account_unlocked"
@@ -157,7 +158,7 @@ class AuthUser(UserMixin, db.Model):
             return True
         
         # Check role-based permissions
-        role_perm = db.session.query(Permission).join(RolePermission).join(Role).join(UserRole).filter(
+        role_perm = db.session.query(Permission).join(RolePermission).join(Role).join(UserRole, Role.id == UserRole.role_id).filter(
             UserRole.user_id == self.id,
             UserRole.is_active == True,
             Permission.name == permission_name
@@ -167,7 +168,7 @@ class AuthUser(UserMixin, db.Model):
     
     def get_roles(self):
         """Get all user roles"""
-        return db.session.query(Role).join(UserRole).filter(
+        return db.session.query(Role).join(UserRole, Role.id == UserRole.role_id).filter(
             UserRole.user_id == self.id,
             UserRole.is_active == True
         ).all()
@@ -175,7 +176,7 @@ class AuthUser(UserMixin, db.Model):
     def get_permissions(self):
         """Get all user permissions"""
         # Get role-based permissions
-        role_permissions = db.session.query(Permission).join(RolePermission).join(Role).join(UserRole).filter(
+        role_permissions = db.session.query(Permission).join(RolePermission).join(Role).join(UserRole, Role.id == UserRole.role_id).filter(
             UserRole.user_id == self.id,
             UserRole.is_active == True
         ).all()
@@ -277,6 +278,42 @@ class Role(db.Model):
     # Relationships
     user_roles = db.relationship('UserRole', backref='role', lazy='dynamic')
     role_permissions = db.relationship('RolePermission', backref='role', lazy='dynamic', cascade='all, delete-orphan')
+    
+    # Many-to-many relationship with Permission through RolePermission
+    permissions = db.relationship(
+        'Permission',
+        secondary='role_permissions',
+        backref=db.backref('roles', lazy='dynamic'),
+        lazy='dynamic'
+    )
+    
+    def get_users(self):
+        """Get all users assigned to this role"""
+        from app.auth.auth_models import AuthUser
+        return AuthUser.query.join(UserRole, UserRole.user_id == AuthUser.id).filter(
+            UserRole.role_id == self.id, 
+            UserRole.is_active == True
+        ).all()
+    
+    def get_users_count(self):
+        """Get count of users assigned to this role"""
+        from app.auth.auth_models import AuthUser
+        return AuthUser.query.join(UserRole, UserRole.user_id == AuthUser.id).filter(
+            UserRole.role_id == self.id, 
+            UserRole.is_active == True
+        ).count()
+    
+    def is_locked(self):
+        """Check if role is locked (has users or is system role)"""
+        return self.is_system_role or self.get_users_count() > 0
+    
+    def can_be_deleted(self):
+        """Check if role can be deleted"""
+        return not self.is_system_role and self.get_users_count() == 0
+    
+    def can_be_edited(self):
+        """Check if role can be edited (only system roles and roles with users are restricted)"""
+        return not self.is_system_role and self.get_users_count() == 0
 
 class UserRole(db.Model):
     """User-Role relationship"""
@@ -354,12 +391,14 @@ class SubscriptionPlan(db.Model):
     name = db.Column(db.String(100), unique=True, nullable=False)
     display_name = db.Column(db.String(150), nullable=False)
     description = db.Column(db.Text)
+    plan_type = db.Column(db.Enum('consultancy', 'jobseeker'), default='consultancy')  # New field to distinguish plan types
     price_monthly = db.Column(db.Numeric(10, 2), default=0.00)
     price_yearly = db.Column(db.Numeric(10, 2), default=0.00)
     currency = db.Column(db.String(3), default='USD')
     max_users = db.Column(db.Integer, default=1)
     max_jobs = db.Column(db.Integer, default=0)
     max_applications = db.Column(db.Integer, default=0)
+    max_job_portals = db.Column(db.Integer, default=0)  # New field for job portal limits
     storage_limit_gb = db.Column(db.Integer, default=1)
     api_rate_limit = db.Column(db.Integer, default=100)
     features_json = db.Column(db.JSON)
@@ -402,14 +441,98 @@ class SubscriptionFeature(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     plan_id = db.Column(db.Integer, db.ForeignKey('subscription_plans.id'), nullable=False)
-    feature_key = db.Column(db.String(150), nullable=False)
-    feature_name = db.Column(db.String(200), nullable=False)
-    feature_value = db.Column(db.Text)
-    is_boolean = db.Column(db.Boolean, default=False)
-    is_numeric = db.Column(db.Boolean, default=False)
-    is_unlimited = db.Column(db.Boolean, default=False)
+    feature_key = db.Column(db.String(150), nullable=False)  # e.g., 'max_jobs', 'job_portals', 'ai_assistance'
+    feature_name = db.Column(db.String(200), nullable=False)  # e.g., 'Maximum Job Applications per Month'
+    feature_value = db.Column(db.Text)  # String value for the feature
+    is_boolean = db.Column(db.Boolean, default=False)  # True/False features
+    is_numeric = db.Column(db.Boolean, default=False)  # Numeric features
+    is_unlimited = db.Column(db.Boolean, default=False)  # Unlimited features
+    feature_category = db.Column(db.String(100), default='general')  # Categories: limits, features, support
+    display_order = db.Column(db.Integer, default=0)  # Order for displaying features
+    is_active = db.Column(db.Boolean, default=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     __table_args__ = (db.UniqueConstraint('plan_id', 'feature_key'),)
+    
+    def get_formatted_value(self):
+        """Get formatted value for display"""
+        if self.is_unlimited:
+            return "Unlimited"
+        elif self.is_boolean:
+            return "✓" if self.feature_value.lower() in ['true', '1', 'yes'] else "✗"
+        elif self.is_numeric:
+            return f"{self.feature_value:,}" if self.feature_value.isdigit() else self.feature_value
+        else:
+            return self.feature_value or "Not Available"
+    
+    def to_dict(self):
+        """Convert feature to dictionary"""
+        return {
+            'id': self.id,
+            'feature_key': self.feature_key,
+            'feature_name': self.feature_name,
+            'feature_value': self.feature_value,
+            'formatted_value': self.get_formatted_value(),
+            'is_boolean': self.is_boolean,
+            'is_numeric': self.is_numeric,
+            'is_unlimited': self.is_unlimited,
+            'feature_category': self.feature_category,
+            'display_order': self.display_order,
+            'is_active': self.is_active
+        }
+
+class JobPortal(db.Model):
+    """Job portal model for tracking different job websites"""
+    __tablename__ = 'job_portals'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    display_name = db.Column(db.String(150), nullable=False)
+    website_url = db.Column(db.String(255), nullable=False)
+    logo_url = db.Column(db.String(255))
+    description = db.Column(db.Text)
+    is_active = db.Column(db.Boolean, default=True)
+    sort_order = db.Column(db.Integer, default=0)
+    api_integration = db.Column(db.Boolean, default=False)
+    api_endpoint = db.Column(db.String(255))
+    job_categories = db.Column(db.JSON)  # List of supported job categories
+    supported_countries = db.Column(db.JSON)  # List of supported countries
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    user_portal_access = db.relationship('UserPortalAccess', backref='portal', lazy='dynamic', cascade='all, delete-orphan')
+    
+    def __repr__(self):
+        return f'<JobPortal {self.name}>'
+
+class UserPortalAccess(db.Model):
+    """User access to specific job portals based on subscription"""
+    __tablename__ = 'user_portal_access'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('auth_users.id'), nullable=False)
+    portal_id = db.Column(db.Integer, db.ForeignKey('job_portals.id'), nullable=False)
+    subscription_id = db.Column(db.Integer, db.ForeignKey('user_subscriptions.id'), nullable=False)
+    is_active = db.Column(db.Boolean, default=True)
+    jobs_posted_this_month = db.Column(db.Integer, default=0)
+    last_job_posted = db.Column(db.DateTime)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    __table_args__ = (db.UniqueConstraint('user_id', 'portal_id'),)
+    
+    def can_post_job(self, monthly_limit):
+        """Check if user can post more jobs this month"""
+        if monthly_limit == -1:  # Unlimited
+            return True
+        return self.jobs_posted_this_month < monthly_limit
+    
+    def reset_monthly_counter(self):
+        """Reset monthly job counter (called by background job)"""
+        self.jobs_posted_this_month = 0
+        self.updated_at = datetime.utcnow()
 
 class JWTBlacklist(db.Model):
     """JWT token blacklist"""

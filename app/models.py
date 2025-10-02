@@ -329,3 +329,321 @@ class MyPrompts(db.Model):
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None
         }
+
+# ===========================
+# JOB-RELATED MODELS
+# ===========================
+
+class ExperienceLevel(Enum):
+    """Experience levels for job positions"""
+    ENTRY_LEVEL = "entry_level"
+    JUNIOR = "junior"
+    MID_LEVEL = "mid_level"
+    SENIOR = "senior"
+    LEAD = "lead"
+    PRINCIPAL = "principal"
+    ARCHITECT = "architect"
+    DIRECTOR = "director"
+    VP = "vp"
+    C_LEVEL = "c_level"
+
+class JobTypeEnum(Enum):
+    """Job types and employment models"""
+    FULL_TIME = "full_time"
+    PART_TIME = "part_time"
+    CONTRACT = "contract"
+    FREELANCE = "freelance"
+    INTERNSHIP = "internship"
+    TEMPORARY = "temporary"
+    W2 = "w2"
+    C2C = "c2c"
+    REMOTE = "remote"
+    HYBRID = "hybrid"
+    ON_SITE = "on_site"
+
+class CompanyTypeEnum(Enum):
+    """Company types and sizes"""
+    STARTUP = "startup"
+    SMALL_BUSINESS = "small_business"
+    MEDIUM_BUSINESS = "medium_business"
+    LARGE_ENTERPRISE = "large_enterprise"
+    FORTUNE_500 = "fortune_500"
+    NON_PROFIT = "non_profit"
+    GOVERNMENT = "government"
+    CONSULTING = "consulting"
+    AGENCY = "agency"
+
+# Industry Types Model
+class IndustryType(db.Model):
+    """Industry classifications for companies and jobs"""
+    __tablename__ = 'industry_types'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    display_name = db.Column(db.String(150), nullable=False)
+    description = db.Column(db.Text)
+    icon = db.Column(db.String(50))  # FontAwesome icon class
+    is_active = db.Column(db.Boolean, default=True)
+    sort_order = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'display_name': self.display_name,
+            'description': self.description,
+            'icon': self.icon,
+            'is_active': self.is_active,
+            'sort_order': self.sort_order
+        }
+
+# Skills Model
+class Skill(db.Model):
+    """Skills and technologies"""
+    __tablename__ = 'skills'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    display_name = db.Column(db.String(150), nullable=False)
+    description = db.Column(db.Text)
+    category = db.Column(db.String(50))  # technical, soft, language, etc.
+    industry_id = db.Column(db.Integer, db.ForeignKey('industry_types.id'))
+    is_active = db.Column(db.Boolean, default=True)
+    sort_order = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    industry = db.relationship('IndustryType', backref='skills')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'display_name': self.display_name,
+            'description': self.description,
+            'category': self.category,
+            'industry_id': self.industry_id,
+            'is_active': self.is_active,
+            'sort_order': self.sort_order
+        }
+
+# Experience Levels Model
+class Experience(db.Model):
+    """Experience levels for job positions"""
+    __tablename__ = 'experience_levels'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True, nullable=False)
+    display_name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text)
+    min_years = db.Column(db.Integer)
+    max_years = db.Column(db.Integer)
+    is_active = db.Column(db.Boolean, default=True)
+    sort_order = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'display_name': self.display_name,
+            'description': self.description,
+            'min_years': self.min_years,
+            'max_years': self.max_years,
+            'is_active': self.is_active,
+            'sort_order': self.sort_order
+        }
+
+# Job Roles Model
+class JobRole(db.Model):
+    """Job roles and positions"""
+    __tablename__ = 'job_roles'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    display_name = db.Column(db.String(150), nullable=False)
+    description = db.Column(db.Text)
+    category = db.Column(db.String(50))  # engineering, management, sales, etc.
+    industry_id = db.Column(db.Integer, db.ForeignKey('industry_types.id'))
+    is_active = db.Column(db.Boolean, default=True)
+    sort_order = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    industry = db.relationship('IndustryType', backref='job_roles')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'display_name': self.display_name,
+            'description': self.description,
+            'category': self.category,
+            'industry_id': self.industry_id,
+            'is_active': self.is_active,
+            'sort_order': self.sort_order
+        }
+
+# Company Types Model
+class CompanyType(db.Model):
+    """Company types and sizes"""
+    __tablename__ = 'company_types'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    display_name = db.Column(db.String(150), nullable=False)
+    description = db.Column(db.Text)
+    employee_range_min = db.Column(db.Integer)
+    employee_range_max = db.Column(db.Integer)
+    is_active = db.Column(db.Boolean, default=True)
+    sort_order = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'display_name': self.display_name,
+            'description': self.description,
+            'employee_range_min': self.employee_range_min,
+            'employee_range_max': self.employee_range_max,
+            'is_active': self.is_active,
+            'sort_order': self.sort_order
+        }
+
+# Job Types Model
+class JobType(db.Model):
+    """Job types and employment models"""
+    __tablename__ = 'job_types'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True, nullable=False)
+    display_name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text)
+    category = db.Column(db.String(50))  # employment_type, work_model, contract_type
+    is_active = db.Column(db.Boolean, default=True)
+    sort_order = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'display_name': self.display_name,
+            'description': self.description,
+            'category': self.category,
+            'is_active': self.is_active,
+            'sort_order': self.sort_order
+        }
+
+# Countries Model
+class Country(db.Model):
+    """Countries for location data"""
+    __tablename__ = 'countries'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    code_alpha2 = db.Column(db.String(2), unique=True, nullable=False)  # US, CA, IN
+    code_alpha3 = db.Column(db.String(3), unique=True, nullable=False)  # USA, CAN, IND
+    numeric_code = db.Column(db.String(3))
+    currency_code = db.Column(db.String(3))  # USD, CAD, INR
+    phone_code = db.Column(db.String(10))  # +1, +91
+    timezone_primary = db.Column(db.String(50))
+    is_active = db.Column(db.Boolean, default=True)
+    sort_order = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    states = db.relationship('State', backref='country', cascade='all, delete-orphan')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'code_alpha2': self.code_alpha2,
+            'code_alpha3': self.code_alpha3,
+            'numeric_code': self.numeric_code,
+            'currency_code': self.currency_code,
+            'phone_code': self.phone_code,
+            'timezone_primary': self.timezone_primary,
+            'is_active': self.is_active,
+            'sort_order': self.sort_order
+        }
+
+# States/Provinces Model
+class State(db.Model):
+    """States/Provinces for location data"""
+    __tablename__ = 'states'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    code = db.Column(db.String(10))  # CA, TX, ON, etc.
+    country_id = db.Column(db.Integer, db.ForeignKey('countries.id'), nullable=False)
+    timezone_primary = db.Column(db.String(50))
+    is_active = db.Column(db.Boolean, default=True)
+    sort_order = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    cities = db.relationship('City', backref='state', cascade='all, delete-orphan')
+    
+    # Unique constraint for name+country combination
+    __table_args__ = (db.UniqueConstraint('name', 'country_id', name='_state_country_uc'),)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'code': self.code,
+            'country_id': self.country_id,
+            'country_name': self.country.name if self.country else None,
+            'timezone_primary': self.timezone_primary,
+            'is_active': self.is_active,
+            'sort_order': self.sort_order
+        }
+
+# Cities Model
+class City(db.Model):
+    """Cities for location data"""
+    __tablename__ = 'cities'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    state_id = db.Column(db.Integer, db.ForeignKey('states.id'), nullable=False)
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
+    population = db.Column(db.Integer)
+    timezone = db.Column(db.String(50))
+    is_metro = db.Column(db.Boolean, default=False)
+    is_active = db.Column(db.Boolean, default=True)
+    sort_order = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Unique constraint for name+state combination
+    __table_args__ = (db.UniqueConstraint('name', 'state_id', name='_city_state_uc'),)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'state_id': self.state_id,
+            'state_name': self.state.name if self.state else None,
+            'country_name': self.state.country.name if self.state and self.state.country else None,
+            'latitude': self.latitude,
+            'longitude': self.longitude,
+            'population': self.population,
+            'timezone': self.timezone,
+            'is_metro': self.is_metro,
+            'is_active': self.is_active,
+            'sort_order': self.sort_order
+        }

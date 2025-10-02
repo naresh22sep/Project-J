@@ -41,6 +41,25 @@
             border-bottom: 1px solid #495057;
             margin-bottom: 20px;
         }
+        .dropdown-toggle::after {
+            float: right;
+            margin-top: 8px;
+        }
+        .nav-item .collapse {
+            background-color: #2c3237;
+        }
+        .nav-item .collapse .nav-link {
+            padding: 8px 15px 8px 40px;
+            font-size: 0.9rem;
+        }
+        .nav-item .collapse .nav-link:hover {
+            background-color: #495057;
+        }
+        /* Make new menus more visible */
+        .nav-item.dropdown > .nav-link {
+            background-color: rgba(0,123,255,0.1) !important;
+            border-left: 3px solid #007bff;
+        }
     </style>
 </head>
 <body>
@@ -63,30 +82,133 @@
                     <i class="fas fa-tachometer-alt me-2"></i> Dashboard
                 </a>
             </li>
+            
+            <!-- User Management -->
             <li class="nav-item">
                 <a class="nav-link {{ 'active' if 'users' in request.endpoint else '' }}" 
                    href="{{ url_for('superadmin.users') }}">
                     <i class="fas fa-users me-2"></i> Users
                 </a>
             </li>
+            
+            <!-- Roles & Permissions -->
             <li class="nav-item">
                 <a class="nav-link {{ 'active' if 'roles' in request.endpoint else '' }}" 
                    href="{{ url_for('superadmin.roles') }}">
-                    <i class="fas fa-user-cog me-2"></i> Roles
+                    <i class="fas fa-user-cog me-2"></i> Roles & Permissions
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link {{ 'active' if 'subscriptions' in request.endpoint else '' }}" 
-                   href="{{ url_for('superadmin.subscriptions') }}">
-                    <i class="fas fa-credit-card me-2"></i> Subscriptions
+            
+            <!-- Subscription Management -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle {{ 'active' if 'subscription' in request.endpoint else '' }}" 
+                   href="#" data-bs-toggle="collapse" data-bs-target="#subscriptionMenu" aria-expanded="false">
+                    <i class="fas fa-credit-card me-2"></i> Subscription Management
                 </a>
+                <div class="collapse" id="subscriptionMenu">
+                    <ul class="nav flex-column ms-3">
+                        <li class="nav-item">
+                            <a class="nav-link {{ 'active' if request.endpoint == 'superadmin.subscriptions' else '' }}" 
+                               href="{{ url_for('superadmin.subscriptions') }}">
+                                <i class="fas fa-list me-2"></i> Subscriptions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ 'active' if request.endpoint == 'superadmin.subscription_dashboard' else '' }}" 
+                               href="{{ url_for('superadmin.subscription_dashboard') }}">
+                                <i class="fas fa-chart-line me-2"></i> Dashboard
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
+            
+            <!-- Job Data Management -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle {{ 'active' if any(x in request.endpoint for x in ['industry', 'skills', 'experience', 'job_roles', 'company_types', 'job_types']) else '' }}" 
+                   href="#" data-bs-toggle="collapse" data-bs-target="#jobDataMenu" aria-expanded="true">
+                    <i class="fas fa-briefcase me-2"></i> Job Data Management
+                </a>
+                <div class="collapse show" id="jobDataMenu">
+                    <ul class="nav flex-column ms-3">
+                        <li class="nav-item">
+                            <a class="nav-link {{ 'active' if 'industry_types' in request.endpoint else '' }}" 
+                               href="{{ url_for('superadmin.industry_types') }}">
+                                <i class="fas fa-industry me-2"></i> Industry Types
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ 'active' if 'skills' in request.endpoint else '' }}" 
+                               href="{{ url_for('superadmin.skills') }}">
+                                <i class="fas fa-cogs me-2"></i> Skills
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ 'active' if 'experience_levels' in request.endpoint else '' }}" 
+                               href="{{ url_for('superadmin.experience_levels') }}">
+                                <i class="fas fa-graduation-cap me-2"></i> Experience Levels
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ 'active' if 'job_roles' in request.endpoint else '' }}" 
+                               href="{{ url_for('superadmin.job_roles') }}">
+                                <i class="fas fa-user-tie me-2"></i> Job Roles
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ 'active' if 'company_types' in request.endpoint else '' }}" 
+                               href="{{ url_for('superadmin.company_types') }}">
+                                <i class="fas fa-building me-2"></i> Company Types
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ 'active' if 'job_types' in request.endpoint else '' }}" 
+                               href="{{ url_for('superadmin.job_types') }}">
+                                <i class="fas fa-clipboard-list me-2"></i> Job Types
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            
+            <!-- Location Management -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle {{ 'active' if any(x in request.endpoint for x in ['countries', 'states', 'cities']) else '' }}" 
+                   href="#" data-bs-toggle="collapse" data-bs-target="#locationMenu" aria-expanded="true">
+                    <i class="fas fa-globe me-2"></i> Location Management
+                </a>
+                <div class="collapse show" id="locationMenu">
+                    <ul class="nav flex-column ms-3">
+                        <li class="nav-item">
+                            <a class="nav-link {{ 'active' if 'countries' in request.endpoint else '' }}" 
+                               href="{{ url_for('superadmin.countries') }}">
+                                <i class="fas fa-flag me-2"></i> Countries
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ 'active' if 'states' in request.endpoint else '' }}" 
+                               href="{{ url_for('superadmin.states') }}">
+                                <i class="fas fa-map me-2"></i> States
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ 'active' if 'cities' in request.endpoint else '' }}" 
+                               href="{{ url_for('superadmin.cities') }}">
+                                <i class="fas fa-city me-2"></i> Cities
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            
+            <!-- Security -->
             <li class="nav-item">
                 <a class="nav-link {{ 'active' if 'security' in request.endpoint else '' }}" 
                    href="{{ url_for('superadmin.security_logs') }}">
                     <i class="fas fa-shield-alt me-2"></i> Security
                 </a>
             </li>
+            
             <li class="nav-item mt-3">
                 <a class="nav-link text-danger" href="{{ url_for('auth.logout') }}">
                     <i class="fas fa-sign-out-alt me-2"></i> Logout
@@ -135,8 +257,42 @@
                 }
             });
         }
+
+        // Initialize dropdown functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers for dropdown toggles
+            document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(function(element) {
+                element.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('data-bs-target'));
+                    if (target) {
+                        if (target.classList.contains('show')) {
+                            target.classList.remove('show');
+                            this.setAttribute('aria-expanded', 'false');
+                        } else {
+                            target.classList.add('show');
+                            this.setAttribute('aria-expanded', 'true');
+                        }
+                    }
+                });
+            });
+
+            // Auto-expand active menu sections
+            document.querySelectorAll('.nav-link.active').forEach(function(activeLink) {
+                const parentCollapse = activeLink.closest('.collapse');
+                if (parentCollapse) {
+                    parentCollapse.classList.add('show');
+                    const toggle = document.querySelector(`[data-bs-target="#${parentCollapse.id}"]`);
+                    if (toggle) {
+                        toggle.setAttribute('aria-expanded', 'true');
+                    }
+                }
+            });
+        });
     </script>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     {% block scripts %}{% endblock %}
 </body>
 </html>

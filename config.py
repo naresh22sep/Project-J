@@ -90,8 +90,10 @@ class Config:
     
     # Subscription Plans Configuration
     SUBSCRIPTION_PLANS = {
+        # Consultancy Plans (existing)
         'starter': {
             'name': 'Starter',
+            'plan_type': 'consultancy',
             'price': 0.00,
             'features': {
                 'job_applications_per_month': 10,
@@ -104,6 +106,7 @@ class Config:
         },
         'professional': {
             'name': 'Professional',
+            'plan_type': 'consultancy',
             'price': 29.99,
             'features': {
                 'job_applications_per_month': 100,
@@ -116,6 +119,7 @@ class Config:
         },
         'business': {
             'name': 'Business',
+            'plan_type': 'consultancy',
             'price': 79.99,
             'features': {
                 'job_applications_per_month': 500,
@@ -130,6 +134,7 @@ class Config:
         },
         'enterprise': {
             'name': 'Enterprise',
+            'plan_type': 'consultancy',
             'price': 199.99,
             'features': {
                 'job_applications_per_month': -1,  # Unlimited
@@ -142,6 +147,83 @@ class Config:
                 'bulk_operations': True,
                 'custom_integrations': True,
                 'dedicated_support': True
+            }
+        },
+        # Job Seeker Plans (new)
+        'jobseeker_free': {
+            'name': 'Free Job Seeker',
+            'plan_type': 'jobseeker',
+            'price': 0.00,
+            'features': {
+                'job_tracking': False,
+                'portal_access_count': 0,
+                'monthly_job_limit': 0,
+                'resume_storage': 1,
+                'job_alerts': False,
+                'application_tracking': False
+            }
+        },
+        'jobseeker_basic': {
+            'name': 'Basic Job Seeker',
+            'plan_type': 'jobseeker',
+            'price': 10.00,
+            'features': {
+                'job_tracking': True,
+                'portal_access_count': 1,
+                'monthly_job_limit': 100,
+                'resume_storage': 3,
+                'job_alerts': True,
+                'application_tracking': True,
+                'basic_analytics': True
+            }
+        },
+        'jobseeker_standard': {
+            'name': 'Standard Job Seeker',
+            'plan_type': 'jobseeker',
+            'price': 13.00,
+            'features': {
+                'job_tracking': True,
+                'portal_access_count': 3,
+                'monthly_job_limit': 300,
+                'resume_storage': 5,
+                'job_alerts': True,
+                'application_tracking': True,
+                'basic_analytics': True,
+                'priority_support': True
+            }
+        },
+        'jobseeker_premium': {
+            'name': 'Premium Job Seeker',
+            'plan_type': 'jobseeker',
+            'price': 20.00,
+            'features': {
+                'job_tracking': True,
+                'portal_access_count': 5,
+                'monthly_job_limit': 400,
+                'resume_storage': 10,
+                'job_alerts': True,
+                'application_tracking': True,
+                'advanced_analytics': True,
+                'priority_support': True,
+                'interview_prep': True
+            }
+        },
+        'jobseeker_unlimited': {
+            'name': 'Unlimited Job Seeker',
+            'plan_type': 'jobseeker',
+            'price': 30.00,
+            'features': {
+                'job_tracking': True,
+                'portal_access_count': -1,  # Unlimited
+                'monthly_job_limit': -1,    # Unlimited
+                'resume_storage': -1,       # Unlimited
+                'job_alerts': True,
+                'application_tracking': True,
+                'advanced_analytics': True,
+                'priority_support': True,
+                'interview_prep': True,
+                'career_coaching': True,
+                'resume_review': True
             }
         }
     }

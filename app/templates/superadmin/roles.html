@@ -1,0 +1,604 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}Roles & Permissions - SuperAdmin Panel{% endblock %}
+
+{% block content %}
+<!-- Roles Header -->
+<div class="dashboard-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('superadmin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Roles & Permissions</li>
+                </ol>
+            </nav>
+            <h1 class="h3 mb-0">Roles & Permissions</h1>
+            <p class="text-muted">Manage system roles and permissions</p>
+        </div>
+        <div class="col-sm-6 text-sm-end">
+            <div class="btn-group">
+                <a href="{{ url_for('superadmin.dashboard') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                </a>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createRoleModal">
+                    <i class="fas fa-plus me-2"></i>Create Role
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Roles Overview Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="display-6 text-primary">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="mt-2">{{ roles|length }}</h3>
+                <p class="text-muted mb-0">Total Roles</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="display-6 text-success">
+                    <i class="fas fa-key"></i>
+                </div>
+                <h3 class="mt-2">{{ permissions|length }}</h3>
+                <p class="text-muted mb-0">Total Permissions</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="display-6 text-info">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="mt-2">
+                    {% set superadmin_role = roles|selectattr('name', 'equalto', 'superadmin')|first %}
+                    {{ superadmin_role.get_users_count() if superadmin_role else 0 }}
+                </h3>
+                <p class="text-muted mb-0">SuperAdmins</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="display-6 text-warning">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h3 class="mt-2">{{ roles|selectattr('is_system_role', 'equalto', True)|list|length }}</h3>
+                <p class="text-muted mb-0">System Roles</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Roles Table -->
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-shield-alt me-2"></i>System Roles
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if roles %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Role</th>
+                                <th>Users</th>
+                                <th>Permissions</th>
+                                <th>Level</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for role in roles %}
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="role-icon me-3">
+                                            {% if role.name == 'superadmin' %}
+                                                <span class="badge bg-danger fs-6">
+                                                    <i class="fas fa-crown"></i>
+                                                </span>
+                                            {% elif role.name == 'admin' %}
+                                                <span class="badge bg-primary fs-6">
+                                                    <i class="fas fa-user-shield"></i>
+                                                </span>
+                                            {% elif role.name == 'consultancy' %}
+                                                <span class="badge bg-success fs-6">
+                                                    <i class="fas fa-building"></i>
+                                                </span>
+                                            {% elif role.name == 'jobseeker' %}
+                                                <span class="badge bg-info fs-6">
+                                                    <i class="fas fa-user"></i>
+                                                </span>
+                                            {% else %}
+                                                <span class="badge bg-secondary fs-6">
+                                                    <i class="fas fa-shield"></i>
+                                                </span>
+                                            {% endif %}
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold">{{ role.display_name or role.name.title() }}</div>
+                                            <small class="text-muted">{{ role.description or 'No description' }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-light text-dark">
+                                        {{ role.get_users_count() }} users
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-light text-dark">
+                                        {{ role.permissions.count() if role.permissions else 0 }} permissions
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge 
+                                        {% if role.level == 100 %}bg-danger
+                                        {% elif role.level >= 80 %}bg-warning
+                                        {% elif role.level >= 50 %}bg-primary
+                                        {% else %}bg-secondary{% endif %}">
+                                        Level {{ role.level or 0 }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if role.is_system_role %}
+                                        <span class="badge bg-warning">
+                                            <i class="fas fa-lock me-1"></i>System
+                                        </span>
+                                    {% elif role.get_users_count() > 0 %}
+                                        <span class="badge bg-info">
+                                            <i class="fas fa-users me-1"></i>In Use
+                                        </span>
+                                    {% else %}
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-check me-1"></i>Custom
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-outline-primary" onclick="viewRole({{ role.id }})" 
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        {% if role.is_system_role %}
+                                        <button class="btn btn-outline-secondary" disabled title="System Role - Cannot Edit">
+                                            <i class="fas fa-lock"></i>
+                                        </button>
+                                        {% elif role.get_users_count() > 0 %}
+                                        <button class="btn btn-outline-warning" disabled title="Role has {{ role.get_users_count() }} active users - Cannot edit/delete">
+                                            <i class="fas fa-users"></i>
+                                        </button>
+                                        {% else %}
+                                        <button class="btn btn-outline-secondary" onclick="editRole({{ role.id }})"
+                                                title="Edit Role">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-outline-danger" onclick="deleteRole({{ role.id }})"
+                                                title="Delete Role">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-shield-alt fa-3x text-muted mb-3"></i>
+                    <h5>No Roles Found</h5>
+                    <p class="text-muted">Create your first role to get started.</p>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createRoleModal">
+                        <i class="fas fa-plus me-2"></i>Create First Role
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Permissions Panel -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-key me-2"></i>System Permissions
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if permissions %}
+                <div class="permission-categories">
+                    {% set permission_groups = permissions|groupby('resource') %}
+                    {% for resource, perms in permission_groups %}
+                    <div class="mb-3">
+                        <h6 class="text-uppercase text-muted small fw-bold">
+                            <i class="fas fa-folder me-1"></i>{{ resource.title() }}
+                        </h6>
+                        <div class="permission-list">
+                            {% for perm in perms %}
+                            <div class="d-flex justify-content-between align-items-center py-1">
+                                <span class="small">{{ perm.display_name or perm.name }}</span>
+                                <span class="badge bg-light text-dark small">{{ perm.action }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-key fa-2x text-muted mb-3"></i>
+                    <p class="text-muted">No permissions defined.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Quick Actions Card -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-bolt me-2"></i>Quick Actions
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createRoleModal">
+                        <i class="fas fa-plus me-2"></i>Create New Role
+                    </button>
+                    <button class="btn btn-outline-success" onclick="exportRoles()">
+                        <i class="fas fa-download me-2"></i>Export Roles
+                    </button>
+                    <button class="btn btn-outline-info" onclick="auditPermissions()">
+                        <i class="fas fa-search me-2"></i>Audit Permissions
+                    </button>
+                    <a href="{{ url_for('superadmin.security_logs') }}" class="btn btn-outline-warning">
+                        <i class="fas fa-history me-2"></i>View Security Logs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Role Modal -->
+<div class="modal fade" id="createRoleModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-plus me-2"></i>Create New Role
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ url_for('superadmin.create_role') }}" method="POST" id="createRoleForm">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="role_name" class="form-label">Role Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="role_name" name="name" 
+                                       placeholder="e.g., manager" required>
+                                <div class="form-text">Lowercase, no spaces or special characters</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="display_name" class="form-label">Display Name</label>
+                                <input type="text" class="form-control" id="display_name" name="display_name" 
+                                       placeholder="e.g., Manager">
+                                <div class="form-text">Human-readable name</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" 
+                                  placeholder="Describe the role's purpose and responsibilities"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="level" class="form-label">Role Level</label>
+                                <select class="form-select" id="level" name="level">
+                                    <option value="10">10 - Basic User</option>
+                                    <option value="25">25 - Standard User</option>
+                                    <option value="50">50 - Power User</option>
+                                    <option value="75">75 - Administrator</option>
+                                    <option value="90">90 - Senior Administrator</option>
+                                </select>
+                                <div class="form-text">Higher levels have more authority</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <div class="form-check form-switch mt-4">
+                                    <input class="form-check-input" type="checkbox" id="is_system_role" name="is_system_role">
+                                    <label class="form-check-label" for="is_system_role">
+                                        <strong>System Role</strong>
+                                    </label>
+                                    <div class="form-text">System roles cannot be deleted</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Permissions</label>
+                        <div class="permission-selector border rounded p-3" style="max-height: 300px; overflow-y: auto;">
+                            {% if permissions %}
+                                {% set permission_groups = permissions|groupby('resource') %}
+                                {% for resource, perms in permission_groups %}
+                                <div class="mb-3">
+                                    <h6 class="text-uppercase text-muted small fw-bold border-bottom pb-1">
+                                        {{ resource.title() }}
+                                        <button type="button" class="btn btn-sm btn-outline-secondary float-end" 
+                                                onclick="toggleGroupPermissions('{{ resource }}')">
+                                            Select All
+                                        </button>
+                                    </h6>
+                                    <div class="row">
+                                        {% for perm in perms %}
+                                        <div class="col-md-6 mb-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input permission-checkbox" 
+                                                       data-group="{{ resource }}"
+                                                       type="checkbox" 
+                                                       id="perm_{{ perm.id }}" 
+                                                       name="permissions" 
+                                                       value="{{ perm.id }}">
+                                                <label class="form-check-label" for="perm_{{ perm.id }}">
+                                                    <strong>{{ perm.display_name or perm.name }}</strong>
+                                                    {% if perm.description %}
+                                                    <br><small class="text-muted">{{ perm.description }}</small>
+                                                    {% endif %}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                            <p class="text-muted">No permissions available.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>Create Role
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Role Details Modal -->
+<div class="modal fade" id="roleDetailsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-shield-alt me-2"></i>Role Details
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="roleDetailsContent">
+                <!-- Content will be loaded dynamically -->
+                <div class="text-center py-4">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.role-icon {
+    min-width: 40px;
+}
+
+.permission-list {
+    background-color: #f8f9fa;
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.permission-selector {
+    background-color: #fafafa;
+}
+
+.permission-checkbox:checked + label {
+    color: #0d6efd;
+    font-weight: 600;
+}
+
+.table th {
+    border-top: none;
+    font-weight: 600;
+    color: #6c757d;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.role-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease-in-out;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// View role details
+function viewRole(roleId) {
+    fetch(`/superadmin/roles/${roleId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const role = data.role;
+                const content = `
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Basic Information</h6>
+                            <table class="table table-sm">
+                                <tr><td><strong>Name:</strong></td><td>${role.name}</td></tr>
+                                <tr><td><strong>Display Name:</strong></td><td>${role.display_name || 'N/A'}</td></tr>
+                                <tr><td><strong>Level:</strong></td><td>${role.level || 0}</td></tr>
+                                <tr><td><strong>System Role:</strong></td><td>${role.is_system_role ? 'Yes' : 'No'}</td></tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Statistics</h6>
+                            <table class="table table-sm">
+                                <tr><td><strong>Users:</strong></td><td>${role.user_count || 0}</td></tr>
+                                <tr><td><strong>Permissions:</strong></td><td>${role.permission_count || 0}</td></tr>
+                                <tr><td><strong>Created:</strong></td><td>${new Date(role.created_at).toLocaleDateString()}</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <h6>Description</h6>
+                        <p class="text-muted">${role.description || 'No description provided.'}</p>
+                    </div>
+                    <div class="mt-3">
+                        <h6>Permissions</h6>
+                        <div class="row">
+                            ${role.permissions.map(perm => `
+                                <div class="col-md-6 mb-2">
+                                    <span class="badge bg-primary">${perm.display_name || perm.name}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                document.getElementById('roleDetailsContent').innerHTML = content;
+                new bootstrap.Modal(document.getElementById('roleDetailsModal')).show();
+            } else {
+                alert('Error loading role details: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while loading role details.');
+        });
+}
+
+// Edit role
+function editRole(roleId) {
+    window.location.href = `/superadmin/roles/${roleId}/edit`;
+}
+
+// Delete role
+function deleteRole(roleId) {
+    if (confirm('Are you sure you want to delete this role? This action cannot be undone.')) {
+        fetch(`/superadmin/roles/${roleId}/delete`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': document.querySelector('input[name="csrf_token"]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                location.reload();
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while deleting the role.');
+        });
+    }
+}
+
+// Toggle group permissions
+function toggleGroupPermissions(group) {
+    const checkboxes = document.querySelectorAll(`.permission-checkbox[data-group="${group}"]`);
+    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+    
+    checkboxes.forEach(cb => {
+        cb.checked = !allChecked;
+    });
+}
+
+// Export roles
+function exportRoles() {
+    window.open('/superadmin/roles/export', '_blank');
+}
+
+// Audit permissions
+function auditPermissions() {
+    window.open('/superadmin/roles/audit', '_blank');
+}
+
+// Form validation
+document.getElementById('createRoleForm').addEventListener('submit', function(e) {
+    const roleName = document.getElementById('role_name').value;
+    
+    // Validate role name format
+    if (!/^[a-z0-9_]+$/.test(roleName)) {
+        e.preventDefault();
+        alert('Role name must contain only lowercase letters, numbers, and underscores.');
+        return false;
+    }
+    
+    // Check if at least one permission is selected
+    const selectedPermissions = document.querySelectorAll('input[name="permissions"]:checked');
+    if (selectedPermissions.length === 0) {
+        e.preventDefault();
+        alert('Please select at least one permission for this role.');
+        return false;
+    }
+    
+    return true;
+});
+
+// Auto-generate display name from role name
+document.getElementById('role_name').addEventListener('input', function() {
+    const displayNameField = document.getElementById('display_name');
+    if (!displayNameField.value) {
+        const roleName = this.value;
+        const displayName = roleName.split('_').map(word => 
+            word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        ).join(' ');
+        displayNameField.value = displayName;
+    }
+});
+</script>
+{% endblock %}

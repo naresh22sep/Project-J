@@ -1,0 +1,58 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}Application Management - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <h1 class="h3 mb-0">Application Management</h1>
+            <p class="text-muted">Manage all job applications on the platform</p>
+        </div>
+        <div class="col-sm-6 text-sm-end">
+            <div class="btn-group">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    Filter by Status
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="?status=all">All Applications</a></li>
+                    <li><a class="dropdown-item" href="?status=pending">Pending</a></li>
+                    <li><a class="dropdown-item" href="?status=accepted">Accepted</a></li>
+                    <li><a class="dropdown-item" href="?status=rejected">Rejected</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">All Applications</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Applicant</th>
+                        <th>Job Title</th>
+                        <th>Company</th>
+                        <th>Status</th>
+                        <th>Applied</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="6" class="text-center py-4 text-muted">
+                            <i class="fas fa-file-alt fa-2x mb-3"></i>
+                            <div>No applications found or data not loaded yet</div>
+                            <small>This would display actual application data from the database</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
