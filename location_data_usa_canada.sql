@@ -1,407 +1,289 @@
 -- =====================================================
--- LOCATION MANAGEMENT - USA & CANADA FOCUS
+-- LOCATION MANAGEMENT - USA & CANADA FOCUS (CORRECTED)
 -- =====================================================
 
--- Clear existing location data (optional - remove if you want to keep existing data)
--- DELETE FROM cities WHERE id > 0;
--- DELETE FROM states WHERE id > 0;
--- DELETE FROM countries WHERE id > 0;
+USE jobhunter_fresh;
 
 -- =====================================================
--- 1. COUNTRIES (USA & CANADA)
+-- TRUNCATE TABLES BEFORE INSERTING NEW DATA
 -- =====================================================
 
-INSERT INTO countries (name, code_alpha2, code_alpha3, numeric_code, currency_code, phone_code, timezone_primary, sort_order, is_active, created_at) VALUES
-('United States', 'US', 'USA', '840', 'USD', '+1', 'America/New_York', 1, TRUE, NOW()),
-('Canada', 'CA', 'CAN', '124', 'CAD', '+1', 'America/Toronto', 2, TRUE, NOW());
+-- Disable foreign key checks temporarily
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- Truncate tables in dependency order (cities -> states -> countries)
+TRUNCATE TABLE cities;
+TRUNCATE TABLE states;
+TRUNCATE TABLE countries;
+
+-- Reset AUTO_INCREMENT counters
+ALTER TABLE countries AUTO_INCREMENT = 1;
+ALTER TABLE states AUTO_INCREMENT = 1;
+ALTER TABLE cities AUTO_INCREMENT = 1;
+
+-- Re-enable foreign key checks
+SET FOREIGN_KEY_CHECKS = 1;
 
 -- =====================================================
--- 2. STATES/PROVINCES - UNITED STATES
+-- 1. COUNTRIES (USA & CANADA) - Including all required codes
 -- =====================================================
 
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Alabama', 'AL', id, 'America/Chicago', 1, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Alaska', 'AK', id, 'America/Anchorage', 2, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Arizona', 'AZ', id, 'America/Phoenix', 3, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Arkansas', 'AR', id, 'America/Chicago', 4, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'California', 'CA', id, 'America/Los_Angeles', 5, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Colorado', 'CO', id, 'America/Denver', 6, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Connecticut', 'CT', id, 'America/New_York', 7, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Delaware', 'DE', id, 'America/New_York', 8, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Florida', 'FL', id, 'America/New_York', 9, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Georgia', 'GA', id, 'America/New_York', 10, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Hawaii', 'HI', id, 'Pacific/Honolulu', 11, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Idaho', 'ID', id, 'America/Boise', 12, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Illinois', 'IL', id, 'America/Chicago', 13, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Indiana', 'IN', id, 'America/New_York', 14, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Iowa', 'IA', id, 'America/Chicago', 15, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Kansas', 'KS', id, 'America/Chicago', 16, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Kentucky', 'KY', id, 'America/New_York', 17, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Louisiana', 'LA', id, 'America/Chicago', 18, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Maine', 'ME', id, 'America/New_York', 19, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Maryland', 'MD', id, 'America/New_York', 20, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Massachusetts', 'MA', id, 'America/New_York', 21, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Michigan', 'MI', id, 'America/New_York', 22, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Minnesota', 'MN', id, 'America/Chicago', 23, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Mississippi', 'MS', id, 'America/Chicago', 24, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Missouri', 'MO', id, 'America/Chicago', 25, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Montana', 'MT', id, 'America/Denver', 26, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Nebraska', 'NE', id, 'America/Chicago', 27, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Nevada', 'NV', id, 'America/Los_Angeles', 28, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'New Hampshire', 'NH', id, 'America/New_York', 29, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'New Jersey', 'NJ', id, 'America/New_York', 30, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'New Mexico', 'NM', id, 'America/Denver', 31, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'New York', 'NY', id, 'America/New_York', 32, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'North Carolina', 'NC', id, 'America/New_York', 33, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'North Dakota', 'ND', id, 'America/Chicago', 34, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Ohio', 'OH', id, 'America/New_York', 35, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Oklahoma', 'OK', id, 'America/Chicago', 36, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Oregon', 'OR', id, 'America/Los_Angeles', 37, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Pennsylvania', 'PA', id, 'America/New_York', 38, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Rhode Island', 'RI', id, 'America/New_York', 39, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'South Carolina', 'SC', id, 'America/New_York', 40, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'South Dakota', 'SD', id, 'America/Chicago', 41, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Tennessee', 'TN', id, 'America/Chicago', 42, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Texas', 'TX', id, 'America/Chicago', 43, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Utah', 'UT', id, 'America/Denver', 44, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Vermont', 'VT', id, 'America/New_York', 45, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Virginia', 'VA', id, 'America/New_York', 46, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Washington', 'WA', id, 'America/Los_Angeles', 47, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'West Virginia', 'WV', id, 'America/New_York', 48, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Wisconsin', 'WI', id, 'America/Chicago', 49, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Wyoming', 'WY', id, 'America/Denver', 50, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
-
--- Washington D.C.
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'District of Columbia', 'DC', id, 'America/New_York', 51, TRUE, NOW() FROM countries WHERE code_alpha2 = 'US';
+INSERT INTO countries (name, code_alpha2, code_alpha3, is_active) VALUES
+('United States', 'US', 'USA', 1),
+('Canada', 'CA', 'CAN', 1);
 
 -- =====================================================
--- 3. PROVINCES - CANADA
+-- 2. STATES/PROVINCES - Including required code
 -- =====================================================
 
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Alberta', 'AB', id, 'America/Edmonton', 1, TRUE, NOW() FROM countries WHERE code_alpha2 = 'CA';
+-- Get country IDs for reference
+SET @usa_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
+SET @canada_id = (SELECT id FROM countries WHERE code_alpha2 = 'CA');
 
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'British Columbia', 'BC', id, 'America/Vancouver', 2, TRUE, NOW() FROM countries WHERE code_alpha2 = 'CA';
+-- US States (including state codes)
+INSERT INTO states (name, code, country_id, is_active) VALUES
+('Alabama', 'AL', @usa_id, 1),
+('Alaska', 'AK', @usa_id, 1),
+('Arizona', 'AZ', @usa_id, 1),
+('Arkansas', 'AR', @usa_id, 1),
+('California', 'CA', @usa_id, 1),
+('Colorado', 'CO', @usa_id, 1),
+('Connecticut', 'CT', @usa_id, 1),
+('Delaware', 'DE', @usa_id, 1),
+('Florida', 'FL', @usa_id, 1),
+('Georgia', 'GA', @usa_id, 1),
+('Hawaii', 'HI', @usa_id, 1),
+('Idaho', 'ID', @usa_id, 1),
+('Illinois', 'IL', @usa_id, 1),
+('Indiana', 'IN', @usa_id, 1),
+('Iowa', 'IA', @usa_id, 1),
+('Kansas', 'KS', @usa_id, 1),
+('Kentucky', 'KY', @usa_id, 1),
+('Louisiana', 'LA', @usa_id, 1),
+('Maine', 'ME', @usa_id, 1),
+('Maryland', 'MD', @usa_id, 1),
+('Massachusetts', 'MA', @usa_id, 1),
+('Michigan', 'MI', @usa_id, 1),
+('Minnesota', 'MN', @usa_id, 1),
+('Mississippi', 'MS', @usa_id, 1),
+('Missouri', 'MO', @usa_id, 1),
+('Montana', 'MT', @usa_id, 1),
+('Nebraska', 'NE', @usa_id, 1),
+('Nevada', 'NV', @usa_id, 1),
+('New Hampshire', 'NH', @usa_id, 1),
+('New Jersey', 'NJ', @usa_id, 1),
+('New Mexico', 'NM', @usa_id, 1),
+('New York', 'NY', @usa_id, 1),
+('North Carolina', 'NC', @usa_id, 1),
+('North Dakota', 'ND', @usa_id, 1),
+('Ohio', 'OH', @usa_id, 1),
+('Oklahoma', 'OK', @usa_id, 1),
+('Oregon', 'OR', @usa_id, 1),
+('Pennsylvania', 'PA', @usa_id, 1),
+('Rhode Island', 'RI', @usa_id, 1),
+('South Carolina', 'SC', @usa_id, 1),
+('South Dakota', 'SD', @usa_id, 1),
+('Tennessee', 'TN', @usa_id, 1),
+('Texas', 'TX', @usa_id, 1),
+('Utah', 'UT', @usa_id, 1),
+('Vermont', 'VT', @usa_id, 1),
+('Virginia', 'VA', @usa_id, 1),
+('Washington', 'WA', @usa_id, 1),
+('West Virginia', 'WV', @usa_id, 1),
+('Wisconsin', 'WI', @usa_id, 1),
+('Wyoming', 'WY', @usa_id, 1),
+('District of Columbia', 'DC', @usa_id, 1);
 
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Manitoba', 'MB', id, 'America/Winnipeg', 3, TRUE, NOW() FROM countries WHERE code_alpha2 = 'CA';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'New Brunswick', 'NB', id, 'America/Moncton', 4, TRUE, NOW() FROM countries WHERE code_alpha2 = 'CA';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Newfoundland and Labrador', 'NL', id, 'America/St_Johns', 5, TRUE, NOW() FROM countries WHERE code_alpha2 = 'CA';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Northwest Territories', 'NT', id, 'America/Yellowknife', 6, TRUE, NOW() FROM countries WHERE code_alpha2 = 'CA';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Nova Scotia', 'NS', id, 'America/Halifax', 7, TRUE, NOW() FROM countries WHERE code_alpha2 = 'CA';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Nunavut', 'NU', id, 'America/Iqaluit', 8, TRUE, NOW() FROM countries WHERE code_alpha2 = 'CA';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Ontario', 'ON', id, 'America/Toronto', 9, TRUE, NOW() FROM countries WHERE code_alpha2 = 'CA';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Prince Edward Island', 'PE', id, 'America/Halifax', 10, TRUE, NOW() FROM countries WHERE code_alpha2 = 'CA';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Quebec', 'QC', id, 'America/Montreal', 11, TRUE, NOW() FROM countries WHERE code_alpha2 = 'CA';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Saskatchewan', 'SK', id, 'America/Regina', 12, TRUE, NOW() FROM countries WHERE code_alpha2 = 'CA';
-
-INSERT INTO states (name, code, country_id, timezone_primary, sort_order, is_active, created_at) 
-SELECT 'Yukon', 'YT', id, 'America/Whitehorse', 13, TRUE, NOW() FROM countries WHERE code_alpha2 = 'CA';
-
--- =====================================================
--- 4. MAJOR CITIES - UNITED STATES
--- =====================================================
-
--- California Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Los Angeles', id, 34.0522, -118.2437, 3971883, 'America/Los_Angeles', '90210', 'LA', 1, TRUE, NOW() 
-FROM states WHERE name = 'California' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'San Francisco', id, 37.7749, -122.4194, 881549, 'America/Los_Angeles', '94102', 'SF', 2, TRUE, NOW() 
-FROM states WHERE name = 'California' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'San Diego', id, 32.7157, -117.1611, 1423851, 'America/Los_Angeles', '92101', 'SD', 3, TRUE, NOW() 
-FROM states WHERE name = 'California' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'San Jose', id, 37.3382, -121.8863, 1013240, 'America/Los_Angeles', '95113', 'SJ', 4, TRUE, NOW() 
-FROM states WHERE name = 'California' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Sacramento', id, 38.5816, -121.4944, 508529, 'America/Los_Angeles', '95814', 'SAC', 5, TRUE, NOW() 
-FROM states WHERE name = 'California' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
--- New York Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'New York City', id, 40.7128, -74.0060, 8336817, 'America/New_York', '10001', 'NYC', 1, TRUE, NOW() 
-FROM states WHERE name = 'New York' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Buffalo', id, 42.8864, -78.8784, 255284, 'America/New_York', '14201', 'BUF', 2, TRUE, NOW() 
-FROM states WHERE name = 'New York' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Rochester', id, 43.1566, -77.6088, 205695, 'America/New_York', '14604', 'ROC', 3, TRUE, NOW() 
-FROM states WHERE name = 'New York' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Albany', id, 42.6526, -73.7562, 96460, 'America/New_York', '12207', 'ALB', 4, TRUE, NOW() 
-FROM states WHERE name = 'New York' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
--- Texas Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Houston', id, 29.7604, -95.3698, 2320268, 'America/Chicago', '77002', 'HOU', 1, TRUE, NOW() 
-FROM states WHERE name = 'Texas' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Austin', id, 30.2672, -97.7431, 978908, 'America/Chicago', '78701', 'AUS', 2, TRUE, NOW() 
-FROM states WHERE name = 'Texas' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Dallas', id, 32.7767, -96.7970, 1343573, 'America/Chicago', '75201', 'DAL', 3, TRUE, NOW() 
-FROM states WHERE name = 'Texas' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'San Antonio', id, 29.4241, -98.4936, 1547253, 'America/Chicago', '78205', 'SA', 4, TRUE, NOW() 
-FROM states WHERE name = 'Texas' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
--- Florida Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Miami', id, 25.7617, -80.1918, 467963, 'America/New_York', '33101', 'MIA', 1, TRUE, NOW() 
-FROM states WHERE name = 'Florida' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Orlando', id, 28.5383, -81.3792, 307573, 'America/New_York', '32801', 'ORL', 2, TRUE, NOW() 
-FROM states WHERE name = 'Florida' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Tampa', id, 27.9506, -82.4572, 399700, 'America/New_York', '33602', 'TPA', 3, TRUE, NOW() 
-FROM states WHERE name = 'Florida' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Jacksonville', id, 30.3322, -81.6557, 949611, 'America/New_York', '32099', 'JAX', 4, TRUE, NOW() 
-FROM states WHERE name = 'Florida' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
--- Washington Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Seattle', id, 47.6062, -122.3321, 753675, 'America/Los_Angeles', '98101', 'SEA', 1, TRUE, NOW() 
-FROM states WHERE name = 'Washington' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Spokane', id, 47.6588, -117.4260, 230176, 'America/Los_Angeles', '99201', 'GEG', 2, TRUE, NOW() 
-FROM states WHERE name = 'Washington' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Tacoma', id, 47.2529, -122.4443, 219346, 'America/Los_Angeles', '98402', 'TAC', 3, TRUE, NOW() 
-FROM states WHERE name = 'Washington' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
--- Illinois Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Chicago', id, 41.8781, -87.6298, 2695598, 'America/Chicago', '60601', 'CHI', 1, TRUE, NOW() 
-FROM states WHERE name = 'Illinois' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
--- Massachusetts Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Boston', id, 42.3601, -71.0589, 695506, 'America/New_York', '02101', 'BOS', 1, TRUE, NOW() 
-FROM states WHERE name = 'Massachusetts' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
--- Pennsylvania Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Philadelphia', id, 39.9526, -75.1652, 1584064, 'America/New_York', '19101', 'PHL', 1, TRUE, NOW() 
-FROM states WHERE name = 'Pennsylvania' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
--- Georgia Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Atlanta', id, 33.7490, -84.3880, 498715, 'America/New_York', '30301', 'ATL', 1, TRUE, NOW() 
-FROM states WHERE name = 'Georgia' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
--- Colorado Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Denver', id, 39.7392, -104.9903, 715522, 'America/Denver', '80202', 'DEN', 1, TRUE, NOW() 
-FROM states WHERE name = 'Colorado' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
-
--- District of Columbia
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Washington', id, 38.9072, -77.0369, 689545, 'America/New_York', '20001', 'DC', 1, TRUE, NOW() 
-FROM states WHERE name = 'District of Columbia' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'US');
+-- Canadian Provinces (including province codes)
+INSERT INTO states (name, code, country_id, is_active) VALUES
+('Alberta', 'AB', @canada_id, 1),
+('British Columbia', 'BC', @canada_id, 1),
+('Manitoba', 'MB', @canada_id, 1),
+('New Brunswick', 'NB', @canada_id, 1),
+('Newfoundland and Labrador', 'NL', @canada_id, 1),
+('Northwest Territories', 'NT', @canada_id, 1),
+('Nova Scotia', 'NS', @canada_id, 1),
+('Nunavut', 'NU', @canada_id, 1),
+('Ontario', 'ON', @canada_id, 1),
+('Prince Edward Island', 'PE', @canada_id, 1),
+('Quebec', 'QC', @canada_id, 1),
+('Saskatchewan', 'SK', @canada_id, 1),
+('Yukon', 'YT', @canada_id, 1);
 
 -- =====================================================
--- 5. MAJOR CITIES - CANADA
+-- 3. MAJOR CITIES - Tech Hubs Focus
 -- =====================================================
 
--- Ontario Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Toronto', id, 43.6532, -79.3832, 2794356, 'America/Toronto', 'M5H', 'TOR', 1, TRUE, NOW() 
-FROM states WHERE name = 'Ontario' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'CA');
+-- Major US Cities (Tech Hubs)
+INSERT INTO cities (name, state_id, is_active) VALUES
+-- California Tech Cities (Silicon Valley & Beyond)
+('San Francisco', (SELECT id FROM states WHERE code = 'CA' AND country_id = @usa_id), 1),
+('San Jose', (SELECT id FROM states WHERE code = 'CA' AND country_id = @usa_id), 1),
+('Los Angeles', (SELECT id FROM states WHERE code = 'CA' AND country_id = @usa_id), 1),
+('San Diego', (SELECT id FROM states WHERE code = 'CA' AND country_id = @usa_id), 1),
+('Sacramento', (SELECT id FROM states WHERE code = 'CA' AND country_id = @usa_id), 1),
+('Oakland', (SELECT id FROM states WHERE code = 'CA' AND country_id = @usa_id), 1),
+('Santa Clara', (SELECT id FROM states WHERE code = 'CA' AND country_id = @usa_id), 1),
+('Palo Alto', (SELECT id FROM states WHERE code = 'CA' AND country_id = @usa_id), 1),
+('Mountain View', (SELECT id FROM states WHERE code = 'CA' AND country_id = @usa_id), 1),
+('Sunnyvale', (SELECT id FROM states WHERE code = 'CA' AND country_id = @usa_id), 1),
+('Cupertino', (SELECT id FROM states WHERE code = 'CA' AND country_id = @usa_id), 1),
+('Redwood City', (SELECT id FROM states WHERE code = 'CA' AND country_id = @usa_id), 1),
 
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Ottawa', id, 45.4215, -75.6972, 1017449, 'America/Toronto', 'K1A', 'OTT', 2, TRUE, NOW() 
-FROM states WHERE name = 'Ontario' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'CA');
+-- New York Tech Cities
+('New York City', (SELECT id FROM states WHERE code = 'NY' AND country_id = @usa_id), 1),
+('Buffalo', (SELECT id FROM states WHERE code = 'NY' AND country_id = @usa_id), 1),
+('Rochester', (SELECT id FROM states WHERE code = 'NY' AND country_id = @usa_id), 1),
+('Albany', (SELECT id FROM states WHERE code = 'NY' AND country_id = @usa_id), 1),
+('Syracuse', (SELECT id FROM states WHERE code = 'NY' AND country_id = @usa_id), 1),
 
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Hamilton', id, 43.2557, -79.8711, 569353, 'America/Toronto', 'L8P', 'HAM', 3, TRUE, NOW() 
-FROM states WHERE name = 'Ontario' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'CA');
+-- Texas Tech Cities
+('Austin', (SELECT id FROM states WHERE code = 'TX' AND country_id = @usa_id), 1),
+('Houston', (SELECT id FROM states WHERE code = 'TX' AND country_id = @usa_id), 1),
+('Dallas', (SELECT id FROM states WHERE code = 'TX' AND country_id = @usa_id), 1),
+('San Antonio', (SELECT id FROM states WHERE code = 'TX' AND country_id = @usa_id), 1),
+('Fort Worth', (SELECT id FROM states WHERE code = 'TX' AND country_id = @usa_id), 1),
+('Plano', (SELECT id FROM states WHERE code = 'TX' AND country_id = @usa_id), 1),
+('Irving', (SELECT id FROM states WHERE code = 'TX' AND country_id = @usa_id), 1),
 
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'London', id, 42.9849, -81.2453, 422324, 'America/Toronto', 'N6A', 'LDN', 4, TRUE, NOW() 
-FROM states WHERE name = 'Ontario' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'CA');
+-- Washington Tech Cities
+('Seattle', (SELECT id FROM states WHERE code = 'WA' AND country_id = @usa_id), 1),
+('Redmond', (SELECT id FROM states WHERE code = 'WA' AND country_id = @usa_id), 1),
+('Bellevue', (SELECT id FROM states WHERE code = 'WA' AND country_id = @usa_id), 1),
+('Tacoma', (SELECT id FROM states WHERE code = 'WA' AND country_id = @usa_id), 1),
+('Spokane', (SELECT id FROM states WHERE code = 'WA' AND country_id = @usa_id), 1),
 
--- Quebec Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Montreal', id, 45.5017, -73.5673, 1780000, 'America/Montreal', 'H2Y', 'MTL', 1, TRUE, NOW() 
-FROM states WHERE name = 'Quebec' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'CA');
+-- Other Major Tech Hubs
+('Chicago', (SELECT id FROM states WHERE code = 'IL' AND country_id = @usa_id), 1),
+('Boston', (SELECT id FROM states WHERE code = 'MA' AND country_id = @usa_id), 1),
+('Cambridge', (SELECT id FROM states WHERE code = 'MA' AND country_id = @usa_id), 1),
+('Philadelphia', (SELECT id FROM states WHERE code = 'PA' AND country_id = @usa_id), 1),
+('Pittsburgh', (SELECT id FROM states WHERE code = 'PA' AND country_id = @usa_id), 1),
+('Atlanta', (SELECT id FROM states WHERE code = 'GA' AND country_id = @usa_id), 1),
+('Denver', (SELECT id FROM states WHERE code = 'CO' AND country_id = @usa_id), 1),
+('Boulder', (SELECT id FROM states WHERE code = 'CO' AND country_id = @usa_id), 1),
+('Phoenix', (SELECT id FROM states WHERE code = 'AZ' AND country_id = @usa_id), 1),
+('Scottsdale', (SELECT id FROM states WHERE code = 'AZ' AND country_id = @usa_id), 1),
+('Las Vegas', (SELECT id FROM states WHERE code = 'NV' AND country_id = @usa_id), 1),
+('Portland', (SELECT id FROM states WHERE code = 'OR' AND country_id = @usa_id), 1),
+('Nashville', (SELECT id FROM states WHERE code = 'TN' AND country_id = @usa_id), 1),
+('Miami', (SELECT id FROM states WHERE code = 'FL' AND country_id = @usa_id), 1),
+('Orlando', (SELECT id FROM states WHERE code = 'FL' AND country_id = @usa_id), 1),
+('Tampa', (SELECT id FROM states WHERE code = 'FL' AND country_id = @usa_id), 1),
+('Jacksonville', (SELECT id FROM states WHERE code = 'FL' AND country_id = @usa_id), 1),
+('Washington DC', (SELECT id FROM states WHERE code = 'DC' AND country_id = @usa_id), 1),
+('Detroit', (SELECT id FROM states WHERE code = 'MI' AND country_id = @usa_id), 1),
+('Minneapolis', (SELECT id FROM states WHERE code = 'MN' AND country_id = @usa_id), 1),
+('Charlotte', (SELECT id FROM states WHERE code = 'NC' AND country_id = @usa_id), 1),
+('Raleigh', (SELECT id FROM states WHERE code = 'NC' AND country_id = @usa_id), 1),
+('Durham', (SELECT id FROM states WHERE code = 'NC' AND country_id = @usa_id), 1),
+('Baltimore', (SELECT id FROM states WHERE code = 'MD' AND country_id = @usa_id), 1),
+('Columbus', (SELECT id FROM states WHERE code = 'OH' AND country_id = @usa_id), 1),
+('Cleveland', (SELECT id FROM states WHERE code = 'OH' AND country_id = @usa_id), 1),
+('Cincinnati', (SELECT id FROM states WHERE code = 'OH' AND country_id = @usa_id), 1),
+('Indianapolis', (SELECT id FROM states WHERE code = 'IN' AND country_id = @usa_id), 1),
+('Kansas City', (SELECT id FROM states WHERE code = 'MO' AND country_id = @usa_id), 1),
+('St. Louis', (SELECT id FROM states WHERE code = 'MO' AND country_id = @usa_id), 1),
+('Salt Lake City', (SELECT id FROM states WHERE code = 'UT' AND country_id = @usa_id), 1),
+('Provo', (SELECT id FROM states WHERE code = 'UT' AND country_id = @usa_id), 1);
 
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Quebec City', id, 46.8139, -71.2080, 542298, 'America/Montreal', 'G1R', 'QC', 2, TRUE, NOW() 
-FROM states WHERE name = 'Quebec' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'CA');
+-- Major Canadian Cities (Tech Hubs)
+INSERT INTO cities (name, state_id, is_active) VALUES
+-- Ontario Tech Cities
+('Toronto', (SELECT id FROM states WHERE code = 'ON' AND country_id = @canada_id), 1),
+('Ottawa', (SELECT id FROM states WHERE code = 'ON' AND country_id = @canada_id), 1),
+('Mississauga', (SELECT id FROM states WHERE code = 'ON' AND country_id = @canada_id), 1),
+('Brampton', (SELECT id FROM states WHERE code = 'ON' AND country_id = @canada_id), 1),
+('Hamilton', (SELECT id FROM states WHERE code = 'ON' AND country_id = @canada_id), 1),
+('London', (SELECT id FROM states WHERE code = 'ON' AND country_id = @canada_id), 1),
+('Markham', (SELECT id FROM states WHERE code = 'ON' AND country_id = @canada_id), 1),
+('Vaughan', (SELECT id FROM states WHERE code = 'ON' AND country_id = @canada_id), 1),
+('Kitchener', (SELECT id FROM states WHERE code = 'ON' AND country_id = @canada_id), 1),
+('Waterloo', (SELECT id FROM states WHERE code = 'ON' AND country_id = @canada_id), 1),
 
--- British Columbia Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Vancouver', id, 49.2827, -123.1207, 675218, 'America/Vancouver', 'V6B', 'VAN', 1, TRUE, NOW() 
-FROM states WHERE name = 'British Columbia' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'CA');
+-- Quebec Tech Cities
+('Montreal', (SELECT id FROM states WHERE code = 'QC' AND country_id = @canada_id), 1),
+('Quebec City', (SELECT id FROM states WHERE code = 'QC' AND country_id = @canada_id), 1),
+('Laval', (SELECT id FROM states WHERE code = 'QC' AND country_id = @canada_id), 1),
+('Gatineau', (SELECT id FROM states WHERE code = 'QC' AND country_id = @canada_id), 1),
 
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Victoria', id, 48.4284, -123.3656, 91867, 'America/Vancouver', 'V8W', 'VIC', 2, TRUE, NOW() 
-FROM states WHERE name = 'British Columbia' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'CA');
+-- British Columbia Tech Cities
+('Vancouver', (SELECT id FROM states WHERE code = 'BC' AND country_id = @canada_id), 1),
+('Victoria', (SELECT id FROM states WHERE code = 'BC' AND country_id = @canada_id), 1),
+('Burnaby', (SELECT id FROM states WHERE code = 'BC' AND country_id = @canada_id), 1),
+('Surrey', (SELECT id FROM states WHERE code = 'BC' AND country_id = @canada_id), 1),
+('Richmond', (SELECT id FROM states WHERE code = 'BC' AND country_id = @canada_id), 1),
 
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Burnaby', id, 49.2488, -122.9805, 249125, 'America/Vancouver', 'V5H', 'BUR', 3, TRUE, NOW() 
-FROM states WHERE name = 'British Columbia' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'CA');
+-- Alberta Tech Cities
+('Calgary', (SELECT id FROM states WHERE code = 'AB' AND country_id = @canada_id), 1),
+('Edmonton', (SELECT id FROM states WHERE code = 'AB' AND country_id = @canada_id), 1),
 
--- Alberta Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Calgary', id, 51.0447, -114.0719, 1306784, 'America/Edmonton', 'T2P', 'CAL', 1, TRUE, NOW() 
-FROM states WHERE name = 'Alberta' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'CA');
+-- Other Canadian Tech Cities
+('Winnipeg', (SELECT id FROM states WHERE code = 'MB' AND country_id = @canada_id), 1),
+('Halifax', (SELECT id FROM states WHERE code = 'NS' AND country_id = @canada_id), 1),
+('Saskatoon', (SELECT id FROM states WHERE code = 'SK' AND country_id = @canada_id), 1),
+('Regina', (SELECT id FROM states WHERE code = 'SK' AND country_id = @canada_id), 1);
 
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Edmonton', id, 53.5461, -113.4938, 981280, 'America/Edmonton', 'T5J', 'EDM', 2, TRUE, NOW() 
-FROM states WHERE name = 'Alberta' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'CA');
+-- =====================================================
+-- VERIFICATION
+-- =====================================================
 
--- Manitoba Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Winnipeg', id, 49.8951, -97.1384, 749534, 'America/Winnipeg', 'R3C', 'WIN', 1, TRUE, NOW() 
-FROM states WHERE name = 'Manitoba' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'CA');
+SELECT 'Location data import completed successfully!' as status;
 
--- Nova Scotia Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Halifax', id, 44.6488, -63.5752, 439819, 'America/Halifax', 'B3J', 'HAL', 1, TRUE, NOW() 
-FROM states WHERE name = 'Nova Scotia' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'CA');
+SELECT 'Final Counts:' as info;
+SELECT 'Countries' as table_name, COUNT(*) as record_count FROM countries WHERE is_active = 1
+UNION ALL
+SELECT 'States/Provinces', COUNT(*) FROM states WHERE is_active = 1
+UNION ALL
+SELECT 'Cities', COUNT(*) FROM cities WHERE is_active = 1;
 
--- Saskatchewan Cities
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Saskatoon', id, 52.1332, -106.6700, 317480, 'America/Regina', 'S7K', 'SAS', 1, TRUE, NOW() 
-FROM states WHERE name = 'Saskatchewan' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'CA');
+-- Show sample data
+SELECT 'Tech Hub Summary by Country:' as info;
+SELECT 
+    c.name as country,
+    c.code_alpha2 as code_2,
+    c.code_alpha3 as code_3,
+    COUNT(DISTINCT s.id) as states_provinces,
+    COUNT(ci.id) as tech_cities
+FROM countries c 
+JOIN states s ON c.id = s.country_id 
+JOIN cities ci ON s.id = ci.state_id 
+WHERE c.code_alpha2 IN ('US', 'CA')
+GROUP BY c.id, c.name, c.code_alpha2, c.code_alpha3
+ORDER BY c.name;
 
-INSERT INTO cities (name, state_id, latitude, longitude, population, timezone, postal_code, code, sort_order, is_active, created_at) 
-SELECT 'Regina', id, 50.4452, -104.6189, 230139, 'America/Regina', 'S4P', 'REG', 2, TRUE, NOW() 
-FROM states WHERE name = 'Saskatchewan' AND country_id = (SELECT id FROM countries WHERE code_alpha2 = 'CA');
+-- Show top tech states/provinces by city count
+SELECT 'Top Tech States/Provinces:' as info;
+SELECT 
+    c.code_alpha2 as country,
+    s.name as state_province,
+    s.code,
+    COUNT(ci.id) as cities
+FROM countries c 
+JOIN states s ON c.id = s.country_id 
+JOIN cities ci ON s.id = ci.state_id 
+WHERE c.code_alpha2 IN ('US', 'CA')
+GROUP BY c.code_alpha2, s.id, s.name, s.code
+HAVING COUNT(ci.id) >= 3
+ORDER BY COUNT(ci.id) DESC, c.code_alpha2, s.name;
+
+-- Sample cities by major tech hubs
+SELECT 'Major US Tech Cities:' as info;
+SELECT s.name as state, s.code, ci.name as city 
+FROM states s 
+JOIN cities ci ON s.id = ci.state_id 
+JOIN countries c ON s.country_id = c.id
+WHERE c.code_alpha2 = 'US' AND s.code IN ('CA', 'NY', 'TX', 'WA', 'MA')
+ORDER BY s.name, ci.name
+LIMIT 15;
+
+SELECT 'Major Canadian Tech Cities:' as info;
+SELECT s.name as province, s.code, ci.name as city 
+FROM states s 
+JOIN cities ci ON s.id = ci.state_id 
+JOIN countries c ON s.country_id = c.id
+WHERE c.code_alpha2 = 'CA'
+ORDER BY s.name, ci.name
+LIMIT 10;
+
+SELECT 'Location data setup complete!' as final_status;
