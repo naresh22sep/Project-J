@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{% block title %}Admin Panel - JobHunter{% endblock %}</title>
     
     <!-- DEBUG: Template file path - app/templates/layouts/admin_layout.html -->
@@ -67,11 +68,11 @@
             </li>
             <li class="sidebar-dropdown">
                 <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#rolesDropdown" aria-expanded="false">
-                    <i class="fas fa-user-tag me-2"></i>Roles & Permissions
-                    <i class="fas fa-chevron-down ms-auto"></i>
+                    <span><i class="fas fa-user-tag me-2"></i>Roles & Permissions</span>
+                    <i class="fas fa-chevron-down"></i>
                 </a>
                 <div class="collapse" id="rolesDropdown">
-                    <ul class="sidebar-submenu">
+                    <ul class="sidebar-submenu list-unstyled">
                         <li>
                             <a href="{{ url_for('superadmin.roles') }}" class="sidebar-link">
                                 <i class="fas fa-shield-alt me-2"></i>Manage Roles
@@ -87,11 +88,11 @@
             </li>
             <li class="sidebar-dropdown">
                 <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#subscriptionDropdown" aria-expanded="false">
-                    <i class="fas fa-credit-card me-2"></i>Subscription Management
-                    <i class="fas fa-chevron-down ms-auto"></i>
+                    <span><i class="fas fa-credit-card me-2"></i>Subscription Management</span>
+                    <i class="fas fa-chevron-down"></i>
                 </a>
                 <div class="collapse" id="subscriptionDropdown">
-                    <ul class="sidebar-submenu">
+                    <ul class="sidebar-submenu list-unstyled">
                         <li>
                             <a href="{{ url_for('superadmin.subscription_dashboard') }}" class="sidebar-link">
                                 <i class="fas fa-tachometer-alt me-2"></i>Dashboard
@@ -127,13 +128,13 @@
             </li>
             
             <!-- Job Data Management -->
-            <li>
-                <a href="#" class="sidebar-link dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#jobDataDropdown" aria-expanded="true">
-                    <i class="fas fa-briefcase me-2"></i>Job Data Management
-                    <i class="fas fa-chevron-down ms-auto"></i>
+            <li class="sidebar-dropdown">
+                <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#jobDataDropdown" aria-expanded="false">
+                    <span><i class="fas fa-briefcase me-2"></i>Job Data Management</span>
+                    <i class="fas fa-chevron-down"></i>
                 </a>
-                <div class="collapse show" id="jobDataDropdown">
-                    <ul class="sidebar-submenu">
+                <div class="collapse" id="jobDataDropdown">
+                    <ul class="sidebar-submenu list-unstyled">
                         <li>
                             <a href="{{ url_for('superadmin.industry_types') }}" class="sidebar-link">
                                 <i class="fas fa-industry me-2"></i>Industry Types
@@ -169,13 +170,13 @@
             </li>
             
             <!-- Location Management -->
-            <li>
-                <a href="#" class="sidebar-link dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#locationDropdown" aria-expanded="true">
-                    <i class="fas fa-globe me-2"></i>Location Management
-                    <i class="fas fa-chevron-down ms-auto"></i>
+            <li class="sidebar-dropdown">
+                <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#locationDropdown" aria-expanded="false">
+                    <span><i class="fas fa-globe me-2"></i>Location Management</span>
+                    <i class="fas fa-chevron-down"></i>
                 </a>
-                <div class="collapse show" id="locationDropdown">
-                    <ul class="sidebar-submenu">
+                <div class="collapse" id="locationDropdown">
+                    <ul class="sidebar-submenu list-unstyled">
                         <li>
                             <a href="{{ url_for('superadmin.countries') }}" class="sidebar-link">
                                 <i class="fas fa-flag me-2"></i>Countries
@@ -235,19 +236,19 @@
             
             <li class="sidebar-divider my-3"></li>
             
-            <li>
+            <li class="sidebar-dropdown">
                 <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#systemSubmenu" aria-expanded="false">
-                    <i class="fas fa-cogs me-2"></i>System
-                    <i class="fas fa-chevron-down ms-auto"></i>
+                    <span><i class="fas fa-cogs me-2"></i>System</span>
+                    <i class="fas fa-chevron-down"></i>
                 </a>
-                <ul class="collapse list-unstyled" id="systemSubmenu">
+                <ul class="collapse list-unstyled sidebar-submenu" id="systemSubmenu">
                     <li>
-                        <a href="#" class="sidebar-link ps-4">
+                        <a href="#" class="sidebar-link">
                             <i class="fas fa-database me-2"></i>Database
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="sidebar-link ps-4">
+                        <a href="#" class="sidebar-link">
                             <i class="fas fa-server me-2"></i>Server Status
                         </a>
                     </li>

@@ -1,0 +1,149 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}
+{% if city %}Edit City{% else %}Add City{% endif %} - SuperAdmin
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="#" class="text-decoration-none">
+        <i class="fas fa-globe me-1"></i>Location Management
+    </a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{{ url_for('superadmin.cities') }}" class="text-decoration-none">
+        <i class="fas fa-city me-1"></i>Cities
+    </a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">
+    {% if city %}Edit{% else %}Add{% endif %}
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-header">
+        <h2><i class="fas fa-city me-2"></i>
+            {% if city %}Edit City{% else %}Add New City{% endif %}
+        </h2>
+    </div>
+
+    <form method="POST">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="name" class="form-label">City Name <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="name" name="name" 
+                           value="{{ city.name if city else '' }}" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="state_id" class="form-label">State <span class="required">*</span></label>
+                    <select class="form-control" id="state_id" name="state_id" required>
+                        <option value="">Select State</option>
+                        {% for state in states %}
+                        <option value="{{ state.id }}" data-country="{{ state.country.name }}"
+                                {% if city and city.state_id == state.id %}selected{% endif %}>
+                            {{ state.name }}, {{ state.country.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="code" class="form-label">City Code</label>
+                    <input type="text" class="form-control" id="code" name="code" 
+                           value="{{ city.code if city else '' }}" maxlength="10" 
+                           placeholder="NYC" style="text-transform: uppercase;">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="timezone" class="form-label">Timezone</label>
+                    <input type="text" class="form-control" id="timezone" name="timezone" 
+                           value="{{ city.timezone if city else '' }}" placeholder="America/New_York">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="sort_order" class="form-label">Sort Order</label>
+                    <input type="number" class="form-control" id="sort_order" name="sort_order" 
+                           value="{{ city.sort_order if city else 0 }}" min="0" max="999">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="latitude" class="form-label">Latitude</label>
+                    <input type="number" step="any" class="form-control" id="latitude" name="latitude" 
+                           value="{{ city.latitude if city else '' }}" placeholder="40.7128">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="longitude" class="form-label">Longitude</label>
+                    <input type="number" step="any" class="form-control" id="longitude" name="longitude" 
+                           value="{{ city.longitude if city else '' }}" placeholder="-74.0060">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="postal_code" class="form-label">Primary Postal Code</label>
+                    <input type="text" class="form-control" id="postal_code" name="postal_code" 
+                           value="{{ city.postal_code if city else '' }}" placeholder="10001">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="population" class="form-label">Population</label>
+                    <input type="number" class="form-control" id="population" name="population" 
+                           value="{{ city.population if city else '' }}" min="0">
+                </div>
+            </div>
+        </div>
+
+        {% if city %}
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="is_active" name="is_active" 
+                       {% if city.is_active %}checked{% endif %}>
+                <label class="form-check-label" for="is_active">Active</label>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="form-group text-center mt-4">
+            <button type="submit" class="btn btn-primary me-3">
+                <i class="fas fa-save me-2"></i>
+                {% if city %}Update City{% else %}Create City{% endif %}
+            </button>
+            <a href="{{ url_for('superadmin.cities') }}" class="btn btn-secondary">
+                <i class="fas fa-times me-2"></i>Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+<script>
+// State filtering by country (if needed for future enhancement)
+document.addEventListener('DOMContentLoaded', function() {
+    const stateSelect = document.getElementById('state_id');
+    
+    // Optional: Add search functionality for states dropdown
+    if (stateSelect && stateSelect.options.length > 20) {
+        // Convert to searchable select if there are many states
+        // This can be enhanced with a library like Select2 if needed
+    }
+});
+</script>
+{% endblock %}

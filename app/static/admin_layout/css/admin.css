@@ -451,6 +451,59 @@
     margin-right: 4px;
 }
 
+/* Dropdown Arrow Fixes */
+.sidebar-dropdown .sidebar-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebar-dropdown .sidebar-link .fas.fa-chevron-down {
+    transition: transform 0.3s ease;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.sidebar-dropdown .sidebar-link[aria-expanded="true"] .fas.fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+.sidebar-dropdown .sidebar-link:hover .fas.fa-chevron-down {
+    opacity: 1;
+}
+
+/* Remove Bootstrap's default dropdown-toggle arrow */
+.sidebar-link.dropdown-toggle::after {
+    display: none !important;
+}
+
+/* Sidebar submenu styling */
+.sidebar-submenu {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-left: 2px solid var(--admin-primary);
+    margin-left: 1rem;
+}
+
+.sidebar-submenu .sidebar-link {
+    padding: 0.5rem 1rem 0.5rem 2rem;
+    font-size: 0.9rem;
+    border-left: none;
+}
+
+.sidebar-submenu .sidebar-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-left: none;
+}
+
+/* Fix dropdown toggle alignment */
+.dropdown-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
 /* Responsive breadcrumb */
 @media (max-width: 768px) {
     .breadcrumb {

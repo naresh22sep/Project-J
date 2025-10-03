@@ -1,0 +1,175 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}
+{% if industry %}Edit Industry Type{% else %}Add Industry Type{% endif %} - SuperAdmin
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="#" class="text-decoration-none">
+        <i class="fas fa-briefcase me-1"></i>Job Data Management
+    </a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{{ url_for('superadmin.industry_types') }}" class="text-decoration-none">
+        <i class="fas fa-industry me-1"></i>Industry Types
+    </a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">
+    {% if industry %}Edit{% else %}Add{% endif %}
+</li>
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+    }
+    .form-container {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .form-header {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+        color: white;
+        text-align: center;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-label { font-weight: 600; color: #495057; margin-bottom: 8px; }
+    .form-control { border-radius: 8px; border: 1px solid #ddd; padding: 12px; }
+    .form-control:focus { border-color: #4e73df; box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25); }
+    .btn { border-radius: 8px; padding: 12px 24px; font-weight: 500; }
+    .required { color: #dc3545; }
+</style>
+
+<div class="form-container">
+    <div class="form-header">
+        <h2><i class="fas fa-industry me-2"></i>
+            {% if industry %}Edit Industry Type{% else %}Add New Industry Type{% endif %}
+        </h2>
+        <p class="mb-0 opacity-90">
+            {% if industry %}Update industry type information{% else %}Create a new industry classification{% endif %}
+        </p>
+    </div>
+
+    <form method="POST" id="industryForm">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="name" class="form-label">
+                        Technical Name <span class="required">*</span>
+                    </label>
+                    <input type="text" class="form-control" id="name" name="name" 
+                           value="{{ industry.name if industry else '' }}" required 
+                           placeholder="e.g., information_technology">
+                    <small class="form-text text-muted">Lowercase, underscores only (used internally)</small>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="display_name" class="form-label">
+                        Display Name <span class="required">*</span>
+                    </label>
+                    <input type="text" class="form-control" id="display_name" name="display_name" 
+                           value="{{ industry.display_name if industry else '' }}" required 
+                           placeholder="e.g., Information Technology">
+                    <small class="form-text text-muted">User-friendly name for display</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" 
+                      placeholder="Brief description of this industry type">{{ industry.description if industry else '' }}</textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="icon" class="form-label">Icon Class</label>
+                    <input type="text" class="form-control" id="icon" name="icon" 
+                           value="{{ industry.icon if industry else '' }}" 
+                           placeholder="e.g., fas fa-laptop">
+                    <small class="form-text text-muted">Font Awesome icon class (optional)</small>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="sort_order" class="form-label">Sort Order</label>
+                    <input type="number" class="form-control" id="sort_order" name="sort_order" 
+                           value="{{ industry.sort_order if industry else 0 }}" min="0" max="999">
+                    <small class="form-text text-muted">Display order (0 = first)</small>
+                </div>
+            </div>
+        </div>
+
+        {% if industry %}
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="is_active" name="is_active" 
+                       {% if industry.is_active %}checked{% endif %}>
+                <label class="form-check-label" for="is_active">
+                    <strong>Active</strong> - Industry type is available for use
+                </label>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="form-group text-center mt-4">
+            <button type="submit" class="btn btn-primary me-3">
+                <i class="fas fa-save me-2"></i>
+                {% if industry %}Update Industry Type{% else %}Create Industry Type{% endif %}
+            </button>
+            <a href="{{ url_for('superadmin.industry_types') }}" class="btn btn-secondary">
+                <i class="fas fa-times me-2"></i>Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+<script>
+// Auto-generate technical name from display name
+document.getElementById('display_name').addEventListener('input', function() {
+    const displayName = this.value;
+    const technicalName = displayName.toLowerCase()
+        .replace(/[^a-z0-9\s]/g, '')
+        .replace(/\s+/g, '_')
+        .substring(0, 50);
+    
+    if (!document.getElementById('name').value || !{{ 'true' if industry else 'false' }}) {
+        document.getElementById('name').value = technicalName;
+    }
+});
+
+// Form validation
+document.getElementById('industryForm').addEventListener('submit', function(e) {
+    const name = document.getElementById('name').value.trim();
+    const displayName = document.getElementById('display_name').value.trim();
+    
+    if (!name || !displayName) {
+        e.preventDefault();
+        alert('Please fill in all required fields.');
+        return false;
+    }
+    
+    // Validate technical name format
+    if (!/^[a-z0-9_]+$/.test(name)) {
+        e.preventDefault();
+        alert('Technical name must contain only lowercase letters, numbers, and underscores.');
+        return false;
+    }
+});
+</script>
+{% endblock %}

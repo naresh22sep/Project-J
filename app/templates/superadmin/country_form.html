@@ -1,0 +1,117 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}
+{% if country %}Edit Country{% else %}Add Country{% endif %} - SuperAdmin
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="#" class="text-decoration-none">
+        <i class="fas fa-globe me-1"></i>Location Management
+    </a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{{ url_for('superadmin.countries') }}" class="text-decoration-none">
+        <i class="fas fa-flag me-1"></i>Countries
+    </a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">
+    {% if country %}Edit{% else %}Add{% endif %}
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-header">
+        <h2><i class="fas fa-flag me-2"></i>
+            {% if country %}Edit Country{% else %}Add New Country{% endif %}
+        </h2>
+    </div>
+
+    <form method="POST">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="name" class="form-label">Country Name <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="name" name="name" 
+                           value="{{ country.name if country else '' }}" required>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="code_alpha2" class="form-label">Alpha2 Code <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="code_alpha2" name="code_alpha2" 
+                           value="{{ country.code_alpha2 if country else '' }}" required maxlength="2" 
+                           placeholder="US" style="text-transform: uppercase;">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="code_alpha3" class="form-label">Alpha3 Code <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="code_alpha3" name="code_alpha3" 
+                           value="{{ country.code_alpha3 if country else '' }}" required maxlength="3" 
+                           placeholder="USA" style="text-transform: uppercase;">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="numeric_code" class="form-label">Numeric Code</label>
+                    <input type="text" class="form-control" id="numeric_code" name="numeric_code" 
+                           value="{{ country.numeric_code if country else '' }}" maxlength="3" placeholder="840">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="currency_code" class="form-label">Currency Code</label>
+                    <input type="text" class="form-control" id="currency_code" name="currency_code" 
+                           value="{{ country.currency_code if country else '' }}" maxlength="3" 
+                           placeholder="USD" style="text-transform: uppercase;">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="phone_code" class="form-label">Phone Code</label>
+                    <input type="text" class="form-control" id="phone_code" name="phone_code" 
+                           value="{{ country.phone_code if country else '' }}" placeholder="+1">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="sort_order" class="form-label">Sort Order</label>
+                    <input type="number" class="form-control" id="sort_order" name="sort_order" 
+                           value="{{ country.sort_order if country else 0 }}" min="0" max="999">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="timezone_primary" class="form-label">Primary Timezone</label>
+            <input type="text" class="form-control" id="timezone_primary" name="timezone_primary" 
+                   value="{{ country.timezone_primary if country else '' }}" placeholder="America/New_York">
+        </div>
+
+        {% if country %}
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="is_active" name="is_active" 
+                       {% if country.is_active %}checked{% endif %}>
+                <label class="form-check-label" for="is_active">Active</label>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="form-group text-center mt-4">
+            <button type="submit" class="btn btn-primary me-3">
+                <i class="fas fa-save me-2"></i>
+                {% if country %}Update Country{% else %}Create Country{% endif %}
+            </button>
+            <a href="{{ url_for('superadmin.countries') }}" class="btn btn-secondary">
+                <i class="fas fa-times me-2"></i>Cancel
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

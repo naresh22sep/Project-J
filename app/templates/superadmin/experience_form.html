@@ -1,0 +1,209 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}
+{% if experience %}Edit Experience Level{% else %}Add Experience Level{% endif %} - SuperAdmin
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="#" class="text-decoration-none">
+        <i class="fas fa-briefcase me-1"></i>Job Data Management
+    </a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{{ url_for('superadmin.experience_levels') }}" class="text-decoration-none">
+        <i class="fas fa-graduation-cap me-1"></i>Experience Levels
+    </a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">
+    {% if experience %}Edit{% else %}Add{% endif %}
+</li>
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+    }
+    .form-container {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .form-header {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+        color: white;
+        text-align: center;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-label { font-weight: 600; color: #495057; margin-bottom: 8px; }
+    .form-control { border-radius: 8px; border: 1px solid #ddd; padding: 12px; }
+    .form-control:focus { border-color: #4e73df; box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25); }
+    .btn { border-radius: 8px; padding: 12px 24px; font-weight: 500; }
+    .required { color: #dc3545; }
+</style>
+
+<div class="form-container">
+    <div class="form-header">
+        <h2><i class="fas fa-graduation-cap me-2"></i>
+            {% if experience %}Edit Experience Level{% else %}Add New Experience Level{% endif %}
+        </h2>
+        <p class="mb-0 opacity-90">
+            {% if experience %}Update experience level information{% else %}Create a new experience level classification{% endif %}
+        </p>
+    </div>
+
+    <form method="POST" id="experienceForm">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="name" class="form-label">
+                        Technical Name <span class="required">*</span>
+                    </label>
+                    <input type="text" class="form-control" id="name" name="name" 
+                           value="{{ experience.name if experience else '' }}" required 
+                           placeholder="e.g., entry_level">
+                    <small class="form-text text-muted">Lowercase, underscores only (used internally)</small>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="display_name" class="form-label">
+                        Display Name <span class="required">*</span>
+                    </label>
+                    <input type="text" class="form-control" id="display_name" name="display_name" 
+                           value="{{ experience.display_name if experience else '' }}" required 
+                           placeholder="e.g., Entry Level">
+                    <small class="form-text text-muted">User-friendly name for display</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" 
+                      placeholder="Brief description of this experience level">{{ experience.description if experience else '' }}</textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="min_years" class="form-label">Minimum Years</label>
+                    <input type="number" class="form-control" id="min_years" name="min_years" 
+                           value="{{ experience.min_years if experience else '' }}" min="0" max="50"
+                           placeholder="0">
+                    <small class="form-text text-muted">Minimum years of experience</small>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="max_years" class="form-label">Maximum Years</label>
+                    <input type="number" class="form-control" id="max_years" name="max_years" 
+                           value="{{ experience.max_years if experience else '' }}" min="0" max="50"
+                           placeholder="2">
+                    <small class="form-text text-muted">Maximum years of experience (optional)</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="sort_order" class="form-label">Sort Order</label>
+                    <input type="number" class="form-control" id="sort_order" name="sort_order" 
+                           value="{{ experience.sort_order if experience else 0 }}" min="0" max="999">
+                    <small class="form-text text-muted">Display order (0 = first)</small>
+                </div>
+            </div>
+
+            {% if experience %}
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="form-check mt-4">
+                        <input class="form-check-input" type="checkbox" id="is_active" name="is_active" 
+                               {% if experience.is_active %}checked{% endif %}>
+                        <label class="form-check-label" for="is_active">
+                            <strong>Active</strong> - Experience level is available for use
+                        </label>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group text-center mt-4">
+            <button type="submit" class="btn btn-primary me-3">
+                <i class="fas fa-save me-2"></i>
+                {% if experience %}Update Experience Level{% else %}Create Experience Level{% endif %}
+            </button>
+            <a href="{{ url_for('superadmin.experience_levels') }}" class="btn btn-secondary">
+                <i class="fas fa-times me-2"></i>Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+<script>
+// Auto-generate technical name from display name
+document.getElementById('display_name').addEventListener('input', function() {
+    const displayName = this.value;
+    const technicalName = displayName.toLowerCase()
+        .replace(/[^a-z0-9\s]/g, '')
+        .replace(/\s+/g, '_')
+        .substring(0, 50);
+    
+    if (!document.getElementById('name').value || !{{ 'true' if experience else 'false' }}) {
+        document.getElementById('name').value = technicalName;
+    }
+});
+
+// Validate years range
+document.getElementById('max_years').addEventListener('change', function() {
+    const minYears = parseInt(document.getElementById('min_years').value) || 0;
+    const maxYears = parseInt(this.value) || 0;
+    
+    if (maxYears > 0 && maxYears < minYears) {
+        alert('Maximum years cannot be less than minimum years.');
+        this.value = '';
+    }
+});
+
+// Form validation
+document.getElementById('experienceForm').addEventListener('submit', function(e) {
+    const name = document.getElementById('name').value.trim();
+    const displayName = document.getElementById('display_name').value.trim();
+    const minYears = parseInt(document.getElementById('min_years').value) || 0;
+    const maxYears = parseInt(document.getElementById('max_years').value) || 0;
+    
+    if (!name || !displayName) {
+        e.preventDefault();
+        alert('Please fill in all required fields.');
+        return false;
+    }
+    
+    // Validate technical name format
+    if (!/^[a-z0-9_]+$/.test(name)) {
+        e.preventDefault();
+        alert('Technical name must contain only lowercase letters, numbers, and underscores.');
+        return false;
+    }
+    
+    // Validate years range
+    if (maxYears > 0 && maxYears < minYears) {
+        e.preventDefault();
+        alert('Maximum years cannot be less than minimum years.');
+        return false;
+    }
+});
+</script>
+{% endblock %}

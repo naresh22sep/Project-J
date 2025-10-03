@@ -1437,3 +1437,16 @@ jinja2.exceptions.UndefinedError: 'csrf_token' is undefined
 2025-10-02 16:20:55,252 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
 2025-10-02 16:20:55,252 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
 2025-10-02 16:20:55,253 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-02 19:17:08,131 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-02 19:17:08,132 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-02 19:17:08,133 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-02 19:17:08,133 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-02 19:17:08,134 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-02 19:17:08,134 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-02 19:17:08,135 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.2 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-02 19:17:08,136 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-02 19:17:08,136 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-02 19:17:08,136 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-02 19:17:08,137 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-02 19:17:08,153 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-02 19:17:08,153 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===

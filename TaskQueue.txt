@@ -1,56 +1,77 @@
-1) Fix  issue in  
+Menu changes are required:
 
+1) once selected it should change color 
+2) if its in dropdown it should active remaining all dropdowns should
+hide
+3) http://localhost:5051/superadmin/experience-levels 
 
-http://localhost:5051/superadmin/industry-types 
-Error:  jinja2.exceptions.TemplateNotFound
-jinja2.exceptions.TemplateNotFound: superadmin/industry_types.html
+Throwing error : 
+jinja2.exceptions.UndefinedError
+jinja2.exceptions.UndefinedError: 'experience_levels' is undefined
 
-
-once confirm it is working then start 
-
-2) Fix :
-http://localhost:5051/superadmin/skills 
+4)http://localhost:5051/superadmin/industry-types/create
 jinja2.exceptions.TemplateNotFound
-jinja2.exceptions.TemplateNotFound: superadmin/skills.html
+jinja2.exceptions.TemplateNotFound: superadmin/industry_type_form.html
+generate  edit/delete code and routes
 
-
-
-3) Fix : 
- http://localhost:5051/superadmin/experience-levels
-
- jinja2.exceptions.TemplateNotFound
-jinja2.exceptions.TemplateNotFound: superadmin/experience_levels.html
-
-4)http://localhost:5051/superadmin/job-roles
-
+5) http://localhost:5051/superadmin/skills/create
 jinja2.exceptions.TemplateNotFound
-jinja2.exceptions.TemplateNotFound: superadmin/job_roles.html
+jinja2.exceptions.TemplateNotFound: superadmin/skill_form.html
+generate  edit/delete code and routes
 
-
-5)http://localhost:5051/superadmin/company-types
-
+6)http://localhost:5051/superadmin/job-roles/create
 jinja2.exceptions.TemplateNotFound
-jinja2.exceptions.TemplateNotFound: superadmin/company_types.html
+jinja2.exceptions.TemplateNotFound: superadmin/job_role_form.html
 
-6) http://localhost:5051/superadmin/job-types
+Traceback (most recent call last)
+
+generate  edit/delete code and routes
+
+7)http://localhost:5051/superadmin/company-types/create
 
 jinja2.exceptions.TemplateNotFound
-jinja2.exceptions.TemplateNotFound: superadmin/job_types.html
+jinja2.exceptions.TemplateNotFound: superadmin/company_type_form.html
 
 
-7)http://localhost:5051/superadmin/countries
+generate  edit/delete code and routes
+
+8)http://localhost:5051/superadmin/job-types/create
+
+
+
 jinja2.exceptions.TemplateNotFound
-jinja2.exceptions.TemplateNotFound: superadmin/countries.html
+jinja2.exceptions.TemplateNotFound: superadmin/job_type_form.html
+
+Traceback (most recent call last)
+generate  edit/delete code and routes
 
 
-8)http://localhost:5051/superadmin/states
+9)http://localhost:5051/superadmin/countries/create
+
 
 jinja2.exceptions.TemplateNotFound
-jinja2.exceptions.TemplateNotFound: superadmin/states.html
+jinja2.exceptions.TemplateNotFound: superadmin/country_form.html
+generate  edit/delete code and routes
 
+10)http://localhost:5051/superadmin/states/create
 
-9)http://localhost:5051/superadmin/cities
 jinja2.exceptions.TemplateNotFound
-jinja2.exceptions.TemplateNotFound: superadmin/cities.html
+jinja2.exceptions.TemplateNotFound: superadmin/state_form.html
 
-10) The menu "Job data management" & "Location management" is showing 2 dropdowns
+generate  edit/delete code and routes
+
+11) http://localhost:5051/superadmin/cities/create
+
+jinja2.exceptions.TemplateNotFound
+jinja2.exceptions.TemplateNotFound: superadmin/city_form.html
+generate  edit/delete code and routes
+Traceback (most recent call last)
+
+
+
+
+
+
+
+
+

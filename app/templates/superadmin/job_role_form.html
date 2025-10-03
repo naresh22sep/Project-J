@@ -1,0 +1,205 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}
+{% if job_role %}Edit Job Role{% else %}Add Job Role{% endif %} - SuperAdmin
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="#" class="text-decoration-none">
+        <i class="fas fa-briefcase me-1"></i>Job Data Management
+    </a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{{ url_for('superadmin.job_roles') }}" class="text-decoration-none">
+        <i class="fas fa-user-tie me-1"></i>Job Roles
+    </a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">
+    {% if job_role %}Edit{% else %}Add{% endif %}
+</li>
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+    }
+    .form-container {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .form-header {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+        color: white;
+        text-align: center;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-label { font-weight: 600; color: #495057; margin-bottom: 8px; }
+    .form-control { border-radius: 8px; border: 1px solid #ddd; padding: 12px; }
+    .form-control:focus { border-color: #4e73df; box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25); }
+    .btn { border-radius: 8px; padding: 12px 24px; font-weight: 500; }
+    .required { color: #dc3545; }
+</style>
+
+<div class="form-container">
+    <div class="form-header">
+        <h2><i class="fas fa-user-tie me-2"></i>
+            {% if job_role %}Edit Job Role{% else %}Add New Job Role{% endif %}
+        </h2>
+        <p class="mb-0 opacity-90">
+            {% if job_role %}Update job role information{% else %}Create a new job role classification{% endif %}
+        </p>
+    </div>
+
+    <form method="POST" id="jobRoleForm">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="name" class="form-label">
+                        Technical Name <span class="required">*</span>
+                    </label>
+                    <input type="text" class="form-control" id="name" name="name" 
+                           value="{{ job_role.name if job_role else '' }}" required 
+                           placeholder="e.g., software_engineer">
+                    <small class="form-text text-muted">Lowercase, underscores only (used internally)</small>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="display_name" class="form-label">
+                        Display Name <span class="required">*</span>
+                    </label>
+                    <input type="text" class="form-control" id="display_name" name="display_name" 
+                           value="{{ job_role.display_name if job_role else '' }}" required 
+                           placeholder="e.g., Software Engineer">
+                    <small class="form-text text-muted">User-friendly name for display</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" 
+                      placeholder="Brief description of this job role">{{ job_role.description if job_role else '' }}</textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-control" id="category" name="category">
+                        <option value="">Select Category</option>
+                        <option value="engineering" {% if job_role and job_role.category == 'engineering' %}selected{% endif %}>Engineering</option>
+                        <option value="design" {% if job_role and job_role.category == 'design' %}selected{% endif %}>Design</option>
+                        <option value="management" {% if job_role and job_role.category == 'management' %}selected{% endif %}>Management</option>
+                        <option value="sales" {% if job_role and job_role.category == 'sales' %}selected{% endif %}>Sales</option>
+                        <option value="marketing" {% if job_role and job_role.category == 'marketing' %}selected{% endif %}>Marketing</option>
+                        <option value="operations" {% if job_role and job_role.category == 'operations' %}selected{% endif %}>Operations</option>
+                        <option value="finance" {% if job_role and job_role.category == 'finance' %}selected{% endif %}>Finance</option>
+                        <option value="hr" {% if job_role and job_role.category == 'hr' %}selected{% endif %}>Human Resources</option>
+                        <option value="customer_service" {% if job_role and job_role.category == 'customer_service' %}selected{% endif %}>Customer Service</option>
+                        <option value="other" {% if job_role and job_role.category == 'other' %}selected{% endif %}>Other</option>
+                    </select>
+                    <small class="form-text text-muted">Job role classification</small>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="industry_id" class="form-label">Related Industry</label>
+                    <select class="form-control" id="industry_id" name="industry_id">
+                        <option value="">All Industries</option>
+                        {% for industry in industries %}
+                        <option value="{{ industry.id }}" 
+                                {% if job_role and job_role.industry_id == industry.id %}selected{% endif %}>
+                            {{ industry.display_name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <small class="form-text text-muted">Primary industry for this role (optional)</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="sort_order" class="form-label">Sort Order</label>
+                    <input type="number" class="form-control" id="sort_order" name="sort_order" 
+                           value="{{ job_role.sort_order if job_role else 0 }}" min="0" max="999">
+                    <small class="form-text text-muted">Display order (0 = first)</small>
+                </div>
+            </div>
+
+            {% if job_role %}
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="form-check mt-4">
+                        <input class="form-check-input" type="checkbox" id="is_active" name="is_active" 
+                               {% if job_role.is_active %}checked{% endif %}>
+                        <label class="form-check-label" for="is_active">
+                            <strong>Active</strong> - Job role is available for use
+                        </label>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group text-center mt-4">
+            <button type="submit" class="btn btn-primary me-3">
+                <i class="fas fa-save me-2"></i>
+                {% if job_role %}Update Job Role{% else %}Create Job Role{% endif %}
+            </button>
+            <a href="{{ url_for('superadmin.job_roles') }}" class="btn btn-secondary">
+                <i class="fas fa-times me-2"></i>Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+<script>
+// Auto-generate technical name from display name
+document.getElementById('display_name').addEventListener('input', function() {
+    const displayName = this.value;
+    const technicalName = displayName.toLowerCase()
+        .replace(/[^a-z0-9\s]/g, '')
+        .replace(/\s+/g, '_')
+        .substring(0, 50);
+    
+    if (!document.getElementById('name').value || !{{ 'true' if job_role else 'false' }}) {
+        document.getElementById('name').value = technicalName;
+    }
+});
+
+// Form validation
+document.getElementById('jobRoleForm').addEventListener('submit', function(e) {
+    const name = document.getElementById('name').value.trim();
+    const displayName = document.getElementById('display_name').value.trim();
+    
+    if (!name || !displayName) {
+        e.preventDefault();
+        alert('Please fill in all required fields.');
+        return false;
+    }
+    
+    // Validate technical name format
+    if (!/^[a-z0-9_]+$/.test(name)) {
+        e.preventDefault();
+        alert('Technical name must contain only lowercase letters, numbers, and underscores.');
+        return false;
+    }
+});
+</script>
+{% endblock %}

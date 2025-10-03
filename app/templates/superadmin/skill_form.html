@@ -1,0 +1,203 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}
+{% if skill %}Edit Skill{% else %}Add Skill{% endif %} - SuperAdmin
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="#" class="text-decoration-none">
+        <i class="fas fa-briefcase me-1"></i>Job Data Management
+    </a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{{ url_for('superadmin.skills') }}" class="text-decoration-none">
+        <i class="fas fa-cogs me-1"></i>Skills
+    </a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">
+    {% if skill %}Edit{% else %}Add{% endif %}
+</li>
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+    }
+    .form-container {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .form-header {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+        color: white;
+        text-align: center;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-label { font-weight: 600; color: #495057; margin-bottom: 8px; }
+    .form-control { border-radius: 8px; border: 1px solid #ddd; padding: 12px; }
+    .form-control:focus { border-color: #4e73df; box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25); }
+    .btn { border-radius: 8px; padding: 12px 24px; font-weight: 500; }
+    .required { color: #dc3545; }
+</style>
+
+<div class="form-container">
+    <div class="form-header">
+        <h2><i class="fas fa-cogs me-2"></i>
+            {% if skill %}Edit Skill{% else %}Add New Skill{% endif %}
+        </h2>
+        <p class="mb-0 opacity-90">
+            {% if skill %}Update skill information{% else %}Create a new skill for job requirements{% endif %}
+        </p>
+    </div>
+
+    <form method="POST" id="skillForm">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="name" class="form-label">
+                        Technical Name <span class="required">*</span>
+                    </label>
+                    <input type="text" class="form-control" id="name" name="name" 
+                           value="{{ skill.name if skill else '' }}" required 
+                           placeholder="e.g., python_programming">
+                    <small class="form-text text-muted">Lowercase, underscores only (used internally)</small>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="display_name" class="form-label">
+                        Display Name <span class="required">*</span>
+                    </label>
+                    <input type="text" class="form-control" id="display_name" name="display_name" 
+                           value="{{ skill.display_name if skill else '' }}" required 
+                           placeholder="e.g., Python Programming">
+                    <small class="form-text text-muted">User-friendly name for display</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" 
+                      placeholder="Brief description of this skill">{{ skill.description if skill else '' }}</textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-control" id="category" name="category">
+                        <option value="">Select Category</option>
+                        <option value="technical" {% if skill and skill.category == 'technical' %}selected{% endif %}>Technical</option>
+                        <option value="soft_skills" {% if skill and skill.category == 'soft_skills' %}selected{% endif %}>Soft Skills</option>
+                        <option value="language" {% if skill and skill.category == 'language' %}selected{% endif %}>Language</option>
+                        <option value="certification" {% if skill and skill.category == 'certification' %}selected{% endif %}>Certification</option>
+                        <option value="tool" {% if skill and skill.category == 'tool' %}selected{% endif %}>Tool/Software</option>
+                        <option value="framework" {% if skill and skill.category == 'framework' %}selected{% endif %}>Framework</option>
+                        <option value="database" {% if skill and skill.category == 'database' %}selected{% endif %}>Database</option>
+                        <option value="other" {% if skill and skill.category == 'other' %}selected{% endif %}>Other</option>
+                    </select>
+                    <small class="form-text text-muted">Skill classification</small>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="industry_id" class="form-label">Related Industry</label>
+                    <select class="form-control" id="industry_id" name="industry_id">
+                        <option value="">All Industries</option>
+                        {% for industry in industries %}
+                        <option value="{{ industry.id }}" 
+                                {% if skill and skill.industry_id == industry.id %}selected{% endif %}>
+                            {{ industry.display_name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <small class="form-text text-muted">Primary industry for this skill (optional)</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="sort_order" class="form-label">Sort Order</label>
+                    <input type="number" class="form-control" id="sort_order" name="sort_order" 
+                           value="{{ skill.sort_order if skill else 0 }}" min="0" max="999">
+                    <small class="form-text text-muted">Display order (0 = first)</small>
+                </div>
+            </div>
+
+            {% if skill %}
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="form-check mt-4">
+                        <input class="form-check-input" type="checkbox" id="is_active" name="is_active" 
+                               {% if skill.is_active %}checked{% endif %}>
+                        <label class="form-check-label" for="is_active">
+                            <strong>Active</strong> - Skill is available for use
+                        </label>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group text-center mt-4">
+            <button type="submit" class="btn btn-primary me-3">
+                <i class="fas fa-save me-2"></i>
+                {% if skill %}Update Skill{% else %}Create Skill{% endif %}
+            </button>
+            <a href="{{ url_for('superadmin.skills') }}" class="btn btn-secondary">
+                <i class="fas fa-times me-2"></i>Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+<script>
+// Auto-generate technical name from display name
+document.getElementById('display_name').addEventListener('input', function() {
+    const displayName = this.value;
+    const technicalName = displayName.toLowerCase()
+        .replace(/[^a-z0-9\s]/g, '')
+        .replace(/\s+/g, '_')
+        .substring(0, 50);
+    
+    if (!document.getElementById('name').value || !{{ 'true' if skill else 'false' }}) {
+        document.getElementById('name').value = technicalName;
+    }
+});
+
+// Form validation
+document.getElementById('skillForm').addEventListener('submit', function(e) {
+    const name = document.getElementById('name').value.trim();
+    const displayName = document.getElementById('display_name').value.trim();
+    
+    if (!name || !displayName) {
+        e.preventDefault();
+        alert('Please fill in all required fields.');
+        return false;
+    }
+    
+    // Validate technical name format
+    if (!/^[a-z0-9_]+$/.test(name)) {
+        e.preventDefault();
+        alert('Technical name must contain only lowercase letters, numbers, and underscores.');
+        return false;
+    }
+});
+</script>
+{% endblock %}

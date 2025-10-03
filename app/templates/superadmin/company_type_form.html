@@ -1,0 +1,200 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}
+{% if company_type %}Edit Company Type{% else %}Add Company Type{% endif %} - SuperAdmin
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="#" class="text-decoration-none">
+        <i class="fas fa-briefcase me-1"></i>Job Data Management
+    </a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{{ url_for('superadmin.company_types') }}" class="text-decoration-none">
+        <i class="fas fa-building me-1"></i>Company Types
+    </a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">
+    {% if company_type %}Edit{% else %}Add{% endif %}
+</li>
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+    }
+    .form-container {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .form-header {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+        color: white;
+        text-align: center;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-label { font-weight: 600; color: #495057; margin-bottom: 8px; }
+    .form-control { border-radius: 8px; border: 1px solid #ddd; padding: 12px; }
+    .form-control:focus { border-color: #4e73df; box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25); }
+    .btn { border-radius: 8px; padding: 12px 24px; font-weight: 500; }
+    .required { color: #dc3545; }
+</style>
+
+<div class="form-container">
+    <div class="form-header">
+        <h2><i class="fas fa-building me-2"></i>
+            {% if company_type %}Edit Company Type{% else %}Add New Company Type{% endif %}
+        </h2>
+        <p class="mb-0 opacity-90">
+            {% if company_type %}Update company type information{% else %}Create a new company classification{% endif %}
+        </p>
+    </div>
+
+    <form method="POST" id="companyTypeForm">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="name" class="form-label">
+                        Technical Name <span class="required">*</span>
+                    </label>
+                    <input type="text" class="form-control" id="name" name="name" 
+                           value="{{ company_type.name if company_type else '' }}" required 
+                           placeholder="e.g., tech_startup">
+                    <small class="form-text text-muted">Lowercase, underscores only (used internally)</small>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="display_name" class="form-label">
+                        Display Name <span class="required">*</span>
+                    </label>
+                    <input type="text" class="form-control" id="display_name" name="display_name" 
+                           value="{{ company_type.display_name if company_type else '' }}" required 
+                           placeholder="e.g., Tech Startup">
+                    <small class="form-text text-muted">User-friendly name for display</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" 
+                      placeholder="Brief description of this company type">{{ company_type.description if company_type else '' }}</textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="employee_range_min" class="form-label">Min Employees</label>
+                    <input type="number" class="form-control" id="employee_range_min" name="employee_range_min" 
+                           value="{{ company_type.employee_range_min if company_type else '' }}" min="1" max="1000000"
+                           placeholder="1">
+                    <small class="form-text text-muted">Minimum number of employees</small>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="employee_range_max" class="form-label">Max Employees</label>
+                    <input type="number" class="form-control" id="employee_range_max" name="employee_range_max" 
+                           value="{{ company_type.employee_range_max if company_type else '' }}" min="1" max="1000000"
+                           placeholder="50">
+                    <small class="form-text text-muted">Maximum number of employees (optional)</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="sort_order" class="form-label">Sort Order</label>
+                    <input type="number" class="form-control" id="sort_order" name="sort_order" 
+                           value="{{ company_type.sort_order if company_type else 0 }}" min="0" max="999">
+                    <small class="form-text text-muted">Display order (0 = first)</small>
+                </div>
+            </div>
+
+            {% if company_type %}
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="form-check mt-4">
+                        <input class="form-check-input" type="checkbox" id="is_active" name="is_active" 
+                               {% if company_type.is_active %}checked{% endif %}>
+                        <label class="form-check-label" for="is_active">
+                            <strong>Active</strong> - Company type is available for use
+                        </label>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group text-center mt-4">
+            <button type="submit" class="btn btn-primary me-3">
+                <i class="fas fa-save me-2"></i>
+                {% if company_type %}Update Company Type{% else %}Create Company Type{% endif %}
+            </button>
+            <a href="{{ url_for('superadmin.company_types') }}" class="btn btn-secondary">
+                <i class="fas fa-times me-2"></i>Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+<script>
+// Auto-generate technical name from display name
+document.getElementById('display_name').addEventListener('input', function() {
+    const displayName = this.value;
+    const technicalName = displayName.toLowerCase()
+        .replace(/[^a-z0-9\s]/g, '')
+        .replace(/\s+/g, '_')
+        .substring(0, 50);
+    
+    if (!document.getElementById('name').value || !{{ 'true' if company_type else 'false' }}) {
+        document.getElementById('name').value = technicalName;
+    }
+});
+
+// Validate employee range
+document.getElementById('employee_range_max').addEventListener('change', function() {
+    const minEmployees = parseInt(document.getElementById('employee_range_min').value) || 0;
+    const maxEmployees = parseInt(this.value) || 0;
+    
+    if (maxEmployees > 0 && maxEmployees < minEmployees) {
+        alert('Maximum employees cannot be less than minimum employees.');
+        this.value = '';
+    }
+});
+
+// Form validation
+document.getElementById('companyTypeForm').addEventListener('submit', function(e) {
+    const name = document.getElementById('name').value.trim();
+    const displayName = document.getElementById('display_name').value.trim();
+    
+    if (!name || !displayName) {
+        e.preventDefault();
+        alert('Please fill in all required fields.');
+        return false;
+    }
+    
+    // Validate technical name format
+    if (!/^[a-z0-9_]+$/.test(name)) {
+        e.preventDefault();
+        alert('Technical name must contain only lowercase letters, numbers, and underscores.');
+        return false;
+    }
+});
+</script>
+{% endblock %}

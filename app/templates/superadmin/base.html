@@ -596,6 +596,18 @@
                 {% endif %}
             {% endwith %}
             
+            <!-- Breadcrumb Navigation -->
+            <nav aria-label="breadcrumb" style="margin-bottom: 20px;">
+                <ol style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 1px solid #e3e6ea; border-radius: 10px; padding: 12px 20px; margin-bottom: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.08); font-size: 14px; list-style: none; display: flex; flex-wrap: wrap; margin: 0; padding-left: 0;">
+                    <li style="display: inline-flex; align-items: center;">
+                        <a href="{{ url_for('superadmin.dashboard') }}" style="color: #1976d2; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center;">
+                            <span style="font-size: 18px; margin-right: 4px;">🏠</span>Dashboard
+                        </a>
+                    </li>
+                    {% block breadcrumb %}{% endblock %}
+                </ol>
+            </nav>
+            
             <!-- Page Title -->
             <h1 class="page-title">{% block page_title %}Dashboard{% endblock %}</h1>
             

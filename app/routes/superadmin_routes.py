@@ -1982,14 +1982,13 @@ def delete_industry_type(id):
     """Delete industry type"""
     try:
         industry = IndustryType.query.get_or_404(id)
+        name = industry.display_name
         db.session.delete(industry)
         db.session.commit()
-        flash('Industry type deleted successfully', 'success')
+        return jsonify({'success': True, 'message': f'Industry type "{name}" deleted successfully'})
     except Exception as e:
         db.session.rollback()
-        flash(f'Error deleting industry type: {str(e)}', 'error')
-    
-    return redirect(url_for('superadmin.industry_types'))
+        return jsonify({'success': False, 'message': str(e)}), 500
 
 # Skills Management
 @superadmin_bp.route('/skills')
@@ -2040,12 +2039,61 @@ def create_skill():
     industries = IndustryType.query.filter_by(is_active=True).order_by(IndustryType.display_name).all()
     return render_template('superadmin/skill_form.html', skill=None, industries=industries)
 
+@superadmin_bp.route('/skills/<int:id>/edit', methods=['GET', 'POST'])
+def edit_skill(id):
+    """Edit skill"""
+    skill = Skill.query.get_or_404(id)
+    
+    if request.method == 'POST':
+        try:
+            skill.name = request.form['name']
+            skill.display_name = request.form['display_name']
+            skill.description = request.form.get('description')
+            skill.category = request.form.get('category')
+            skill.industry_id = int(request.form['industry_id']) if request.form.get('industry_id') else None
+            skill.sort_order = int(request.form.get('sort_order', 0))
+            skill.is_active = 'is_active' in request.form
+            
+            db.session.commit()
+            flash('Skill updated successfully', 'success')
+            return redirect(url_for('superadmin.skills'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error updating skill: {str(e)}', 'error')
+    
+    industries = IndustryType.query.filter_by(is_active=True).order_by(IndustryType.display_name).all()
+    return render_template('superadmin/skill_form.html', skill=skill, industries=industries)
+
+@superadmin_bp.route('/skills/<int:id>/delete', methods=['POST'])
+def delete_skill(id):
+    """Delete skill"""
+    try:
+        skill = Skill.query.get_or_404(id)
+        name = skill.display_name
+        db.session.delete(skill)
+        db.session.commit()
+        return jsonify({'success': True, 'message': f'Skill "{name}" deleted successfully'})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 500
+
 # Experience Levels Management
 @superadmin_bp.route('/experience-levels')
 def experience_levels():
     """List all experience levels"""
-    experiences = Experience.query.order_by(Experience.sort_order, Experience.display_name).all()
-    return render_template('superadmin/experience_levels.html', experiences=experiences)
+    page = request.args.get('page', 1, type=int)
+    per_page = 25
+    search = request.args.get('search', '')
+    
+    query = Experience.query
+    if search:
+        query = query.filter(Experience.display_name.ilike(f'%{search}%'))
+    
+    experience_levels = query.order_by(Experience.sort_order, Experience.display_name).paginate(
+        page=page, per_page=per_page, error_out=False
+    )
+    
+    return render_template('superadmin/experience_levels.html', experience_levels=experience_levels, search=search)
 
 @superadmin_bp.route('/experience-levels/create', methods=['GET', 'POST'])
 def create_experience_level():
@@ -2069,6 +2117,43 @@ def create_experience_level():
             flash(f'Error creating experience level: {str(e)}', 'error')
     
     return render_template('superadmin/experience_form.html', experience=None)
+
+@superadmin_bp.route('/experience-levels/<int:id>/edit', methods=['GET', 'POST'])
+def edit_experience_level(id):
+    """Edit experience level"""
+    experience = Experience.query.get_or_404(id)
+    
+    if request.method == 'POST':
+        try:
+            experience.name = request.form['name']
+            experience.display_name = request.form['display_name']
+            experience.description = request.form.get('description')
+            experience.min_years = int(request.form['min_years']) if request.form.get('min_years') else None
+            experience.max_years = int(request.form['max_years']) if request.form.get('max_years') else None
+            experience.sort_order = int(request.form.get('sort_order', 0))
+            experience.is_active = 'is_active' in request.form
+            
+            db.session.commit()
+            flash('Experience level updated successfully', 'success')
+            return redirect(url_for('superadmin.experience_levels'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error updating experience level: {str(e)}', 'error')
+    
+    return render_template('superadmin/experience_form.html', experience=experience)
+
+@superadmin_bp.route('/experience-levels/<int:id>/delete', methods=['POST'])
+def delete_experience_level(id):
+    """Delete experience level"""
+    try:
+        experience = Experience.query.get_or_404(id)
+        name = experience.display_name
+        db.session.delete(experience)
+        db.session.commit()
+        return jsonify({'success': True, 'message': f'Experience level "{name}" deleted successfully'})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 500
 
 # Job Roles Management
 @superadmin_bp.route('/job-roles')
@@ -2119,6 +2204,44 @@ def create_job_role():
     industries = IndustryType.query.filter_by(is_active=True).order_by(IndustryType.display_name).all()
     return render_template('superadmin/job_role_form.html', job_role=None, industries=industries)
 
+@superadmin_bp.route('/job-roles/<int:id>/edit', methods=['GET', 'POST'])
+def edit_job_role(id):
+    """Edit job role"""
+    job_role = JobRole.query.get_or_404(id)
+    
+    if request.method == 'POST':
+        try:
+            job_role.name = request.form['name']
+            job_role.display_name = request.form['display_name']
+            job_role.description = request.form.get('description')
+            job_role.category = request.form.get('category')
+            job_role.industry_id = int(request.form['industry_id']) if request.form.get('industry_id') else None
+            job_role.sort_order = int(request.form.get('sort_order', 0))
+            job_role.is_active = 'is_active' in request.form
+            
+            db.session.commit()
+            flash('Job role updated successfully', 'success')
+            return redirect(url_for('superadmin.job_roles'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error updating job role: {str(e)}', 'error')
+    
+    industries = IndustryType.query.filter_by(is_active=True).order_by(IndustryType.display_name).all()
+    return render_template('superadmin/job_role_form.html', job_role=job_role, industries=industries)
+
+@superadmin_bp.route('/job-roles/<int:id>/delete', methods=['POST'])
+def delete_job_role(id):
+    """Delete job role"""
+    try:
+        job_role = JobRole.query.get_or_404(id)
+        name = job_role.display_name
+        db.session.delete(job_role)
+        db.session.commit()
+        return jsonify({'success': True, 'message': f'Job role "{name}" deleted successfully'})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 500
+
 # Company Types Management
 @superadmin_bp.route('/company-types')
 def company_types():
@@ -2149,6 +2272,43 @@ def create_company_type():
     
     return render_template('superadmin/company_type_form.html', company_type=None)
 
+@superadmin_bp.route('/company-types/<int:id>/edit', methods=['GET', 'POST'])
+def edit_company_type(id):
+    """Edit company type"""
+    company_type = CompanyType.query.get_or_404(id)
+    
+    if request.method == 'POST':
+        try:
+            company_type.name = request.form['name']
+            company_type.display_name = request.form['display_name']
+            company_type.description = request.form.get('description')
+            company_type.employee_range_min = int(request.form['employee_range_min']) if request.form.get('employee_range_min') else None
+            company_type.employee_range_max = int(request.form['employee_range_max']) if request.form.get('employee_range_max') else None
+            company_type.sort_order = int(request.form.get('sort_order', 0))
+            company_type.is_active = 'is_active' in request.form
+            
+            db.session.commit()
+            flash('Company type updated successfully', 'success')
+            return redirect(url_for('superadmin.company_types'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error updating company type: {str(e)}', 'error')
+    
+    return render_template('superadmin/company_type_form.html', company_type=company_type)
+
+@superadmin_bp.route('/company-types/<int:id>/delete', methods=['POST'])
+def delete_company_type(id):
+    """Delete company type"""
+    try:
+        company_type = CompanyType.query.get_or_404(id)
+        name = company_type.display_name
+        db.session.delete(company_type)
+        db.session.commit()
+        return jsonify({'success': True, 'message': f'Company type "{name}" deleted successfully'})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 500
+
 # Job Types Management
 @superadmin_bp.route('/job-types')
 def job_types():
@@ -2177,6 +2337,42 @@ def create_job_type():
             flash(f'Error creating job type: {str(e)}', 'error')
     
     return render_template('superadmin/job_type_form.html', job_type=None)
+
+@superadmin_bp.route('/job-types/<int:id>/edit', methods=['GET', 'POST'])
+def edit_job_type(id):
+    """Edit job type"""
+    job_type = JobType.query.get_or_404(id)
+    
+    if request.method == 'POST':
+        try:
+            job_type.name = request.form['name']
+            job_type.display_name = request.form['display_name']
+            job_type.description = request.form.get('description')
+            job_type.category = request.form.get('category')
+            job_type.sort_order = int(request.form.get('sort_order', 0))
+            job_type.is_active = 'is_active' in request.form
+            
+            db.session.commit()
+            flash('Job type updated successfully', 'success')
+            return redirect(url_for('superadmin.job_types'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error updating job type: {str(e)}', 'error')
+    
+    return render_template('superadmin/job_type_form.html', job_type=job_type)
+
+@superadmin_bp.route('/job-types/<int:id>/delete', methods=['POST'])
+def delete_job_type(id):
+    """Delete job type"""
+    try:
+        job_type = JobType.query.get_or_404(id)
+        name = job_type.display_name
+        db.session.delete(job_type)
+        db.session.commit()
+        return jsonify({'success': True, 'message': f'Job type "{name}" deleted successfully'})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 500
 
 # Location Management - Countries
 @superadmin_bp.route('/countries')
@@ -2220,6 +2416,45 @@ def create_country():
             flash(f'Error creating country: {str(e)}', 'error')
     
     return render_template('superadmin/country_form.html', country=None)
+
+@superadmin_bp.route('/countries/<int:id>/edit', methods=['GET', 'POST'])
+def edit_country(id):
+    """Edit country"""
+    country = Country.query.get_or_404(id)
+    
+    if request.method == 'POST':
+        try:
+            country.name = request.form['name']
+            country.code_alpha2 = request.form['code_alpha2'].upper()
+            country.code_alpha3 = request.form['code_alpha3'].upper()
+            country.numeric_code = request.form.get('numeric_code')
+            country.currency_code = request.form.get('currency_code')
+            country.phone_code = request.form.get('phone_code')
+            country.timezone_primary = request.form.get('timezone_primary')
+            country.sort_order = int(request.form.get('sort_order', 0))
+            country.is_active = 'is_active' in request.form
+            
+            db.session.commit()
+            flash('Country updated successfully', 'success')
+            return redirect(url_for('superadmin.countries'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error updating country: {str(e)}', 'error')
+    
+    return render_template('superadmin/country_form.html', country=country)
+
+@superadmin_bp.route('/countries/<int:id>/delete', methods=['POST'])
+def delete_country(id):
+    """Delete country"""
+    try:
+        country = Country.query.get_or_404(id)
+        name = country.name
+        db.session.delete(country)
+        db.session.commit()
+        return jsonify({'success': True, 'message': f'Country "{name}" deleted successfully'})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 500
 
 # Location Management - States
 @superadmin_bp.route('/states')
@@ -2267,6 +2502,43 @@ def create_state():
     
     countries = Country.query.filter_by(is_active=True).order_by(Country.name).all()
     return render_template('superadmin/state_form.html', state=None, countries=countries)
+
+@superadmin_bp.route('/states/<int:id>/edit', methods=['GET', 'POST'])
+def edit_state(id):
+    """Edit state"""
+    state = State.query.get_or_404(id)
+    
+    if request.method == 'POST':
+        try:
+            state.name = request.form['name']
+            state.code = request.form.get('code')
+            state.country_id = int(request.form['country_id'])
+            state.timezone_primary = request.form.get('timezone_primary')
+            state.sort_order = int(request.form.get('sort_order', 0))
+            state.is_active = 'is_active' in request.form
+            
+            db.session.commit()
+            flash('State updated successfully', 'success')
+            return redirect(url_for('superadmin.states'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error updating state: {str(e)}', 'error')
+    
+    countries = Country.query.filter_by(is_active=True).order_by(Country.name).all()
+    return render_template('superadmin/state_form.html', state=state, countries=countries)
+
+@superadmin_bp.route('/states/<int:id>/delete', methods=['POST'])
+def delete_state(id):
+    """Delete state"""
+    try:
+        state = State.query.get_or_404(id)
+        name = state.name
+        db.session.delete(state)
+        db.session.commit()
+        return jsonify({'success': True, 'message': f'State "{name}" deleted successfully'})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 500
 
 # Location Management - Cities
 @superadmin_bp.route('/cities')
@@ -2317,3 +2589,43 @@ def create_city():
     
     states = State.query.join(Country).filter_by(is_active=True).order_by(Country.name, State.name).all()
     return render_template('superadmin/city_form.html', city=None, states=states)
+
+@superadmin_bp.route('/cities/<int:id>/edit', methods=['GET', 'POST'])
+def edit_city(id):
+    """Edit city"""
+    city = City.query.get_or_404(id)
+    
+    if request.method == 'POST':
+        try:
+            city.name = request.form['name']
+            city.state_id = int(request.form['state_id'])
+            city.latitude = float(request.form['latitude']) if request.form.get('latitude') else None
+            city.longitude = float(request.form['longitude']) if request.form.get('longitude') else None
+            city.population = int(request.form['population']) if request.form.get('population') else None
+            city.timezone = request.form.get('timezone')
+            city.is_metro = 'is_metro' in request.form
+            city.sort_order = int(request.form.get('sort_order', 0))
+            city.is_active = 'is_active' in request.form
+            
+            db.session.commit()
+            flash('City updated successfully', 'success')
+            return redirect(url_for('superadmin.cities'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error updating city: {str(e)}', 'error')
+    
+    states = State.query.join(Country).filter_by(is_active=True).order_by(Country.name, State.name).all()
+    return render_template('superadmin/city_form.html', city=city, states=states)
+
+@superadmin_bp.route('/cities/<int:id>/delete', methods=['POST'])
+def delete_city(id):
+    """Delete city"""
+    try:
+        city = City.query.get_or_404(id)
+        name = city.name
+        db.session.delete(city)
+        db.session.commit()
+        return jsonify({'success': True, 'message': f'City "{name}" deleted successfully'})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 500

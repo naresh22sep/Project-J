@@ -1,0 +1,102 @@
+{% extends "layouts/admin_layout.html" %}
+
+{% block title %}
+{% if state %}Edit State{% else %}Add State{% endif %} - SuperAdmin
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="#" class="text-decoration-none">
+        <i class="fas fa-globe me-1"></i>Location Management
+    </a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{{ url_for('superadmin.states') }}" class="text-decoration-none">
+        <i class="fas fa-map me-1"></i>States
+    </a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">
+    {% if state %}Edit{% else %}Add{% endif %}
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-header">
+        <h2><i class="fas fa-map me-2"></i>
+            {% if state %}Edit State{% else %}Add New State{% endif %}
+        </h2>
+    </div>
+
+    <form method="POST">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="name" class="form-label">State Name <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="name" name="name" 
+                           value="{{ state.name if state else '' }}" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="country_id" class="form-label">Country <span class="required">*</span></label>
+                    <select class="form-control" id="country_id" name="country_id" required>
+                        <option value="">Select Country</option>
+                        {% for country in countries %}
+                        <option value="{{ country.id }}" 
+                                {% if state and state.country_id == country.id %}selected{% endif %}>
+                            {{ country.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="code" class="form-label">State Code</label>
+                    <input type="text" class="form-control" id="code" name="code" 
+                           value="{{ state.code if state else '' }}" maxlength="10" 
+                           placeholder="CA" style="text-transform: uppercase;">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="timezone_primary" class="form-label">Primary Timezone</label>
+                    <input type="text" class="form-control" id="timezone_primary" name="timezone_primary" 
+                           value="{{ state.timezone_primary if state else '' }}" placeholder="America/Los_Angeles">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="sort_order" class="form-label">Sort Order</label>
+                    <input type="number" class="form-control" id="sort_order" name="sort_order" 
+                           value="{{ state.sort_order if state else 0 }}" min="0" max="999">
+                </div>
+            </div>
+        </div>
+
+        {% if state %}
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="is_active" name="is_active" 
+                       {% if state.is_active %}checked{% endif %}>
+                <label class="form-check-label" for="is_active">Active</label>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="form-group text-center mt-4">
+            <button type="submit" class="btn btn-primary me-3">
+                <i class="fas fa-save me-2"></i>
+                {% if state %}Update State{% else %}Create State{% endif %}
+            </button>
+            <a href="{{ url_for('superadmin.states') }}" class="btn btn-secondary">
+                <i class="fas fa-times me-2"></i>Cancel
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}
