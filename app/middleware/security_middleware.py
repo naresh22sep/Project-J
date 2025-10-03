@@ -156,6 +156,10 @@ class SecurityMiddleware:
                 g.current_user = user
                 # Update last activity
                 user.update_last_activity()
+                return
+        
+        # If no authentication found, set current_user to None
+        g.current_user = None
     
     def _check_rate_limiting(self):
         """Basic rate limiting check"""

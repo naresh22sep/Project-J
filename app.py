@@ -135,6 +135,19 @@ def register_blueprints(app):
     except ImportError:
         print("Note: Admin routes not found")
     
+    # Register modular role-based routes (new approach)
+    try:
+        from app.routes.roles.jobseeker_routes import jobseeker_routes_bp
+        from app.routes.roles.consultancy_routes import consultancy_routes_bp
+        from app.routes.roles.admin_routes import admin_routes_bp
+        
+        app.register_blueprint(jobseeker_routes_bp)
+        app.register_blueprint(consultancy_routes_bp)
+        app.register_blueprint(admin_routes_bp)
+        print("✅ Modular role-based routes registered successfully")
+    except ImportError as e:
+        print(f"Note: Modular role routes not found: {e}")
+    
     # Health check endpoint
     @app.route('/health')
     def health():
@@ -144,95 +157,11 @@ def register_blueprints(app):
             'version': '1.0.0'
         }
     
-    # Simple dashboard routes for testing
-    @app.route('/superadmin/dashboard')
-    def superadmin_dashboard():
-        # Check authentication
-        from app.middleware.security_middleware import AuthMiddleware
-        from flask import g, redirect
-        auth_result = AuthMiddleware.require_auth()
-        if auth_result:
-            return auth_result
-            
-        # Check if user has superadmin role  
-        if not g.current_user.has_role('superadmin'):
-            return redirect('/superadmin/auth/login')
-            
-        return '''
-        <h1>🏆 SuperAdmin Dashboard</h1>
-        <p>Welcome to the SuperAdmin control center!</p>
-        <p>You have successfully accessed the role-based authentication system.</p>
-        <ul>
-            <li>✅ Role-based URL routing working</li>
-            <li>✅ Authentication system operational</li>
-            <li>✅ SuperAdmin access granted</li>
-        </ul>
-        <p><a href="/superadmin/auth/login">Back to Login</a> | <a href="/auth/logout">Logout</a></p>
-        '''
-    
-    @app.route('/admin/dashboard')
-    def admin_dashboard():
-        # Check authentication
-        from app.middleware.security_middleware import AuthMiddleware
-        from flask import g, redirect
-        auth_result = AuthMiddleware.require_auth()
-        if auth_result:
-            return auth_result
-            
-        # Check if user has admin role  
-        if not g.current_user.has_role('admin'):
-            return redirect('/admin/auth/login')
-            
-        return '''
-        <h1>🛡️ Admin Dashboard</h1>
-        <p>Welcome to the Admin panel!</p>
-        <p><a href="/admin/auth/login">Back to Login</a> | <a href="/auth/logout">Logout</a></p>
-        '''
-    
-    @app.route('/jobseeker/dashboard')
-    def jobseeker_dashboard():
-        # Check authentication
-        from app.middleware.security_middleware import AuthMiddleware
-        from flask import g, redirect
-        auth_result = AuthMiddleware.require_auth()
-        if auth_result:
-            return auth_result
-            
-        # Check if user has jobseeker role  
-        if not g.current_user.has_role('jobseeker'):
-            return redirect('/jobseeker/login')
-            
-        return '''
-        <h1>💼 Jobseeker Dashboard</h1>
-        <p>Welcome to your job search center!</p>
-        <p><a href="/jobseeker/login">Back to Login</a> | <a href="/auth/logout">Logout</a></p>
-        '''
-    
-    @app.route('/consultancy/dashboard')
-    def consultancy_dashboard():
-        # Check authentication
-        from app.middleware.security_middleware import AuthMiddleware
-        from flask import g, redirect
-        auth_result = AuthMiddleware.require_auth()
-        if auth_result:
-            return auth_result
-            
-        # Check if user has consultancy role  
-        if not g.current_user.has_role('consultancy'):
-            return redirect('/consultancy/login')
-            
-        return '''
-        <h1>🏢 Consultancy Dashboard</h1>
-        <p>Welcome to your recruitment center!</p>
-        <p><a href="/consultancy/login">Back to Login</a> | <a href="/auth/logout">Logout</a></p>
-        '''
-    
-    # Root redirect
+    # Root redirect - Show public homepage
     @app.route('/')
     def index():
-        from flask import redirect, url_for
-        # For anonymous users, redirect to superadmin login as default
-        return redirect('/superadmin/auth/login')
+        from flask import render_template
+        return render_template('public/homepage.html')
         
     # Logout redirect for legacy URLs
     @app.route('/logout')

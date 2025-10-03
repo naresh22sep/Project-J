@@ -324,12 +324,18 @@ def admin_login():
 @jobseeker_auth_bp.route('/login', methods=['GET', 'POST'])
 @sanitize_inputs(['username', 'password'])
 def jobseeker_login():
+    """Job seeker login with custom template"""
+    if request.method == 'GET':
+        return render_template('auth/jobseeker_login.html')
     return create_role_login_route('jobseeker', '/jobseeker/dashboard')()
 
 # Consultancy Login
 @consultancy_auth_bp.route('/login', methods=['GET', 'POST'])
 @sanitize_inputs(['username', 'password'])
 def consultancy_login():
+    """Consultancy login with custom template"""
+    if request.method == 'GET':
+        return render_template('auth/consultancy_login.html')
     return create_role_login_route('consultancy', '/consultancy/dashboard')()
 
 # Legacy login route (deprecated but kept for compatibility)

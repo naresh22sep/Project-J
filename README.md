@@ -1,22 +1,76 @@
-# Flask Modular Application
+# JobHunter Application
 
-A modern, modular Flask web application with MySQL database, featuring user authentication, user management, and dashboard functionality. Built with scalability and maintainability in mind.
+A modern, role-based Flask web application designed for job hunting and recruitment management. Features a public-facing frontend website, comprehensive role-based authentication system, and dynamic permission management. Built with scalability, security, and maintainability in mind.
 
 ## Features
 
-- **Modular Architecture**: Clean separation of concerns with dedic2. **Database Connection Error**
-   - Verify MySQL is running
-   - Check database credentials in `.env`
-   - Ensure database `jobhunter_fresh` exists modules
-- **User Authentication**: Complete auth system with registration, login, logout
-- **User Management**: User profile management and search functionality  
-- **Dashboard**: Statistics and system monitoring
-- **Database Migrations**: Full migration support with Flask-Migrate
+- **Public Frontend Website**: Product information accessible without forced login redirects
+- **Role-Based Authentication**: Comprehensive system supporting 4 user roles with dynamic permissions
+- **Modular Architecture**: Clean separation of concerns with role-specific route files
+- **Dynamic Permission System**: Database-driven permissions with 81 permissions across 17 resources
+- **Responsive UI**: Bootstrap 5 with role-based theming and dynamic menus
+- **Dual User System**: Separate authentication for admin/superadmin vs jobseeker/consultancy users
+- **Security**: JWT for admin authentication, session-based for regular users
+- **Database Management**: Full migration support with Flask-Migrate
 - **Docker Support**: Complete containerization with docker-compose
 - **MySQL Integration**: Robust database connectivity with SQLAlchemy
-- **Security**: Password hashing, session management, input validation
-- **REST API**: JSON-based API endpoints
-- **Environment Configuration**: Separate configs for dev/prod/test
+
+## User Roles & Access Control
+
+### 1. **Public Access**
+- **Homepage**: Product information, features, pricing
+- **Login Options**: Role-based login dropdown (Admin, Jobseeker, Consultancy)
+- **No Forced Redirects**: Users can browse product information without authentication
+
+### 2. **Jobseeker** (users table)
+- **Authentication**: Session-based login
+- **Dashboard**: Job search, application tracking, profile management
+- **Theme**: Blue color scheme with jobseeker-specific navigation
+- **Access**: Playground layout with jobseeker menu options
+
+### 3. **Consultancy** (users table)  
+- **Authentication**: Session-based login
+- **Dashboard**: Job posting, candidate management, company profile
+- **Theme**: Purple color scheme with consultancy-specific navigation
+- **Access**: Playground layout with consultancy menu options
+
+### 4. **Admin/SuperAdmin** (auth_users table)
+- **Authentication**: JWT-based secure authentication
+- **Dashboard**: Dynamic menu based on database permissions
+- **Permissions**: 81 granular permissions across 17 resources
+- **Access**: Full system administration capabilities
+
+## Database Structure
+
+### User Tables
+```sql
+-- Admin and SuperAdmin users
+auth_users (
+    id, username, email, password_hash, role, 
+    first_name, last_name, is_active, 
+    created_at, updated_at
+)
+
+-- Jobseeker and Consultancy users  
+users (
+    id, username, email, password_hash, role,
+    first_name, last_name, is_active,
+    created_at, updated_at
+)
+```
+
+### Permission System
+```sql
+-- 17 Resources with CRUD operations
+resources (id, name, description)
+permissions (id, resource_id, action, description)
+role_permissions (role_id, permission_id)
+
+-- Examples:
+- users_view, users_create, users_edit, users_delete
+- jobs_view, jobs_create, jobs_edit, jobs_delete  
+- applications_view, applications_create, etc.
+```
 
 ## Project Structure
 
@@ -25,31 +79,30 @@ ProjectJ/
 ├── app/                          # Main application package
 │   ├── __init__.py              # Application factory
 │   ├── models.py                # Database models
-│   └── modules/                 # Feature modules
-│       ├── auth/                # Authentication module
-│       │   ├── __init__.py
-│       │   ├── routes.py        # Auth endpoints
-│       │   └── utils.py         # Auth utilities
-│       ├── users/               # User management module
-│       │   ├── __init__.py
-│       │   └── routes.py        # User endpoints
-│       └── dashboard/           # Dashboard module
-│           ├── __init__.py
-│           └── routes.py        # Dashboard endpoints
+│   ├── templates/               # Template files
+│   │   ├── public/              # Public website templates
+│   │   │   ├── base.html        # Public layout
+│   │   │   └── homepage.html    # Public homepage
+│   │   ├── layouts/             # Shared layouts
+│   │   │   └── playground_layout.html  # Jobseeker/Consultancy layout
+│   │   └── admin/               # Admin templates
+│   │       └── dashboard.html   # Admin dashboard
+│   └── routes/                  # Route modules
+│       ├── public_routes.py     # Public website routes
+│       ├── auth_routes.py       # Authentication routes
+│       └── roles/               # Role-specific routes
+│           ├── admin_routes.py      # Admin/SuperAdmin routes
+│           ├── jobseeker_routes.py  # Jobseeker routes
+│           └── consultancy_routes.py # Consultancy routes
+├── sql-scripts/                 # SQL initialization scripts
+│   └── init.sql                # Database setup script
+├── tests/                       # Test files
 ├── config/                      # Configuration files
 │   ├── config.py               # Environment configurations
 │   └── .env.example            # Environment variables template
 ├── migrations/                  # Database migrations (auto-generated)
-├── mysql-init/                  # MySQL initialization scripts
-│   └── init.sql                # Database setup script
 ├── app.py                      # Application entry point
 ├── requirements.txt            # Python dependencies
-├── setup.sh                    # Unix setup script
-├── setup.bat                   # Windows setup script
-├── migrate.sh                  # Unix migration script
-├── migrate.bat                 # Windows migration script
-├── Dockerfile                  # Docker configuration
-├── docker-compose.yml          # Docker services orchestration
 └── README.md                   # This file
 ```
 
@@ -80,7 +133,10 @@ ProjectJ/
    # Create MySQL database
    mysql -u root -p -e "CREATE DATABASE jobhunter_fresh;"
    
-   # Initialize migrations
+   # Run initialization script
+   mysql -u root -p jobhunter_fresh < sql-scripts/init.sql
+   
+   # Initialize Flask migrations
    flask db init
    flask db migrate -m "Initial migration"
    flask db upgrade
@@ -113,49 +169,89 @@ ProjectJ/
 
 ## API Endpoints
 
-### Health Check
-- `GET /health` - Application health check
-- `GET /` - Welcome message
+### Public Routes
+- `GET /` - Public homepage with product information
+- `GET /about` - About page
+- `GET /contact` - Contact information
+- `GET /pricing` - Pricing information
 
-### Authentication (`/auth`)
-- `POST /auth/register` - User registration
-- `POST /auth/login` - User login  
-- `POST /auth/logout` - User logout
-- `GET /auth/verify` - Verify session
+### Authentication Routes
+- `POST /login` - Universal login endpoint (role detection)
+- `GET /login/admin` - Admin login page
+- `GET /login/jobseeker` - Jobseeker login page  
+- `GET /login/consultancy` - Consultancy login page
+- `POST /logout` - Logout (all roles)
+- `POST /register` - User registration
 
-### Users (`/users`)
-- `GET /users/profile` - Get current user profile
-- `PUT /users/profile` - Update user profile
-- `POST /users/change-password` - Change password
-- `GET /users/list` - List all users (paginated)
-- `GET /users/<id>` - Get specific user
-- `GET /users/search` - Search users
+### Admin Routes (`/admin`) - JWT Protected
+- `GET /admin/dashboard` - Admin dashboard with dynamic menu
+- `GET /admin/users` - User management (based on permissions)
+- `GET /admin/permissions` - Permission management
+- `GET /admin/reports` - System reports
+- `POST /admin/api/*` - Admin API endpoints
 
-### Dashboard (`/dashboard`)
-- `GET /dashboard/stats` - Dashboard statistics
-- `GET /dashboard/recent-users` - Recently registered users
-- `GET /dashboard/active-sessions` - Active user sessions
-- `GET /dashboard/system-info` - System information
+### Jobseeker Routes (`/jobseeker`) - Session Protected
+- `GET /jobseeker/dashboard` - Jobseeker dashboard
+- `GET /jobseeker/profile` - Profile management
+- `GET /jobseeker/jobs` - Job search and listings
+- `GET /jobseeker/applications` - Application tracking
+- `POST /jobseeker/apply` - Job application submission
+
+### Consultancy Routes (`/consultancy`) - Session Protected  
+- `GET /consultancy/dashboard` - Consultancy dashboard
+- `GET /consultancy/profile` - Company profile management
+- `GET /consultancy/jobs` - Job posting management
+- `GET /consultancy/candidates` - Candidate management
+- `POST /consultancy/post-job` - Job posting creation
 
 ## Database Schema
 
-### Users Table
+### Authentication Tables
+
+#### auth_users (Admin/SuperAdmin)
 - `id` - Primary key
-- `username` - Unique username  
-- `email` - Unique email address
+- `username` - Unique username
+- `email` - Unique email address  
 - `password_hash` - Encrypted password
+- `role` - 'admin' or 'superadmin'
 - `first_name` - User's first name
 - `last_name` - User's last name
 - `is_active` - Account status
 - `created_at` - Registration timestamp
 - `updated_at` - Last update timestamp
 
-### User Sessions Table  
+#### users (Jobseeker/Consultancy)
 - `id` - Primary key
-- `user_id` - Foreign key to users
-- `session_token` - Unique session identifier
-- `expires_at` - Session expiration
-- `created_at` - Session creation time
+- `username` - Unique username
+- `email` - Unique email address
+- `password_hash` - Encrypted password  
+- `role` - 'jobseeker' or 'consultancy'
+- `first_name` - User's first name
+- `last_name` - User's last name
+- `is_active` - Account status
+- `created_at` - Registration timestamp
+- `updated_at` - Last update timestamp
+
+### Permission System Tables
+
+#### resources
+- `id` - Primary key
+- `name` - Resource name (users, jobs, applications, etc.)
+- `description` - Resource description
+
+#### permissions  
+- `id` - Primary key
+- `resource_id` - Foreign key to resources
+- `action` - Action type (view, create, edit, delete, manage)
+- `description` - Permission description
+
+#### role_permissions
+- `role_id` - Foreign key to roles
+- `permission_id` - Foreign key to permissions
+
+### Session Management
+- `user_sessions` - Session tracking for jobseeker/consultancy users
+- `admin_tokens` - JWT token management for admin users
 
 ## Database Migrations
 
@@ -250,58 +346,137 @@ docker-compose up web
 
 ## Development
 
-### Adding New Modules
-1. Create module directory in `app/modules/`
-2. Add `__init__.py` and `routes.py`
-3. Create Blueprint in `routes.py`
+### Adding New Role-Specific Features
+1. Create route file in `app/routes/roles/`
+2. Define role-specific Blueprint
+3. Add authentication middleware
 4. Register Blueprint in `app/__init__.py`
 
-### Example Module Structure
+### Example Role Route Structure
 ```python
-# app/modules/newmodule/routes.py
-from flask import Blueprint
+# app/routes/roles/newrole_routes.py
+from flask import Blueprint, render_template, session, redirect, url_for
 
-newmodule_bp = Blueprint('newmodule', __name__)
+newrole_bp = Blueprint('newrole', __name__)
 
-@newmodule_bp.route('/endpoint')
-def endpoint():
-    return {'message': 'New module endpoint'}
+@newrole_bp.before_request
+def require_auth():
+    if 'user_id' not in session or session.get('role') != 'newrole':
+        return redirect(url_for('auth.login'))
+
+@newrole_bp.route('/dashboard')
+def dashboard():
+    return render_template('newrole/dashboard.html')
 ```
 
+### Adding Public Pages
 ```python
-# app/__init__.py (add to create_app function)
-from app.modules.newmodule.routes import newmodule_bp
-app.register_blueprint(newmodule_bp, url_prefix='/newmodule')
+# app/routes/public_routes.py
+@public_bp.route('/new-page')
+def new_page():
+    return render_template('public/new_page.html')
 ```
+
+### Dynamic Menu Configuration
+Menus are automatically generated based on:
+- User role and permissions (admin)
+- Role-specific menu configurations (jobseeker/consultancy)
+- Database-driven permission checks
 
 ## Security Features
 
-- Password hashing with Werkzeug
-- Session-based authentication
-- SQL injection prevention with SQLAlchemy ORM  
-- Input validation and sanitization
-- CORS protection
-- Environment-based configuration
-- Secure session tokens
+- **Role-Based Access Control**: 4 distinct user roles with specific permissions
+- **Dual Authentication System**: JWT for admin users, sessions for regular users
+- **Dynamic Permission Management**: Database-driven permissions with 81 granular controls
+- **Password Security**: Werkzeug password hashing with salt
+- **Session Security**: Secure session tokens with expiration
+- **SQL Injection Prevention**: SQLAlchemy ORM with parameterized queries
+- **Input Validation**: Comprehensive form and API input validation
+- **CORS Protection**: Cross-origin request security
+- **Environment Security**: Secure configuration management
+- **Route Protection**: Middleware-based authentication on all protected routes
+
+## Permission System
+
+### Resources (17 total)
+1. **users** - User management
+2. **jobs** - Job posting and management  
+3. **applications** - Job application tracking
+4. **companies** - Company profile management
+5. **candidates** - Candidate management
+6. **reports** - System reporting
+7. **analytics** - Analytics and insights
+8. **notifications** - Notification management
+9. **settings** - System settings
+10. **roles** - Role management
+11. **permissions** - Permission management
+12. **audit_logs** - Audit trail management
+13. **templates** - Template management
+14. **categories** - Category management
+15. **locations** - Location management
+16. **skills** - Skills management
+17. **system** - System administration
+
+### Actions per Resource
+- **view** - Read access
+- **create** - Creation rights
+- **edit** - Modification rights  
+- **delete** - Deletion rights
+- **manage** - Full administrative access
+
+**Total: 81 permissions (17 resources × 5 actions each)**
 
 ## Testing
 
 ### Manual API Testing
 ```bash
-# Register a new user
-curl -X POST http://localhost:5051/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"username": "testuser", "email": "test@example.com", "password": "password123"}'
+# Test public homepage (no auth required)
+curl -X GET http://localhost:5051/
 
-# Login  
-curl -X POST http://localhost:5051/auth/login \
+# Admin login
+curl -X POST http://localhost:5051/login \
   -H "Content-Type: application/json" \
-  -d '{"username": "testuser", "password": "password123"}'
+  -d '{"username": "admin", "password": "password", "role": "admin"}'
 
-# Get dashboard stats
-curl -X GET http://localhost:5051/dashboard/stats \
+# Jobseeker login
+curl -X POST http://localhost:5051/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "jobseeker1", "password": "password", "role": "jobseeker"}'
+
+# Access role-specific dashboard
+curl -X GET http://localhost:5051/jobseeker/dashboard \
   -H "Cookie: session=<session_cookie>"
+
+# Admin API access (JWT required)
+curl -X GET http://localhost:5051/admin/dashboard \
+  -H "Authorization: Bearer <jwt_token>"
 ```
+
+## User Access Guide
+
+### For Public Users
+1. Visit http://localhost:5051
+2. Browse product information without login
+3. Use login dropdown to select appropriate role
+4. Register or login based on role
+
+### For Jobseekers
+1. Register/Login at http://localhost:5051/login/jobseeker
+2. Access dashboard with blue theme
+3. Search jobs, manage applications, update profile
+4. Session-based authentication
+
+### For Consultancies  
+1. Register/Login at http://localhost:5051/login/consultancy
+2. Access dashboard with purple theme
+3. Post jobs, manage candidates, company profile
+4. Session-based authentication
+
+### For Administrators
+1. Login at http://localhost:5051/login/admin
+2. Access dynamic admin dashboard
+3. Menu options based on database permissions
+4. JWT-based secure authentication
 
 ## Troubleshooting
 
@@ -310,7 +485,20 @@ curl -X GET http://localhost:5051/dashboard/stats \
 1. **Database Connection Error**
    - Verify MySQL is running
    - Check database credentials in `.env`
-   - Ensure database exists
+   - Ensure database `jobhunter_fresh` exists
+   - Run initialization script: `mysql -u root -p jobhunter_fresh < sql-scripts/init.sql`
+
+2. **Permission/Access Errors**
+   - Check user role in database
+   - Verify permission assignments in `role_permissions` table
+   - Ensure session/JWT token is valid
+   - Check route authentication middleware
+
+3. **Role-Based Login Issues**
+   - Verify user exists in correct table (auth_users vs users)
+   - Check role field matches login attempt
+   - Ensure password hash is correct
+   - Verify authentication method (JWT vs session)
 
 2. **Migration Errors**
    - Run `flask db init` if migrations folder is missing
@@ -326,6 +514,13 @@ curl -X GET http://localhost:5051/dashboard/stats \
    - Ensure Docker and Docker Compose are installed
    - Check port availability (5051, 3306, 8080)
    - Review docker-compose logs
+   - Verify database initialization in docker
+
+5. **Template/UI Issues**
+   - Check template file paths match route returns
+   - Verify Bootstrap 5 CDN accessibility  
+   - Ensure role-based CSS variables are defined
+   - Check menu generation logic for user permissions
 
 ### Logs and Debugging
 ```bash

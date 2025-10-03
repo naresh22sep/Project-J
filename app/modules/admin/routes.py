@@ -9,7 +9,20 @@ admin = Blueprint("admin", __name__)
 
 @admin.route("/")
 def dashboard():
-    """Admin dashboard"""
+    """Admin dashboard - requires authentication"""
+    # Import here to avoid circular imports
+    from app.middleware.security_middleware import AuthMiddleware
+    from flask import g, redirect, session
+    
+    # Check authentication first
+    auth_result = AuthMiddleware.require_auth()
+    if auth_result:
+        return auth_result
+        
+    # Check if user has admin role  
+    if not g.current_user.has_role('admin'):
+        return redirect('/admin/auth/login')
+    
     try:
         # Mock data for dashboard (in real app, fetch from database)
         dashboard_data = {

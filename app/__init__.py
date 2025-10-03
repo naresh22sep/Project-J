@@ -22,6 +22,10 @@ def create_app(config_name=None):
     db.init_app(app)
     migrate.init_app(app, db)
     
+    # Initialize security middleware (must be before blueprint registration)
+    from app.middleware.security_middleware import create_middleware_stack
+    create_middleware_stack(app)
+    
     # Initialize prompt tracking middleware
     from app.middleware import PromptMiddleware
     prompt_middleware = PromptMiddleware(app)
@@ -41,12 +45,19 @@ def create_app(config_name=None):
         from app.models import User
         return User.query.get(int(user_id))
     
-    # Register new module blueprints
+    # Register new module blueprints - but skip the old admin one
     from app.modules.jobseeker.routes import jobseeker
     from app.modules.consultancy.routes import consultancy
-    from app.modules.admin.routes import admin
+    # from app.modules.admin.routes import admin  # Skip this old admin blueprint
     from app.modules.superadmin.routes import superadmin
     from app.modules.prompts.routes import prompts_bp
+    
+    # Register new role-specific admin routes with proper authentication
+    try:
+        from app.routes.roles.admin_routes import admin_routes_bp
+        app.register_blueprint(admin_routes_bp)
+    except ImportError as e:
+        print(f"Warning: Could not register role-based admin routes: {e}")
     
     # Register authentication routes
     try:
@@ -78,10 +89,10 @@ def create_app(config_name=None):
     except ImportError:
         pass  # Dashboard module will be created later
     
-    # Register new modular blueprints
+    # Register new modular blueprints - skip old admin
     app.register_blueprint(jobseeker, url_prefix='/jobseeker')
     app.register_blueprint(consultancy, url_prefix='/consultancy') 
-    app.register_blueprint(admin, url_prefix='/admin')
+    # app.register_blueprint(admin, url_prefix='/admin')  # Skip old admin, using new role-based one
     app.register_blueprint(superadmin, url_prefix='/superadmin')
     app.register_blueprint(prompts_bp, url_prefix='/prompts')
     
