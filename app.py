@@ -233,6 +233,13 @@ def register_blueprints(app):
         from flask import redirect, url_for
         # For anonymous users, redirect to superadmin login as default
         return redirect('/superadmin/auth/login')
+        
+    # Logout redirect for legacy URLs
+    @app.route('/logout')
+    def logout_redirect():
+        from flask import redirect
+        # Redirect to proper auth logout route
+        return redirect('/auth/logout')
 
 def initialize_database():
     """Initialize database with default data"""
