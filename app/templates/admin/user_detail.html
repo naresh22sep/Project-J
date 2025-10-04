@@ -1,0 +1,195 @@
+{% extends layout_template or "layouts/admin_layout.html" %}
+
+{% block title %}User Details - {{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">User Details</h1>
+        <div>
+            <a href="{{ url_for('admin_routes.users') }}" class="btn btn-secondary btn-sm">
+                <i class="fas fa-arrow-left"></i> Back to Users
+            </a>
+            {% if can_edit %}
+            <a href="{{ url_for('admin_routes.user_edit', user_id=user.id) }}" class="btn btn-primary btn-sm">
+                <i class="fas fa-edit"></i> Edit User
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- User Basic Info -->
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">User Information</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Username</label>
+                                <p class="form-control-plaintext">{{ user.username }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Email</label>
+                                <p class="form-control-plaintext">{{ user.email }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">First Name</label>
+                                <p class="form-control-plaintext">{{ user.first_name or 'Not provided' }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Last Name</label>
+                                <p class="form-control-plaintext">{{ user.last_name or 'Not provided' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Phone</label>
+                                <p class="form-control-plaintext">{{ user.phone or 'Not provided' }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Status</label>
+                                <p class="form-control-plaintext">
+                                    {% if user.is_active %}
+                                        <span class="badge badge-success">Active</span>
+                                    {% else %}
+                                        <span class="badge badge-danger">Inactive</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Email Verified</label>
+                                <p class="form-control-plaintext">
+                                    {% if user.email_verified %}
+                                        <span class="badge badge-success">Verified</span>
+                                    {% else %}
+                                        <span class="badge badge-warning">Not Verified</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Last Login</label>
+                                <p class="form-control-plaintext">
+                                    {% if user.last_login %}
+                                        {{ user.last_login.strftime('%Y-%m-%d %H:%M:%S') }}
+                                    {% else %}
+                                        Never
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Created At</label>
+                                <p class="form-control-plaintext">{{ user.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Updated At</label>
+                                <p class="form-control-plaintext">{{ user.updated_at.strftime('%Y-%m-%d %H:%M:%S') if user.updated_at else 'Never' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Roles & Permissions -->
+        <div class="col-xl-4 col-lg-5">
+            <!-- Roles Card -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">User Roles</h6>
+                </div>
+                <div class="card-body">
+                    {% if user_roles %}
+                        {% for role in user_roles %}
+                        <span class="badge badge-{% if role.name == 'superadmin' %}danger{% elif role.name == 'admin' %}warning{% elif role.name == 'consultancy' %}info{% else %}success{% endif %} mr-1 mb-1">
+                            {{ role.display_name or role.name }}
+                        </span>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">No roles assigned</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Permissions Card -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">User Permissions</h6>
+                </div>
+                <div class="card-body">
+                    {% if user_permissions %}
+                        <div class="small">
+                            {% for permission in user_permissions %}
+                            <div class="mb-1">
+                                <span class="badge badge-light">{{ permission.name }}</span>
+                                <small class="text-muted">{{ permission.description or permission.display_name }}</small>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No permissions assigned</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Account Security -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Account Security</h6>
+                </div>
+                <div class="card-body">
+                    <div class="mb-2">
+                        <label class="form-label text-muted small">Two-Factor Authentication</label>
+                        <p class="mb-1">
+                            {% if user.two_factor_enabled %}
+                                <span class="badge badge-success">Enabled</span>
+                            {% else %}
+                                <span class="badge badge-secondary">Disabled</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label text-muted small">Login Attempts</label>
+                        <p class="mb-1">{{ user.login_attempts or 0 }}</p>
+                    </div>
+                    {% if user.account_locked_until %}
+                    <div class="mb-2">
+                        <label class="form-label text-muted small">Account Locked Until</label>
+                        <p class="mb-1">
+                            <span class="badge badge-danger">{{ user.account_locked_until.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

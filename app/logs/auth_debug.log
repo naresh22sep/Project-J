@@ -2013,3 +2013,1321 @@ jinja2.exceptions.UndefinedError: 'csrf_token' is undefined
 2025-10-03 16:42:06,973 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
 2025-10-03 16:42:06,976 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
 2025-10-03 16:42:06,979 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 16:49:19,638 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 16:49:20,105 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 16:49:20,209 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 16:49:20,210 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 16:49:20,344 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 16:49:20,349 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 16:49:20,353 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 16:49:20,588 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 16:49:20,883 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 16:49:20,951 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 16:49:29,204 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 16:49:29,215 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 16:49:29,235 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 16:49:29,272 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 16:49:29,316 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 16:49:29,338 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 16:49:29,346 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'none', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiMUVCU1ZOdXdKYVMxRDEzeWFHS25YS1ZJc29YaWk0UmNfaG1HbkFLVUR3NCIsInNlc3Npb25faWQiOiJmNGJjYWMwMS02YmQwLTQzZjgtODk1MS0xMzk4ZDUwMTg3NGEifQ.aOBErw.SzmGsS-ppalJRDelq64tGia45jc'}
+2025-10-03 16:49:29,354 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 16:49:29,355 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 16:49:29,355 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 16:49:29,368 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 16:49:29,370 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 16:49:29,375 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 16:49:43,591 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 16:49:43,594 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-10-03 16:49:43,602 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 16:49:43,606 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 16:49:43,614 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 16:49:43,654 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-10-03 16:49:43,677 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Content-Length': '101', 'Cache-Control': 'max-age=0', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Origin': 'http://localhost:5051', 'Content-Type': 'application/x-www-form-urlencoded', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Referer': 'http://localhost:5051/superadmin/auth/login', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiMUVCU1ZOdXdKYVMxRDEzeWFHS25YS1ZJc29YaWk0UmNfaG1HbkFLVUR3NCIsInNlc3Npb25faWQiOiJmNGJjYWMwMS02YmQwLTQzZjgtODk1MS0xMzk4ZDUwMTg3NGEifQ.aOBErw.SzmGsS-ppalJRDelq64tGia45jc'}
+2025-10-03 16:49:43,690 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 16:49:43,694 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 16:49:43,694 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-10-03 16:49:43,703 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-10-03 16:49:43,710 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-10-03 16:49:43,711 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-03 16:49:43,713 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-10-03 16:49:43,737 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-10-03 16:49:43,738 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-10-03 16:49:43,738 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-10-03 16:49:43,747 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-10-03 16:49:43,749 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-10-03 16:49:43,771 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-10-03 16:49:43,772 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-10-03 16:49:43,773 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-10-03 16:49:43,778 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-10-03 16:49:43,793 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-10-03 16:49:43,793 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-10-03 16:49:43,793 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-10-03 16:49:43,805 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-10-03 16:49:43,852 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===
+2025-10-03 16:50:02,699 | auth_system | INFO | logout:623 | === USER LOGOUT REQUEST START ===
+2025-10-03 16:50:02,700 | auth_system | INFO | logout:624 | Request Method: GET
+2025-10-03 16:50:02,717 | auth_system | INFO | logout:625 | Request URL: http://localhost:5051/auth/logout
+2025-10-03 16:50:02,732 | auth_system | INFO | logout:626 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 16:50:02,732 | auth_system | INFO | logout:627 | Remote Address: 127.0.0.1
+2025-10-03 16:50:02,733 | auth_system | INFO | logout:631 | Extracting authentication token
+2025-10-03 16:50:02,733 | auth_system | DEBUG | logout:641 | No Authorization header found
+2025-10-03 16:50:02,734 | auth_system | INFO | logout:644 | Session user_id: 1
+2025-10-03 16:50:02,734 | auth_system | DEBUG | logout:645 | Session keys: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 16:50:02,734 | auth_system | INFO | logout:656 | No token to blacklist, proceeding with session logout only
+2025-10-03 16:50:02,735 | auth_system | INFO | logout:659 | Clearing user session
+2025-10-03 16:50:02,736 | auth_system | DEBUG | logout:661 | Session keys before clear: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 16:50:02,736 | auth_system | INFO | logout:663 | Session cleared successfully
+2025-10-03 16:50:02,736 | auth_system | INFO | logout:666 | Setting flash message for HTML response
+2025-10-03 16:50:02,738 | auth_system | INFO | logout:668 | Redirecting to superadmin login page
+2025-10-03 16:50:02,738 | auth_system | INFO | logout:669 | === USER LOGOUT SUCCESS END ===
+2025-10-03 16:50:02,878 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 16:50:02,879 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 16:50:02,880 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 16:50:02,881 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 16:50:02,884 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 16:50:02,884 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 16:50:02,887 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Referer': 'http://localhost:5051/superadmin/subscription-plans?plan_type=jobseeker', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJfZmxhc2hlcyI6W3siIHQiOlsiaW5mbyIsIllvdSBoYXZlIGJlZW4gbG9nZ2VkIG91dCBzdWNjZXNzZnVsbHkiXX1dfQ.aOBFCg.AtKjVsHnPOePXyERmEiU0EhwB6c'}
+2025-10-03 16:50:02,888 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 16:50:02,888 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 16:50:02,889 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 16:50:02,890 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 16:50:02,891 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 16:50:02,891 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 16:57:21,480 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 16:57:21,481 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 16:57:21,482 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 16:57:21,482 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 16:57:21,483 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 16:57:21,483 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 16:57:21,484 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 16:57:21,484 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 16:57:21,485 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 16:57:21,486 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 17:04:05,501 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:04:05,508 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 17:04:05,510 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 17:04:05,511 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:04:05,512 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:04:05,517 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:04:05,518 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:04:05,519 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 17:04:05,600 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 17:04:05,601 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 17:04:14,215 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:04:14,218 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 17:04:14,220 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 17:04:14,222 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:04:14,227 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:04:14,239 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:04:14,242 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:04:14,243 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 17:04:14,244 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 17:04:14,244 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 17:04:14,255 | auth_system | DEBUG | login:86 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-03 17:04:14,257 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 17:04:14,258 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 17:04:14,258 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 17:04:14,259 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 17:04:14,260 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 17:04:14,265 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb...
+2025-10-03 17:04:14,271 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 17:04:14,828 | auth_system | INFO | login:116 | Authentication result: User=Found, Message='Authentication successful'
+2025-10-03 17:04:14,831 | auth_system | INFO | login:128 | Checking user roles
+2025-10-03 17:04:14,858 | auth_system | INFO | login:131 | User roles: ['admin']
+2025-10-03 17:04:14,859 | auth_system | INFO | login:142 | Generating JWT tokens
+2025-10-03 17:04:15,006 | auth_system | INFO | login:145 | Token generation result: Success
+2025-10-03 17:04:15,007 | auth_system | INFO | login:156 | Storing session information
+2025-10-03 17:04:15,008 | auth_system | DEBUG | login:159 | Session user_id: 4, role: admin
+2025-10-03 17:04:15,008 | auth_system | INFO | login:162 | Login successful for user: admin
+2025-10-03 17:04:15,009 | auth_system | INFO | login:165 | Determining redirect destination
+2025-10-03 17:04:15,010 | auth_system | INFO | login:186 | Redirecting to: /admin/dashboard
+2025-10-03 17:04:15,013 | auth_system | INFO | login:187 | === ADMIN LOGIN POST SUCCESS END ===
+2025-10-03 17:05:38,762 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:05:38,763 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 17:05:38,764 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 17:05:38,764 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:05:38,765 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:05:38,765 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:05:38,766 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:05:38,767 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 17:05:38,815 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 17:05:38,817 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 17:05:51,432 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 17:05:51,436 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 17:05:51,437 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 17:05:51,438 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:05:51,439 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 17:05:51,440 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 17:05:51,448 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'none', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiZTN3M0x4eDdpU21ua0hqT2F1Z2pNeEFzX1c3RHdOX1VOZU83OGFIaGZWSSIsInNlc3Npb25faWQiOiJjNzMyYTgzNS01M2Q2LTRiNDktODRmNS1mMzY3NGIzMjMwMWUifQ.aOBIsg.YVVmOhmTDb97ibViJGBYrBJWDTI'}
+2025-10-03 17:05:51,455 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 17:05:51,455 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 17:05:51,455 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 17:05:51,456 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 17:05:51,457 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 17:05:51,458 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 17:06:06,344 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 17:06:06,345 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-10-03 17:06:06,346 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 17:06:06,346 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:06:06,348 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 17:06:06,348 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-10-03 17:06:06,349 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Content-Length': '101', 'Cache-Control': 'max-age=0', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Origin': 'http://localhost:5051', 'Content-Type': 'application/x-www-form-urlencoded', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Referer': 'http://localhost:5051/superadmin/auth/login', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiZTN3M0x4eDdpU21ua0hqT2F1Z2pNeEFzX1c3RHdOX1VOZU83OGFIaGZWSSIsInNlc3Npb25faWQiOiJjNzMyYTgzNS01M2Q2LTRiNDktODRmNS1mMzY3NGIzMjMwMWUifQ.aOBIsg.YVVmOhmTDb97ibViJGBYrBJWDTI'}
+2025-10-03 17:06:06,350 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 17:06:06,351 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 17:06:06,351 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-10-03 17:06:06,351 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-10-03 17:06:06,353 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-10-03 17:06:06,353 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-03 17:06:06,353 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-10-03 17:06:06,353 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-10-03 17:06:06,354 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-10-03 17:06:06,354 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-10-03 17:06:06,354 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-10-03 17:06:06,354 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-10-03 17:06:06,355 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-10-03 17:06:06,355 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-10-03 17:06:06,355 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-10-03 17:06:06,355 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-10-03 17:06:06,356 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-10-03 17:06:06,356 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-10-03 17:06:06,357 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-10-03 17:06:06,357 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-10-03 17:06:06,357 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===
+2025-10-03 17:06:25,657 | auth_system | INFO | logout:623 | === USER LOGOUT REQUEST START ===
+2025-10-03 17:06:25,657 | auth_system | INFO | logout:624 | Request Method: GET
+2025-10-03 17:06:25,657 | auth_system | INFO | logout:625 | Request URL: http://localhost:5051/auth/logout
+2025-10-03 17:06:25,658 | auth_system | INFO | logout:626 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:06:25,658 | auth_system | INFO | logout:627 | Remote Address: 127.0.0.1
+2025-10-03 17:06:25,659 | auth_system | INFO | logout:631 | Extracting authentication token
+2025-10-03 17:06:25,660 | auth_system | DEBUG | logout:641 | No Authorization header found
+2025-10-03 17:06:25,660 | auth_system | INFO | logout:644 | Session user_id: 1
+2025-10-03 17:06:25,660 | auth_system | DEBUG | logout:645 | Session keys: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 17:06:25,661 | auth_system | INFO | logout:656 | No token to blacklist, proceeding with session logout only
+2025-10-03 17:06:25,661 | auth_system | INFO | logout:659 | Clearing user session
+2025-10-03 17:06:25,674 | auth_system | DEBUG | logout:661 | Session keys before clear: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 17:06:25,675 | auth_system | INFO | logout:663 | Session cleared successfully
+2025-10-03 17:06:25,686 | auth_system | INFO | logout:666 | Setting flash message for HTML response
+2025-10-03 17:06:25,690 | auth_system | INFO | logout:668 | Redirecting to superadmin login page
+2025-10-03 17:06:25,693 | auth_system | INFO | logout:669 | === USER LOGOUT SUCCESS END ===
+2025-10-03 17:06:26,002 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 17:06:26,003 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 17:06:26,004 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 17:06:26,005 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:06:26,007 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 17:06:26,007 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 17:06:26,010 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Referer': 'http://localhost:5051/superadmin/permissions', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJfZmxhc2hlcyI6W3siIHQiOlsiaW5mbyIsIllvdSBoYXZlIGJlZW4gbG9nZ2VkIG91dCBzdWNjZXNzZnVsbHkiXX1dfQ.aOBI4Q.2xI_jzcPSvhdd67c3Dmb-6pCDus'}
+2025-10-03 17:06:26,012 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 17:06:26,013 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 17:06:26,013 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 17:06:26,023 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 17:06:26,024 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 17:06:26,028 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 17:07:11,062 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:07:11,063 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 17:07:11,063 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 17:07:11,064 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:07:11,064 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:07:11,065 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:07:11,065 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:07:11,065 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 17:07:11,066 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 17:07:11,066 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 17:07:28,314 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:07:28,315 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 17:07:28,316 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 17:07:28,316 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:07:28,317 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:07:28,317 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:07:28,317 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:07:28,318 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 17:07:28,318 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 17:07:28,319 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 17:07:28,319 | auth_system | DEBUG | login:86 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-03 17:07:28,319 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 17:07:28,319 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 17:07:28,319 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 17:07:28,319 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 17:07:28,320 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 17:07:28,320 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb...
+2025-10-03 17:07:28,320 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 17:07:28,575 | auth_system | INFO | login:116 | Authentication result: User=Found, Message='Authentication successful'
+2025-10-03 17:07:28,575 | auth_system | INFO | login:128 | Checking user roles
+2025-10-03 17:07:28,588 | auth_system | INFO | login:131 | User roles: ['admin']
+2025-10-03 17:07:28,589 | auth_system | INFO | login:142 | Generating JWT tokens
+2025-10-03 17:07:28,633 | auth_system | INFO | login:145 | Token generation result: Success
+2025-10-03 17:07:28,634 | auth_system | INFO | login:156 | Storing session information
+2025-10-03 17:07:28,634 | auth_system | DEBUG | login:159 | Session user_id: 4, role: admin
+2025-10-03 17:07:28,635 | auth_system | INFO | login:162 | Login successful for user: admin
+2025-10-03 17:07:28,635 | auth_system | INFO | login:165 | Determining redirect destination
+2025-10-03 17:07:28,635 | auth_system | INFO | login:186 | Redirecting to: /admin/dashboard
+2025-10-03 17:07:28,635 | auth_system | INFO | login:187 | === ADMIN LOGIN POST SUCCESS END ===
+2025-10-03 17:11:03,999 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:11:04,000 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 17:11:04,001 | auth_system | INFO | login:61 | Request URL: http://localhost/admin/auth/login
+2025-10-03 17:11:04,002 | auth_system | INFO | login:62 | User Agent: Werkzeug/3.1.3
+2025-10-03 17:11:04,004 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:11:04,005 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:11:04,009 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:11:04,015 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 17:11:04,017 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 17:11:04,017 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 17:11:04,018 | auth_system | DEBUG | login:86 | Form keys: ['username', 'password']
+2025-10-03 17:11:04,018 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 17:11:04,019 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 17:11:04,019 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 17:11:04,020 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 17:11:04,021 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 17:11:04,022 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Werkzeug/3.1.3...
+2025-10-03 17:11:04,023 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 17:11:04,403 | auth_system | INFO | login:116 | Authentication result: User=Found, Message='Authentication successful'
+2025-10-03 17:11:04,403 | auth_system | INFO | login:128 | Checking user roles
+2025-10-03 17:11:04,428 | auth_system | INFO | login:131 | User roles: ['admin']
+2025-10-03 17:11:04,428 | auth_system | INFO | login:142 | Generating JWT tokens
+2025-10-03 17:11:04,495 | auth_system | INFO | login:145 | Token generation result: Success
+2025-10-03 17:11:04,497 | auth_system | INFO | login:156 | Storing session information
+2025-10-03 17:11:04,498 | auth_system | DEBUG | login:159 | Session user_id: 4, role: admin
+2025-10-03 17:11:04,499 | auth_system | INFO | login:162 | Login successful for user: admin
+2025-10-03 17:11:04,499 | auth_system | INFO | login:165 | Determining redirect destination
+2025-10-03 17:11:04,500 | auth_system | INFO | login:186 | Redirecting to: /admin/dashboard
+2025-10-03 17:11:04,500 | auth_system | INFO | login:187 | === ADMIN LOGIN POST SUCCESS END ===
+2025-10-03 17:12:58,903 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:12:58,904 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 17:12:58,904 | auth_system | INFO | login:61 | Request URL: http://localhost/admin/auth/login
+2025-10-03 17:12:58,904 | auth_system | INFO | login:62 | User Agent: Werkzeug/3.1.3
+2025-10-03 17:12:58,905 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:12:58,906 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:12:58,907 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:12:58,908 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 17:12:58,908 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 17:12:58,909 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 17:12:58,909 | auth_system | DEBUG | login:86 | Form keys: ['username', 'password']
+2025-10-03 17:12:58,909 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 17:12:58,910 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 17:12:58,910 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 17:12:58,910 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 17:12:58,911 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 17:12:58,912 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Werkzeug/3.1.3...
+2025-10-03 17:12:58,913 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 17:12:59,323 | auth_system | INFO | login:116 | Authentication result: User=Found, Message='Authentication successful'
+2025-10-03 17:12:59,324 | auth_system | INFO | login:128 | Checking user roles
+2025-10-03 17:12:59,339 | auth_system | INFO | login:131 | User roles: ['admin']
+2025-10-03 17:12:59,340 | auth_system | INFO | login:142 | Generating JWT tokens
+2025-10-03 17:12:59,407 | auth_system | INFO | login:145 | Token generation result: Success
+2025-10-03 17:12:59,407 | auth_system | INFO | login:156 | Storing session information
+2025-10-03 17:12:59,408 | auth_system | DEBUG | login:159 | Session user_id: 4, role: admin
+2025-10-03 17:12:59,408 | auth_system | INFO | login:162 | Login successful for user: admin
+2025-10-03 17:12:59,409 | auth_system | INFO | login:165 | Determining redirect destination
+2025-10-03 17:12:59,409 | auth_system | INFO | login:186 | Redirecting to: /admin/dashboard
+2025-10-03 17:12:59,409 | auth_system | INFO | login:187 | === ADMIN LOGIN POST SUCCESS END ===
+2025-10-03 17:13:33,161 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:13:33,162 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 17:13:33,163 | auth_system | INFO | login:61 | Request URL: http://localhost/admin/auth/login
+2025-10-03 17:13:33,163 | auth_system | INFO | login:62 | User Agent: Werkzeug/3.1.3
+2025-10-03 17:13:33,163 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:13:33,164 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:13:33,164 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:13:33,164 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 17:13:33,165 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 17:13:33,165 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 17:13:33,165 | auth_system | DEBUG | login:86 | Form keys: ['username', 'password']
+2025-10-03 17:13:33,165 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 17:13:33,166 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 17:13:33,166 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 17:13:33,166 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 17:13:33,167 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 17:13:33,167 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Werkzeug/3.1.3...
+2025-10-03 17:13:33,168 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 17:13:33,568 | auth_system | INFO | login:116 | Authentication result: User=Found, Message='Authentication successful'
+2025-10-03 17:13:33,569 | auth_system | INFO | login:128 | Checking user roles
+2025-10-03 17:13:33,594 | auth_system | INFO | login:131 | User roles: ['admin']
+2025-10-03 17:13:33,594 | auth_system | INFO | login:142 | Generating JWT tokens
+2025-10-03 17:13:33,654 | auth_system | INFO | login:145 | Token generation result: Success
+2025-10-03 17:13:33,655 | auth_system | INFO | login:156 | Storing session information
+2025-10-03 17:13:33,656 | auth_system | DEBUG | login:159 | Session user_id: 4, role: admin
+2025-10-03 17:13:33,657 | auth_system | INFO | login:162 | Login successful for user: admin
+2025-10-03 17:13:33,658 | auth_system | INFO | login:165 | Determining redirect destination
+2025-10-03 17:13:33,658 | auth_system | INFO | login:186 | Redirecting to: /admin/dashboard
+2025-10-03 17:13:33,659 | auth_system | INFO | login:187 | === ADMIN LOGIN POST SUCCESS END ===
+2025-10-03 17:19:16,370 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:19:16,370 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 17:19:16,370 | auth_system | INFO | login:61 | Request URL: http://localhost/admin/auth/login
+2025-10-03 17:19:16,371 | auth_system | INFO | login:62 | User Agent: Werkzeug/3.1.3
+2025-10-03 17:19:16,371 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:19:16,372 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:19:16,373 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:19:16,374 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 17:19:16,375 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 17:19:16,375 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 17:19:16,375 | auth_system | DEBUG | login:86 | Form keys: ['username', 'password']
+2025-10-03 17:19:16,375 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 17:19:16,376 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 17:19:16,376 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 17:19:16,376 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 17:19:16,377 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 17:19:16,377 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Werkzeug/3.1.3...
+2025-10-03 17:19:16,378 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 17:19:16,743 | auth_system | INFO | login:116 | Authentication result: User=Found, Message='Authentication successful'
+2025-10-03 17:19:16,743 | auth_system | INFO | login:128 | Checking user roles
+2025-10-03 17:19:16,760 | auth_system | INFO | login:131 | User roles: ['admin']
+2025-10-03 17:19:16,760 | auth_system | INFO | login:142 | Generating JWT tokens
+2025-10-03 17:19:16,806 | auth_system | INFO | login:145 | Token generation result: Success
+2025-10-03 17:19:16,807 | auth_system | INFO | login:156 | Storing session information
+2025-10-03 17:19:16,809 | auth_system | DEBUG | login:159 | Session user_id: 4, role: admin
+2025-10-03 17:19:16,810 | auth_system | INFO | login:162 | Login successful for user: admin
+2025-10-03 17:19:16,810 | auth_system | INFO | login:165 | Determining redirect destination
+2025-10-03 17:19:16,811 | auth_system | INFO | login:186 | Redirecting to: /admin/dashboard
+2025-10-03 17:19:16,812 | auth_system | INFO | login:187 | === ADMIN LOGIN POST SUCCESS END ===
+2025-10-03 17:20:22,751 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:20:22,751 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 17:20:22,751 | auth_system | INFO | login:61 | Request URL: http://localhost/admin/auth/login
+2025-10-03 17:20:22,752 | auth_system | INFO | login:62 | User Agent: Werkzeug/3.1.3
+2025-10-03 17:20:22,752 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:20:22,753 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:20:22,753 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:20:22,753 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 17:20:22,754 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 17:20:22,754 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 17:20:22,754 | auth_system | DEBUG | login:86 | Form keys: ['username', 'password']
+2025-10-03 17:20:22,754 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 17:20:22,755 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 17:20:22,755 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 17:20:22,755 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 17:20:22,755 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 17:20:22,756 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Werkzeug/3.1.3...
+2025-10-03 17:20:22,757 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 17:20:23,124 | auth_system | INFO | login:116 | Authentication result: User=Found, Message='Authentication successful'
+2025-10-03 17:20:23,125 | auth_system | INFO | login:128 | Checking user roles
+2025-10-03 17:20:23,145 | auth_system | INFO | login:131 | User roles: ['admin']
+2025-10-03 17:20:23,145 | auth_system | INFO | login:142 | Generating JWT tokens
+2025-10-03 17:20:23,220 | auth_system | INFO | login:145 | Token generation result: Success
+2025-10-03 17:20:23,221 | auth_system | INFO | login:156 | Storing session information
+2025-10-03 17:20:23,222 | auth_system | DEBUG | login:159 | Session user_id: 4, role: admin
+2025-10-03 17:20:23,223 | auth_system | INFO | login:162 | Login successful for user: admin
+2025-10-03 17:20:23,223 | auth_system | INFO | login:165 | Determining redirect destination
+2025-10-03 17:20:23,225 | auth_system | INFO | login:186 | Redirecting to: /admin/dashboard
+2025-10-03 17:20:23,226 | auth_system | INFO | login:187 | === ADMIN LOGIN POST SUCCESS END ===
+2025-10-03 17:23:45,891 | auth_system | INFO | logout:623 | === USER LOGOUT REQUEST START ===
+2025-10-03 17:23:45,891 | auth_system | INFO | logout:624 | Request Method: GET
+2025-10-03 17:23:45,893 | auth_system | INFO | logout:625 | Request URL: http://localhost:5051/auth/logout
+2025-10-03 17:23:45,905 | auth_system | INFO | logout:626 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:23:45,906 | auth_system | INFO | logout:627 | Remote Address: 127.0.0.1
+2025-10-03 17:23:45,908 | auth_system | INFO | logout:631 | Extracting authentication token
+2025-10-03 17:23:45,909 | auth_system | DEBUG | logout:641 | No Authorization header found
+2025-10-03 17:23:45,909 | auth_system | INFO | logout:644 | Session user_id: 4
+2025-10-03 17:23:45,910 | auth_system | DEBUG | logout:645 | Session keys: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 17:23:45,911 | auth_system | INFO | logout:656 | No token to blacklist, proceeding with session logout only
+2025-10-03 17:23:45,919 | auth_system | INFO | logout:659 | Clearing user session
+2025-10-03 17:23:45,921 | auth_system | DEBUG | logout:661 | Session keys before clear: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 17:23:45,921 | auth_system | INFO | logout:663 | Session cleared successfully
+2025-10-03 17:23:45,924 | auth_system | INFO | logout:666 | Setting flash message for HTML response
+2025-10-03 17:23:45,927 | auth_system | INFO | logout:668 | Redirecting to superadmin login page
+2025-10-03 17:23:45,931 | auth_system | INFO | logout:669 | === USER LOGOUT SUCCESS END ===
+2025-10-03 17:23:46,114 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 17:23:46,122 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 17:23:46,124 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 17:23:46,128 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:23:46,133 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 17:23:46,137 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 17:23:46,141 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Referer': 'http://localhost:5051/admin/users', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJfZmxhc2hlcyI6W3siIHQiOlsiaW5mbyIsIllvdSBoYXZlIGJlZW4gbG9nZ2VkIG91dCBzdWNjZXNzZnVsbHkiXX1dfQ.aOBM8Q.I7b3ebuLHRrXWtkMv8IhpY48VBw'}
+2025-10-03 17:23:46,142 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 17:23:46,143 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 17:23:46,143 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 17:23:46,143 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 17:23:46,177 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 17:23:46,192 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 17:24:03,804 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 17:24:03,805 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 17:24:03,806 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 17:24:03,806 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:24:03,807 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 17:24:03,808 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 17:24:03,809 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'none', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiVm43eWZvUkV2WGtnOWxaZ0tEVGNGWW1xZEk5QUo2dnZ4N3kxUTkwZE5uSSIsInNlc3Npb25faWQiOiI1MjNmMWJmMC0wM2E0LTQ5YWUtYmYxNC1iMzM0YjU3ZDMzMjkifQ.aOBM8g.yyHzaBG4dI9khDtUs1Xv0GiDYGw'}
+2025-10-03 17:24:03,811 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 17:24:03,812 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 17:24:03,813 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 17:24:03,813 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 17:24:03,814 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 17:24:03,815 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 17:24:15,561 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 17:24:15,563 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-10-03 17:24:15,564 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 17:24:15,566 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:24:15,566 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 17:24:15,567 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-10-03 17:24:15,567 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Content-Length': '101', 'Cache-Control': 'max-age=0', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Origin': 'http://localhost:5051', 'Content-Type': 'application/x-www-form-urlencoded', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Referer': 'http://localhost:5051/superadmin/auth/login', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiVm43eWZvUkV2WGtnOWxaZ0tEVGNGWW1xZEk5QUo2dnZ4N3kxUTkwZE5uSSIsInNlc3Npb25faWQiOiI1MjNmMWJmMC0wM2E0LTQ5YWUtYmYxNC1iMzM0YjU3ZDMzMjkifQ.aOBM8g.yyHzaBG4dI9khDtUs1Xv0GiDYGw'}
+2025-10-03 17:24:15,568 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 17:24:15,568 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 17:24:15,568 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-10-03 17:24:15,569 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-10-03 17:24:15,572 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-10-03 17:24:15,572 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-03 17:24:15,573 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-10-03 17:24:15,573 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-10-03 17:24:15,574 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-10-03 17:24:15,574 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-10-03 17:24:15,574 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-10-03 17:24:15,574 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-10-03 17:24:15,575 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-10-03 17:24:15,575 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-10-03 17:24:15,576 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-10-03 17:24:15,579 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-10-03 17:24:15,580 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-10-03 17:24:15,580 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-10-03 17:24:15,581 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-10-03 17:24:15,581 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-10-03 17:24:15,581 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===
+2025-10-03 17:24:54,578 | auth_system | INFO | logout:623 | === USER LOGOUT REQUEST START ===
+2025-10-03 17:24:54,579 | auth_system | INFO | logout:624 | Request Method: GET
+2025-10-03 17:24:54,579 | auth_system | INFO | logout:625 | Request URL: http://localhost:5051/auth/logout
+2025-10-03 17:24:54,580 | auth_system | INFO | logout:626 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:24:54,581 | auth_system | INFO | logout:627 | Remote Address: 127.0.0.1
+2025-10-03 17:24:54,595 | auth_system | INFO | logout:631 | Extracting authentication token
+2025-10-03 17:24:54,628 | auth_system | DEBUG | logout:641 | No Authorization header found
+2025-10-03 17:24:54,628 | auth_system | INFO | logout:644 | Session user_id: 1
+2025-10-03 17:24:54,636 | auth_system | DEBUG | logout:645 | Session keys: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 17:24:54,638 | auth_system | INFO | logout:656 | No token to blacklist, proceeding with session logout only
+2025-10-03 17:24:54,643 | auth_system | INFO | logout:659 | Clearing user session
+2025-10-03 17:24:54,656 | auth_system | DEBUG | logout:661 | Session keys before clear: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 17:24:54,656 | auth_system | INFO | logout:663 | Session cleared successfully
+2025-10-03 17:24:54,662 | auth_system | INFO | logout:666 | Setting flash message for HTML response
+2025-10-03 17:24:54,664 | auth_system | INFO | logout:668 | Redirecting to superadmin login page
+2025-10-03 17:24:54,669 | auth_system | INFO | logout:669 | === USER LOGOUT SUCCESS END ===
+2025-10-03 17:24:54,893 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 17:24:54,894 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 17:24:54,894 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 17:24:54,895 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:24:54,896 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 17:24:54,897 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 17:24:54,898 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Referer': 'http://localhost:5051/superadmin/users', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJfZmxhc2hlcyI6W3siIHQiOlsiaW5mbyIsIllvdSBoYXZlIGJlZW4gbG9nZ2VkIG91dCBzdWNjZXNzZnVsbHkiXX1dfQ.aOBNNg.Q_qAswvwVPfR-3ZH44-DayTiD6E'}
+2025-10-03 17:24:54,898 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 17:24:54,899 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 17:24:54,899 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 17:24:54,901 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 17:24:54,903 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 17:24:54,908 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 17:25:06,942 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:25:06,942 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 17:25:06,943 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 17:25:06,943 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:25:06,943 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:25:06,944 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:25:06,944 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:25:06,944 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 17:25:06,944 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 17:25:06,945 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 17:25:16,387 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:25:16,388 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 17:25:16,388 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 17:25:16,389 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:25:16,390 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:25:16,390 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:25:16,391 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:25:16,391 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 17:25:16,392 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 17:25:16,392 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 17:25:16,392 | auth_system | DEBUG | login:86 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-03 17:25:16,392 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 17:25:16,393 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 17:25:16,393 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 17:25:16,393 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 17:25:16,393 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 17:25:16,394 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb...
+2025-10-03 17:25:16,394 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 17:25:16,805 | auth_system | INFO | login:116 | Authentication result: User=Found, Message='Authentication successful'
+2025-10-03 17:25:16,807 | auth_system | INFO | login:128 | Checking user roles
+2025-10-03 17:25:16,823 | auth_system | INFO | login:131 | User roles: ['admin']
+2025-10-03 17:25:16,823 | auth_system | INFO | login:142 | Generating JWT tokens
+2025-10-03 17:25:16,886 | auth_system | INFO | login:145 | Token generation result: Success
+2025-10-03 17:25:16,886 | auth_system | INFO | login:156 | Storing session information
+2025-10-03 17:25:16,887 | auth_system | DEBUG | login:159 | Session user_id: 4, role: admin
+2025-10-03 17:25:16,887 | auth_system | INFO | login:162 | Login successful for user: admin
+2025-10-03 17:25:16,888 | auth_system | INFO | login:165 | Determining redirect destination
+2025-10-03 17:25:16,888 | auth_system | INFO | login:186 | Redirecting to: /admin/dashboard
+2025-10-03 17:25:16,889 | auth_system | INFO | login:187 | === ADMIN LOGIN POST SUCCESS END ===
+2025-10-03 17:26:58,260 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:26:58,261 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 17:26:58,262 | auth_system | INFO | login:61 | Request URL: http://localhost/admin/auth/login
+2025-10-03 17:26:58,262 | auth_system | INFO | login:62 | User Agent: Werkzeug/3.1.3
+2025-10-03 17:26:58,262 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:26:58,264 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:26:58,264 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:26:58,265 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 17:26:58,265 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 17:26:58,265 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 17:26:58,265 | auth_system | DEBUG | login:86 | Form keys: ['username', 'password']
+2025-10-03 17:26:58,266 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 17:26:58,266 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 17:26:58,266 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 17:26:58,266 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 17:26:58,267 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 17:26:58,268 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Werkzeug/3.1.3...
+2025-10-03 17:26:58,269 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 17:26:58,552 | auth_system | INFO | login:116 | Authentication result: User=Found, Message='Authentication successful'
+2025-10-03 17:26:58,553 | auth_system | INFO | login:128 | Checking user roles
+2025-10-03 17:26:58,564 | auth_system | INFO | login:131 | User roles: ['admin']
+2025-10-03 17:26:58,564 | auth_system | INFO | login:142 | Generating JWT tokens
+2025-10-03 17:26:58,609 | auth_system | INFO | login:145 | Token generation result: Success
+2025-10-03 17:26:58,610 | auth_system | INFO | login:156 | Storing session information
+2025-10-03 17:26:58,611 | auth_system | DEBUG | login:159 | Session user_id: 4, role: admin
+2025-10-03 17:26:58,611 | auth_system | INFO | login:162 | Login successful for user: admin
+2025-10-03 17:26:58,612 | auth_system | INFO | login:165 | Determining redirect destination
+2025-10-03 17:26:58,612 | auth_system | INFO | login:186 | Redirecting to: /admin/dashboard
+2025-10-03 17:26:58,613 | auth_system | INFO | login:187 | === ADMIN LOGIN POST SUCCESS END ===
+2025-10-03 17:27:04,365 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:27:04,366 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 17:27:04,367 | auth_system | INFO | login:61 | Request URL: http://localhost/admin/auth/login
+2025-10-03 17:27:04,369 | auth_system | INFO | login:62 | User Agent: Werkzeug/3.1.3
+2025-10-03 17:27:04,369 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:27:04,371 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:27:04,372 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:27:04,375 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 17:27:04,376 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 17:27:04,376 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 17:27:04,377 | auth_system | DEBUG | login:86 | Form keys: ['username', 'password']
+2025-10-03 17:27:04,377 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 17:27:04,378 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 17:27:04,378 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 17:27:04,378 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 17:27:04,379 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 17:27:04,380 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Werkzeug/3.1.3...
+2025-10-03 17:27:04,380 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 17:27:04,747 | auth_system | INFO | login:116 | Authentication result: User=Found, Message='Authentication successful'
+2025-10-03 17:27:04,748 | auth_system | INFO | login:128 | Checking user roles
+2025-10-03 17:27:04,761 | auth_system | INFO | login:131 | User roles: ['admin']
+2025-10-03 17:27:04,762 | auth_system | INFO | login:142 | Generating JWT tokens
+2025-10-03 17:27:04,813 | auth_system | INFO | login:145 | Token generation result: Success
+2025-10-03 17:27:04,813 | auth_system | INFO | login:156 | Storing session information
+2025-10-03 17:27:04,814 | auth_system | DEBUG | login:159 | Session user_id: 4, role: admin
+2025-10-03 17:27:04,814 | auth_system | INFO | login:162 | Login successful for user: admin
+2025-10-03 17:27:04,814 | auth_system | INFO | login:165 | Determining redirect destination
+2025-10-03 17:27:04,815 | auth_system | INFO | login:186 | Redirecting to: /admin/dashboard
+2025-10-03 17:27:04,815 | auth_system | INFO | login:187 | === ADMIN LOGIN POST SUCCESS END ===
+2025-10-03 17:39:46,042 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:39:46,043 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 17:39:46,045 | auth_system | INFO | login:61 | Request URL: http://localhost/admin/auth/login
+2025-10-03 17:39:46,046 | auth_system | INFO | login:62 | User Agent: Werkzeug/3.1.3
+2025-10-03 17:39:46,048 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:39:46,050 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:39:46,051 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:39:46,053 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 17:39:46,054 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 17:39:46,054 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 17:39:46,054 | auth_system | DEBUG | login:86 | Form keys: ['username', 'password']
+2025-10-03 17:39:46,055 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 17:39:46,055 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 17:39:46,055 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 17:39:46,059 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 17:39:46,060 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 17:39:46,061 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Werkzeug/3.1.3...
+2025-10-03 17:39:46,062 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 17:39:46,533 | auth_system | INFO | login:116 | Authentication result: User=Found, Message='Authentication successful'
+2025-10-03 17:39:46,534 | auth_system | INFO | login:128 | Checking user roles
+2025-10-03 17:39:46,556 | auth_system | INFO | login:131 | User roles: ['admin']
+2025-10-03 17:39:46,558 | auth_system | INFO | login:142 | Generating JWT tokens
+2025-10-03 17:39:46,635 | auth_system | INFO | login:145 | Token generation result: Success
+2025-10-03 17:39:46,636 | auth_system | INFO | login:156 | Storing session information
+2025-10-03 17:39:46,637 | auth_system | DEBUG | login:159 | Session user_id: 4, role: admin
+2025-10-03 17:39:46,637 | auth_system | INFO | login:162 | Login successful for user: admin
+2025-10-03 17:39:46,638 | auth_system | INFO | login:165 | Determining redirect destination
+2025-10-03 17:39:46,638 | auth_system | INFO | login:186 | Redirecting to: /admin/dashboard
+2025-10-03 17:39:46,639 | auth_system | INFO | login:187 | === ADMIN LOGIN POST SUCCESS END ===
+2025-10-03 17:40:37,272 | auth_system | INFO | logout:623 | === USER LOGOUT REQUEST START ===
+2025-10-03 17:40:37,277 | auth_system | INFO | logout:624 | Request Method: GET
+2025-10-03 17:40:37,279 | auth_system | INFO | logout:625 | Request URL: http://localhost:5051/auth/logout
+2025-10-03 17:40:37,282 | auth_system | INFO | logout:626 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:40:37,310 | auth_system | INFO | logout:627 | Remote Address: 127.0.0.1
+2025-10-03 17:40:37,312 | auth_system | INFO | logout:631 | Extracting authentication token
+2025-10-03 17:40:37,312 | auth_system | DEBUG | logout:641 | No Authorization header found
+2025-10-03 17:40:37,313 | auth_system | INFO | logout:644 | Session user_id: 4
+2025-10-03 17:40:37,314 | auth_system | DEBUG | logout:645 | Session keys: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 17:40:37,314 | auth_system | INFO | logout:656 | No token to blacklist, proceeding with session logout only
+2025-10-03 17:40:37,315 | auth_system | INFO | logout:659 | Clearing user session
+2025-10-03 17:40:37,316 | auth_system | DEBUG | logout:661 | Session keys before clear: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 17:40:37,317 | auth_system | INFO | logout:663 | Session cleared successfully
+2025-10-03 17:40:37,325 | auth_system | INFO | logout:666 | Setting flash message for HTML response
+2025-10-03 17:40:37,327 | auth_system | INFO | logout:668 | Redirecting to superadmin login page
+2025-10-03 17:40:37,330 | auth_system | INFO | logout:669 | === USER LOGOUT SUCCESS END ===
+2025-10-03 17:40:37,526 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 17:40:37,528 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 17:40:37,529 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 17:40:37,530 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:40:37,530 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 17:40:37,531 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 17:40:37,532 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Referer': 'http://localhost:5051/admin/dashboard', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJfZmxhc2hlcyI6W3siIHQiOlsiaW5mbyIsIllvdSBoYXZlIGJlZW4gbG9nZ2VkIG91dCBzdWNjZXNzZnVsbHkiXX1dfQ.aOBQ5Q.Oxt_MpaiFGpV6NT4F2MXq2-c9jI'}
+2025-10-03 17:40:37,536 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 17:40:37,536 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 17:40:37,537 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 17:40:37,538 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 17:40:37,576 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 17:40:37,576 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 17:40:47,132 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 17:40:47,133 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-10-03 17:40:47,133 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 17:40:47,134 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:40:47,134 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 17:40:47,134 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-10-03 17:40:47,135 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Content-Length': '101', 'Cache-Control': 'max-age=0', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Origin': 'http://localhost:5051', 'Content-Type': 'application/x-www-form-urlencoded', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Referer': 'http://localhost:5051/superadmin/auth/login', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiVmtTYjVxWmk3S2pJb1NBU1N3eGVpbVFDV0JMT0M2bnd4T09mZjI3NjljOCIsInNlc3Npb25faWQiOiIxZTNjYWU2Zi1kZDE2LTRiODYtYWY3OS1hOTI0MGY4MzJhN2IifQ.aOBQ5Q.GuBScK3WABjTv9DooRbFnhL53Lo'}
+2025-10-03 17:40:47,136 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 17:40:47,136 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 17:40:47,136 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-10-03 17:40:47,136 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-10-03 17:40:47,138 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-10-03 17:40:47,139 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-03 17:40:47,139 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-10-03 17:40:47,140 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-10-03 17:40:47,140 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-10-03 17:40:47,140 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-10-03 17:40:47,140 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-10-03 17:40:47,141 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-10-03 17:40:47,141 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-10-03 17:40:47,142 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-10-03 17:40:47,142 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-10-03 17:40:47,143 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-10-03 17:40:47,143 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-10-03 17:40:47,143 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-10-03 17:40:47,144 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-10-03 17:40:47,144 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-10-03 17:40:47,146 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===
+2025-10-03 17:43:38,971 | auth_system | INFO | logout:623 | === USER LOGOUT REQUEST START ===
+2025-10-03 17:43:38,972 | auth_system | INFO | logout:624 | Request Method: GET
+2025-10-03 17:43:38,974 | auth_system | INFO | logout:625 | Request URL: http://localhost:5051/auth/logout
+2025-10-03 17:43:38,974 | auth_system | INFO | logout:626 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:43:38,975 | auth_system | INFO | logout:627 | Remote Address: 127.0.0.1
+2025-10-03 17:43:38,976 | auth_system | INFO | logout:631 | Extracting authentication token
+2025-10-03 17:43:38,979 | auth_system | DEBUG | logout:641 | No Authorization header found
+2025-10-03 17:43:38,979 | auth_system | INFO | logout:644 | Session user_id: 1
+2025-10-03 17:43:38,982 | auth_system | DEBUG | logout:645 | Session keys: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 17:43:38,982 | auth_system | INFO | logout:656 | No token to blacklist, proceeding with session logout only
+2025-10-03 17:43:38,983 | auth_system | INFO | logout:659 | Clearing user session
+2025-10-03 17:43:38,983 | auth_system | DEBUG | logout:661 | Session keys before clear: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 17:43:38,983 | auth_system | INFO | logout:663 | Session cleared successfully
+2025-10-03 17:43:38,984 | auth_system | INFO | logout:666 | Setting flash message for HTML response
+2025-10-03 17:43:38,985 | auth_system | INFO | logout:668 | Redirecting to superadmin login page
+2025-10-03 17:43:38,985 | auth_system | INFO | logout:669 | === USER LOGOUT SUCCESS END ===
+2025-10-03 17:43:39,240 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 17:43:39,248 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 17:43:39,249 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 17:43:39,250 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:43:39,253 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 17:43:39,254 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 17:43:39,256 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Referer': 'http://localhost:5051/superadmin/users', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJfZmxhc2hlcyI6W3siIHQiOlsiaW5mbyIsIllvdSBoYXZlIGJlZW4gbG9nZ2VkIG91dCBzdWNjZXNzZnVsbHkiXX1dfQ.aOBRmg.QNJv-6HnAWgO4TVtuHXdAudRkC0'}
+2025-10-03 17:43:39,258 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 17:43:39,258 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 17:43:39,258 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 17:43:39,266 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 17:43:39,267 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 17:43:39,268 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 17:43:55,443 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:43:55,446 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 17:43:55,460 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 17:43:55,466 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:43:55,469 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:43:55,470 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:43:55,470 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:43:55,472 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 17:43:55,479 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 17:43:55,481 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 17:50:51,033 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:50:51,035 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 17:50:51,036 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 17:50:51,037 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:50:51,042 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:50:51,044 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:50:51,046 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:50:51,054 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 17:50:51,142 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 17:50:51,143 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 17:50:56,734 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:50:56,736 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 17:50:56,739 | auth_system | INFO | login:61 | Request URL: http://localhost/admin/auth/login
+2025-10-03 17:50:56,744 | auth_system | INFO | login:62 | User Agent: Werkzeug/3.1.3
+2025-10-03 17:50:56,749 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:50:56,751 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:50:56,758 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:50:56,768 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 17:50:56,769 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 17:50:56,770 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 17:50:56,771 | auth_system | DEBUG | login:86 | Form keys: ['username', 'password']
+2025-10-03 17:50:56,785 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 17:50:56,797 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 17:50:56,798 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 17:50:56,798 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 17:50:56,799 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 17:50:56,800 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Werkzeug/3.1.3...
+2025-10-03 17:50:56,801 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 17:50:57,726 | auth_system | INFO | login:116 | Authentication result: User=Found, Message='Authentication successful'
+2025-10-03 17:50:57,727 | auth_system | INFO | login:128 | Checking user roles
+2025-10-03 17:50:57,751 | auth_system | INFO | login:131 | User roles: ['admin']
+2025-10-03 17:50:57,752 | auth_system | INFO | login:142 | Generating JWT tokens
+2025-10-03 17:50:57,856 | auth_system | INFO | login:145 | Token generation result: Success
+2025-10-03 17:50:57,858 | auth_system | INFO | login:156 | Storing session information
+2025-10-03 17:50:57,860 | auth_system | DEBUG | login:159 | Session user_id: 4, role: admin
+2025-10-03 17:50:57,861 | auth_system | INFO | login:162 | Login successful for user: admin
+2025-10-03 17:50:57,862 | auth_system | INFO | login:165 | Determining redirect destination
+2025-10-03 17:50:57,863 | auth_system | INFO | login:186 | Redirecting to: /admin/dashboard
+2025-10-03 17:50:57,864 | auth_system | INFO | login:187 | === ADMIN LOGIN POST SUCCESS END ===
+2025-10-03 17:50:58,282 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:50:58,297 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 17:50:58,303 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 17:50:58,309 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:50:58,313 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:50:58,327 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:50:58,328 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:50:58,329 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 17:50:58,332 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 17:50:58,332 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 17:50:58,332 | auth_system | DEBUG | login:86 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-03 17:50:58,333 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 17:50:58,334 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 17:50:58,334 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 17:50:58,334 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 17:50:58,334 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 17:50:58,335 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb...
+2025-10-03 17:50:58,336 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 17:50:59,448 | auth_system | INFO | login:116 | Authentication result: User=Not found, Message='Invalid credentials'
+2025-10-03 17:50:59,469 | auth_system | WARNING | login:123 | Authentication failed for user: admin
+2025-10-03 17:51:04,938 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:51:04,961 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 17:51:04,975 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 17:51:04,979 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 17:51:04,980 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:51:04,981 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:51:04,995 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:51:04,997 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 17:51:05,000 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 17:51:05,000 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 17:51:05,000 | auth_system | DEBUG | login:86 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-03 17:51:05,001 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 17:51:05,012 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 17:51:05,013 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 17:51:05,013 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 17:51:05,046 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 17:51:05,079 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb...
+2025-10-03 17:51:05,133 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 17:51:05,769 | auth_system | INFO | login:116 | Authentication result: User=Found, Message='Authentication successful'
+2025-10-03 17:51:05,772 | auth_system | INFO | login:128 | Checking user roles
+2025-10-03 17:51:05,798 | auth_system | INFO | login:131 | User roles: ['admin']
+2025-10-03 17:51:05,799 | auth_system | INFO | login:142 | Generating JWT tokens
+2025-10-03 17:51:05,882 | auth_system | INFO | login:145 | Token generation result: Success
+2025-10-03 17:51:05,883 | auth_system | INFO | login:156 | Storing session information
+2025-10-03 17:51:05,883 | auth_system | DEBUG | login:159 | Session user_id: 4, role: admin
+2025-10-03 17:51:05,884 | auth_system | INFO | login:162 | Login successful for user: admin
+2025-10-03 17:51:05,884 | auth_system | INFO | login:165 | Determining redirect destination
+2025-10-03 17:51:05,885 | auth_system | INFO | login:186 | Redirecting to: /admin/dashboard
+2025-10-03 17:51:05,885 | auth_system | INFO | login:187 | === ADMIN LOGIN POST SUCCESS END ===
+2025-10-03 17:51:36,006 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 17:51:36,007 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 17:51:36,008 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 17:51:36,009 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.6584
+2025-10-03 17:51:36,010 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 17:51:36,011 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 17:51:36,012 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 17:51:36,013 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 17:51:36,034 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 17:51:36,035 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 18:05:36,257 | auth_system | INFO | logout:623 | === USER LOGOUT REQUEST START ===
+2025-10-03 18:05:36,258 | auth_system | INFO | logout:624 | Request Method: GET
+2025-10-03 18:05:36,270 | auth_system | INFO | logout:625 | Request URL: http://localhost:5051/auth/logout
+2025-10-03 18:05:36,271 | auth_system | INFO | logout:626 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:05:36,278 | auth_system | INFO | logout:627 | Remote Address: 127.0.0.1
+2025-10-03 18:05:36,283 | auth_system | INFO | logout:631 | Extracting authentication token
+2025-10-03 18:05:36,284 | auth_system | DEBUG | logout:641 | No Authorization header found
+2025-10-03 18:05:36,285 | auth_system | INFO | logout:644 | Session user_id: 4
+2025-10-03 18:05:36,286 | auth_system | DEBUG | logout:645 | Session keys: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 18:05:36,287 | auth_system | INFO | logout:656 | No token to blacklist, proceeding with session logout only
+2025-10-03 18:05:36,288 | auth_system | INFO | logout:659 | Clearing user session
+2025-10-03 18:05:36,288 | auth_system | DEBUG | logout:661 | Session keys before clear: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 18:05:36,289 | auth_system | INFO | logout:663 | Session cleared successfully
+2025-10-03 18:05:36,290 | auth_system | INFO | logout:666 | Setting flash message for HTML response
+2025-10-03 18:05:36,294 | auth_system | INFO | logout:668 | Redirecting to superadmin login page
+2025-10-03 18:05:36,300 | auth_system | INFO | logout:669 | === USER LOGOUT SUCCESS END ===
+2025-10-03 18:05:36,516 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 18:05:36,517 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 18:05:36,519 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 18:05:36,521 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:05:36,523 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 18:05:36,523 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 18:05:36,529 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Referer': 'http://localhost:5051/admin/dashboard', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJfZmxhc2hlcyI6W3siIHQiOlsiaW5mbyIsIllvdSBoYXZlIGJlZW4gbG9nZ2VkIG91dCBzdWNjZXNzZnVsbHkiXX1dfQ.aOBWwA.81wBRQes9GnVYAC23gapz89uW7I'}
+2025-10-03 18:05:36,536 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 18:05:36,536 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 18:05:36,537 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 18:05:36,539 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 18:05:36,651 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 18:05:36,653 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 18:05:47,034 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 18:05:47,034 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 18:05:47,035 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 18:05:47,035 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:05:47,036 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 18:05:47,036 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 18:05:47,038 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'none', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiZ3JpT3NWb1Y2WTNjN3RRYVFfZTN4ajFuY2xFZlJoT1pVUXNMSGdqaC0tVSIsInNlc3Npb25faWQiOiI3NTA0YzdjMi0xMGRhLTRlYTEtYjY5ZS05YzQzZDJkZjQxMjUifQ.aOBWwA.VAhtQe5_H7BjvCdF5lGv_m7UdKM'}
+2025-10-03 18:05:47,039 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 18:05:47,039 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 18:05:47,039 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 18:05:47,039 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 18:05:47,041 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 18:05:47,042 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 18:05:58,871 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 18:05:58,871 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-10-03 18:05:58,872 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 18:05:58,873 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:05:58,874 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 18:05:58,875 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-10-03 18:05:58,875 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Content-Length': '101', 'Cache-Control': 'max-age=0', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Origin': 'http://localhost:5051', 'Content-Type': 'application/x-www-form-urlencoded', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Referer': 'http://localhost:5051/superadmin/auth/login', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiZ3JpT3NWb1Y2WTNjN3RRYVFfZTN4ajFuY2xFZlJoT1pVUXNMSGdqaC0tVSIsInNlc3Npb25faWQiOiI3NTA0YzdjMi0xMGRhLTRlYTEtYjY5ZS05YzQzZDJkZjQxMjUifQ.aOBWwA.VAhtQe5_H7BjvCdF5lGv_m7UdKM'}
+2025-10-03 18:05:58,876 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 18:05:58,877 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 18:05:58,877 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-10-03 18:05:58,877 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-10-03 18:05:58,880 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-10-03 18:05:58,880 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-03 18:05:58,880 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-10-03 18:05:58,881 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-10-03 18:05:58,881 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-10-03 18:05:58,881 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-10-03 18:05:58,881 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-10-03 18:05:58,882 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-10-03 18:05:58,883 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-10-03 18:05:58,883 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-10-03 18:05:58,883 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-10-03 18:05:58,883 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-10-03 18:05:58,884 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-10-03 18:05:58,885 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-10-03 18:05:58,885 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-10-03 18:05:58,886 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-10-03 18:05:58,888 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===
+2025-10-03 18:22:06,458 | auth_system | INFO | logout:623 | === USER LOGOUT REQUEST START ===
+2025-10-03 18:22:06,463 | auth_system | INFO | logout:624 | Request Method: GET
+2025-10-03 18:22:06,463 | auth_system | INFO | logout:625 | Request URL: http://localhost:5051/auth/logout
+2025-10-03 18:22:06,464 | auth_system | INFO | logout:626 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:22:06,466 | auth_system | INFO | logout:627 | Remote Address: 127.0.0.1
+2025-10-03 18:22:06,470 | auth_system | INFO | logout:631 | Extracting authentication token
+2025-10-03 18:22:06,474 | auth_system | DEBUG | logout:641 | No Authorization header found
+2025-10-03 18:22:06,474 | auth_system | INFO | logout:644 | Session user_id: 1
+2025-10-03 18:22:06,474 | auth_system | DEBUG | logout:645 | Session keys: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 18:22:06,475 | auth_system | INFO | logout:656 | No token to blacklist, proceeding with session logout only
+2025-10-03 18:22:06,475 | auth_system | INFO | logout:659 | Clearing user session
+2025-10-03 18:22:06,477 | auth_system | DEBUG | logout:661 | Session keys before clear: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 18:22:06,477 | auth_system | INFO | logout:663 | Session cleared successfully
+2025-10-03 18:22:06,479 | auth_system | INFO | logout:666 | Setting flash message for HTML response
+2025-10-03 18:22:06,480 | auth_system | INFO | logout:668 | Redirecting to superadmin login page
+2025-10-03 18:22:06,484 | auth_system | INFO | logout:669 | === USER LOGOUT SUCCESS END ===
+2025-10-03 18:22:06,765 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 18:22:06,765 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 18:22:06,766 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 18:22:06,766 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:22:06,767 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 18:22:06,769 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 18:22:06,769 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Referer': 'http://localhost:5051/superadmin/subscription-plans', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJfZmxhc2hlcyI6W3siIHQiOlsiaW5mbyIsIllvdSBoYXZlIGJlZW4gbG9nZ2VkIG91dCBzdWNjZXNzZnVsbHkiXX1dfQ.aOBang.yEOowSAYuRBXg5CoHyeJz-l43Jo'}
+2025-10-03 18:22:06,770 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 18:22:06,771 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 18:22:06,771 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 18:22:06,771 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 18:22:06,798 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 18:22:06,799 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 18:22:13,011 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 18:22:13,011 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 18:22:13,012 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 18:22:13,012 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:22:13,012 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 18:22:13,013 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 18:22:13,014 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 18:22:13,014 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 18:22:13,015 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 18:22:13,016 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 18:22:33,925 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 18:22:33,925 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 18:22:33,925 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 18:22:33,926 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:22:33,926 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 18:22:33,926 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 18:22:33,927 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 18:22:33,927 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 18:22:33,928 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 18:22:33,928 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 18:22:33,928 | auth_system | DEBUG | login:86 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-03 18:22:33,928 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 18:22:33,929 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 18:22:33,929 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 18:22:33,929 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 18:22:33,929 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 18:22:33,930 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb...
+2025-10-03 18:22:33,930 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 18:22:34,161 | auth_system | INFO | login:116 | Authentication result: User=Found, Message='Authentication successful'
+2025-10-03 18:22:34,162 | auth_system | INFO | login:128 | Checking user roles
+2025-10-03 18:22:34,169 | auth_system | INFO | login:131 | User roles: ['admin']
+2025-10-03 18:22:34,170 | auth_system | INFO | login:142 | Generating JWT tokens
+2025-10-03 18:22:34,205 | auth_system | INFO | login:145 | Token generation result: Success
+2025-10-03 18:22:34,206 | auth_system | INFO | login:156 | Storing session information
+2025-10-03 18:22:34,208 | auth_system | DEBUG | login:159 | Session user_id: 4, role: admin
+2025-10-03 18:22:34,208 | auth_system | INFO | login:162 | Login successful for user: admin
+2025-10-03 18:22:34,209 | auth_system | INFO | login:165 | Determining redirect destination
+2025-10-03 18:22:34,209 | auth_system | INFO | login:186 | Redirecting to: /admin/dashboard
+2025-10-03 18:22:34,209 | auth_system | INFO | login:187 | === ADMIN LOGIN POST SUCCESS END ===
+2025-10-03 18:22:52,359 | auth_system | INFO | logout:623 | === USER LOGOUT REQUEST START ===
+2025-10-03 18:22:52,370 | auth_system | INFO | logout:624 | Request Method: GET
+2025-10-03 18:22:52,378 | auth_system | INFO | logout:625 | Request URL: http://localhost:5051/auth/logout
+2025-10-03 18:22:52,380 | auth_system | INFO | logout:626 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:22:52,385 | auth_system | INFO | logout:627 | Remote Address: 127.0.0.1
+2025-10-03 18:22:52,387 | auth_system | INFO | logout:631 | Extracting authentication token
+2025-10-03 18:22:52,390 | auth_system | DEBUG | logout:641 | No Authorization header found
+2025-10-03 18:22:52,390 | auth_system | INFO | logout:644 | Session user_id: 4
+2025-10-03 18:22:52,400 | auth_system | DEBUG | logout:645 | Session keys: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 18:22:52,400 | auth_system | INFO | logout:656 | No token to blacklist, proceeding with session logout only
+2025-10-03 18:22:52,405 | auth_system | INFO | logout:659 | Clearing user session
+2025-10-03 18:22:52,415 | auth_system | DEBUG | logout:661 | Session keys before clear: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 18:22:52,415 | auth_system | INFO | logout:663 | Session cleared successfully
+2025-10-03 18:22:52,418 | auth_system | INFO | logout:666 | Setting flash message for HTML response
+2025-10-03 18:22:52,419 | auth_system | INFO | logout:668 | Redirecting to superadmin login page
+2025-10-03 18:22:52,424 | auth_system | INFO | logout:669 | === USER LOGOUT SUCCESS END ===
+2025-10-03 18:22:52,649 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 18:22:52,650 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 18:22:52,651 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 18:22:52,652 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:22:52,653 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 18:22:52,654 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 18:22:52,655 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Referer': 'http://localhost:5051/admin/dashboard', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJfZmxhc2hlcyI6W3siIHQiOlsiaW5mbyIsIllvdSBoYXZlIGJlZW4gbG9nZ2VkIG91dCBzdWNjZXNzZnVsbHkiXX1dfQ.aOBazA.DvQqA7IN5xLrKMrxmJbVCobKEKE'}
+2025-10-03 18:22:52,656 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 18:22:52,656 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 18:22:52,656 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 18:22:52,656 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 18:22:52,657 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 18:22:52,658 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 18:23:02,006 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 18:23:02,006 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-10-03 18:23:02,007 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 18:23:02,007 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:23:02,008 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 18:23:02,009 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-10-03 18:23:02,010 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Content-Length': '101', 'Cache-Control': 'max-age=0', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Origin': 'http://localhost:5051', 'Content-Type': 'application/x-www-form-urlencoded', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Referer': 'http://localhost:5051/superadmin/auth/login', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoibjhvR2dBbXQ2cXN1MWlDbTA0LTNEMVBVYzdGNElyb0g5RWpWM0ZvaVE3VSIsInNlc3Npb25faWQiOiI5NDkyYmMyZC0zNzFhLTQ4Y2EtOWYyYy1jMmQ4MTNmZTllNDEifQ.aOBazA.nbQIizl8em1Mml3mjdqHmUzvitA'}
+2025-10-03 18:23:02,010 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 18:23:02,011 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 18:23:02,011 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-10-03 18:23:02,011 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-10-03 18:23:02,012 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-10-03 18:23:02,012 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-03 18:23:02,012 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-10-03 18:23:02,012 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-10-03 18:23:02,012 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-10-03 18:23:02,012 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-10-03 18:23:02,013 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-10-03 18:23:02,013 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-10-03 18:23:02,013 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-10-03 18:23:02,014 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-10-03 18:23:02,014 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-10-03 18:23:02,015 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-10-03 18:23:02,015 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-10-03 18:23:02,015 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-10-03 18:23:02,016 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-10-03 18:23:02,016 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-10-03 18:23:02,017 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===
+2025-10-03 18:23:16,789 | auth_system | INFO | logout:623 | === USER LOGOUT REQUEST START ===
+2025-10-03 18:23:16,793 | auth_system | INFO | logout:624 | Request Method: GET
+2025-10-03 18:23:16,797 | auth_system | INFO | logout:625 | Request URL: http://localhost:5051/auth/logout
+2025-10-03 18:23:16,799 | auth_system | INFO | logout:626 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:23:16,800 | auth_system | INFO | logout:627 | Remote Address: 127.0.0.1
+2025-10-03 18:23:16,801 | auth_system | INFO | logout:631 | Extracting authentication token
+2025-10-03 18:23:16,801 | auth_system | DEBUG | logout:641 | No Authorization header found
+2025-10-03 18:23:16,802 | auth_system | INFO | logout:644 | Session user_id: 1
+2025-10-03 18:23:16,802 | auth_system | DEBUG | logout:645 | Session keys: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 18:23:16,803 | auth_system | INFO | logout:656 | No token to blacklist, proceeding with session logout only
+2025-10-03 18:23:16,804 | auth_system | INFO | logout:659 | Clearing user session
+2025-10-03 18:23:16,806 | auth_system | DEBUG | logout:661 | Session keys before clear: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 18:23:16,806 | auth_system | INFO | logout:663 | Session cleared successfully
+2025-10-03 18:23:16,807 | auth_system | INFO | logout:666 | Setting flash message for HTML response
+2025-10-03 18:23:16,809 | auth_system | INFO | logout:668 | Redirecting to superadmin login page
+2025-10-03 18:23:16,810 | auth_system | INFO | logout:669 | === USER LOGOUT SUCCESS END ===
+2025-10-03 18:23:17,058 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 18:23:17,059 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 18:23:17,061 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 18:23:17,061 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:23:17,062 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 18:23:17,062 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 18:23:17,063 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Referer': 'http://localhost:5051/superadmin/permissions', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJfZmxhc2hlcyI6W3siIHQiOlsiaW5mbyIsIllvdSBoYXZlIGJlZW4gbG9nZ2VkIG91dCBzdWNjZXNzZnVsbHkiXX1dfQ.aOBa5A.zbGTzllm-qNm2Q2r8DeVBUNtbKQ'}
+2025-10-03 18:23:17,064 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 18:23:17,065 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 18:23:17,065 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 18:23:17,066 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 18:23:17,066 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 18:23:17,067 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 18:23:24,551 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 18:23:24,655 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 18:23:24,665 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 18:23:24,667 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:23:24,673 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 18:23:24,675 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 18:23:24,685 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 18:23:24,702 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 18:23:24,705 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 18:23:24,721 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 18:23:32,009 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 18:23:32,009 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 18:23:32,010 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 18:23:32,010 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:23:32,010 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 18:23:32,011 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 18:23:32,011 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 18:23:32,012 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 18:23:32,013 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 18:23:32,013 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 18:23:32,014 | auth_system | DEBUG | login:86 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-03 18:23:32,014 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 18:23:32,014 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 18:23:32,014 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 18:23:32,014 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 18:23:32,015 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 18:23:32,015 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb...
+2025-10-03 18:23:32,016 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 18:23:32,263 | auth_system | INFO | login:116 | Authentication result: User=Found, Message='Authentication successful'
+2025-10-03 18:23:32,263 | auth_system | INFO | login:128 | Checking user roles
+2025-10-03 18:23:32,273 | auth_system | INFO | login:131 | User roles: ['admin']
+2025-10-03 18:23:32,274 | auth_system | INFO | login:142 | Generating JWT tokens
+2025-10-03 18:23:32,320 | auth_system | INFO | login:145 | Token generation result: Success
+2025-10-03 18:23:32,321 | auth_system | INFO | login:156 | Storing session information
+2025-10-03 18:23:32,322 | auth_system | DEBUG | login:159 | Session user_id: 4, role: admin
+2025-10-03 18:23:32,322 | auth_system | INFO | login:162 | Login successful for user: admin
+2025-10-03 18:23:32,323 | auth_system | INFO | login:165 | Determining redirect destination
+2025-10-03 18:23:32,323 | auth_system | INFO | login:186 | Redirecting to: /admin/dashboard
+2025-10-03 18:23:32,324 | auth_system | INFO | login:187 | === ADMIN LOGIN POST SUCCESS END ===
+2025-10-03 18:32:02,721 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 18:32:02,724 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 18:32:02,725 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 18:32:02,728 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:32:02,729 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 18:32:02,729 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 18:32:02,730 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 18:32:02,730 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 18:32:02,764 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 18:32:02,764 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 18:32:11,333 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 18:32:11,337 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 18:32:11,339 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 18:32:11,340 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 18:32:11,340 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 18:32:11,344 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 18:32:11,345 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 18:32:11,345 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 18:32:11,346 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 18:32:11,346 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 18:32:11,347 | auth_system | DEBUG | login:86 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-03 18:32:11,347 | auth_system | INFO | login:92 | Login attempt for username: 'admin'
+2025-10-03 18:32:11,348 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 18:32:11,348 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 18:32:11,349 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 18:32:11,349 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 18:32:11,350 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb...
+2025-10-03 18:32:11,355 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 18:32:12,093 | auth_system | INFO | login:116 | Authentication result: User=Found, Message='Authentication successful'
+2025-10-03 18:32:12,094 | auth_system | INFO | login:128 | Checking user roles
+2025-10-03 18:32:12,131 | auth_system | INFO | login:131 | User roles: ['admin']
+2025-10-03 18:32:12,132 | auth_system | INFO | login:142 | Generating JWT tokens
+2025-10-03 18:32:12,230 | auth_system | INFO | login:145 | Token generation result: Success
+2025-10-03 18:32:12,231 | auth_system | INFO | login:156 | Storing session information
+2025-10-03 18:32:12,232 | auth_system | DEBUG | login:159 | Session user_id: 4, role: admin
+2025-10-03 18:32:12,232 | auth_system | INFO | login:162 | Login successful for user: admin
+2025-10-03 18:32:12,233 | auth_system | INFO | login:165 | Determining redirect destination
+2025-10-03 18:32:12,234 | auth_system | INFO | login:186 | Redirecting to: /admin/dashboard
+2025-10-03 18:32:12,235 | auth_system | INFO | login:187 | === ADMIN LOGIN POST SUCCESS END ===
+2025-10-03 18:54:56,799 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 18:54:56,799 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 18:54:56,800 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login?id=d9801217-0f5a-4b5e-bd4d-28ef22a48f30&vscodeBrowserReqId=1759535696453
+2025-10-03 18:54:56,800 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.3 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-03 18:54:56,801 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 18:54:56,801 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 18:54:56,802 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 18:54:56,802 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 18:54:56,831 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 18:54:56,831 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 18:57:38,406 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 18:57:38,407 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 18:57:38,408 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login?id=d9801217-0f5a-4b5e-bd4d-28ef22a48f30&vscodeBrowserReqId=1759535857994
+2025-10-03 18:57:38,410 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.3 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-03 18:57:38,411 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 18:57:38,412 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 18:57:38,413 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 18:57:38,414 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 18:57:38,449 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 18:57:38,449 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 19:02:05,968 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 19:02:05,969 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 19:02:05,970 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 19:02:05,971 | auth_system | INFO | login:62 | User Agent: python-requests/2.32.5
+2025-10-03 19:02:05,971 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 19:02:05,973 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 19:02:05,973 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 19:02:05,974 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 19:02:06,010 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 19:02:06,010 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 19:02:08,685 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 19:02:08,686 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 19:02:08,686 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 19:02:08,686 | auth_system | INFO | login:62 | User Agent: python-requests/2.32.5
+2025-10-03 19:02:08,687 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 19:02:08,687 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 19:02:08,687 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 19:02:08,688 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 19:02:08,688 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 19:02:08,689 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 19:02:08,689 | auth_system | DEBUG | login:86 | Form keys: ['username', 'password', 'csrf_token']
+2025-10-03 19:02:08,689 | auth_system | INFO | login:92 | Login attempt for username: 'admin_user'
+2025-10-03 19:02:08,690 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 19:02:08,690 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 19:02:08,690 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 19:02:08,690 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 19:02:08,690 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: python-requests/2.32.5...
+2025-10-03 19:02:08,691 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 19:02:08,714 | auth_system | INFO | login:116 | Authentication result: User=Not found, Message='Invalid credentials'
+2025-10-03 19:02:08,715 | auth_system | WARNING | login:123 | Authentication failed for user: admin_user
+2025-10-03 19:03:21,734 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 19:03:21,735 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 19:03:21,735 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 19:03:21,735 | auth_system | INFO | login:62 | User Agent: python-requests/2.32.5
+2025-10-03 19:03:21,736 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 19:03:21,737 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 19:03:21,737 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 19:03:21,738 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 19:03:21,757 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 19:03:21,757 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 19:03:24,033 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 19:03:24,034 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 19:03:24,034 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 19:03:24,035 | auth_system | INFO | login:62 | User Agent: python-requests/2.32.5
+2025-10-03 19:03:24,035 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 19:03:24,036 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 19:03:24,038 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 19:03:24,038 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 19:03:24,039 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 19:03:24,039 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 19:03:24,039 | auth_system | DEBUG | login:86 | Form keys: ['username', 'password', 'csrf_token']
+2025-10-03 19:03:24,039 | auth_system | INFO | login:92 | Login attempt for username: 'admin_user'
+2025-10-03 19:03:24,040 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 19:03:24,040 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 19:03:24,040 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 19:03:24,041 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 19:03:24,042 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: python-requests/2.32.5...
+2025-10-03 19:03:24,043 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 19:03:24,062 | auth_system | INFO | login:116 | Authentication result: User=Not found, Message='Invalid credentials'
+2025-10-03 19:03:24,062 | auth_system | WARNING | login:123 | Authentication failed for user: admin_user
+2025-10-03 19:04:28,860 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 19:04:28,861 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 19:04:28,861 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 19:04:28,862 | auth_system | INFO | login:62 | User Agent: python-requests/2.32.5
+2025-10-03 19:04:28,862 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 19:04:28,862 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 19:04:28,863 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 19:04:28,863 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 19:04:28,899 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 19:04:28,899 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 19:04:31,321 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 19:04:31,323 | auth_system | INFO | login:60 | Request Method: POST
+2025-10-03 19:04:31,325 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 19:04:31,327 | auth_system | INFO | login:62 | User Agent: python-requests/2.32.5
+2025-10-03 19:04:31,327 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 19:04:31,328 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 19:04:31,328 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 19:04:31,329 | auth_system | INFO | login:80 | Processing POST request - Login attempt
+2025-10-03 19:04:31,330 | auth_system | DEBUG | login:83 | Extracting form data
+2025-10-03 19:04:31,330 | auth_system | DEBUG | login:85 | Request is JSON: False
+2025-10-03 19:04:31,330 | auth_system | DEBUG | login:86 | Form keys: ['username', 'password', 'csrf_token']
+2025-10-03 19:04:31,330 | auth_system | INFO | login:92 | Login attempt for username: 'admin_user'
+2025-10-03 19:04:31,331 | auth_system | DEBUG | login:93 | Password provided: Yes
+2025-10-03 19:04:31,331 | auth_system | DEBUG | login:94 | Remember me: False
+2025-10-03 19:04:31,331 | auth_system | INFO | login:97 | Starting form validation
+2025-10-03 19:04:31,332 | auth_system | INFO | login:103 | Form validation passed
+2025-10-03 19:04:31,332 | auth_system | INFO | login:108 | Client info - IP: 127.0.0.1, User-Agent: python-requests/2.32.5...
+2025-10-03 19:04:31,333 | auth_system | INFO | login:111 | Starting user authentication via JWTAuthService
+2025-10-03 19:04:31,365 | auth_system | INFO | login:116 | Authentication result: User=Not found, Message='Invalid credentials'
+2025-10-03 19:04:31,366 | auth_system | WARNING | login:123 | Authentication failed for user: admin_user
+2025-10-03 19:27:16,486 | auth_system | INFO | logout:623 | === USER LOGOUT REQUEST START ===
+2025-10-03 19:27:16,487 | auth_system | INFO | logout:624 | Request Method: GET
+2025-10-03 19:27:16,487 | auth_system | INFO | logout:625 | Request URL: http://localhost:5051/auth/logout
+2025-10-03 19:27:16,488 | auth_system | INFO | logout:626 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 19:27:16,488 | auth_system | INFO | logout:627 | Remote Address: 127.0.0.1
+2025-10-03 19:27:16,489 | auth_system | INFO | logout:631 | Extracting authentication token
+2025-10-03 19:27:16,489 | auth_system | DEBUG | logout:641 | No Authorization header found
+2025-10-03 19:27:16,490 | auth_system | INFO | logout:645 | Session user_id: 4
+2025-10-03 19:27:16,490 | auth_system | INFO | logout:646 | Session user_role: admin
+2025-10-03 19:27:16,491 | auth_system | DEBUG | logout:647 | Session keys: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 19:27:16,491 | auth_system | INFO | logout:658 | No token to blacklist, proceeding with session logout only
+2025-10-03 19:27:16,491 | auth_system | INFO | logout:661 | Clearing user session
+2025-10-03 19:27:16,492 | auth_system | DEBUG | logout:663 | Session keys before clear: ['csrf_token', 'role', 'session_id', 'user_id']
+2025-10-03 19:27:16,492 | auth_system | INFO | logout:665 | Session cleared successfully
+2025-10-03 19:27:16,493 | auth_system | INFO | logout:668 | Setting flash message for HTML response
+2025-10-03 19:27:16,493 | auth_system | INFO | logout:673 | Redirecting to admin login page
+2025-10-03 19:27:16,494 | auth_system | INFO | logout:688 | === USER LOGOUT SUCCESS END ===
+2025-10-03 19:27:16,655 | auth_system | INFO | login:59 | === ADMIN LOGIN REQUEST START ===
+2025-10-03 19:27:16,656 | auth_system | INFO | login:60 | Request Method: GET
+2025-10-03 19:27:16,656 | auth_system | INFO | login:61 | Request URL: http://localhost:5051/admin/auth/login
+2025-10-03 19:27:16,657 | auth_system | INFO | login:62 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 19:27:16,658 | auth_system | INFO | login:63 | Remote Address: 127.0.0.1
+2025-10-03 19:27:16,659 | auth_system | INFO | login:64 | Role: admin
+2025-10-03 19:27:16,660 | auth_system | INFO | login:65 | Dashboard URL: /admin/dashboard
+2025-10-03 19:27:16,660 | auth_system | INFO | login:68 | Processing GET request - Rendering login form
+2025-10-03 19:27:16,726 | auth_system | INFO | login:72 | Template rendered successfully
+2025-10-03 19:27:16,741 | auth_system | INFO | login:73 | === ADMIN LOGIN GET REQUEST END ===
+2025-10-03 19:27:23,250 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 19:27:23,251 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 19:27:23,251 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 19:27:23,252 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 19:27:23,252 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 19:27:23,253 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 19:27:23,255 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'none', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiTnhNZmphTkFyRkpWMFpDVTg4UmRVcFhFNUV6UjdTLVQ3SUEzWkh1ZlYyayIsInNlc3Npb25faWQiOiJjYWFiZGZlNC1lYzlmLTRiNmYtYmI1Ny02YjE5M2UyNzQwYjcifQ.aOBp5A.Gqnci4WB2iZ_foaz5yV_9RPoqGg'}
+2025-10-03 19:27:23,255 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 19:27:23,256 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 19:27:23,256 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 19:27:23,257 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 19:27:23,257 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 19:27:23,258 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 19:27:39,926 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 19:27:39,927 | auth_system | INFO | superadmin_login:217 | Request Method: POST
+2025-10-03 19:27:39,927 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 19:27:39,928 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0
+2025-10-03 19:27:39,928 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 19:27:39,929 | auth_system | INFO | superadmin_login:221 | Content Type: application/x-www-form-urlencoded
+2025-10-03 19:27:39,930 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Content-Length': '101', 'Cache-Control': 'max-age=0', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"Windows"', 'Origin': 'http://localhost:5051', 'Content-Type': 'application/x-www-form-urlencoded', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Referer': 'http://localhost:5051/superadmin/auth/login', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'session=eyJjc3JmX3Rva2VuIjoiTnhNZmphTkFyRkpWMFpDVTg4UmRVcFhFNUV6UjdTLVQ3SUEzWkh1ZlYyayIsInNlc3Npb25faWQiOiJjYWFiZGZlNC1lYzlmLTRiNmYtYmI1Ny02YjE5M2UyNzQwYjcifQ.aOBp5A.Gqnci4WB2iZ_foaz5yV_9RPoqGg'}
+2025-10-03 19:27:39,931 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 19:27:39,931 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 19:27:39,932 | auth_system | INFO | superadmin_login:246 | Processing POST request - Login attempt
+2025-10-03 19:27:39,932 | auth_system | DEBUG | superadmin_login:249 | Extracting form data
+2025-10-03 19:27:39,935 | auth_system | DEBUG | superadmin_login:251 | Request is JSON: False
+2025-10-03 19:27:39,935 | auth_system | DEBUG | superadmin_login:252 | Form keys: ['csrf_token', 'username', 'password']
+2025-10-03 19:27:39,935 | auth_system | INFO | superadmin_login:257 | Login attempt for username: 'superadmin'
+2025-10-03 19:27:39,937 | auth_system | DEBUG | superadmin_login:258 | Password provided: Yes
+2025-10-03 19:27:39,937 | auth_system | DEBUG | superadmin_login:259 | Password length: 15
+2025-10-03 19:27:39,938 | auth_system | INFO | superadmin_login:262 | Starting form validation
+2025-10-03 19:27:39,939 | auth_system | INFO | superadmin_login:270 | Form validation passed
+2025-10-03 19:27:39,942 | auth_system | INFO | superadmin_login:273 | Starting authentication check
+2025-10-03 19:27:39,943 | auth_system | DEBUG | superadmin_login:274 | Checking credentials for user: superadmin
+2025-10-03 19:27:39,943 | auth_system | DEBUG | superadmin_login:275 | Using hardcoded credentials: superadmin / SuperAdmin@2024
+2025-10-03 19:27:39,943 | auth_system | INFO | superadmin_login:278 | Authentication successful - Credentials match
+2025-10-03 19:27:39,947 | auth_system | INFO | superadmin_login:281 | Setting session data
+2025-10-03 19:27:39,950 | auth_system | DEBUG | superadmin_login:284 | Session user_id: 1
+2025-10-03 19:27:39,950 | auth_system | DEBUG | superadmin_login:285 | Session role: superadmin
+2025-10-03 19:27:39,950 | auth_system | INFO | superadmin_login:289 | Flash message set: Login successful!
+2025-10-03 19:27:39,951 | auth_system | INFO | superadmin_login:292 | Redirecting to dashboard: /superadmin/dashboard
+2025-10-03 19:27:39,952 | auth_system | INFO | superadmin_login:293 | === SUPERADMIN LOGIN POST SUCCESS END ===
+2025-10-03 19:32:17,921 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 19:32:17,933 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 19:32:17,933 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 19:32:17,936 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.3 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-03 19:32:17,936 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 19:32:17,937 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 19:32:17,941 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.3 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-03 19:32:17,942 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 19:32:17,942 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 19:32:17,942 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 19:32:17,943 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 19:32:18,005 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 19:32:18,009 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===
+2025-10-03 19:37:25,437 | auth_system | INFO | superadmin_login:216 | === SUPERADMIN LOGIN REQUEST START ===
+2025-10-03 19:37:25,438 | auth_system | INFO | superadmin_login:217 | Request Method: GET
+2025-10-03 19:37:25,442 | auth_system | INFO | superadmin_login:218 | Request URL: http://localhost:5051/superadmin/auth/login
+2025-10-03 19:37:25,443 | auth_system | INFO | superadmin_login:219 | User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.3 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36
+2025-10-03 19:37:25,443 | auth_system | INFO | superadmin_login:220 | Remote Address: 127.0.0.1
+2025-10-03 19:37:25,444 | auth_system | INFO | superadmin_login:221 | Content Type: None
+2025-10-03 19:37:25,444 | auth_system | INFO | superadmin_login:222 | Request Headers: {'Host': 'localhost:5051', 'Connection': 'keep-alive', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.104.3 Chrome/138.0.7204.235 Electron/37.3.1 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Storage-Access': 'active', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US'}
+2025-10-03 19:37:25,445 | auth_system | DEBUG | superadmin_login:228 | Role: superadmin
+2025-10-03 19:37:25,445 | auth_system | DEBUG | superadmin_login:229 | Dashboard URL: /superadmin/dashboard
+2025-10-03 19:37:25,445 | auth_system | INFO | superadmin_login:232 | Processing GET request - Rendering login form
+2025-10-03 19:37:25,446 | auth_system | DEBUG | superadmin_login:233 | Attempting to render auth/login.html template
+2025-10-03 19:37:25,494 | auth_system | INFO | superadmin_login:238 | Template rendered successfully
+2025-10-03 19:37:25,496 | auth_system | INFO | superadmin_login:239 | === SUPERADMIN LOGIN GET REQUEST END ===

@@ -1,0 +1,155 @@
+{% extends layout_template or "layouts/admin_layout.html" %}
+
+{% block title %}Role Management{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Role Management</h1>
+        {% if can_create %}
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-plus fa-sm text-white-50"></i> Add New Role
+        </a>
+        {% endif %}
+    </div>
+
+    <!-- Roles Table -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">System Roles</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Display Name</th>
+                            <th>Description</th>
+                            <th>Level</th>
+                            <th>System Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for role in roles %}
+                        <tr>
+                            <td>{{ role.id }}</td>
+                            <td>
+                                <span class="badge badge-info">{{ role.name }}</span>
+                            </td>
+                            <td>{{ role.display_name or role.name }}</td>
+                            <td>{{ role.description or 'No description' }}</td>
+                            <td>
+                                <span class="badge badge-{% if role.level <= 10 %}danger{% elif role.level <= 50 %}warning{% else %}success{% endif %}">
+                                    {{ role.level }}
+                                </span>
+                            </td>
+                            <td>
+                                {% if role.is_system_role %}
+                                    <span class="badge badge-secondary">System</span>
+                                {% else %}
+                                    <span class="badge badge-light">Custom</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a href="{{ url_for('admin_routes.role_view', role_id=role.id) }}" 
+                                       class="btn btn-sm btn-info" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    {% if can_edit and not role.is_system_role %}
+                                    <a href="{{ url_for('admin_routes.role_edit', role_id=role.id) }}" 
+                                       class="btn btn-sm btn-warning" title="Edit Role">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    {% endif %}
+                                    {% if can_delete and not role.is_system_role %}
+                                    <a href="#" class="btn btn-sm btn-danger" 
+                                       onclick="confirmDelete('{{ role.name }}', '{{ url_for('admin_routes.role_delete', role_id=role.id) }}')"
+                                       title="Delete Role">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center text-muted">No roles found</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Role Statistics -->
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Roles</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ roles|length }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-shield-alt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                System Roles</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{ roles|selectattr('is_system_role', 'equalto', true)|list|length }}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-cog fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Custom Roles</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{ roles|selectattr('is_system_role', 'equalto', false)|list|length }}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-plus fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function confirmDelete(roleName, deleteUrl) {
+    if (confirm('Are you sure you want to delete the role "' + roleName + '"? This action cannot be undone.')) {
+        window.location.href = deleteUrl;
+    }
+}
+</script>
+{% endblock %}

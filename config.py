@@ -28,8 +28,8 @@ class Config:
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
     JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30)
     JWT_ALGORITHM = 'HS256'
-    JWT_ISSUER = 'JobHunter-Platform'
-    JWT_AUDIENCE = 'JobHunter-Users'
+    JWT_ISSUER = 'JobMilgaya-Platform'
+    JWT_AUDIENCE = 'JobMilgaya-Users'
     
     # Security Configuration
     SECURITY_PASSWORD_SALT = os.environ.get('SECURITY_PASSWORD_SALT') or 'security-salt-2024'
@@ -40,7 +40,7 @@ class Config:
     SESSION_TYPE = 'filesystem'
     SESSION_PERMANENT = False
     SESSION_USE_SIGNER = True
-    SESSION_KEY_PREFIX = 'jobhunter:'
+    SESSION_KEY_PREFIX = 'jobmilgaya:'
     PERMANENT_SESSION_LIFETIME = timedelta(hours=24)
     
     # Rate Limiting
@@ -54,7 +54,7 @@ class Config:
     MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', 'true').lower() in ['true', 'on', '1']
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    MAIL_DEFAULT_SENDER = os.environ.get('MAIL_DEFAULT_SENDER') or 'noreply@jobhunter.com'
+    MAIL_DEFAULT_SENDER = os.environ.get('MAIL_DEFAULT_SENDER') or 'noreply@jobmilgaya.com'
     
     # Upload Configuration
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size

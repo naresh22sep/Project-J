@@ -1,6 +1,6 @@
-{% extends "layouts/admin_layout.html" %}
+{% extends layout_template or "layouts/admin_layout.html" %}
 
-{% block title %}Admin Dashboard - JobHunter Platform{% endblock %}
+{% block title %}Admin Dashboard - JobMilgaya Platform{% endblock %}
 
 {% block breadcrumb %}
 <!-- Dashboard is the home page, no additional breadcrumb needed -->
@@ -8,238 +8,202 @@
 
 {% block content %}
 <!-- Dashboard Header -->
-<div class="dashboard-header">
+<div class="dashboard-header mb-4">
     <div class="row">
-        <div class="col-sm-6">
-            <h1 class="h3 mb-0">Dashboard</h1>
-            <p class="text-muted">Welcome back, {{ current_user.first_name }}! Here's what's happening today.</p>
+        <div class="col-sm-8">
+            <h1 class="h3 mb-2">Admin Dashboard</h1>
+            <p class="text-muted">Welcome back, {{ admin_user.first_name if admin_user else session.get('username', 'Admin') }}! Review your access permissions below.</p>
         </div>
-        <div class="col-sm-6 text-sm-end">
-            <div class="dropdown">
-                <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                    Last {{ days }} days
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="?days=7">Last 7 days</a></li>
-                    <li><a class="dropdown-item" href="?days=30">Last 30 days</a></li>
-                    <li><a class="dropdown-item" href="?days=90">Last 90 days</a></li>
-                </ul>
+        <div class="col-sm-4 text-sm-end">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="badge bg-primary me-2">
+                    <i class="fas fa-user-shield me-1"></i>
+                    Administrator
+                </div>
+                <small class="text-muted">{{ admin_user.email if admin_user else 'admin@jobmilgaya.com' }}</small>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Statistics Cards -->
+<!-- Quick Stats -->
 <div class="row mb-4">
     <div class="col-md-3">
-        <div class="card dashboard-card" data-url="{{ url_for('admin.users') }}">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="dashboard-card-icon bg-primary">
-                        <i class="fas fa-users text-white"></i>
-                    </div>
-                    <div class="ms-3">
-                        <h4 class="card-value" id="total-users">{{ total_users }}</h4>
-                        <p class="card-title text-muted mb-0">Total Users</p>
-                        <small class="text-success">+{{ new_users_today }} today</small>
-                    </div>
+        <div class="card border-0 shadow-sm">
+            <div class="card-body text-center">
+                <div class="display-6 text-primary mb-2">
+                    <i class="fas fa-key"></i>
                 </div>
+                <h4 class="card-value">{{ user_permissions|length if user_permissions else 0 }}</h4>
+                <p class="card-title text-muted mb-0">Total Permissions</p>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card dashboard-card" data-url="{{ url_for('admin.jobs') }}">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="dashboard-card-icon bg-success">
-                        <i class="fas fa-briefcase text-white"></i>
-                    </div>
-                    <div class="ms-3">
-                        <h4 class="card-value" id="total-jobs">{{ total_jobs }}</h4>
-                        <p class="card-title text-muted mb-0">Total Jobs</p>
-                        <small class="text-info">{{ active_jobs }} active</small>
-                    </div>
+        <div class="card border-0 shadow-sm">
+            <div class="card-body text-center">
+                <div class="display-6 text-success mb-2">
+                    <i class="fas fa-check-circle"></i>
                 </div>
+                <h4 class="card-value">{{ admin_menu|selectattr('has_permission', 'equalto', true)|list|length if admin_menu else 0 }}</h4>
+                <p class="card-title text-muted mb-0">Accessible Modules</p>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card dashboard-card" data-url="{{ url_for('admin.applications') }}">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="dashboard-card-icon bg-warning">
-                        <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                    <div class="ms-3">
-                        <h4 class="card-value" id="total-applications">{{ total_applications }}</h4>
-                        <p class="card-title text-muted mb-0">Applications</p>
-                        <small class="text-warning">{{ pending_applications }} pending</small>
-                    </div>
+        <div class="card border-0 shadow-sm">
+            <div class="card-body text-center">
+                <div class="display-6 text-warning mb-2">
+                    <i class="fas fa-lock"></i>
                 </div>
+                <h4 class="card-value">{{ admin_menu|selectattr('has_permission', 'equalto', false)|list|length if admin_menu else 0 }}</h4>
+                <p class="card-title text-muted mb-0">Restricted Modules</p>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card dashboard-card">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="dashboard-card-icon bg-info">
-                        <i class="fas fa-chart-line text-white"></i>
-                    </div>
-                    <div class="ms-3">
-                        <h4 class="card-value">{{ accepted_applications }}</h4>
-                        <p class="card-title text-muted mb-0">Successful Hires</p>
-                        <small class="text-success">+{{ applications_today }} today</small>
-                    </div>
+        <div class="card border-0 shadow-sm">
+            <div class="card-body text-center">
+                <div class="display-6 text-info mb-2">
+                    <i class="fas fa-shield-alt"></i>
                 </div>
+                <h4 class="card-value">{{ admin_user.get_roles()|length if admin_user else 1 }}</h4>
+                <p class="card-title text-muted mb-0">Active Roles</p>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Charts Row -->
-<div class="row mb-4">
-    <div class="col-lg-8">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">User Registration Trend</h5>
-            </div>
-            <div class="card-body">
-                <canvas id="userRegistrationChart" height="120"></canvas>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Top Job Categories</h5>
-            </div>
-            <div class="card-body">
-                {% if top_categories %}
-                    {% for category in top_categories %}
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span>{{ category.category or 'Uncategorized' }}</span>
-                        <div class="d-flex align-items-center">
-                            <div class="progress me-2" style="width: 100px; height: 8px;">
-                                <div class="progress-bar bg-primary" 
-                                     style="width: {{ (category.job_count / top_categories[0].job_count * 100) if top_categories else 0 }}%"></div>
-                            </div>
-                            <span class="text-muted">{{ category.job_count }}</span>
-                        </div>
-                    </div>
-                    {% endfor %}
-                {% else %}
-                    <p class="text-muted">No data available</p>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Data Tables Row -->
+<!-- Permissions Overview -->
 <div class="row">
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Recent Users</h5>
-                <a href="{{ url_for('admin.users') }}" class="btn btn-sm btn-outline-primary">View All</a>
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-light">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-list-check me-2"></i>
+                    Your Permissions
+                </h5>
+                <small class="text-muted">List of all permissions granted to your admin account</small>
             </div>
             <div class="card-body">
-                {% if recent_users %}
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>User</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
-                                    <th>Joined</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for user in recent_users %}
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-sm me-2">
-                                                {{ user.first_name[0] if user.first_name else 'U' }}
-                                            </div>
-                                            <div>
-                                                <div class="fw-bold">{{ user.first_name }} {{ user.last_name }}</div>
-                                                <div class="text-muted small">{{ user.email }}</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        {% set primary_role = user.get_roles()[0] if user.get_roles() else None %}
-                                        {% if primary_role %}
-                                            <span class="badge 
-                                                {% if primary_role.name == 'jobseeker' %}bg-info
-                                                {% elif primary_role.name == 'consultancy' %}bg-success
-                                                {% else %}bg-primary{% endif %}">
-                                                {{ primary_role.name.replace('_', ' ').title() }}
-                                            </span>
-                                        {% else %}
-                                            <span class="badge bg-secondary">No Role</span>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        <span class="badge {% if user.is_active %}bg-success{% else %}bg-danger{% endif %}">
-                                            {% if user.is_active %}Active{% else %}Inactive{% endif %}
-                                        </span>
-                                    </td>
-                                    <td>{{ user.created_at.strftime('%Y-%m-%d') if user.created_at else 'N/A' }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                {% if user_permissions %}
+                    <div class="row">
+                        {% for permission in user_permissions %}
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center p-3 border rounded">
+                                <div class="flex-shrink-0 me-3">
+                                    {% if 'read' in permission.lower() or 'list' in permission.lower() %}
+                                        <i class="fas fa-eye text-info"></i>
+                                    {% elif 'create' in permission.lower() or 'add' in permission.lower() %}
+                                        <i class="fas fa-plus text-success"></i>
+                                    {% elif 'update' in permission.lower() or 'edit' in permission.lower() %}
+                                        <i class="fas fa-edit text-warning"></i>
+                                    {% elif 'delete' in permission.lower() or 'remove' in permission.lower() %}
+                                        <i class="fas fa-trash text-danger"></i>
+                                    {% else %}
+                                        <i class="fas fa-key text-primary"></i>
+                                    {% endif %}
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">{{ permission.replace('_', ' ').replace('.', ' ').title() }}</h6>
+                                    <small class="text-muted">{{ permission }}</small>
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <span class="badge bg-success">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
                 {% else %}
-                    <p class="text-muted text-center py-3">No recent users</p>
+                    <div class="text-center py-4">
+                        <i class="fas fa-exclamation-triangle text-warning display-4 mb-3"></i>
+                        <h5>No Permissions Found</h5>
+                        <p class="text-muted">Contact your system administrator to assign permissions to your account.</p>
+                    </div>
                 {% endif %}
             </div>
         </div>
     </div>
 
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Recent Jobs</h5>
-                <a href="{{ url_for('admin.jobs') }}" class="btn btn-sm btn-outline-primary">View All</a>
+    <div class="col-lg-4">
+        <!-- Module Access Status -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-light">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-sitemap me-2"></i>
+                    Module Access
+                </h5>
             </div>
             <div class="card-body">
-                {% if recent_jobs %}
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Job Title</th>
-                                    <th>Company</th>
-                                    <th>Status</th>
-                                    <th>Posted</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for job in recent_jobs %}
-                                <tr>
-                                    <td>
-                                        <div class="fw-bold">{{ job.title }}</div>
-                                        <div class="text-muted small">{{ job.location }}</div>
-                                    </td>
-                                    <td>{{ job.company_name }}</td>
-                                    <td>
-                                        <span class="badge {% if job.is_active %}bg-success{% else %}bg-danger{% endif %}">
-                                            {% if job.is_active %}Active{% else %}Inactive{% endif %}
-                                        </span>
-                                    </td>
-                                    <td>{{ job.created_at.strftime('%Y-%m-%d') if job.created_at else 'N/A' }}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                {% if admin_menu %}
+                    {% for menu_item in admin_menu %}
+                        {% if not menu_item.get('dropdown') %}
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <i class="{{ menu_item.icon }} me-2"></i>
+                                <span>{{ menu_item.label }}</span>
+                            </div>
+                            <div>
+                                {% if menu_item.has_permission %}
+                                    <span class="badge bg-success">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-danger">
+                                        <i class="fas fa-times"></i>
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- User Information -->
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-light">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-user-circle me-2"></i>
+                    Account Information
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if admin_user %}
+                <div class="mb-3">
+                    <label class="form-label text-muted">Full Name</label>
+                    <div>{{ admin_user.first_name }} {{ admin_user.last_name }}</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-muted">Email</label>
+                    <div>{{ admin_user.email }}</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-muted">Role</label>
+                    <div>
+                        {% for role in admin_user.get_roles() %}
+                            <span class="badge bg-primary me-1">{{ role.name.title() }}</span>
+                        {% endfor %}
                     </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-muted">Account Status</label>
+                    <div>
+                        <span class="badge {% if admin_user.is_active %}bg-success{% else %}bg-danger{% endif %}">
+                            {% if admin_user.is_active %}Active{% else %}Inactive{% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="mb-0">
+                    <label class="form-label text-muted">Last Login</label>
+                    <div>{{ admin_user.last_login.strftime('%Y-%m-%d %H:%M') if admin_user.last_login else 'Never' }}</div>
+                </div>
                 {% else %}
-                    <p class="text-muted text-center py-3">No recent jobs</p>
+                <p class="text-muted">User information not available</p>
                 {% endif %}
             </div>
         </div>
@@ -250,64 +214,38 @@
 {% block extra_js %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize user registration chart
-    const ctx = document.getElementById('userRegistrationChart').getContext('2d');
-    
-    const userTrendData = {{ user_trend | tojson | safe }};
-    
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: userTrendData.map(item => {
-                const date = new Date(item.date);
-                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-            }),
-            datasets: [{
-                label: 'New Users',
-                data: userTrendData.map(item => item.count),
-                borderColor: '#007bff',
-                backgroundColor: 'rgba(0, 123, 255, 0.1)',
-                borderWidth: 2,
-                fill: true,
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        display: true,
-                        color: 'rgba(0,0,0,0.05)'
-                    }
-                },
-                x: {
-                    grid: {
-                        display: false
-                    }
-                }
-            }
-        }
+    // Add animation to permission cards
+    const permissionCards = document.querySelectorAll('.border.rounded');
+    permissionCards.forEach((card, index) => {
+        setTimeout(() => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.3s ease';
+            
+            requestAnimationFrame(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            });
+        }, index * 100);
     });
     
-    // Auto-refresh dashboard data every 5 minutes
-    setInterval(function() {
-        fetch('/admin/api/dashboard-stats')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('total-users').textContent = data.total_users;
-                document.getElementById('total-jobs').textContent = data.total_jobs;
-                document.getElementById('total-applications').textContent = data.total_applications;
-            })
-            .catch(error => console.error('Error refreshing dashboard:', error));
-    }, 300000); // 5 minutes
+    // Animate stats cards
+    const statCards = document.querySelectorAll('.card-value');
+    statCards.forEach(card => {
+        const finalValue = parseInt(card.textContent);
+        let currentValue = 0;
+        const increment = finalValue / 20;
+        
+        const timer = setInterval(() => {
+            currentValue += increment;
+            if (currentValue >= finalValue) {
+                card.textContent = finalValue;
+                clearInterval(timer);
+            } else {
+                card.textContent = Math.floor(currentValue);
+            }
+        }, 50);
+    });
 });
 </script>
 {% endblock %}

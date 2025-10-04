@@ -441,16 +441,14 @@ def edit_role(role_id):
     """Edit role details"""
     role = Role.query.get_or_404(role_id)
     
-    # Prevent editing system roles
-    if role.is_system_role:
-        flash('System roles cannot be edited', 'error')
-        return redirect(url_for('superadmin.roles'))
+    # Warn about editing system roles (but don't prevent it)
+    if role.is_system_role and request.method == 'GET':
+        flash(f'Warning: You are editing a system role "{role.display_name}". Please be extremely careful as changes affect core system functionality.', 'warning')
     
-    # Prevent editing roles with active users
+    # Warn about editing roles with active users (but don't prevent it)
     user_count = role.get_users_count()
-    if user_count > 0:
-        flash(f'Cannot edit role "{role.display_name}" - it has {user_count} active users assigned. Remove users first.', 'error')
-        return redirect(url_for('superadmin.roles'))
+    if user_count > 0 and request.method == 'GET':
+        flash(f'Warning: Role "{role.display_name}" has {user_count} active users assigned. Changes will affect all these users immediately.', 'warning')
     
     if request.method == 'POST':
         try:
@@ -493,7 +491,8 @@ def edit_role(role_id):
             flash(f'Error updating role: {str(e)}', 'error')
     
     permissions = Permission.query.all()
-    return render_template('superadmin/edit_role.html', role=role, permissions=permissions)
+    user_count = role.get_users_count()
+    return render_template('superadmin/edit_role.html', role=role, permissions=permissions, user_count=user_count)
 
 @superadmin_bp.route('/roles/<int:role_id>/delete', methods=['DELETE'])
 # @csrf_protect  # Temporarily disabled for testing

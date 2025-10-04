@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Dashboard{% endblock %} - JobMilgaya</title>
+    
+    <!-- Bootstrap 5.3.0 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome 6.0.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Admin Child CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_layout/css/admin_child.css') }}">
+    
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Professional Sidebar -->
+        <nav class="sidebar d-flex flex-column p-0" style="width: 280px; height: 100vh;">
+            <!-- Sidebar Brand -->
+            <div class="sidebar-brand text-center">
+                <h4 class="mb-0">
+                    <i class="fas fa-user-shield me-2"></i>
+                    Administrator
+                </h4>
+            </div>
+            
+            <!-- Sidebar Navigation -->
+            <div class="sidebar-nav flex-grow-1">
+                <ul class="nav nav-pills flex-column">
+                    {% if admin_menu %}
+                        {% for menu_item in admin_menu %}
+                            {% if menu_item.get('dropdown') %}
+                                <!-- Dropdown Menu Item -->
+                                <li class="nav-item">
+                                    <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#{{ menu_item.dropdown_id }}" aria-expanded="false">
+                                        <i class="{{ menu_item.icon }}"></i>
+                                        <span>{{ menu_item.label }}</span>
+                                        <i class="fas fa-chevron-down ms-auto"></i>
+                                    </a>
+                                    <div class="collapse" id="{{ menu_item.dropdown_id }}">
+                                        <ul class="nav nav-pills flex-column ms-3">
+                                            {% for submenu_item in menu_item.submenu %}
+                                                <li class="nav-item">
+                                                    {% if submenu_item.has_permission %}
+                                                        <a href="{{ url_for(submenu_item.route) }}" 
+                                                           class="sidebar-link {% if request.endpoint == submenu_item.route %}active{% endif %}">
+                                                            <i class="{{ submenu_item.icon }}"></i>
+                                                            <span>{{ submenu_item.label }}</span>
+                                                        </a>
+                                                    {% else %}
+                                                        <a href="#" class="sidebar-link disabled" 
+                                                           title="{{ submenu_item.disabled_reason }}"
+                                                           onclick="showPermissionAlert('{{ submenu_item.disabled_reason }}'); return false;">
+                                                            <i class="{{ submenu_item.icon }}"></i>
+                                                            <span>{{ submenu_item.label }}</span>
+                                                            <i class="fas fa-lock ms-auto text-warning"></i>
+                                                        </a>
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <!-- Regular Menu Item -->
+                                <li class="nav-item">
+                                    {% if menu_item.has_permission %}
+                                        <a href="{{ url_for(menu_item.route) }}" 
+                                           class="sidebar-link {% if request.endpoint == menu_item.route %}active{% endif %}">
+                                            <i class="{{ menu_item.icon }}"></i>
+                                            <span>{{ menu_item.label }}</span>
+                                        </a>
+                                    {% else %}
+                                        <a href="#" class="sidebar-link disabled" 
+                                           title="{{ menu_item.disabled_reason }}"
+                                           onclick="showPermissionAlert('{{ menu_item.disabled_reason }}'); return false;">
+                                            <i class="{{ menu_item.icon }}"></i>
+                                            <span>{{ menu_item.label }}</span>
+                                            <i class="fas fa-lock ms-auto text-warning"></i>
+                                        </a>
+                                    {% endif %}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <!-- Fallback menu -->
+                        <li class="nav-item">
+                            <a href="{{ url_for('admin_routes.dashboard') }}" 
+                               class="sidebar-link {% if request.endpoint == 'admin_routes.dashboard' %}active{% endif %}">
+                                <i class="fas fa-chart-pie"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+            
+            <!-- Sidebar Footer -->
+            <div class="p-3 border-top border-light border-opacity-25">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0">
+                        <div class="rounded-circle bg-light bg-opacity-25 d-flex align-items-center justify-content-center" 
+                             style="width: 40px; height: 40px;">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h6 class="mb-0 text-white fw-bold">{{ session.get('username', 'Admin') }}</h6>
+                        <small class="text-white-50">Administrator</small>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content flex-grow-1">
+            <!-- Glass Header -->
+            <header class="header d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="mb-0 fw-bold" style="color: #1f2937;">{% block page_title %}Dashboard{% endblock %}</h5>
+                    <small class="text-muted">Welcome back, {{ session.get('username', 'Admin') }}!</small>
+                </div>
+                
+                <div class="d-flex align-items-center">
+                    <!-- Notifications -->
+                    <div class="dropdown me-3">
+                        <button class="btn btn-outline-secondary rounded-circle position-relative" 
+                                data-bs-toggle="dropdown" style="width: 45px; height: 45px;">
+                            <i class="fas fa-bell"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                                3
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow">
+                            <li><h6 class="dropdown-header">Notifications</h6></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-2 text-primary"></i>New update available</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-users me-2 text-success"></i>5 new users registered</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-chart-line me-2 text-info"></i>Monthly report ready</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- User Menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-2"></i>
+                            {{ session.get('username', 'Admin') }}
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="{{ url_for('auth.logout') }}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="dashboard-container">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                                {% if category == 'success' %}
+                                    <i class="fas fa-check-circle me-2"></i>
+                                {% elif category == 'error' %}
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                {% elif category == 'warning' %}
+                                    <i class="fas fa-exclamation-circle me-2"></i>
+                                {% else %}
+                                    <i class="fas fa-info-circle me-2"></i>
+                                {% endif %}
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                {% block content %}
+                <!-- Welcome Section -->
+                <div class="welcome-section">
+                    <h1>Welcome to Your Dashboard</h1>
+                    <p>Manage your administrative tasks with this beautiful, modern interface designed for efficiency and elegance.</p>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-number">{{ stats.total_users if stats else '0' }}</div>
+                        <div class="stat-label">Total Users</div>
+                        <div class="stat-change">+12% from last month</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="card-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="stat-number">{{ stats.total_jobs if stats else '0' }}</div>
+                        <div class="stat-label">Active Jobs</div>
+                        <div class="stat-change">+8% from last month</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-number">{{ stats.active_subscriptions if stats else '0' }}</div>
+                        <div class="stat-label">Subscriptions</div>
+                        <div class="stat-change">+15% from last month</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="card-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="stat-number">{{ stats.security_events_today if stats else '0' }}</div>
+                        <div class="stat-label">Security Events</div>
+                        <div class="stat-change">-5% from yesterday</div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <div class="action-card">
+                        <div class="icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h5>Manage Users</h5>
+                        <p>View and manage user accounts</p>
+                    </div>
+                    
+                    <div class="action-card">
+                        <div class="icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h5>View Reports</h5>
+                        <p>Access detailed analytics</p>
+                    </div>
+                    
+                    <div class="action-card">
+                        <div class="icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <h5>Settings</h5>
+                        <p>Configure system preferences</p>
+                    </div>
+                    
+                    <div class="action-card">
+                        <div class="icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h5>Notifications</h5>
+                        <p>Manage system alerts</p>
+                    </div>
+                </div>
+                {% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    {% block scripts %}{% endblock %}
+    
+    <!-- Initialize tooltips and other Bootstrap components -->
+    <script>
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+        
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.stat-card, .action-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // Animate numbers on page load
+            const numbers = document.querySelectorAll('.stat-number');
+            numbers.forEach(number => {
+                const finalNumber = parseInt(number.textContent) || 0;
+                let currentNumber = 0;
+                const increment = finalNumber / 30;
+                
+                const timer = setInterval(() => {
+                    currentNumber += increment;
+                    if (currentNumber >= finalNumber) {
+                        number.textContent = finalNumber;
+                        clearInterval(timer);
+                    } else {
+                        number.textContent = Math.floor(currentNumber);
+                    }
+                }, 50);
+            });
+        });
+        
+        // Function to show permission alert
+        function showPermissionAlert(message) {
+            // Remove existing alerts
+            const existingAlerts = document.querySelectorAll('.permission-alert');
+            existingAlerts.forEach(alert => alert.remove());
+            
+            // Create new alert
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-warning alert-dismissible fade show permission-alert';
+            alertDiv.innerHTML = `
+                <strong><i class="fas fa-exclamation-triangle me-2"></i>Access Restricted</strong><br>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            
+            // Add to body
+            document.body.appendChild(alertDiv);
+            
+            // Auto-dismiss after 5 seconds
+            setTimeout(() => {
+                if (alertDiv && alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

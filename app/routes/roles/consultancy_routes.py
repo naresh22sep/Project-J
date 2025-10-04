@@ -285,7 +285,7 @@ def analytics():
                 'slowest': 35
             },
             'source_performance': [
-                {'source': 'JobHunter', 'applications': 78, 'hires': 5},
+                {'source': 'JobMilgaya', 'applications': 78, 'hires': 5},
                 {'source': 'LinkedIn', 'applications': 45, 'hires': 2},
                 {'source': 'Direct', 'applications': 33, 'hires': 1}
             ],

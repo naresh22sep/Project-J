@@ -36,6 +36,44 @@
         <form method="POST" id="editRoleForm">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
             
+            <!-- User Impact Warning (if users are assigned to this role) -->
+            {% if user_count > 0 %}
+            <div class="card border-warning mb-3">
+                <div class="card-header bg-warning text-dark">
+                    <h6 class="card-title mb-0">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Impact Warning
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="mb-2">
+                        <strong>{{ user_count }}</strong> user{{ 's' if user_count != 1 else '' }} currently assigned to this role.
+                    </p>
+                    <p class="mb-0 small text-muted">
+                        Changes to permissions will immediately affect all assigned users. Consider the impact before making modifications.
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- System Role Warning (if this is a system role) -->
+            {% if role.is_system_role %}
+            <div class="card border-danger mb-3">
+                <div class="card-header bg-danger text-white">
+                    <h6 class="card-title mb-0">
+                        <i class="fas fa-shield-alt me-2"></i>System Role Warning
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="mb-2">
+                        <strong>⚠️ CRITICAL:</strong> You are editing a system role that affects core application functionality.
+                    </p>
+                    <p class="mb-0 small text-muted">
+                        Changes to system roles can break application security or functionality. Only modify if you understand the full impact.
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+            
             <!-- Basic Information Card -->
             <div class="card">
                 <div class="card-header">

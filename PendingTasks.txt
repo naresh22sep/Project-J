@@ -1,11 +1,9 @@
-http://localhost:5051/superadmin/subscription-plans?view=features
+1)admin/ role logout redirecting to superadmin LOGGING
+2) for admin role keep dashboard link as IS
+3) Show all menus (permissions ) like superadmin style
+ but restrict the operation once it is selected 
+4) clear dashboard provide list permission it has in proper 
+ display 
+ 5) The applicaiton name is JobMilgaya not jobhunter remove referenceces and use the new name 
 
- plan features are not showing the proper data 
- limits need to modify should align to portnal
- current subscription dummy data added for superadmin.
-
-
- add job portal issue 
-
-
- why 2 template folders ???
+ 

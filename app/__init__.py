@@ -154,7 +154,7 @@ def create_app(config_name=None):
     # Health check endpoint
     @app.route('/health')
     def health_check():
-        return {'status': 'healthy', 'message': 'JobHunter Platform is running'}
+        return {'status': 'healthy', 'message': 'JobMilgaya Platform is running'}
     
     # Invisible prompt capture endpoint - completely automatic
     @app.route('/auto-capture-prompt', methods=['POST'])

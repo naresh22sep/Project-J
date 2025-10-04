@@ -127,13 +127,13 @@ def register_blueprints(app):
     except ImportError:
         print("Note: SuperAdmin routes not found, using auth routes only")
     
-    # Admin routes (if they exist)
-    try:
-        from app.modules.admin.routes import admin
-        app.register_blueprint(admin, url_prefix='/admin')
-        print("✅ Admin blueprint registered successfully")
-    except ImportError:
-        print("Note: Admin routes not found")
+    # Admin routes (if they exist) - DISABLED to prevent conflict with new role-based admin
+    # try:
+    #     from app.modules.admin.routes import admin
+    #     app.register_blueprint(admin, url_prefix='/admin')
+    #     print("✅ Admin blueprint registered successfully")
+    # except ImportError:
+    #     print("Note: Admin routes not found")
     
     # Register modular role-based routes (new approach)
     try:
@@ -153,7 +153,7 @@ def register_blueprints(app):
     def health():
         return {
             'status': 'healthy',
-            'service': 'JobHunter Authentication System',
+            'service': 'JobMilgaya Authentication System',
             'version': '1.0.0'
         }
     
@@ -333,7 +333,7 @@ def initialize_database():
         if not superadmin:
             superadmin = AuthUser(
                 username='superadmin',
-                email='admin@jobhunter.com',
+                email='admin@jobmilgaya.com',
                 first_name='Super',
                 last_name='Admin',
                 is_active=True
@@ -387,7 +387,7 @@ def configure_logging(app):
         app.logger.addHandler(file_handler)
         
         app.logger.setLevel(logging.INFO)
-        app.logger.info('JobHunter Authentication System startup')
+        app.logger.info('JobMilgaya Authentication System startup')
 
 def register_error_handlers(app):
     """Register error handlers"""
@@ -440,7 +440,7 @@ def register_error_handlers(app):
 app = create_app()
 
 if __name__ == '__main__':
-    print("🚀 Starting JobHunter Authentication System...")
+    print("🚀 Starting JobMilgaya Authentication System...")
     print("=" * 50)
     print("🔐 Features enabled:")
     print("  • JWT Authentication with exp/iss/aud")

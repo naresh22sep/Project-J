@@ -1,0 +1,200 @@
+{% extends layout_template or "layouts/admin_layout.html" %}
+
+{% block title %}Role Details - {{ role.name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Role Details</h1>
+        <div>
+            <a href="{{ url_for('admin_routes.roles') }}" class="btn btn-secondary btn-sm">
+                <i class="fas fa-arrow-left"></i> Back to Roles
+            </a>
+            {% if can_edit and not role.is_system_role %}
+            <a href="{{ url_for('admin_routes.role_edit', role_id=role.id) }}" class="btn btn-primary btn-sm">
+                <i class="fas fa-edit"></i> Edit Role
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Role Basic Info -->
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Role Information</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Role Name</label>
+                                <p class="form-control-plaintext">{{ role.name }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Display Name</label>
+                                <p class="form-control-plaintext">{{ role.display_name or role.name }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Description</label>
+                                <p class="form-control-plaintext">{{ role.description or 'No description provided' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">System Role</label>
+                                <p class="form-control-plaintext">
+                                    {% if role.is_system_role %}
+                                        <span class="badge badge-warning">System Role</span>
+                                        <small class="text-muted d-block">Cannot be modified or deleted</small>
+                                    {% else %}
+                                        <span class="badge badge-success">Custom Role</span>
+                                        <small class="text-muted d-block">Can be modified</small>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Status</label>
+                                <p class="form-control-plaintext">
+                                    {% if role.is_active %}
+                                        <span class="badge badge-success">Active</span>
+                                    {% else %}
+                                        <span class="badge badge-danger">Inactive</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Created At</label>
+                                <p class="form-control-plaintext">
+                                    {% if role.created_at %}
+                                        {{ role.created_at.strftime('%Y-%m-%d %H:%M:%S') }}
+                                    {% else %}
+                                        System Role
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Updated At</label>
+                                <p class="form-control-plaintext">
+                                    {% if role.updated_at %}
+                                        {{ role.updated_at.strftime('%Y-%m-%d %H:%M:%S') }}
+                                    {% else %}
+                                        Never
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Role Permissions & Users -->
+        <div class="col-xl-4 col-lg-5">
+            <!-- Permissions Card -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Role Permissions</h6>
+                </div>
+                <div class="card-body">
+                    {% if role_permissions %}
+                        <div class="small">
+                            {% for permission in role_permissions %}
+                            <div class="mb-2">
+                                <span class="badge badge-{% if permission.name.startswith('admin') %}danger{% elif permission.name.startswith('user') %}info{% elif permission.name.startswith('job') %}success{% else %}secondary{% endif %}">
+                                    {{ permission.name }}
+                                </span>
+                                <small class="text-muted d-block">{{ permission.description or permission.display_name }}</small>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No permissions assigned to this role</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Role Statistics -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Role Statistics</h6>
+                </div>
+                <div class="card-body">
+                    <div class="mb-2">
+                        <label class="form-label text-muted small">Total Permissions</label>
+                        <p class="mb-1">{{ role_permissions|length if role_permissions else 0 }}</p>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label text-muted small">Users with this Role</label>
+                        <p class="mb-1">
+                            {% set user_count = role.users.count() if role.users else 0 %}
+                            {{ user_count }}
+                            {% if user_count > 0 %}
+                                <small class="text-success">(Active)</small>
+                            {% else %}
+                                <small class="text-muted">(Unused)</small>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Quick Actions</h6>
+                </div>
+                <div class="card-body">
+                    {% if not role.is_system_role %}
+                        {% if can_edit %}
+                        <a href="{{ url_for('admin_routes.role_edit', role_id=role.id) }}" class="btn btn-warning btn-sm btn-block mb-2">
+                            <i class="fas fa-edit"></i> Edit Role
+                        </a>
+                        {% endif %}
+                        <button type="button" class="btn btn-info btn-sm btn-block mb-2" onclick="viewUsers({{ role.id }})">
+                            <i class="fas fa-users"></i> View Users
+                        </button>
+                        <button type="button" class="btn btn-secondary btn-sm btn-block mb-2" onclick="managePermissions({{ role.id }})">
+                            <i class="fas fa-key"></i> Manage Permissions
+                        </button>
+                    {% else %}
+                        <div class="alert alert-warning small" role="alert">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            System roles cannot be modified for security reasons.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function viewUsers(roleId) {
+    // Navigate to users page with role filter
+    window.location.href = "{{ url_for('admin_routes.users') }}?role=" + roleId;
+}
+
+function managePermissions(roleId) {
+    // Navigate to permissions page
+    window.location.href = "{{ url_for('admin_routes.permissions') }}";
+}
+</script>
+{% endblock %}

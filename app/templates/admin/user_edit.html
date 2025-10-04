@@ -1,0 +1,172 @@
+{% extends layout_template or "layouts/admin_layout.html" %}
+
+{% block title %}Edit User - {{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Edit User</h1>
+        <div>
+            <a href="{{ url_for('admin_routes.user_view', user_id=user.id) }}" class="btn btn-secondary btn-sm">
+                <i class="fas fa-arrow-left"></i> Back to User
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-8 col-lg-10">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">User Information</h6>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="username" name="username" 
+                                           value="{{ user.username }}" readonly>
+                                    <small class="form-text text-muted">Username cannot be changed</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" name="email" 
+                                           value="{{ user.email }}" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="first_name" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="first_name" name="first_name" 
+                                           value="{{ user.first_name or '' }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="last_name" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="last_name" name="last_name" 
+                                           value="{{ user.last_name or '' }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone" 
+                                           value="{{ user.phone or '' }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Account Status</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="is_active" name="is_active" 
+                                               {% if user.is_active %}checked{% endif %}>
+                                        <label class="form-check-label" for="is_active">
+                                            Account is active
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Current Roles Display -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label class="form-label">Current Roles</label>
+                                    <div>
+                                        {% if user_roles %}
+                                            {% for role in user_roles %}
+                                            <span class="badge badge-{% if role.name == 'superadmin' %}danger{% elif role.name == 'admin' %}warning{% elif role.name == 'consultancy' %}info{% else %}success{% endif %} mr-1">
+                                                {{ role.display_name or role.name }}
+                                            </span>
+                                            {% endfor %}
+                                        {% else %}
+                                            <span class="text-muted">No roles assigned</span>
+                                        {% endif %}
+                                    </div>
+                                    <small class="form-text text-muted">
+                                        Role management is handled separately by administrators.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Account Information (Read-only) -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Email Verified</label>
+                                    <p class="form-control-plaintext">
+                                        {% if user.email_verified %}
+                                            <span class="badge badge-success">Verified</span>
+                                        {% else %}
+                                            <span class="badge badge-warning">Not Verified</span>
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Last Login</label>
+                                    <p class="form-control-plaintext">
+                                        {% if user.last_login %}
+                                            {{ user.last_login.strftime('%Y-%m-%d %H:%M:%S') }}
+                                        {% else %}
+                                            Never
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Update User
+                                    </button>
+                                    <a href="{{ url_for('admin_routes.user_view', user_id=user.id) }}" class="btn btn-secondary">
+                                        Cancel
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Card -->
+        <div class="col-xl-4 col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Help</h6>
+                </div>
+                <div class="card-body">
+                    <p class="small text-muted">
+                        <strong>Note:</strong> Some fields like username cannot be changed for security reasons.
+                    </p>
+                    <p class="small text-muted">
+                        Role assignments and permissions are managed separately by system administrators.
+                    </p>
+                    <p class="small text-muted">
+                        Deactivating a user will prevent them from logging in but preserve their data.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

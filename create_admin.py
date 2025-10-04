@@ -35,7 +35,7 @@ def create_admin_user():
             print("Creating admin user...")
             admin_user = AuthUser(
                 username='admin',
-                email='admin@jobhunter.com',
+                email='admin@jobmilgaya.com',
                 first_name='System',
                 last_name='Administrator',
                 is_active=True

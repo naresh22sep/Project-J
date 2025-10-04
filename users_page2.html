@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="uoAF63CHfhFsU_NvwOIYEfDcUI52lho21JDQPkV2fSU">
+    <title>User Management - Admin Panel</title>
+    
+    <!-- DEBUG: Template file path - app/templates/layouts/admin_layout.html -->
+    <style>
+        .template-debug-info {
+            position: fixed;
+            top: 0;
+            right: 0;
+            background: #dc3545;
+            color: white;
+            padding: 2px 8px;
+            font-size: 10px;
+            z-index: 9999;
+            border-bottom-left-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom Admin CSS -->
+    <link href="/static/admin_layout/css/admin.css" rel="stylesheet">
+    <link href="/static/admin_layout/css/dashboard.css" rel="stylesheet">
+    
+</head>
+<body class="admin-body">
+    <!-- Template Debug Info -->
+    <div class="template-debug-info">
+        📁 app/templates/layouts/admin_layout.html
+    </div>
+    
+    <!-- Sidebar -->
+    <nav class="sidebar bg-dark" id="sidebar">
+        <div class="sidebar-header p-3">
+            <h4 class="text-white">
+                <i class="fas fa-cogs me-2"></i>Admin Panel
+            </h4>
+        </div>
+        
+        <ul class="list-unstyled components">
+            
+            <li>
+                <a href="/admin/dashboard" class="sidebar-link">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+            </li>
+            
+            
+            
+            <!-- Dynamic Admin Menu based on permissions -->
+            
+            
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content" id="content">
+        <!-- Top Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container-fluid">
+                <button class="btn btn-outline-dark" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div class="navbar-nav ms-auto">
+                    <!-- Notifications -->
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle position-relative" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge badge-notification bg-danger">3</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end notifications-dropdown">
+                            <div class="dropdown-header">Notifications</div>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">
+                                <div class="notification-item">
+                                    <i class="fas fa-user-plus text-primary me-2"></i>
+                                    <span>New user registered</span>
+                                    <small class="text-muted d-block">5 minutes ago</small>
+                                </div>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <div class="notification-item">
+                                    <i class="fas fa-briefcase text-success me-2"></i>
+                                    <span>New job posted</span>
+                                    <small class="text-muted d-block">1 hour ago</small>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-center" href="#">View all notifications</a>
+                        </div>
+                    </div>
+                    
+                    <!-- User Profile -->
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <img src="/static/admin_layout/images/default-avatar.png" 
+                                 alt="Profile" class="rounded-circle me-1" width="30" height="30">
+                            Admin
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#profile">
+                                <i class="fas fa-user me-2"></i>Profile
+                            </a>
+                            <a class="dropdown-item" href="#settings">
+                                <i class="fas fa-cog me-2"></i>Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/auth/logout">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div class="container-fluid py-4">
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb bg-light rounded-3 p-3 mb-0">
+                    
+                    <li class="breadcrumb-item">
+                        <a href="/admin/dashboard" class="text-decoration-none">
+                            <i class="fas fa-home me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    
+                    
+<li class="breadcrumb-item active" aria-current="page">
+    <i class="fas fa-users me-1"></i>User Management
+</li>
+
+                </ol>
+            </nav>
+
+            <!-- Alert Messages -->
+            
+                
+            
+
+            <!-- Main Content Area -->
+            
+<div class="dashboard-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <h1 class="h3 mb-0">User Management</h1>
+            <p class="text-muted">Manage all users on the platform</p>
+        </div>
+        <div class="col-sm-6 text-sm-end">
+            
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">All Users</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Joined</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-muted">
+                                <i class="fas fa-users fa-2x mb-3"></i>
+                                <div>No users found</div>
+                                <small>No users match your current permissions</small>
+                            </td>
+                        </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom Admin JS -->
+    <script src="/static/admin_layout/js/admin.js"></script>
+    
+</body>
+</html>

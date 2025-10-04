@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{% block title %}Admin Panel - JobHunter{% endblock %}</title>
+    <title>{% block title %}Admin Panel - JobMilgaya{% endblock %}</title>
     
     <!-- DEBUG: Template file path - app/templates/layouts/admin_layout.html -->
     <style>
@@ -54,7 +54,7 @@
             </li>
             {% else %}
             <li>
-                <a href="{{ url_for('admin.dashboard') }}" class="sidebar-link">
+                <a href="{{ url_for('admin_routes.dashboard') }}" class="sidebar-link">
                     <i class="fas fa-tachometer-alt me-2"></i>Dashboard
                 </a>
             </li>
@@ -126,76 +126,6 @@
                     </ul>
                 </div>
             </li>
-            
-            <!-- Job Data Management -->
-            <li class="sidebar-dropdown">
-                <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#jobDataDropdown" aria-expanded="false">
-                    <span><i class="fas fa-briefcase me-2"></i>Job Data Management</span>
-                    <i class="fas fa-chevron-down"></i>
-                </a>
-                <div class="collapse" id="jobDataDropdown">
-                    <ul class="sidebar-submenu list-unstyled">
-                        <li>
-                            <a href="{{ url_for('superadmin.industry_types') }}" class="sidebar-link">
-                                <i class="fas fa-industry me-2"></i>Industry Types
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('superadmin.skills') }}" class="sidebar-link">
-                                <i class="fas fa-cogs me-2"></i>Skills
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('superadmin.experience_levels') }}" class="sidebar-link">
-                                <i class="fas fa-graduation-cap me-2"></i>Experience Levels
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('superadmin.job_roles') }}" class="sidebar-link">
-                                <i class="fas fa-user-tie me-2"></i>Job Roles
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('superadmin.company_types') }}" class="sidebar-link">
-                                <i class="fas fa-building me-2"></i>Company Types
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('superadmin.job_types') }}" class="sidebar-link">
-                                <i class="fas fa-clipboard-list me-2"></i>Job Types
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            
-            <!-- Location Management -->
-            <li class="sidebar-dropdown">
-                <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#locationDropdown" aria-expanded="false">
-                    <span><i class="fas fa-globe me-2"></i>Location Management</span>
-                    <i class="fas fa-chevron-down"></i>
-                </a>
-                <div class="collapse" id="locationDropdown">
-                    <ul class="sidebar-submenu list-unstyled">
-                        <li>
-                            <a href="{{ url_for('superadmin.countries') }}" class="sidebar-link">
-                                <i class="fas fa-flag me-2"></i>Countries
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('superadmin.states') }}" class="sidebar-link">
-                                <i class="fas fa-map me-2"></i>States
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('superadmin.cities') }}" class="sidebar-link">
-                                <i class="fas fa-city me-2"></i>Cities
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            
             <li>
                 <a href="{{ url_for('superadmin.job_portals') }}" class="sidebar-link">
                     <i class="fas fa-briefcase me-2"></i>Job Portals
@@ -206,56 +136,7 @@
                     <i class="fas fa-shield-alt me-2"></i>Security Logs
                 </a>
             </li>
-            {% else %}
-            <li>
-                <a href="{{ url_for('admin.users') }}" class="sidebar-link">
-                    <i class="fas fa-users me-2"></i>Users
-                </a>
-            </li>
-            <li>
-                <a href="{{ url_for('admin.jobs') }}" class="sidebar-link">
-                    <i class="fas fa-briefcase me-2"></i>Jobs
-                </a>
-            </li>
-            <li>
-                <a href="{{ url_for('admin.companies') }}" class="sidebar-link">
-                    <i class="fas fa-building me-2"></i>Companies
-                </a>
-            </li>
-            <li>
-                <a href="{{ url_for('admin.reports') }}" class="sidebar-link">
-                    <i class="fas fa-chart-bar me-2"></i>Reports
-                </a>
-            </li>
-            <li>
-                <a href="{{ url_for('admin.settings') }}" class="sidebar-link">
-                    <i class="fas fa-cog me-2"></i>Settings
-                </a>
-            </li>
             {% endif %}
-            
-            <li class="sidebar-divider my-3"></li>
-            
-            <li class="sidebar-dropdown">
-                <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#systemSubmenu" aria-expanded="false">
-                    <span><i class="fas fa-cogs me-2"></i>System</span>
-                    <i class="fas fa-chevron-down"></i>
-                </a>
-                <ul class="collapse list-unstyled sidebar-submenu" id="systemSubmenu">
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <i class="fas fa-database me-2"></i>Database
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <i class="fas fa-server me-2"></i>Server Status
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            
-            <li class="sidebar-divider my-3"></li>
         </ul>
     </nav>
 
@@ -334,7 +215,7 @@
                     </li>
                     {% else %}
                     <li class="breadcrumb-item">
-                        <a href="{{ url_for('admin.dashboard') }}" class="text-decoration-none">
+                        <a href="{{ url_for('admin_routes.dashboard') }}" class="text-decoration-none">
                             <i class="fas fa-home me-1"></i>Dashboard
                         </a>
                     </li>

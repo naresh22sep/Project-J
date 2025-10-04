@@ -1,0 +1,336 @@
+/* Admin Child Dashboard Styles - Navy Blue Theme */
+
+/* Dashboard Header */
+.dashboard-header {
+    background: linear-gradient(135deg, var(--navy-primary), var(--navy-light));
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 25px rgba(27, 54, 93, 0.2);
+}
+
+.dashboard-header h1 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-header p {
+    opacity: 0.9;
+    margin-bottom: 0;
+}
+
+/* Stats Cards */
+.stats-row {
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(27, 54, 93, 0.1);
+    border-left: 5px solid;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(27, 54, 93, 0.15);
+}
+
+.stat-card.users {
+    border-left-color: var(--info-color);
+}
+
+.stat-card.jobs {
+    border-left-color: var(--success-color);
+}
+
+.stat-card.applications {
+    border-left-color: var(--warning-color);
+}
+
+.stat-card.revenue {
+    border-left-color: var(--accent-gold);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.stat-icon.users {
+    background-color: rgba(49, 130, 206, 0.1);
+    color: var(--info-color);
+}
+
+.stat-icon.jobs {
+    background-color: rgba(56, 161, 105, 0.1);
+    color: var(--success-color);
+}
+
+.stat-icon.applications {
+    background-color: rgba(214, 158, 46, 0.1);
+    color: var(--warning-color);
+}
+
+.stat-icon.revenue {
+    background-color: rgba(246, 173, 85, 0.1);
+    color: var(--accent-gold);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--navy-dark);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.stat-change {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.stat-change.positive {
+    color: var(--success-color);
+}
+
+.stat-change.negative {
+    color: var(--danger-color);
+}
+
+.stat-change.neutral {
+    color: var(--text-muted);
+}
+
+/* Chart Cards */
+.chart-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(27, 54, 93, 0.1);
+    border-top: 4px solid var(--navy-primary);
+}
+
+.chart-card h5 {
+    color: var(--navy-dark);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Activity Feed */
+.activity-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(27, 54, 93, 0.1);
+    border-top: 4px solid var(--accent-gold);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.activity-item {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-size: 0.9rem;
+}
+
+.activity-icon.user {
+    background-color: rgba(49, 130, 206, 0.1);
+    color: var(--info-color);
+}
+
+.activity-icon.job {
+    background-color: rgba(56, 161, 105, 0.1);
+    color: var(--success-color);
+}
+
+.activity-icon.system {
+    background-color: rgba(214, 158, 46, 0.1);
+    color: var(--warning-color);
+}
+
+.activity-text {
+    flex: 1;
+}
+
+.activity-description {
+    color: var(--navy-dark);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.activity-time {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Quick Actions */
+.quick-actions {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(27, 54, 93, 0.1);
+    border-top: 4px solid var(--navy-secondary);
+}
+
+.quick-action-btn {
+    background: linear-gradient(135deg, var(--navy-primary), var(--navy-secondary));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-bottom: 0.75rem;
+}
+
+.quick-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(27, 54, 93, 0.3);
+    color: white;
+    text-decoration: none;
+}
+
+.quick-action-btn:last-child {
+    margin-bottom: 0;
+}
+
+.quick-action-btn i {
+    margin-right: 0.5rem;
+    font-size: 1.1rem;
+}
+
+/* Data Tables */
+.data-table-card {
+    background: white;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 4px 15px rgba(27, 54, 93, 0.1);
+    border-top: 4px solid var(--navy-light);
+    overflow: hidden;
+}
+
+.data-table-header {
+    background: linear-gradient(135deg, var(--navy-primary), var(--navy-secondary));
+    color: white;
+    padding: 1rem 1.5rem;
+    margin: 0;
+}
+
+.data-table-body {
+    padding: 1.5rem;
+}
+
+/* Progress Bars */
+.progress {
+    height: 8px;
+    border-radius: 4px;
+    background-color: var(--accent-silver);
+}
+
+.progress-bar {
+    border-radius: 4px;
+}
+
+.progress-bar.navy {
+    background-color: var(--navy-primary);
+}
+
+.progress-bar.gold {
+    background-color: var(--accent-gold);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .dashboard-header {
+        padding: 1.5rem;
+        text-align: center;
+    }
+    
+    .dashboard-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .stat-card {
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    
+    .chart-card,
+    .activity-card,
+    .quick-actions {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Loading States */
+.loading-skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 4px;
+    height: 20px;
+    margin-bottom: 10px;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Custom Navy Theme Elements */
+.navy-gradient {
+    background: linear-gradient(135deg, var(--navy-primary), var(--navy-light));
+}
+
+.navy-border {
+    border-color: var(--navy-primary) !important;
+}
+
+.navy-text {
+    color: var(--navy-primary) !important;
+}
+
+.gold-text {
+    color: var(--accent-gold) !important;
+}

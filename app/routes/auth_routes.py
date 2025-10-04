@@ -562,7 +562,7 @@ def register():
         
         response_data = {
             'success': True,
-            'message': 'Registration successful! Welcome to JobHunter!',
+            'message': 'Registration successful! Welcome to JobMilgaya!',
             'user': {
                 'id': user.id,
                 'username': user.username,
@@ -576,7 +576,7 @@ def register():
         }
         
         if not request.is_json:
-            flash('Registration successful! Welcome to JobHunter!', 'success')
+            flash('Registration successful! Welcome to JobMilgaya!', 'success')
             auth_logger.info("Flash message set for HTML response")
             
             # Redirect based on user type
@@ -641,7 +641,9 @@ def logout():
             auth_logger.debug("No Authorization header found")
         
         user_id = session.get('user_id')
+        user_role = session.get('role')
         auth_logger.info(f"Session user_id: {user_id}")
+        auth_logger.info(f"Session user_role: {user_role}")
         auth_logger.debug(f"Session keys: {list(session.keys())}")
         
         # Logout user (blacklist token)
@@ -665,9 +667,26 @@ def logout():
         if not request.is_json:
             auth_logger.info("Setting flash message for HTML response")
             flash('You have been logged out successfully', 'info')
-            auth_logger.info("Redirecting to superadmin login page")
+            
+            # Redirect to appropriate login page based on user role
+            if user_role == 'admin':
+                auth_logger.info("Redirecting to admin login page")
+                redirect_url = '/admin/auth/login'
+            elif user_role == 'superadmin':
+                auth_logger.info("Redirecting to superadmin login page")
+                redirect_url = '/superadmin/auth/login'
+            elif user_role == 'jobseeker':
+                auth_logger.info("Redirecting to jobseeker login page")
+                redirect_url = '/jobseeker/auth/login'
+            elif user_role == 'consultancy':
+                auth_logger.info("Redirecting to consultancy login page")
+                redirect_url = '/consultancy/auth/login'
+            else:
+                auth_logger.info("Unknown role, redirecting to default login page")
+                redirect_url = '/auth/login'
+            
             auth_logger.info("=== USER LOGOUT SUCCESS END ===")
-            return redirect('/superadmin/auth/login')
+            return redirect(redirect_url)
         
         auth_logger.info("Returning JSON logout response")
         auth_logger.info("=== USER LOGOUT SUCCESS END ===")

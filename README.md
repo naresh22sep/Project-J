@@ -1,4 +1,4 @@
-# JobHunter Application
+# JobMilgaya Application
 
 A modern, role-based Flask web application designed for job hunting and recruitment management. Features a public-facing frontend website, comprehensive role-based authentication system, and dynamic permission management. Built with scalability, security, and maintainability in mind.
 
