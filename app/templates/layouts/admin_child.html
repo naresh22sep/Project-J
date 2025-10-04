@@ -45,33 +45,20 @@
                 <ul class="nav nav-pills flex-column">
                     {% if admin_menu %}
                         {% for menu_item in admin_menu %}
-                            {% if menu_item.get('dropdown') %}
+                            {% if menu_item.get('submenu') %}
                                 <!-- Dropdown Menu Item -->
                                 <li class="nav-item">
-                                    <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#{{ menu_item.dropdown_id }}" aria-expanded="false">
-                                        <i class="{{ menu_item.icon }}"></i>
-                                        <span>{{ menu_item.label }}</span>
+                                    <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#submenu{{ loop.index }}" aria-expanded="false">
+                                        <span>{{ menu_item.text }}</span>
                                         <i class="fas fa-chevron-down ms-auto"></i>
                                     </a>
-                                    <div class="collapse" id="{{ menu_item.dropdown_id }}">
+                                    <div class="collapse" id="submenu{{ loop.index }}">
                                         <ul class="nav nav-pills flex-column ms-3">
                                             {% for submenu_item in menu_item.submenu %}
                                                 <li class="nav-item">
-                                                    {% if submenu_item.has_permission %}
-                                                        <a href="{{ url_for(submenu_item.route) }}" 
-                                                           class="sidebar-link {% if request.endpoint == submenu_item.route %}active{% endif %}">
-                                                            <i class="{{ submenu_item.icon }}"></i>
-                                                            <span>{{ submenu_item.label }}</span>
-                                                        </a>
-                                                    {% else %}
-                                                        <a href="#" class="sidebar-link disabled" 
-                                                           title="{{ submenu_item.disabled_reason }}"
-                                                           onclick="showPermissionAlert('{{ submenu_item.disabled_reason }}'); return false;">
-                                                            <i class="{{ submenu_item.icon }}"></i>
-                                                            <span>{{ submenu_item.label }}</span>
-                                                            <i class="fas fa-lock ms-auto text-warning"></i>
-                                                        </a>
-                                                    {% endif %}
+                                                    <a href="{{ submenu_item.url }}" class="sidebar-link">
+                                                        <span>{{ submenu_item.text }}</span>
+                                                    </a>
                                                 </li>
                                             {% endfor %}
                                         </ul>
@@ -80,21 +67,10 @@
                             {% else %}
                                 <!-- Regular Menu Item -->
                                 <li class="nav-item">
-                                    {% if menu_item.has_permission %}
-                                        <a href="{{ url_for(menu_item.route) }}" 
-                                           class="sidebar-link {% if request.endpoint == menu_item.route %}active{% endif %}">
-                                            <i class="{{ menu_item.icon }}"></i>
-                                            <span>{{ menu_item.label }}</span>
-                                        </a>
-                                    {% else %}
-                                        <a href="#" class="sidebar-link disabled" 
-                                           title="{{ menu_item.disabled_reason }}"
-                                           onclick="showPermissionAlert('{{ menu_item.disabled_reason }}'); return false;">
-                                            <i class="{{ menu_item.icon }}"></i>
-                                            <span>{{ menu_item.label }}</span>
-                                            <i class="fas fa-lock ms-auto text-warning"></i>
-                                        </a>
-                                    {% endif %}
+                                    <a href="{{ menu_item.url }}" 
+                                       class="sidebar-link {% if menu_item.get('active') %}active{% endif %}">
+                                        <span>{{ menu_item.text }}</span>
+                                    </a>
                                 </li>
                             {% endif %}
                         {% endfor %}
@@ -103,7 +79,6 @@
                         <li class="nav-item">
                             <a href="{{ url_for('admin_routes.dashboard') }}" 
                                class="sidebar-link {% if request.endpoint == 'admin_routes.dashboard' %}active{% endif %}">
-                                <i class="fas fa-chart-pie"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
@@ -142,34 +117,22 @@
                     <ul class="nav nav-pills flex-column">
                         {% if admin_menu %}
                             {% for menu_item in admin_menu %}
-                                {% if menu_item.get('dropdown') %}
+                                {% if menu_item.get('submenu') %}
                                     <!-- Dropdown Menu Item -->
                                     <li class="nav-item">
-                                        <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#mobile_{{ menu_item.dropdown_id }}" aria-expanded="false">
-                                            <i class="{{ menu_item.icon }}"></i>
-                                            <span>{{ menu_item.label }}</span>
+                                        <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#mobile_submenu{{ loop.index }}" aria-expanded="false">
+                                            <span>{{ menu_item.text }}</span>
                                             <i class="fas fa-chevron-down ms-auto"></i>
                                         </a>
-                                        <div class="collapse" id="mobile_{{ menu_item.dropdown_id }}">
+                                        <div class="collapse" id="mobile_submenu{{ loop.index }}">
                                             <ul class="nav nav-pills flex-column ms-3">
                                                 {% for submenu_item in menu_item.submenu %}
                                                     <li class="nav-item">
-                                                        {% if submenu_item.has_permission %}
-                                                            <a href="{{ url_for(submenu_item.route) }}" 
-                                                               class="sidebar-link {% if request.endpoint == submenu_item.route %}active{% endif %}"
-                                                               data-bs-dismiss="offcanvas">
-                                                                <i class="{{ submenu_item.icon }}"></i>
-                                                                <span>{{ submenu_item.label }}</span>
-                                                            </a>
-                                                        {% else %}
-                                                            <a href="#" class="sidebar-link disabled" 
-                                                               title="{{ submenu_item.disabled_reason }}"
-                                                               onclick="showPermissionAlert('{{ submenu_item.disabled_reason }}'); return false;">
-                                                                <i class="{{ submenu_item.icon }}"></i>
-                                                                <span>{{ submenu_item.label }}</span>
-                                                                <i class="fas fa-lock ms-auto text-warning"></i>
-                                                            </a>
-                                                        {% endif %}
+                                                        <a href="{{ submenu_item.url }}" 
+                                                           class="sidebar-link"
+                                                           data-bs-dismiss="offcanvas">
+                                                            <span>{{ submenu_item.text }}</span>
+                                                        </a>
                                                     </li>
                                                 {% endfor %}
                                             </ul>
@@ -178,22 +141,11 @@
                                 {% else %}
                                     <!-- Regular Menu Item -->
                                     <li class="nav-item">
-                                        {% if menu_item.has_permission %}
-                                            <a href="{{ url_for(menu_item.route) }}" 
-                                               class="sidebar-link {% if request.endpoint == menu_item.route %}active{% endif %}"
-                                               data-bs-dismiss="offcanvas">
-                                                <i class="{{ menu_item.icon }}"></i>
-                                                <span>{{ menu_item.label }}</span>
-                                            </a>
-                                        {% else %}
-                                            <a href="#" class="sidebar-link disabled" 
-                                               title="{{ menu_item.disabled_reason }}"
-                                               onclick="showPermissionAlert('{{ menu_item.disabled_reason }}'); return false;">
-                                                <i class="{{ menu_item.icon }}"></i>
-                                                <span>{{ menu_item.label }}</span>
-                                                <i class="fas fa-lock ms-auto text-warning"></i>
-                                            </a>
-                                        {% endif %}
+                                        <a href="{{ menu_item.url }}" 
+                                           class="sidebar-link {% if menu_item.get('active') %}active{% endif %}"
+                                           data-bs-dismiss="offcanvas">
+                                            <span>{{ menu_item.text }}</span>
+                                        </a>
                                     </li>
                                 {% endif %}
                             {% endfor %}
@@ -203,7 +155,6 @@
                                 <a href="{{ url_for('admin_routes.dashboard') }}" 
                                    class="sidebar-link {% if request.endpoint == 'admin_routes.dashboard' %}active{% endif %}"
                                    data-bs-dismiss="offcanvas">
-                                    <i class="fas fa-chart-pie"></i>
                                     <span>Dashboard</span>
                                 </a>
                             </li>

@@ -66,136 +66,178 @@ def require_admin_auth():
     print("🔐 BEFORE_REQUEST: Permissions and menu loaded")
 
 def generate_admin_menu(admin_user):
-    """Generate admin menu based on user permissions - organized by sections"""
+    """Generate simple text-only menu based on user's actual permissions"""
+    print(f"🔍 MENU DEBUG: Starting permission-based menu generation for {admin_user.username}")
+    
+    # Get all user permissions
+    permissions = admin_user.get_permissions()
+    permission_names = [perm.name for perm in permissions]
+    print(f"🔍 MENU DEBUG: User has {len(permission_names)} permissions")
+    
     menu_items = []
     
-    # Dashboard - always visible
+    # Dashboard (always present)
     menu_items.append({
-        'label': 'Dashboard',
-        'icon': 'fas fa-chart-pie',
-        'route': 'admin_routes.dashboard',
-        'active': True,
-        'has_permission': True
+        'text': 'Dashboard',
+        'url': url_for('admin_routes.dashboard'),
+        'active': request.endpoint == 'admin_routes.dashboard'
     })
     
     # User Management Section
-    if admin_user.has_permission('user.read') or admin_user.has_permission('user.list'):
+    user_menu = []
+    if 'user.read' in permission_names or 'user.list' in permission_names:
+        user_menu.append({'text': 'View Users', 'url': url_for('admin_routes.users')})
+    if 'user.create' in permission_names:
+        user_menu.append({'text': 'Add User', 'url': '#'})  # Placeholder
+    
+    if user_menu:
         menu_items.append({
-            'label': 'Manage Users',
-            'icon': 'fas fa-user-shield',
-            'route': 'admin_routes.users',
-            'active': True,
-            'has_permission': True
+            'text': 'User Management',
+            'submenu': user_menu
         })
     
-    # Roles & Permissions Section - Only show if user has EITHER role OR permission access
-    roles_permissions_submenu = []
+    # Roles & Permissions Section
+    role_menu = []
+    if 'permission.read' in permission_names or 'permission.list' in permission_names:
+        role_menu.append({'text': 'View Permissions', 'url': url_for('admin_routes.permissions')})
+    if 'permission.create' in permission_names:
+        role_menu.append({'text': 'Add Permission', 'url': '#'})  # Placeholder
     
-    # Check if user has role permissions
-    if admin_user.has_permission('role.read'):
-        roles_permissions_submenu.append({
-            'label': 'Manage Roles',
-            'icon': 'fas fa-shield-alt',
-            'route': 'admin_routes.roles',
-            'active': True,
-            'has_permission': True
-        })
-    
-    # Check if user has permission permissions
-    if admin_user.has_permission('permission.read'):
-        roles_permissions_submenu.append({
-            'label': 'Manage Permissions',
-            'icon': 'fas fa-key',
-            'route': 'admin_routes.permissions',
-            'active': True,
-            'has_permission': True
-        })
-    
-    # Only add the dropdown if user has access to at least one item
-    if roles_permissions_submenu:
+    if role_menu:
         menu_items.append({
-            'label': 'Roles & Permissions',
-            'icon': 'fas fa-user-tag',
-            'dropdown': True,
-            'submenu': roles_permissions_submenu,
-            'dropdown_id': 'rolesDropdown'
+            'text': 'Roles & Permissions',
+            'submenu': role_menu
         })
     
     # Job Management Section
-    if admin_user.has_permission('job.list') or admin_user.has_permission('job.read'):
+    job_menu = []
+    if 'job.read' in permission_names or 'job.list' in permission_names:
+        job_menu.append({'text': 'View Jobs', 'url': url_for('admin_routes.jobs')})
+    if 'job.create' in permission_names:
+        job_menu.append({'text': 'Add Job', 'url': '#'})  # Placeholder
+    
+    if job_menu:
         menu_items.append({
-            'label': 'Job Management',
-            'icon': 'fas fa-briefcase',
-            'route': 'admin_routes.jobs',
-            'active': True,
-            'has_permission': True
+            'text': 'Job Management',
+            'submenu': job_menu
         })
     
-    # Master Data Management Section - Group related permissions
-    master_data_submenu = []
+    # Subscription Management Section
+    subscription_menu = []
+    if 'subscription.read' in permission_names or 'subscription.list' in permission_names:
+        subscription_menu.append({'text': 'View Subscriptions', 'url': url_for('admin_routes.subscriptions')})
+    if 'subscription.create' in permission_names:
+        subscription_menu.append({'text': 'Add Subscription', 'url': '#'})  # Placeholder
     
-    # NOTE: These routes don't exist yet - commenting out to prevent errors
-    # TODO: Create these routes in the future
+    if subscription_menu:
+        menu_items.append({
+            'text': 'Subscription Management',
+            'submenu': subscription_menu
+        })
     
-    # # Industries
-    # if admin_user.has_permission('industry.read') or admin_user.has_permission('industry.list'):
-    #     master_data_submenu.append({
-    #         'label': 'Industries',
-    #         'icon': 'fas fa-industry',
-    #         'route': 'admin_routes.industries',
-    #         'active': True,
-    #         'has_permission': True
-    #     })
+    # Master Data Section
+    master_menu = []
+    if 'industry.read' in permission_names or 'industry.list' in permission_names:
+        master_menu.append({'text': 'Industries', 'url': '#'})  # Placeholder
+    if 'skill.read' in permission_names or 'skill.list' in permission_names:
+        master_menu.append({'text': 'Skills', 'url': '#'})  # Placeholder
+    if 'country.read' in permission_names or 'country.list' in permission_names:
+        master_menu.append({'text': 'Countries', 'url': '#'})  # Placeholder
+    if 'city.read' in permission_names or 'city.list' in permission_names:
+        master_menu.append({'text': 'Cities', 'url': '#'})  # Placeholder
+    if 'job_role.read' in permission_names or 'job_role.list' in permission_names:
+        master_menu.append({'text': 'Job Roles', 'url': '#'})  # Placeholder
+    if 'company_type.read' in permission_names or 'company_type.list' in permission_names:
+        master_menu.append({'text': 'Company Types', 'url': '#'})  # Placeholder
+    if 'job_type.read' in permission_names or 'job_type.list' in permission_names:
+        master_menu.append({'text': 'Job Types', 'url': '#'})  # Placeholder
+    if 'experience.read' in permission_names or 'experience.list' in permission_names:
+        master_menu.append({'text': 'Experience Levels', 'url': '#'})  # Placeholder
+    if 'job_portal.read' in permission_names or 'job_portal.list' in permission_names:
+        master_menu.append({'text': 'Job Portals', 'url': '#'})  # Placeholder
     
-    # # Skills
-    # if admin_user.has_permission('skill.read') or admin_user.has_permission('skill.list'):
-    #     master_data_submenu.append({
-    #         'label': 'Skills',
-    #         'icon': 'fas fa-cogs',
-    #         'route': 'admin_routes.skills',
-    #         'active': True,
-    #         'has_permission': True
-    #     })
+    if master_menu:
+        menu_items.append({
+            'text': 'Master Data',
+            'submenu': master_menu
+        })
     
-    # # Experience Levels
-    # if admin_user.has_permission('experience.read') or admin_user.has_permission('experience.list'):
-    #     master_data_submenu.append({
-    #         'label': 'Experience Levels',
-    #         'icon': 'fas fa-layer-group',
-    #         'route': 'admin_routes.experience_levels',
-    #         'active': True,
-    #         'has_permission': True
-    #     })
+    # System Section
+    system_menu = []
+    if 'system.maintenance' in permission_names:
+        system_menu.append({'text': 'Maintenance', 'url': '#'})  # Placeholder
+    if 'system.config' in permission_names:
+        system_menu.append({'text': 'Configuration', 'url': '#'})  # Placeholder
     
-    # # Job Roles
-    # if admin_user.has_permission('job_role.read') or admin_user.has_permission('job_role.list'):
-    #     master_data_submenu.append({
-    #         'label': 'Job Roles',
-    #         'icon': 'fas fa-user-tie',
-    #         'route': 'admin_routes.job_roles',
-    #         'active': True,
-    #         'has_permission': True
-    #     })
+    if system_menu:
+        menu_items.append({
+            'text': 'System',
+            'submenu': system_menu
+        })
     
-    # # Company Types
-    # if admin_user.has_permission('company_type.read') or admin_user.has_permission('company_type.list'):
-    #     master_data_submenu.append({
-    #         'label': 'Company Types',
-    #         'icon': 'fas fa-building',
-    #         'route': 'admin_routes.company_types',
-    #         'active': True,
-    #         'has_permission': True
-    #     })
+    print(f"🔍 MENU DEBUG: Generated {len(menu_items)} menu sections")
+    for item in menu_items:
+        if 'submenu' in item:
+            print(f"🔍 MENU DEBUG: - {item['text']} ({len(item['submenu'])} subitems)")
+        else:
+            print(f"🔍 MENU DEBUG: - {item['text']}")
     
-    # # Job Types
-    # if admin_user.has_permission('job_type.read') or admin_user.has_permission('job_type.list'):
-    #     master_data_submenu.append({
-    #         'label': 'Job Types',
-    #         'icon': 'fas fa-briefcase',
-    #         'route': 'admin_routes.job_types',
-    #         'active': True,
-    #         'has_permission': True
-    #     })
+    return menu_items
+    
+    # Skills - Admin has skill.read and skill.list permissions
+    if admin_user.has_permission('skill.read') or admin_user.has_permission('skill.list'):
+        master_data_submenu.append({
+            'label': 'Skills',
+            'icon': 'fas fa-cogs',
+            'route': '#',  # Placeholder until route is created
+            'active': True,
+            'has_permission': True,
+            'onclick': 'alert("Skills management coming soon!")'
+        })
+    
+    # Experience Levels - Admin has experience.read and experience.list permissions
+    if admin_user.has_permission('experience.read') or admin_user.has_permission('experience.list'):
+        master_data_submenu.append({
+            'label': 'Experience Levels',
+            'icon': 'fas fa-layer-group',
+            'route': '#',  # Placeholder until route is created
+            'active': True,
+            'has_permission': True,
+            'onclick': 'alert("Experience Levels management coming soon!")'
+        })
+    
+    # Job Roles - Admin has job_role.read and job_role.list permissions
+    if admin_user.has_permission('job_role.read') or admin_user.has_permission('job_role.list'):
+        master_data_submenu.append({
+            'label': 'Job Roles',
+            'icon': 'fas fa-user-tie',
+            'route': '#',  # Placeholder until route is created
+            'active': True,
+            'has_permission': True,
+            'onclick': 'alert("Job Roles management coming soon!")'
+        })
+    
+    # Company Types - Admin has company_type.read and company_type.list permissions
+    if admin_user.has_permission('company_type.read') or admin_user.has_permission('company_type.list'):
+        master_data_submenu.append({
+            'label': 'Company Types',
+            'icon': 'fas fa-building',
+            'route': '#',  # Placeholder until route is created
+            'active': True,
+            'has_permission': True,
+            'onclick': 'alert("Company Types management coming soon!")'
+        })
+    
+    # Job Types - Admin has job_type.read and job_type.list permissions
+    if admin_user.has_permission('job_type.read') or admin_user.has_permission('job_type.list'):
+        master_data_submenu.append({
+            'label': 'Job Types',
+            'icon': 'fas fa-briefcase',
+            'route': '#',  # Placeholder until route is created
+            'active': True,
+            'has_permission': True,
+            'onclick': 'alert("Job Types management coming soon!")'
+        })
     
     # Only add master data dropdown if user has access to at least one item
     if master_data_submenu:
@@ -207,31 +249,30 @@ def generate_admin_menu(admin_user):
             'dropdown_id': 'masterDataDropdown'
         })
     
-    # Location Management Section
+    # Location Management Section - Admin has these permissions
     location_submenu = []
     
-    # NOTE: These routes don't exist yet - commenting out to prevent errors
-    # TODO: Create these routes in the future
+    # Countries - Admin has country.read and country.list permissions
+    if admin_user.has_permission('country.read') or admin_user.has_permission('country.list'):
+        location_submenu.append({
+            'label': 'Countries',
+            'icon': 'fas fa-globe',
+            'route': '#',  # Placeholder until route is created
+            'active': True,
+            'has_permission': True,
+            'onclick': 'alert("Countries management coming soon!")'
+        })
     
-    # # Countries
-    # if admin_user.has_permission('country.read') or admin_user.has_permission('country.list'):
-    #     location_submenu.append({
-    #         'label': 'Countries',
-    #         'icon': 'fas fa-globe',
-    #         'route': 'admin_routes.countries',
-    #         'active': True,
-    #         'has_permission': True
-    #     })
-    
-    # # Cities
-    # if admin_user.has_permission('city.read') or admin_user.has_permission('city.list'):
-    #     location_submenu.append({
-    #         'label': 'Cities',
-    #         'icon': 'fas fa-city',
-    #         'route': 'admin_routes.cities',
-    #         'active': True,
-    #         'has_permission': True
-    #     })
+    # Cities - Admin has city.read and city.list permissions
+    if admin_user.has_permission('city.read') or admin_user.has_permission('city.list'):
+        location_submenu.append({
+            'label': 'Cities',
+            'icon': 'fas fa-city',
+            'route': '#',  # Placeholder until route is created
+            'active': True,
+            'has_permission': True,
+            'onclick': 'alert("Cities management coming soon!")'
+        })
     
     # Only add location dropdown if user has access to at least one item
     if location_submenu:
@@ -243,16 +284,16 @@ def generate_admin_menu(admin_user):
             'dropdown_id': 'locationDropdown'
         })
     
-    # Job Portals Management - Route doesn't exist yet
-    # TODO: Create admin_routes.job_portals route
-    # if admin_user.has_permission('job_portal.read') or admin_user.has_permission('job_portal.list'):
-    #     menu_items.append({
-    #         'label': 'Job Portals',
-    #         'icon': 'fas fa-external-link-alt',
-    #         'route': 'admin_routes.job_portals',
-    #         'active': True,
-    #         'has_permission': True
-    #     })
+    # Job Portals Management - Admin has job_portal.read and job_portal.list permissions
+    if admin_user.has_permission('job_portal.read') or admin_user.has_permission('job_portal.list'):
+        menu_items.append({
+            'label': 'Job Portals',
+            'icon': 'fas fa-external-link-alt',
+            'route': '#',  # Placeholder until route is created
+            'active': True,
+            'has_permission': True,
+            'onclick': 'alert("Job Portals management coming soon!")'
+        })
     
     # Subscription Management
     if admin_user.has_permission('subscription.read'):
@@ -310,14 +351,55 @@ def generate_admin_menu(admin_user):
             'dropdown_id': 'systemDropdown'
         })
     
+    print(f"🔍 MENU DEBUG: Final menu has {len(menu_items)} items:")
+    for i, item in enumerate(menu_items):
+        if 'dropdown' in item and item['dropdown']:
+            print(f"🔍 MENU DEBUG:   {i+1}. {item['label']} (dropdown with {len(item.get('submenu', []))} items)")
+        else:
+            print(f"🔍 MENU DEBUG:   {i+1}. {item['label']} -> {item.get('route', 'no route')}")
     return menu_items
+
+@admin_routes_bp.route('/debug-template')
+def debug_template():
+    """Debug route to check template selection"""
+    layout_template = get_admin_layout()
+    user_roles = g.current_user.get_roles() if hasattr(g, 'current_user') and g.current_user else []
+    role_names = [role.name for role in user_roles]
+    
+    debug_info = {
+        'selected_template': layout_template,
+        'user_exists': hasattr(g, 'current_user') and g.current_user is not None,
+        'user_roles': role_names,
+        'has_admin_role': g.current_user.has_role('admin') if hasattr(g, 'current_user') and g.current_user else False,
+        'has_superadmin_role': g.current_user.has_role('superadmin') if hasattr(g, 'current_user') and g.current_user else False
+    }
+    
+    return f"""
+    <h1>Template Debug Info</h1>
+    <pre>{debug_info}</pre>
+    <p><strong>Selected Template:</strong> {layout_template}</p>
+    <p><strong>User Roles:</strong> {role_names}</p>
+    <p><strong>Expected Template:</strong> layouts/admin_child.html (for admin role)</p>
+    """
 
 @admin_routes_bp.route('/dashboard')
 def dashboard():
     """Admin dashboard with role-based content"""
     try:
+        print("🔍 DASHBOARD DEBUG: Starting dashboard generation")
+        
         # Get admin user
         admin_user = g.current_user
+        print(f"🔍 DASHBOARD DEBUG: admin_user = {admin_user}")
+        print(f"🔍 DASHBOARD DEBUG: admin_user roles = {admin_user.get_roles() if admin_user else 'None'}")
+        
+        # Get layout template
+        layout_template = get_admin_layout()
+        print(f"🔍 DASHBOARD DEBUG: layout_template = {layout_template}")
+        
+        # Get admin menu
+        admin_menu = generate_admin_menu(admin_user)
+        print(f"🔍 DASHBOARD DEBUG: admin_menu generated with {len(admin_menu)} items")
         
         # Get dashboard statistics based on permissions
         stats = {}
@@ -358,26 +440,31 @@ def dashboard():
             'recent_jobs': [],   # Recent jobs if permitted
             'user_trend': [],    # User registration trend data
             'top_categories': [], # Top job categories
-            'admin_menu': g.admin_menu,
-            'user_permissions': [perm.name for perm in g.user_permissions],
-            'layout_template': get_admin_layout()
+            'admin_menu': admin_menu,
+            'user_permissions': [perm.name for perm in admin_user.get_permissions()],
+            'page_title': 'Dashboard'
         }
         
-        print(f"DEBUG Dashboard: layout_template = {dashboard_data['layout_template']}")
-        return render_template('admin/dashboard.html', **dashboard_data)
+        print(f"🔍 DASHBOARD DEBUG: About to render template: {layout_template}")
+        print(f"🔍 DASHBOARD DEBUG: dashboard_data keys: {list(dashboard_data.keys())}")
+        return render_template(layout_template, **dashboard_data)
         
     except Exception as e:
+        print(f"🔍 DASHBOARD ERROR: {str(e)}")
         flash(f'Error loading dashboard: {str(e)}', 'error')
+        # Get layout template even in error case
+        error_layout = get_admin_layout()
         # Provide minimal data to prevent template errors
-        return render_template('admin/dashboard.html', 
+        return render_template(error_layout, 
                              stats={}, 
                              recent_activities=[], 
                              recent_users=[],
                              recent_jobs=[],
                              user_trend=[],
                              top_categories=[],
-                             admin_menu=getattr(g, 'admin_menu', []),
-                             user_permissions=[])
+                             admin_menu=[],
+                             user_permissions=[],
+                             page_title='Dashboard - Error')
 
 @admin_routes_bp.route('/users')
 def users():
