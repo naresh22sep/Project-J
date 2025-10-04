@@ -259,31 +259,49 @@ def initialize_database():
             all_permissions = Permission.query.all()
             superadmin_role.permissions = all_permissions
         
-        # Admin gets user and role management permissions
+        # Admin gets user and role management permissions (only if no permissions assigned)
         if admin_role:
-            admin_permissions = Permission.query.filter(
-                Permission.name.in_([
-                    'user.read', 'user.update', 'user.list',
-                    'role.read', 'subscription.read'
-                ])
-            ).all()
-            admin_role.permissions = admin_permissions
+            # Check if admin role already has permissions assigned
+            existing_admin_perms = list(admin_role.permissions)
+            if not existing_admin_perms:
+                # Only assign default permissions if admin role has NO permissions
+                print("🔐 SECURITY: Admin role has no permissions, assigning default permissions")
+                admin_permissions = Permission.query.filter(
+                    Permission.name.in_([
+                        'user.read', 'user.update', 'user.list',
+                        'role.read', 'subscription.read'
+                    ])
+                ).all()
+                admin_role.permissions = admin_permissions
+            else:
+                print(f"🔐 SECURITY: Admin role already has {len(existing_admin_perms)} permissions, skipping auto-assignment")
+                print(f"🔐 SECURITY: Admin permissions controlled by superadmin only")
         
-        # Consultancy gets job management permissions
+        # Consultancy gets job management permissions (only if no permissions assigned)
         if consultancy_role:
-            consultancy_permissions = Permission.query.filter(
-                Permission.name.in_([
-                    'job.create', 'job.read', 'job.update', 'job.delete'
-                ])
-            ).all()
-            consultancy_role.permissions = consultancy_permissions
+            existing_consultancy_perms = list(consultancy_role.permissions)
+            if not existing_consultancy_perms:
+                print("🔐 SECURITY: Consultancy role has no permissions, assigning default permissions")
+                consultancy_permissions = Permission.query.filter(
+                    Permission.name.in_([
+                        'job.create', 'job.read', 'job.update', 'job.delete'
+                    ])
+                ).all()
+                consultancy_role.permissions = consultancy_permissions
+            else:
+                print(f"🔐 SECURITY: Consultancy role already has {len(existing_consultancy_perms)} permissions, skipping auto-assignment")
         
-        # Job seeker gets basic job permissions
+        # Job seeker gets basic job permissions (only if no permissions assigned)
         if jobseeker_role:
-            jobseeker_permissions = Permission.query.filter(
-                Permission.name.in_(['job.read', 'job.apply'])
-            ).all()
-            jobseeker_role.permissions = jobseeker_permissions
+            existing_jobseeker_perms = list(jobseeker_role.permissions)
+            if not existing_jobseeker_perms:
+                print("🔐 SECURITY: Jobseeker role has no permissions, assigning default permissions")
+                jobseeker_permissions = Permission.query.filter(
+                    Permission.name.in_(['job.read', 'job.apply'])
+                ).all()
+                jobseeker_role.permissions = jobseeker_permissions
+            else:
+                print(f"🔐 SECURITY: Jobseeker role already has {len(existing_jobseeker_perms)} permissions, skipping auto-assignment")
         
         # Create subscription plans
         from config import Config

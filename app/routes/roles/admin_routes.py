@@ -66,10 +66,10 @@ def require_admin_auth():
     print("🔐 BEFORE_REQUEST: Permissions and menu loaded")
 
 def generate_admin_menu(admin_user):
-    """Generate admin menu based on user permissions"""
+    """Generate admin menu based on user permissions - organized by sections"""
     menu_items = []
     
-    # Dashboard is always available for admin users
+    # Dashboard - always visible
     menu_items.append({
         'label': 'Dashboard',
         'icon': 'fas fa-chart-pie',
@@ -78,7 +78,7 @@ def generate_admin_menu(admin_user):
         'has_permission': True
     })
     
-    # Users menu - check for user management permissions
+    # User Management Section
     if admin_user.has_permission('user.read') or admin_user.has_permission('user.list'):
         menu_items.append({
             'label': 'Manage Users',
@@ -87,66 +87,41 @@ def generate_admin_menu(admin_user):
             'active': True,
             'has_permission': True
         })
-    else:
-        menu_items.append({
-            'label': 'Manage Users',
-            'icon': 'fas fa-user-shield',
-            'route': 'admin_routes.users',
-            'active': False,
-            'has_permission': False,
-            'disabled_reason': 'You do not have permission to manage users'
-        })
     
-    # Roles & Permissions dropdown
-    roles_submenu = []
+    # Roles & Permissions Section - Only show if user has EITHER role OR permission access
+    roles_permissions_submenu = []
     
-    # Roles
+    # Check if user has role permissions
     if admin_user.has_permission('role.read'):
-        roles_submenu.append({
+        roles_permissions_submenu.append({
             'label': 'Manage Roles',
             'icon': 'fas fa-shield-alt',
             'route': 'admin_routes.roles',
             'active': True,
             'has_permission': True
         })
-    else:
-        roles_submenu.append({
-            'label': 'Manage Roles',
-            'icon': 'fas fa-shield-alt',
-            'route': 'admin_routes.roles',
-            'active': False,
-            'has_permission': False,
-            'disabled_reason': 'You do not have permission to manage roles'
-        })
     
-    # Permissions
+    # Check if user has permission permissions
     if admin_user.has_permission('permission.read'):
-        roles_submenu.append({
+        roles_permissions_submenu.append({
             'label': 'Manage Permissions',
             'icon': 'fas fa-key',
             'route': 'admin_routes.permissions',
             'active': True,
             'has_permission': True
         })
-    else:
-        roles_submenu.append({
-            'label': 'Manage Permissions',
-            'icon': 'fas fa-key',
-            'route': 'admin_routes.permissions',
-            'active': False,
-            'has_permission': False,
-            'disabled_reason': 'You do not have permission to manage permissions'
+    
+    # Only add the dropdown if user has access to at least one item
+    if roles_permissions_submenu:
+        menu_items.append({
+            'label': 'Roles & Permissions',
+            'icon': 'fas fa-user-tag',
+            'dropdown': True,
+            'submenu': roles_permissions_submenu,
+            'dropdown_id': 'rolesDropdown'
         })
     
-    menu_items.append({
-        'label': 'Roles & Permissions',
-        'icon': 'fas fa-user-tag',
-        'dropdown': True,
-        'submenu': roles_submenu,
-        'dropdown_id': 'rolesDropdown'
-    })
-    
-    # Jobs menu
+    # Job Management Section
     if admin_user.has_permission('job.list') or admin_user.has_permission('job.read'):
         menu_items.append({
             'label': 'Job Management',
@@ -155,36 +130,131 @@ def generate_admin_menu(admin_user):
             'active': True,
             'has_permission': True
         })
-    else:
+    
+    # Master Data Management Section - Group related permissions
+    master_data_submenu = []
+    
+    # NOTE: These routes don't exist yet - commenting out to prevent errors
+    # TODO: Create these routes in the future
+    
+    # # Industries
+    # if admin_user.has_permission('industry.read') or admin_user.has_permission('industry.list'):
+    #     master_data_submenu.append({
+    #         'label': 'Industries',
+    #         'icon': 'fas fa-industry',
+    #         'route': 'admin_routes.industries',
+    #         'active': True,
+    #         'has_permission': True
+    #     })
+    
+    # # Skills
+    # if admin_user.has_permission('skill.read') or admin_user.has_permission('skill.list'):
+    #     master_data_submenu.append({
+    #         'label': 'Skills',
+    #         'icon': 'fas fa-cogs',
+    #         'route': 'admin_routes.skills',
+    #         'active': True,
+    #         'has_permission': True
+    #     })
+    
+    # # Experience Levels
+    # if admin_user.has_permission('experience.read') or admin_user.has_permission('experience.list'):
+    #     master_data_submenu.append({
+    #         'label': 'Experience Levels',
+    #         'icon': 'fas fa-layer-group',
+    #         'route': 'admin_routes.experience_levels',
+    #         'active': True,
+    #         'has_permission': True
+    #     })
+    
+    # # Job Roles
+    # if admin_user.has_permission('job_role.read') or admin_user.has_permission('job_role.list'):
+    #     master_data_submenu.append({
+    #         'label': 'Job Roles',
+    #         'icon': 'fas fa-user-tie',
+    #         'route': 'admin_routes.job_roles',
+    #         'active': True,
+    #         'has_permission': True
+    #     })
+    
+    # # Company Types
+    # if admin_user.has_permission('company_type.read') or admin_user.has_permission('company_type.list'):
+    #     master_data_submenu.append({
+    #         'label': 'Company Types',
+    #         'icon': 'fas fa-building',
+    #         'route': 'admin_routes.company_types',
+    #         'active': True,
+    #         'has_permission': True
+    #     })
+    
+    # # Job Types
+    # if admin_user.has_permission('job_type.read') or admin_user.has_permission('job_type.list'):
+    #     master_data_submenu.append({
+    #         'label': 'Job Types',
+    #         'icon': 'fas fa-briefcase',
+    #         'route': 'admin_routes.job_types',
+    #         'active': True,
+    #         'has_permission': True
+    #     })
+    
+    # Only add master data dropdown if user has access to at least one item
+    if master_data_submenu:
         menu_items.append({
-            'label': 'Job Management',
-            'icon': 'fas fa-briefcase',
-            'route': 'admin_routes.jobs',
-            'active': False,
-            'has_permission': False,
-            'disabled_reason': 'You do not have permission to manage jobs'
+            'label': 'Master Data',
+            'icon': 'fas fa-database',
+            'dropdown': True,
+            'submenu': master_data_submenu,
+            'dropdown_id': 'masterDataDropdown'
         })
     
-    # Security Logs
-    if admin_user.has_permission('security.read'):
+    # Location Management Section
+    location_submenu = []
+    
+    # NOTE: These routes don't exist yet - commenting out to prevent errors
+    # TODO: Create these routes in the future
+    
+    # # Countries
+    # if admin_user.has_permission('country.read') or admin_user.has_permission('country.list'):
+    #     location_submenu.append({
+    #         'label': 'Countries',
+    #         'icon': 'fas fa-globe',
+    #         'route': 'admin_routes.countries',
+    #         'active': True,
+    #         'has_permission': True
+    #     })
+    
+    # # Cities
+    # if admin_user.has_permission('city.read') or admin_user.has_permission('city.list'):
+    #     location_submenu.append({
+    #         'label': 'Cities',
+    #         'icon': 'fas fa-city',
+    #         'route': 'admin_routes.cities',
+    #         'active': True,
+    #         'has_permission': True
+    #     })
+    
+    # Only add location dropdown if user has access to at least one item
+    if location_submenu:
         menu_items.append({
-            'label': 'Security Logs',
-            'icon': 'fas fa-shield-alt',
-            'route': 'admin_routes.security',
-            'active': True,
-            'has_permission': True
-        })
-    else:
-        menu_items.append({
-            'label': 'Security Logs',
-            'icon': 'fas fa-shield-alt',
-            'route': 'admin_routes.security',
-            'active': False,
-            'has_permission': False,
-            'disabled_reason': 'You do not have permission to view security logs'
+            'label': 'Locations',
+            'icon': 'fas fa-map-marker-alt',
+            'dropdown': True,
+            'submenu': location_submenu,
+            'dropdown_id': 'locationDropdown'
         })
     
-    # Subscription Management - Add this for admin users with subscription.read permission
+    # Job Portals Management - Route doesn't exist yet
+    # TODO: Create admin_routes.job_portals route
+    # if admin_user.has_permission('job_portal.read') or admin_user.has_permission('job_portal.list'):
+    #     menu_items.append({
+    #         'label': 'Job Portals',
+    #         'icon': 'fas fa-external-link-alt',
+    #         'route': 'admin_routes.job_portals',
+    #         'active': True,
+    #         'has_permission': True
+    #     })
+    
+    # Subscription Management
     if admin_user.has_permission('subscription.read'):
         menu_items.append({
             'label': 'Subscriptions',
@@ -193,18 +263,52 @@ def generate_admin_menu(admin_user):
             'active': True,
             'has_permission': True
         })
-    else:
-        menu_items.append({
-            'label': 'Subscriptions',
-            'icon': 'fas fa-credit-card',
-            'route': 'admin_routes.subscriptions',
-            'active': False,
-            'has_permission': False,
-            'disabled_reason': 'You do not have permission to view subscriptions'
+    
+    # System Management Section
+    system_submenu = []
+    
+    # Security Logs
+    if admin_user.has_permission('security.read'):
+        system_submenu.append({
+            'label': 'Security Logs',
+            'icon': 'fas fa-shield-alt',
+            'route': 'admin_routes.security',
+            'active': True,
+            'has_permission': True
         })
     
-    # Analytics menu removed - not required for admin role
-    # Previously was showing analytics for all admin users
+    # NOTE: These routes don't exist yet - commenting out to prevent errors
+    # TODO: Create these routes in the future
+    
+    # # System Config (if needed)
+    # if admin_user.has_permission('system.config'):
+    #     system_submenu.append({
+    #         'label': 'System Config',
+    #         'icon': 'fas fa-cog',
+    #         'route': 'admin_routes.system_config',
+    #         'active': True,
+    #         'has_permission': True
+    #     })
+    
+    # # System Maintenance (if needed)
+    # if admin_user.has_permission('system.maintenance'):
+    #     system_submenu.append({
+    #         'label': 'System Maintenance',
+    #         'icon': 'fas fa-tools',
+    #         'route': 'admin_routes.system_maintenance',
+    #         'active': True,
+    #         'has_permission': True
+    #     })
+    
+    # Only add system dropdown if user has access to at least one item
+    if system_submenu:
+        menu_items.append({
+            'label': 'System',
+            'icon': 'fas fa-server',
+            'dropdown': True,
+            'submenu': system_submenu,
+            'dropdown_id': 'systemDropdown'
+        })
     
     return menu_items
 
